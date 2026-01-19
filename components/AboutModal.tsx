@@ -54,7 +54,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             At Wondery, founded the AI Creator Lab and scaled it from 4 to 50+ across teams.
           </p>
           <p>
-            I like building new story forms, from apps and prototypes to new approaches to narrative across audio, video, and product.
+            I like building new story forms- apps, prototypes, audio tools, video game experiments, new ways to tell stories.
           </p>
           <p className="pt-2">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2C4A3C] transition-colors">LinkedIn</a>
