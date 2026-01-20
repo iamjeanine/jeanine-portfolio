@@ -56,7 +56,13 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const handleMouseEnter = () => {
     setIsHovered(true);
     if (!project.previewAutoplay && videoRef.current) {
-      videoRef.current.play();
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        // By adding an empty catch, we prevent unhandled promise rejection errors
+        // from appearing in the console. This is the recommended way to
+        // handle the interruption error when play() is followed quickly by pause().
+        playPromise.catch(() => {});
+      }
     }
   };
 
