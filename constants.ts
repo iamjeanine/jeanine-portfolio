@@ -93,12 +93,17 @@ export const PROJECTS: Project[] = [
   {
     id: 'news-tracker',
     title: 'Throughline',
-    coverTitle: 'News Tracker',
+    coverTitle: 'Story Tracker',
     client: 'Google Antigravity',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20News%20Tracker.mp4',
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B5%20News%20Tracker.mov', aspectRatio: '16:9', autoplay: true }
+      { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
+        aspectRatio: '16:9', 
+        autoplay: true,
+        showControls: true
+      }
     ],
     descriptor: 'Long-tail news tracking',
     description: "Some stories flare up, disappear, then resurface with new developments. Throughline follows a single story across that entire arc, keeping the reporting together as it evolves over time. Built with Google's Antigravity using a four-agent workflow.",
