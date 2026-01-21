@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
         caption: 'Story Bible Explorer\n\nBuilt for cross-department teams. One internal source to answer questions about the show for marketing, ad sales, and film/TV.'
       }
     ],
-    descriptor: 'Story Bible Explorer',
+    descriptor: 'Social Campaign',
     description: '12+ in-world social prototypes for a Wondery sci-fi series. Marketing as if created by the city itself. Destination spots, tours, and character testimonials.\n\nSome pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.',
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
@@ -170,3 +170,4 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   }
 ];
+    
