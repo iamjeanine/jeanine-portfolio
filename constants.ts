@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Prototype.mp4', aspectRatio: '16:9', autoplay: true },
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Prototype.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true },
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Whiteboard.mp4', 
         aspectRatio: '16:9', 
@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: false, hasAudio: true }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Grounded sci-fi audio series - pilot material',
     description: 'Explores uncanny phenomena within a quarantined exclusion zone. Voices, music, and sound effects generated using ElevenLabs. One of several mood pieces developed for QCODE pitch.',
@@ -66,7 +66,14 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B1-Strangehour.mp4', aspectRatio: '16:9' }
+      { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/B1-Strangehour.mp4', 
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
+      }
     ],
     descriptor: 'Archival reconstructions - pilot excerpt',
     description: 'Brought 1920s Sydney to life from mugshots, blueprints, and crime records. Voice, music, and sound effects by ElevenLabs. Proof-of-concept pitched to museums for activating archival collections.',
@@ -80,7 +87,7 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
     previewAutoplay: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B3-MiniDisc.mp4', aspectRatio: '16:9', autoplay: true }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B3-MiniDisc.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Audio discovery prototype',
     description: 'Enter a feeling or situation, get a personalized podcast mixtape. Built around a vintage cassette interface because discovery should feel tactile, not algorithmic. Users describe their mood or moment, AI builds the mix.',
@@ -132,7 +139,7 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2.mp4',
     mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4', aspectRatio: '16:9' },
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true },
         { 
           url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4', 
           aspectRatio: '16:9',
@@ -155,7 +162,7 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
     previewAutoplay: true,
     mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B7%20interior.mp4', aspectRatio: '16:9', autoplay: true }
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B7%20interior.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Adaptation app',
     description: 'Built a writer’s tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. It supports writer-led changes to tone, structure, and language, plus content flags and age guidance.\n\nGreenlit to pilot with Kids and Family.',
@@ -169,7 +176,7 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
     previewAutoplay: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: false, hasAudio: true }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'VEO3.1 experiment',
     description: "A simulated two-minute continuous shot across split-screen panels. VEO's tools couldn't sustain it, so I found a workaround - stitching 18 separate clips together seamlessly. Creating something in AI-generated post that would be impossible with traditional editing.",

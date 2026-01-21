@@ -12,7 +12,7 @@ export interface ProjectVideo {
 }
 
 export interface ProjectImage {
-  url: string;
+  url:string;
   aspectRatio: '16:9' | '9:16' | '4:3' | '1:1';
 }
 
