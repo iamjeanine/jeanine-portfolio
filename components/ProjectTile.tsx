@@ -12,6 +12,7 @@ interface ProjectTileProps {
 const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [isMuteButtonHovered, setIsMuteButtonHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const tileRef = useRef<HTMLDivElement>(null);
   
@@ -114,10 +115,10 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
              {project.previewHasAudio && (
                 project.id === 'the-anomaly-zone' ? (
                   <div className="absolute bottom-4 right-4 z-10 flex items-center">
-                    <div className={`mr-2 overflow-hidden transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-                      <div className={`transition-transform duration-500 ease-out ${isHovered ? 'translate-y-0' : 'translate-y-full'}`}>
+                    <div className={`mr-2 overflow-hidden transition-opacity duration-300 ${isMuteButtonHovered ? 'opacity-100' : 'opacity-0'}`}>
+                      <div className={`transition-transform duration-500 ease-out ${isMuteButtonHovered ? 'translate-y-0' : 'translate-y-full'}`}>
                         <span
-                          className={`block font-serif text-xs whitespace-nowrap bg-gradient-to-r from-white/70 via-white to-white/70 [background-size:200%_auto] bg-clip-text text-transparent ${isHovered ? 'animate-[shimmer_0.8s_ease-out]' : ''}`}
+                          className={`block font-serif text-xs whitespace-nowrap bg-gradient-to-r from-white/70 via-white to-white/70 [background-size:200%_auto] bg-clip-text text-transparent ${isMuteButtonHovered ? 'animate-[shimmer_0.8s_ease-out]' : ''}`}
                           aria-hidden="true"
                         >
                           ElevenLabs music
@@ -126,6 +127,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     </div>
                     <button
                       onClick={toggleMute}
+                      onMouseEnter={() => setIsMuteButtonHovered(true)}
+                      onMouseLeave={() => setIsMuteButtonHovered(false)}
                       aria-label={isMuted ? 'Unmute video' : 'Mute video'}
                       className={`p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-opacity ${isHovered ? 'opacity-100' : 'opacity-0'}`}
                     >
