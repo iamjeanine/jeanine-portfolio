@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 
 interface VideoPlayerProps {
@@ -17,6 +17,42 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = 
   // A video that autoplays should start muted. A video without audio is always muted.
   const [isMuted, setIsMuted] = useState(autoplay || !hasAudio);
   const [isHovering, setIsHovering] = useState(false);
+  const [showHighlightOverlay, setShowHighlightOverlay] = useState(false);
+  const overlayShownRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || projectId !== 'storycraft') {
+        return;
+    }
+
+    const handlePlay = () => {
+        // Only trigger if it hasn't been shown and video is at the start
+        if (!overlayShownRef.current && video.currentTime < 1) {
+            overlayShownRef.current = true;
+            setShowHighlightOverlay(true);
+            
+            setTimeout(() => {
+                setShowHighlightOverlay(false);
+            }, 2500); // Show for 2.5s then trigger fade out
+        }
+    };
+    
+    // Reset the flag if user seeks back to the beginning
+    const handleSeeked = () => {
+        if (video.currentTime < 1) {
+            overlayShownRef.current = false;
+        }
+    };
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('seeked', handleSeeked);
+
+    return () => {
+        video.removeEventListener('play', handlePlay);
+        video.removeEventListener('seeked', handleSeeked);
+    };
+  }, [projectId]);
 
   const getAspectRatioClass = () => {
     switch (aspectRatio) {
@@ -53,6 +89,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = 
         playsInline
         controls={showNativeControls}
       />
+      
+      {projectId === 'storycraft' && (
+        <div 
+          className={`absolute bottom-16 left-1/2 -translate-x-1/2 pointer-events-none transition-opacity duration-500 ease-in-out ${showHighlightOverlay ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <div className="bg-black/40 backdrop-blur-sm rounded-full px-4 py-2">
+            <h3 className="font-serif text-sm text-white/90 tracking-wider bg-gradient-to-r from-white/80 via-white to-white/80 [background-size:200%_auto] bg-clip-text text-transparent animate-[shimmer_1.5s_ease-out]">
+              Edited Highlights
+            </h3>
+          </div>
+        </div>
+      )}
+
       {hasAudio && (
         <>
           {isSpecialElevenLabsVideo ? (

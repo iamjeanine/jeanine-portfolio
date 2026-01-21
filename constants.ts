@@ -162,11 +162,11 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
     previewAutoplay: true,
     mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B7%20interior.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Adaptation app',
     description: 'Built a writer’s tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. It supports writer-led changes to tone, structure, and language, plus content flags and age guidance.\n\nGreenlit to pilot with Kids and Family.',
-    tools: 'Tools: Party Rock, Claude, Stable Diffusion.'
+    tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
   },
   {
     id: 'split-continuity',
