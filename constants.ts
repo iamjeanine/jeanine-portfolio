@@ -24,9 +24,18 @@ export const PROJECTS: Project[] = [
         autoplay: true, 
         loop: true, 
         showControls: false
+      },
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Story%20Bible%20Explorer.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true,
+        caption: 'Story Bible Explorer\n\nBuilt for cross-department teams. One internal source to answer questions about the show for marketing, ad sales, and film/TV.'
       }
     ],
-    descriptor: 'Social campaign prototypes',
+    descriptor: 'Story Bible Explorer',
     description: '12+ in-world social prototypes for a Wondery sci-fi series. Marketing as if created by the city itself. Destination spots, tours, and character testimonials.\n\nSome pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.',
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
@@ -36,6 +45,7 @@ export const PROJECTS: Project[] = [
     client: 'Speculative',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20cover.mp4',
+    previewHasAudio: true,
     mainVideos: [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9' }
     ],
@@ -116,7 +126,16 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2.mp4',
     mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4', aspectRatio: '16:9' }
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4', aspectRatio: '16:9' },
+        { 
+          url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4', 
+          aspectRatio: '16:9',
+          autoplay: true,
+          loop: true,
+          showControls: true,
+          hasAudio: true,
+          caption: 'AI Lab Archive\n\nBuilt an online hub for the curriculum. Each module included a NotebookLM podcast walkthrough, FAQs, study guide, and original presentation. Some included recorded sessions with industry partners. Team could learn or revisit sessions.'
+        }
     ],
     descriptor: "Creative workflow lab",
     description: "Founded and launched Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Ran hands-on workshops, built learning modules, and brought in industry partners. Two projects moved from lab to production: Storycraft and two custom GPTs - one for research and media pulls, one for metadata tailoring.",
