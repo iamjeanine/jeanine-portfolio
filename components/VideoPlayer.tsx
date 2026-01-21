@@ -1,5 +1,6 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 
 interface VideoPlayerProps {
   src: string;
@@ -7,10 +8,13 @@ interface VideoPlayerProps {
   autoplay?: boolean;
   loop?: boolean;
   showControls?: boolean;
+  hasAudio?: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = false, loop = false, showControls = true }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = false, loop = false, showControls = true, hasAudio = false }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  // A video that autoplays should start muted. A video without audio is always muted.
+  const [isMuted, setIsMuted] = useState(autoplay || !hasAudio);
 
   const getAspectRatioClass = () => {
     switch (aspectRatio) {
@@ -22,9 +26,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = 
     }
   };
 
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsMuted(prev => !prev);
+  };
+
   return (
     <div 
-      className={`relative w-full mx-auto ${getAspectRatioClass()}`}
+      className={`relative w-full mx-auto ${getAspectRatioClass()} group`}
     >
       <video
         ref={videoRef}
@@ -32,10 +42,20 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = 
         src={src}
         autoPlay={autoplay}
         loop={loop}
-        muted={autoplay}
+        muted={isMuted}
         playsInline
         controls={showControls}
       />
+      {/* Show custom mute button only if video has audio and native controls are hidden */}
+      {hasAudio && !showControls && (
+        <button 
+            onClick={toggleMute} 
+            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+            className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+            {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
+        </button>
+      )}
     </div>
   );
 };

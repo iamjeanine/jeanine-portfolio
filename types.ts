@@ -6,6 +6,7 @@ export interface ProjectVideo {
   loop?: boolean;
   caption?: string;
   showControls?: boolean;
+  hasAudio?: boolean;
 }
 
 export interface ProjectImage {

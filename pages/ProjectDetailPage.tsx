@@ -81,6 +81,7 @@ const ProjectDetailPage = () => {
                   autoplay={video.autoplay}
                   loop={video.loop}
                   showControls={video.showControls}
+                  hasAudio={video.hasAudio}
                 />
                 {video.caption && (
                     <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{video.caption}</p>
@@ -119,6 +120,7 @@ const ProjectDetailPage = () => {
                       autoplay={project.mainVideos[0].autoplay}
                       loop={project.mainVideos[0].loop}
                       showControls={project.mainVideos[0].showControls}
+                      hasAudio={project.mainVideos[0].hasAudio}
                   />
                   {project.mainVideos[0].caption && (
                       <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{project.mainVideos[0].caption}</p>
@@ -138,6 +140,7 @@ const ProjectDetailPage = () => {
                       autoplay={project.mainVideos[1].autoplay}
                       loop={project.mainVideos[1].loop}
                       showControls={project.mainVideos[1].showControls}
+                      hasAudio={project.mainVideos[1].hasAudio}
                   />
                   {project.mainVideos[1].caption && (
                     <div className="max-w-2xl">
@@ -146,6 +149,76 @@ const ProjectDetailPage = () => {
                   )}
               </div>
           )}
+      </div>
+
+      <div className="w-full max-w-5xl mt-8 md:mt-12">
+        {project.mainVideos[2] && (
+          <div key="video-container-2">
+            <VideoPlayer
+              src={project.mainVideos[2].url}
+              aspectRatio={project.mainVideos[2].aspectRatio}
+              autoplay={project.mainVideos[2].autoplay}
+              loop={project.mainVideos[2].loop}
+              showControls={project.mainVideos[2].showControls}
+              hasAudio={project.mainVideos[2].hasAudio}
+            />
+            {project.mainVideos[2].caption && (
+              <div className="max-w-2xl mt-4">
+                <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
+                  {project.mainVideos[2].caption}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  );
+
+  const renderAICreatorLabLayout = () => (
+    <>
+      <div className="w-full max-w-5xl">
+        {project.mainVideos[0] && (
+          <div key="video-container-0">
+            <VideoPlayer
+              src={project.mainVideos[0].url}
+              aspectRatio={project.mainVideos[0].aspectRatio}
+              autoplay={project.mainVideos[0].autoplay}
+              loop={project.mainVideos[0].loop}
+              showControls={project.mainVideos[0].showControls}
+              hasAudio={project.mainVideos[0].hasAudio}
+            />
+            {project.mainVideos[0].caption && (
+              <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">
+                {project.mainVideos[0].caption}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      <ProjectTextBlock project={project} />
+
+      <div className="w-full max-w-5xl mt-8 md:mt-12">
+        {project.mainVideos[1] && (
+          <div key="video-container-1">
+            <VideoPlayer
+              src={project.mainVideos[1].url}
+              aspectRatio={project.mainVideos[1].aspectRatio}
+              autoplay={project.mainVideos[1].autoplay}
+              loop={project.mainVideos[1].loop}
+              showControls={project.mainVideos[1].showControls}
+              hasAudio={project.mainVideos[1].hasAudio}
+            />
+            {project.mainVideos[1].caption && (
+              <div className="max-w-2xl mt-4">
+                <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
+                  {project.mainVideos[1].caption}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
@@ -162,7 +235,15 @@ const ProjectDetailPage = () => {
 
         {/* Content */}
         <main className="flex-grow flex flex-col items-center">
-            { project.id === 'in-world-social-campaign' ? renderSocialCampaignLayout() : renderDefaultLayout() }
+            {(() => {
+              if (project.id === 'in-world-social-campaign') {
+                return renderSocialCampaignLayout();
+              } else if (project.id === 'ai-creator-lab') {
+                return renderAICreatorLabLayout();
+              } else {
+                return renderDefaultLayout();
+              }
+            })()}
         </main>
         
         {/* Footer Navigation */}
