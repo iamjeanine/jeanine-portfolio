@@ -179,7 +179,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'VEO3.1 experiment',
-    description: "Two-minute split-screen sequence from VEO3. The scene extender couldn't sustain continuity for that length, so I pieced together 18 shorter shots to create a continuous feel. (Link: <a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">See annotated breakdown</a> )",
+    description: "Two-minute split-screen sequence from VEO3. The scene extender couldn't sustain continuity for that length, so I stitched 18 clips by using each ending frame to prompt the next. (Link: <a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">See annotated breakdown</a> )",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   }
 ];
