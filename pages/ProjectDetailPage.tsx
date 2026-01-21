@@ -191,55 +191,63 @@ const ProjectDetailPage = () => {
     </>
   );
 
-  const renderAICreatorLabLayout = () => (
-    <>
-      <div className="w-full max-w-5xl">
-        {project.mainVideos[0] && (
-          <div key="video-container-0">
-            <VideoPlayer
-              src={project.mainVideos[0].url}
-              aspectRatio={project.mainVideos[0].aspectRatio}
-              autoplay={project.mainVideos[0].autoplay}
-              loop={project.mainVideos[0].loop}
-              showControls={project.mainVideos[0].showControls}
-              hasAudio={project.mainVideos[0].hasAudio}
-              projectId={project.id}
-            />
-            {project.mainVideos[0].caption && (
-              <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">
-                {project.mainVideos[0].caption}
-              </p>
-            )}
-          </div>
-        )}
-      </div>
+  const renderAICreatorLabLayout = () => {
+    const video2 = project.mainVideos[1];
+    const captionParts = video2?.caption?.split('\n\n') || [];
+    const captionTitle = captionParts[0] || '';
+    const captionBody = captionParts.slice(1).join('\n\n');
 
-      <ProjectTextBlock project={project} />
-
-      <div className="w-full max-w-5xl mt-8 md:mt-12">
-        {project.mainVideos[1] && (
-          <div key="video-container-1">
-            <VideoPlayer
-              src={project.mainVideos[1].url}
-              aspectRatio={project.mainVideos[1].aspectRatio}
-              autoplay={project.mainVideos[1].autoplay}
-              loop={project.mainVideos[1].loop}
-              showControls={project.mainVideos[1].showControls}
-              hasAudio={project.mainVideos[1].hasAudio}
-              projectId={project.id}
-            />
-            {project.mainVideos[1].caption && (
-              <div className="max-w-2xl mt-4">
-                <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
-                  {project.mainVideos[1].caption}
-                </p>
+    return (
+        <>
+          <div className="w-full max-w-5xl">
+            {project.mainVideos[0] && (
+              <div key="video-container-0">
+                <VideoPlayer
+                  src={project.mainVideos[0].url}
+                  aspectRatio={project.mainVideos[0].aspectRatio}
+                  autoplay={project.mainVideos[0].autoplay}
+                  loop={project.mainVideos[0].loop}
+                  showControls={project.mainVideos[0].showControls}
+                  hasAudio={project.mainVideos[0].hasAudio}
+                  projectId={project.id}
+                />
+                {project.mainVideos[0].caption && (
+                  <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">
+                    {project.mainVideos[0].caption}
+                  </p>
+                )}
               </div>
             )}
           </div>
-        )}
-      </div>
-    </>
-  );
+    
+          <ProjectTextBlock project={project} />
+    
+          <div className="w-full max-w-5xl mt-8 md:mt-12">
+            {video2 && (
+              <div key="video-container-1">
+                <VideoPlayer
+                  src={video2.url}
+                  aspectRatio={video2.aspectRatio}
+                  autoplay={video2.autoplay}
+                  loop={video2.loop}
+                  showControls={video2.showControls}
+                  hasAudio={video2.hasAudio}
+                  projectId={project.id}
+                />
+                {video2.caption && (
+                  <div className="max-w-2xl mt-4">
+                    <h3 className="text-lg md:text-xl font-light mb-2">{captionTitle}</h3>
+                    <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
+                      {captionBody}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </>
+      );
+  }
 
   return (
     <div className={`fixed inset-0 bg-[#f8f8f8] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}>
