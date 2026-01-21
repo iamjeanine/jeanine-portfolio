@@ -34,7 +34,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = 
             
             setTimeout(() => {
                 setShowHighlightOverlay(false);
-            }, 2500); // Show for 2.5s then trigger fade out
+            }, 5000); // Show for 5s then trigger fade out
         }
     };
     
