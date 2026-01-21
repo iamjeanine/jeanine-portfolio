@@ -62,7 +62,7 @@ export const PROJECTS: Project[] = [
     title: 'Strange Hour',
     client: 'A24 Labs',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20White%20Stranghour.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverSH2.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
