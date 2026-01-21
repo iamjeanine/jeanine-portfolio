@@ -134,24 +134,31 @@ const ProjectDetailPage = () => {
       <ProjectTextBlock project={project} />
 
       <div className="w-full max-w-5xl mt-8 md:mt-12">
-          {project.mainVideos[1] && (
-              <div key="video-container-1">
-                  <VideoPlayer 
-                      src={project.mainVideos[1].url} 
-                      aspectRatio={project.mainVideos[1].aspectRatio} 
-                      autoplay={project.mainVideos[1].autoplay}
-                      loop={project.mainVideos[1].loop}
-                      showControls={project.mainVideos[1].showControls}
-                      hasAudio={project.mainVideos[1].hasAudio}
-                      projectId={project.id}
-                  />
-                  {project.mainVideos[1].caption && (
-                    <div className="max-w-2xl">
-                      <p className="mt-4 text-base text-neutral-600 font-light">{project.mainVideos[1].caption}</p>
-                    </div>
-                  )}
+        {project.mainVideos[1] && (
+          <div key="video-container-1">
+            <VideoPlayer
+              src={project.mainVideos[1].url}
+              aspectRatio={project.mainVideos[1].aspectRatio}
+              autoplay={project.mainVideos[1].autoplay}
+              loop={project.mainVideos[1].loop}
+              showControls={project.mainVideos[1].showControls}
+              hasAudio={project.mainVideos[1].hasAudio}
+              projectId={project.id}
+            />
+            {(project.mainVideos[1].title || project.mainVideos[1].subtitle) && (
+              <div className="max-w-2xl mt-4">
+                {project.mainVideos[1].title && (
+                  <h3 className="text-lg md:text-xl font-light mb-1">{project.mainVideos[1].title}</h3>
+                )}
+                {project.mainVideos[1].subtitle && (
+                  <p className="text-sm md:text-base text-neutral-600 font-light">
+                    {project.mainVideos[1].subtitle}
+                  </p>
+                )}
               </div>
-          )}
+            )}
+          </div>
+        )}
       </div>
 
       <div className="w-full max-w-5xl mt-8 md:mt-12">
@@ -166,11 +173,16 @@ const ProjectDetailPage = () => {
               hasAudio={project.mainVideos[2].hasAudio}
               projectId={project.id}
             />
-            {project.mainVideos[2].caption && (
+            {(project.mainVideos[2].title || project.mainVideos[2].subtitle) && (
               <div className="max-w-2xl mt-4">
-                <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
-                  {project.mainVideos[2].caption}
-                </p>
+                {project.mainVideos[2].title && (
+                  <h3 className="text-lg md:text-xl font-light mb-1">{project.mainVideos[2].title}</h3>
+                )}
+                {project.mainVideos[2].subtitle && (
+                  <p className="text-sm md:text-base text-neutral-600 font-light">
+                    {project.mainVideos[2].subtitle}
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -231,7 +243,7 @@ const ProjectDetailPage = () => {
 
   return (
     <div className={`fixed inset-0 bg-[#f8f8f8] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}>
-      <div className="w-full min-h-screen p-4 md:p-8 flex flex-col">
+      <div className="w-full minh-screen p-4 md:p-8 flex flex-col">
         {/* Header */}
         <header className="flex justify-end items-center w-full mb-8 shrink-0">
           <button onClick={handleClose} className="text-neutral-600 hover:text-[#2C4A3C] transition-colors">

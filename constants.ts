@@ -23,7 +23,9 @@ export const PROJECTS: Project[] = [
         aspectRatio: '16:9', 
         autoplay: true, 
         loop: true, 
-        showControls: false
+        showControls: false,
+        title: 'Whiteboard',
+        subtitle: 'Process board showing concept development and format tests.'
       },
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Story%20Bible%20Explorer.mp4',
@@ -32,7 +34,8 @@ export const PROJECTS: Project[] = [
         loop: true,
         showControls: true,
         hasAudio: true,
-        caption: 'Story Bible Explorer\n\nBuilt for cross-department teams. One internal source to answer questions about the show for marketing, ad sales, and film/TV.'
+        title: 'Story Bible Explorer',
+        subtitle: 'Built for cross-department teams. One internal source to answer questions about the show for marketing, ad sales, and film/TV.'
       }
     ],
     descriptor: 'Social Campaign',
