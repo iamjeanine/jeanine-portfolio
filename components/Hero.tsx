@@ -1,12 +1,20 @@
 
 import React, { useState } from 'react';
 import { HERO_VIDEOS } from '../constants';
+import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   const handleVideoReady = () => {
     setIsLoaded(true);
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsMuted(prev => !prev);
   };
 
   const name1 = 'Jeanine';
@@ -21,7 +29,7 @@ const Hero = () => {
         poster={HERO_VIDEOS.posterUrl}
         autoPlay
         loop
-        muted
+        muted={isMuted}
         playsInline
         preload="auto"
         onPlaying={handleVideoReady}
@@ -50,6 +58,28 @@ const Hero = () => {
           >
             AI Creative Producer
           </p>
+        </div>
+      </div>
+
+      <div className="absolute bottom-8 right-8 z-10 group">
+        <div className="relative flex items-center">
+          <div className="mr-3 overflow-hidden">
+             <div className="transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0">
+                <span
+                    className="block font-serif text-sm whitespace-nowrap bg-gradient-to-r from-white/70 via-white to-white/70 [background-size:200%_auto] bg-clip-text text-transparent group-hover:animate-[shimmer_0.8s_ease-out]"
+                    aria-hidden="true"
+                >
+                    ElevenLabs music
+                </span>
+             </div>
+          </div>
+          <button
+            onClick={toggleMute}
+            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+            className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white transition-all"
+          >
+            {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
+          </button>
         </div>
       </div>
     </div>

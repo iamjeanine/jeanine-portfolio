@@ -2,7 +2,7 @@
 import type { Project } from './types';
 
 export const HERO_VIDEOS = {
-  url: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero-right4k.mp4',
+  url: 'https://storage.googleapis.com/jeanine-portfolio-video/Heroshotmusic2.mp4',
   posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero-poster.jpg',
 };
 
@@ -88,13 +88,14 @@ export const PROJECTS: Project[] = [
     title: 'Multiverse Quad',
     client: 'Amazon AGI',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20new.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
+    previewHasAudio: true,
     mainVideos: [],
     mainImages: [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
     ],
-    descriptor: 'Multiformat story experiment',
-    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote. One story adapted into four AI-generated formats - animated short film, graphic novel, visual audiobook, podcast. Pitched to Amazon's AGI team and co-developed with their engineers.",
+    descriptor: 'Multiformat storytelling',
+    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote. One story from The Last City adapted into four AI-generated formats. Pitched to Amazon's AGI team and co-developed with their engineers.",
     formats: [
         'Animated short film',
         'Graphic novel',
