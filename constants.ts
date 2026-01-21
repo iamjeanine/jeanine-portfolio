@@ -45,6 +45,7 @@ export const PROJECTS: Project[] = [
     client: 'Speculative',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20cover.mp4',
+    previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9' }
@@ -74,6 +75,7 @@ export const PROJECTS: Project[] = [
     client: 'Self-initiated',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
+    previewAutoplay: true,
     mainVideos: [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B3-MiniDisc.mp4', aspectRatio: '16:9', autoplay: true }
     ],
@@ -106,7 +108,7 @@ export const PROJECTS: Project[] = [
     coverTitle: 'Story Tracker',
     client: 'Google Antigravity',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20News%20Tracker.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4.mp4',
     mainVideos: [
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
@@ -170,4 +172,3 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   }
 ];
-    
