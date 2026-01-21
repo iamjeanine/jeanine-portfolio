@@ -179,7 +179,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'VEO3.1 experiment',
-    description: "A simulated two-minute continuous shot across split-screen panels. VEO's tools couldn't sustain it, so I found a workaround - stitching 18 separate clips together seamlessly. Creating something in AI-generated post that would be impossible with traditional editing.",
+    description: "Two-minute split-screen sequence made from 18 VEO clips stitched together. VEO can't generate long continuous shots, so I had to piece together shorter clips to create the effect. (Link: <a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">See annotated breakdown</a> )",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   }
 ];
