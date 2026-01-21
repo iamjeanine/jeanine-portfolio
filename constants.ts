@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B3-MiniDisc.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Audio discovery prototype',
-    description: 'Enter a feeling or situation, get a personalized podcast mixtape. Built around a vintage cassette interface because discovery should feel tactile, not algorithmic. Users describe their mood or moment, AI builds the mix.',
+    description: 'Enter a feeling or situation, get a custom podcast mixtape. Built around a vintage cassette interface. Users describe their mood, AI builds the mix.',
     tools: 'Tools: Google AI Studio (Gemini)',
   },
   {
