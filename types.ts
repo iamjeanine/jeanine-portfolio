@@ -4,6 +4,8 @@ export interface ProjectVideo {
   aspectRatio: '16:9' | '9:16' | '4:3' | '1:1';
   autoplay?: boolean;
   loop?: boolean;
+  title?: string;
+  subtitle?: string;
   caption?: string;
   showControls?: boolean;
   hasAudio?: boolean;
