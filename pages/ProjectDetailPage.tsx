@@ -16,7 +16,10 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               {project.descriptor && <p className="text-md md:text-lg text-neutral-500 font-light italic">{project.descriptor}</p>}
               {project.subtitle && <p className="text-md md:text-lg text-neutral-500 font-light">{project.subtitle}</p>}
             </div>
-            <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line mb-6">{project.description}</p>
+            <p 
+                className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line mb-6"
+                dangerouslySetInnerHTML={{ __html: project.description }}
+            />
             
             {project.formats && (
                 <div className="mt-6 mb-6">
