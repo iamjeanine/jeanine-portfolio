@@ -82,6 +82,7 @@ const ProjectDetailPage = () => {
                   loop={video.loop}
                   showControls={video.showControls}
                   hasAudio={video.hasAudio}
+                  projectId={project.id}
                 />
                 {video.caption && (
                     <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{video.caption}</p>
@@ -121,6 +122,7 @@ const ProjectDetailPage = () => {
                       loop={project.mainVideos[0].loop}
                       showControls={project.mainVideos[0].showControls}
                       hasAudio={project.mainVideos[0].hasAudio}
+                      projectId={project.id}
                   />
                   {project.mainVideos[0].caption && (
                       <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{project.mainVideos[0].caption}</p>
@@ -141,6 +143,7 @@ const ProjectDetailPage = () => {
                       loop={project.mainVideos[1].loop}
                       showControls={project.mainVideos[1].showControls}
                       hasAudio={project.mainVideos[1].hasAudio}
+                      projectId={project.id}
                   />
                   {project.mainVideos[1].caption && (
                     <div className="max-w-2xl">
@@ -161,6 +164,7 @@ const ProjectDetailPage = () => {
               loop={project.mainVideos[2].loop}
               showControls={project.mainVideos[2].showControls}
               hasAudio={project.mainVideos[2].hasAudio}
+              projectId={project.id}
             />
             {project.mainVideos[2].caption && (
               <div className="max-w-2xl mt-4">
@@ -187,6 +191,7 @@ const ProjectDetailPage = () => {
               loop={project.mainVideos[0].loop}
               showControls={project.mainVideos[0].showControls}
               hasAudio={project.mainVideos[0].hasAudio}
+              projectId={project.id}
             />
             {project.mainVideos[0].caption && (
               <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">
@@ -209,6 +214,7 @@ const ProjectDetailPage = () => {
               loop={project.mainVideos[1].loop}
               showControls={project.mainVideos[1].showControls}
               hasAudio={project.mainVideos[1].hasAudio}
+              projectId={project.id}
             />
             {project.mainVideos[1].caption && (
               <div className="max-w-2xl mt-4">

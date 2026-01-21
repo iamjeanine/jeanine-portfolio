@@ -112,13 +112,39 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 />
             </div>
              {project.previewHasAudio && (
-                <button 
-                    onClick={toggleMute} 
+              <>
+                {project.id === 'the-anomaly-zone' ? (
+                  <div className="absolute bottom-4 right-4 z-10 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="group/audiocontrol flex items-center">
+                      <div className="mr-2 overflow-hidden opacity-0 group-hover/audiocontrol:opacity-100 transition-opacity duration-300">
+                        <div className="transition-transform duration-500 ease-out translate-y-full group-hover/audiocontrol:translate-y-0">
+                          <span
+                            className="block font-serif text-xs whitespace-nowrap bg-gradient-to-r from-white/70 via-white to-white/70 [background-size:200%_auto] bg-clip-text text-transparent group-hover/audiocontrol:animate-[shimmer_0.8s_ease-out]"
+                            aria-hidden="true"
+                          >
+                            ElevenLabs sound
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={toggleMute}
+                        aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                        className="p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-colors"
+                      >
+                        {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={toggleMute}
                     aria-label={isMuted ? 'Unmute video' : 'Mute video'}
                     className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                >
+                  >
                     {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
-                </button>
+                  </button>
+                )}
+              </>
             )}
         </div>
       </Link>
