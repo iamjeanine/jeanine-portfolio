@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9' }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: false, hasAudio: true }
     ],
     descriptor: 'Grounded sci-fi audio series - pilot material',
     description: 'Explores uncanny phenomena within a quarantined exclusion zone. Voices, music, and sound effects generated using ElevenLabs. One of several mood pieces developed for QCODE pitch.',
@@ -166,7 +166,7 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
     previewAutoplay: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: false, hasAudio: true }
     ],
     descriptor: 'VEO3.1 experiment',
     description: "A simulated two-minute continuous shot across split-screen panels. VEO's tools couldn't sustain it, so I found a workaround - stitching 18 separate clips together seamlessly. Creating something in AI-generated post that would be impossible with traditional editing.",
