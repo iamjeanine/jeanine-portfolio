@@ -105,7 +105,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
     ],
     descriptor: 'Multiformat storytelling',
-    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote. One story from The Last City adapted into four AI-generated formats. Pitched to Amazon's AGI team and co-developed with their engineers.",
+    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote. Adapted one story from The Last City into four AI-generated formats. Pitched to Amazon's AGI team and co-developed with their engineers.",
     formats: [
         'Animated short film',
         'Graphic novel',
@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'Long-tail news tracking',
-    description: "Some stories flare up, disappear, then resurface with new developments. Throughline follows a single story across that entire arc, keeping the reporting together as it evolves over time. Built with Google's Antigravity using a four-agent workflow.",
+    description: "Developed a concept and prototype for long-tail news tracking. Some stories flare up, disappear, then resurface. Throughline follows a single story across that entire arc, keeping reporting connected as it evolves. Built using Google's Antigravity with a four-agent workflow.",
     tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
   },
   {
