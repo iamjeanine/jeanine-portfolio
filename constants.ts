@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Grounded sci-fi audio series - pilot material',
-    description: "Uncanny phenomena in a quarantined exclusion zone, told through survivors' fractured memories. One of several mood pieces created as part of a full series pitch to QCODE.\n\nVoices, music, and sound effects generated using ElevenLabs. Packaged with visuals and video so the pitch reads with film and TV potential, not only audio.",
+    description: "Created pilot material exploring uncanny phenomena in a quarantined exclusion zone, told through survivors' fractured memories. Developed as part of an original series pitch to QCODE.\n\nVoices, music, and sound effects generated using ElevenLabs. Video added to hint at visual dimension for potential IP extensions.",
     tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
   },
   {
