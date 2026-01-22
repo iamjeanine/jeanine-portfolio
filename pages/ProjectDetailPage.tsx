@@ -139,17 +139,8 @@ const ProjectDetailPage = () => {
       <div className="w-full max-w-5xl mt-8 md:mt-12">
         {project.mainVideos[1] && (
           <div key="video-container-1">
-            <VideoPlayer
-              src={project.mainVideos[1].url}
-              aspectRatio={project.mainVideos[1].aspectRatio}
-              autoplay={project.mainVideos[1].autoplay}
-              loop={project.mainVideos[1].loop}
-              showControls={project.mainVideos[1].showControls}
-              hasAudio={project.mainVideos[1].hasAudio}
-              projectId={project.id}
-            />
             {(project.mainVideos[1].title || project.mainVideos[1].subtitle) && (
-              <div className="max-w-2xl mt-4">
+              <div className="max-w-2xl mb-4">
                 {project.mainVideos[1].title && (
                   <h3 className="text-lg md:text-xl font-light mb-1">{project.mainVideos[1].title}</h3>
                 )}
@@ -160,6 +151,15 @@ const ProjectDetailPage = () => {
                 )}
               </div>
             )}
+            <VideoPlayer
+              src={project.mainVideos[1].url}
+              aspectRatio={project.mainVideos[1].aspectRatio}
+              autoplay={project.mainVideos[1].autoplay}
+              loop={project.mainVideos[1].loop}
+              showControls={project.mainVideos[1].showControls}
+              hasAudio={project.mainVideos[1].hasAudio}
+              projectId={project.id}
+            />
           </div>
         )}
       </div>
@@ -167,17 +167,8 @@ const ProjectDetailPage = () => {
       <div className="w-full max-w-5xl mt-8 md:mt-12">
         {project.mainVideos[2] && (
           <div key="video-container-2">
-            <VideoPlayer
-              src={project.mainVideos[2].url}
-              aspectRatio={project.mainVideos[2].aspectRatio}
-              autoplay={project.mainVideos[2].autoplay}
-              loop={project.mainVideos[2].loop}
-              showControls={project.mainVideos[2].showControls}
-              hasAudio={project.mainVideos[2].hasAudio}
-              projectId={project.id}
-            />
-            {(project.mainVideos[2].title || project.mainVideos[2].subtitle) && (
-              <div className="max-w-2xl mt-4">
+             {(project.mainVideos[2].title || project.mainVideos[2].subtitle) && (
+              <div className="max-w-2xl mb-4">
                 {project.mainVideos[2].title && (
                   <h3 className="text-lg md:text-xl font-light mb-1">{project.mainVideos[2].title}</h3>
                 )}
@@ -188,6 +179,15 @@ const ProjectDetailPage = () => {
                 )}
               </div>
             )}
+            <VideoPlayer
+              src={project.mainVideos[2].url}
+              aspectRatio={project.mainVideos[2].aspectRatio}
+              autoplay={project.mainVideos[2].autoplay}
+              loop={project.mainVideos[2].loop}
+              showControls={project.mainVideos[2].showControls}
+              hasAudio={project.mainVideos[2].hasAudio}
+              projectId={project.id}
+            />
           </div>
         )}
       </div>
