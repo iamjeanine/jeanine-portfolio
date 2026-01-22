@@ -94,6 +94,20 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Google AI Studio (Gemini)',
   },
   {
+    id: 'split-continuity',
+    title: 'Split Continuity',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
+    ],
+    descriptor: 'VEO3.1 showcase',
+    description: "Two-minute split-screen sequence from VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
+    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
+  },
+  {
     id: 'the-last-city',
     title: 'Multiverse Quad',
     client: 'Amazon AGI',
@@ -112,25 +126,6 @@ export const PROJECTS: Project[] = [
         'Visual audiobook',
         'Podcast'
     ],
-  },
-  {
-    id: 'news-tracker',
-    title: 'Throughline',
-    coverTitle: 'Story Tracker',
-    client: 'Google Antigravity',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4.mp4',
-    mainVideos: [
-      { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
-        aspectRatio: '16:9', 
-        autoplay: true,
-        showControls: true
-      }
-    ],
-    descriptor: 'Long-tail news tracking',
-    description: "Developed a concept and prototype for long-tail news tracking. Some stories flare up, disappear, then resurface. Throughline follows a single story across that entire arc, keeping reporting connected as it evolves. Built using Google's Antigravity with a four-agent workflow.",
-    tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
   },
   {
     id: 'ai-creator-lab',
@@ -169,17 +164,22 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
   },
   {
-    id: 'split-continuity',
-    title: 'Split Continuity',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
-    previewAutoplay: true,
+    id: 'news-tracker',
+    title: 'Throughline',
+    coverTitle: 'Story Tracker',
+    client: 'Google Antigravity',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4.mp4',
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
+      { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
+        aspectRatio: '16:9', 
+        autoplay: true,
+        showControls: true
+      }
     ],
-    descriptor: 'VEO3.1 showcase',
-    description: "Two-minute split-screen sequence from VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
-    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
+    descriptor: 'Long-tail news tracking',
+    description: "Developed a concept and prototype for long-tail news tracking. Some stories flare up, disappear, then resurface. Throughline follows a single story across that entire arc, keeping reporting connected as it evolves. Built using Google's Antigravity with a four-agent workflow.",
+    tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
   }
 ];
