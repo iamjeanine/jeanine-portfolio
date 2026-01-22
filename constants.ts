@@ -105,7 +105,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
     ],
     descriptor: 'Multiformat storytelling',
-    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote. Adapted one story from The Last City into four AI-generated formats. Pitched to Amazon's AGI team and co-developed with their engineers.",
+    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote.\n\nDeveloped and pitched the concept to Amazon's AGI team: adapting one story from The Last City into four formats. Co-developed prototypes with AGI engineers and product lead, delivering final versions for the keynote. Worked with Go-To-Market on presentation strategy.",
     formats: [
         'Animated short film',
         'Graphic novel',
