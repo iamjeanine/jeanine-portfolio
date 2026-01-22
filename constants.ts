@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
         showControls: true,
         hasAudio: true,
         title: 'Story Bible Explorer',
-        subtitle: 'Internal tool I built for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
+        subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
       }
     ],
     descriptor: 'In-World Social Campaign',
