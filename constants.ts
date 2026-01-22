@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'In-World Social Campaign',
-    description: "In-world social prototypes for a Wondery sci-fi series. Marketing as if created by the city itself: destination spots, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.",
+    description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
   {
@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Grounded sci-fi audio series - pilot material',
-    description: "Created pilot material exploring uncanny phenomena in a quarantined exclusion zone, told through survivors' fractured memories. Developed as part of an original series pitch to QCODE.\n\nVoices, music, and sound effects generated using ElevenLabs. Paired with visual mood pieces to suggest potential beyond audio.",
+    description: "Created an original series pitch exploring uncanny phenomena in a quarantined exclusion zone, told through survivors' fractured memories. This is one of several mood pieces developed for the QCODE pitch to suggest potential beyond audio.\n\nVoices, music, and sound effects generated using ElevenLabs.",
     tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
   },
   {
