@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
         loop: true, 
         showControls: false,
         title: 'Whiteboard',
-        subtitle: 'Process board showing concept development and format tests.'
+        subtitle: 'Process board used to develop concepts and test formats.'
       },
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Story%20Bible%20Explorer.mp4',
@@ -35,11 +35,11 @@ export const PROJECTS: Project[] = [
         showControls: true,
         hasAudio: true,
         title: 'Story Bible Explorer',
-        subtitle: 'Built for cross-department teams. One internal source to answer questions about the show for marketing, ad sales, and film/TV.'
+        subtitle: 'Internal tool I built for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
       }
     ],
-    descriptor: 'Social Campaign',
-    description: '12+ in-world social prototypes for a Wondery sci-fi series. Marketing as if created by the city itself. Destination spots, tours, and character testimonials.\n\nSome pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.',
+    descriptor: 'In-World Social Campaign',
+    description: 'In-world social prototypes for a Wondery sci-fi series. Marketing as if created by the city itself. Destination spots, tours, and character testimonials. 12+ prototypes.\n\nI pitched the concept to marketing and content, then built prototypes to demonstrate the approach. Some pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.',
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
   {
