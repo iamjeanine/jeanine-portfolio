@@ -147,7 +147,7 @@ export const PROJECTS: Project[] = [
           loop: true,
           showControls: true,
           hasAudio: true,
-          caption: 'AI Lab Archive\n\nBuilt an online hub for the curriculum. Each module included a NotebookLM podcast walkthrough, FAQs, study guide, and original presentation. Some included recorded sessions with industry partners. Team could learn or revisit sessions.'
+          caption: 'AI Lab Archive\n\nBuilt an online hub for the curriculum. Each module included a NotebookLM podcast walkthrough, FAQs, study guide, and original presentation. Some included recorded sessions with industry partners. Team members could learn or revisit sessions.'
         }
     ],
     descriptor: "Creative workflow lab",
