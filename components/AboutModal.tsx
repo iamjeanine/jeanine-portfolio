@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { CloseIcon } from './icons/NavigationIcons';
 
 interface AboutModalProps {
@@ -8,6 +8,7 @@ interface AboutModalProps {
 }
 
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
+  // FIX: The `useEffect` hook was used without being imported. It has been added to the `react` import statement.
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -48,13 +49,16 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, video, and television.
           </p>
           <p>
-            Created Scamfluencers (53M downloads, #1 Apple Podcasts) and The Last City (starring Rhea Seehorn, #1 in 20 countries). Producer on Dying for Sex, now an FX series starring Michelle Williams with 9 Emmy nominations.
+            Created Scamfluencers (53M+ downloads, #1 on Apple Podcasts, Ambie Best Entertainment Podcast) and The Last City (starring Rhea Seehorn, #1 Fiction on Apple Podcasts in 20 countries).
           </p>
           <p>
-            At Wondery, founded the AI Creator Lab and scaled it from 4 to 50+ across teams.
+            Producer on Dying for Sex (Apple and Ambie Podcast of the Year), adapted as an FX series starring Michelle Williams with 9 Emmy nominations.
           </p>
           <p>
-            I like building new story forms, from apps and prototypes to new approaches to narrative across audio, video, and product.
+            At Wondery, founded and scaled the AI Creator Lab from 4 to 50+ people across content, marketing, product, and ad sales.
+          </p>
+          <p>
+            I build new ways to tell stories and help teams bring them to life.
           </p>
           <p className="pt-2">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2C4A3C] transition-colors">LinkedIn</a>
