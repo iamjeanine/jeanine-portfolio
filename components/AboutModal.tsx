@@ -49,7 +49,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, video, and television.
           </p>
           <p>
-            Created Scamfluencers (53M+ downloads, #1 on Apple Podcasts, Ambie Best Entertainment Podcast) and The Last City (starring Rhea Seehorn, #1 Fiction on Apple Podcasts in 20 countries).
+            Created Scamfluencers (53M+, #1 on Apple Podcasts, Ambie Best Entertainment Podcast) and The Last City (starring Rhea Seehorn, #1 Fiction on Apple Charts in 20 countries).
           </p>
           <p>
             Producer on Dying for Sex (Apple and Ambie Podcast of the Year), adapted as an FX series starring Michelle Williams with 9 Emmy nominations.
