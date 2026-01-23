@@ -104,7 +104,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'VEO3.1 showcase',
-    description: "Two-minute split-screen sequence from VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
+    description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   },
   {
