@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
       previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Interior%20Vid%20Unstill2.mp4',
     },
     descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
-    description: 'A museum-facing concept for turning archival collections into short, narrative experiences grounded in true records. Interactive web pitch with embedded pilot excerpt.\n\nReconstructed 1920s Sydney from mugshots, blueprints, and crime records. Voice, music, and sound design using ElevenLabs. Developed as proof-of-concept for pitching to museums.',
+    description: 'A museum-facing concept for turning archival collections into short, narrative experiences. Interactive web pitch with embedded pilot excerpt.\n\nReconstructed 1920s Sydney from mugshots, blueprints, and crime records. Voice, music, and sound design using ElevenLabs. Developed as proof-of-concept for pitching to museums.',
     tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
   },
   {
