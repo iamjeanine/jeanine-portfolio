@@ -83,7 +83,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   return (
     <div 
         ref={tileRef}
-        className="relative mb-8 md:mb-12 will-change-transform"
+        className="relative will-change-transform"
     >
       <Link 
         to={`/project/${project.id}`}
