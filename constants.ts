@@ -120,7 +120,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'VEO3.1 showcase',
-    description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.\n\n<a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">Annotated breakdown showing each of the 18 edits.</a>",
+    description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   },
   {
@@ -177,5 +177,27 @@ export const PROJECTS: Project[] = [
     descriptor: 'Long-tail news tracking',
     description: "Developed a concept and prototype for long-tail news tracking. Some stories flare up, disappear, then resurface. Throughline follows a single story across that entire arc, keeping reporting connected as it evolves. Built using Google's Antigravity with a four-agent workflow.",
     tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
+  },
+  {
+    id: 'film-rd',
+    title: 'Film Style Lab',
+    coverTitle: 'Film Style Lab',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
+    previewAutoplay: true,
+    previewHasAudio: false,
+    mainVideos: [
+       { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
+        aspectRatio: '16:9', 
+        autoplay: true,
+        loop: true,
+        showControls: true
+      }
+    ],
+    descriptor: 'Cinematic AI Research & Development',
+    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
+    tools: 'Tools: o3, Midjourney, Runway, Magnific',
   }
 ];
