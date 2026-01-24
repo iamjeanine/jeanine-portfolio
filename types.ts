@@ -32,4 +32,8 @@ export interface Project {
   tools?: string;
   coverTitle?: string;
   formats?: string[];
+  interactivePitch?: {
+    url: string;
+    previewVideoUrl: string;
+  };
 }

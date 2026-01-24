@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { PROJECTS } from '../constants';
 import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
-import { CloseIcon, NextIcon, PrevIcon } from '../components/icons/NavigationIcons';
+import { CloseIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
 
 // Reusable component for the text block
 const ProjectTextBlock = ({ project }: { project: Project }) => {
@@ -75,40 +75,69 @@ const ProjectDetailPage = () => {
   
   const renderDefaultLayout = () => (
     <>
-      <div className="w-full max-w-5xl space-y-8">
-          {project.mainVideos.map((video, index) => (
-              <div key={`video-container-${index}`}>
-                <VideoPlayer 
-                  src={video.url} 
-                  aspectRatio={video.aspectRatio} 
-                  autoplay={video.autoplay}
-                  loop={video.loop}
-                  showControls={video.showControls}
-                  hasAudio={video.hasAudio}
-                  projectId={project.id}
-                />
-                {video.caption && (
-                    <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{video.caption}</p>
-                )}
-              </div>
-          ))}
-          {project.mainImages && project.mainImages.map((image, index) => {
-            const getAspectRatioClass = () => {
-              switch (image.aspectRatio) {
-                case '16:9': return 'aspect-video';
-                case '9:16': return 'aspect-[9/16]';
-                case '4:3': return 'aspect-[4/3]';
-                case '1:1': return 'aspect-square';
-                default: return 'aspect-video';
-              }
-            };
-            return (
-              <div key={`image-${index}`} className={`relative w-full mx-auto ${getAspectRatioClass()}`}>
-                <img src={image.url} alt={`${project?.title} content`} className="w-full h-full object-contain bg-black" loading="lazy" />
-              </div>
-            )
-          })}
-      </div>
+      {project.interactivePitch ? (
+         <div className="w-full max-w-5xl">
+            <a 
+                href={project.interactivePitch.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative block w-full aspect-video bg-neutral-200 border border-neutral-300"
+                aria-label={`View interactive pitch for ${project.title}`}
+            >
+                <video
+                    src={project.interactivePitch.previewVideoUrl}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                >
+                    Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
+                    <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:scale-100 scale-95 ease-in-out">
+                        <span className="text-white text-lg font-light mr-3">View Pitch</span>
+                        <ExternalLinkIcon className="h-5 w-5 text-white" />
+                    </div>
+                </div>
+            </a>
+         </div>
+      ) : (
+        <div className="w-full max-w-5xl space-y-8">
+            {project.mainVideos.map((video, index) => (
+                <div key={`video-container-${index}`}>
+                  <VideoPlayer 
+                    src={video.url} 
+                    aspectRatio={video.aspectRatio} 
+                    autoplay={video.autoplay}
+                    loop={video.loop}
+                    showControls={video.showControls}
+                    hasAudio={video.hasAudio}
+                    projectId={project.id}
+                  />
+                  {video.caption && (
+                      <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{video.caption}</p>
+                  )}
+                </div>
+            ))}
+            {project.mainImages && project.mainImages.map((image, index) => {
+              const getAspectRatioClass = () => {
+                switch (image.aspectRatio) {
+                  case '16:9': return 'aspect-video';
+                  case '9:16': return 'aspect-[9/16]';
+                  case '4:3': return 'aspect-[4/3]';
+                  case '1:1': return 'aspect-square';
+                  default: return 'aspect-video';
+                }
+              };
+              return (
+                <div key={`image-${index}`} className={`relative w-full mx-auto ${getAspectRatioClass()}`}>
+                  <img src={image.url} alt={`${project?.title} content`} className="w-full h-full object-contain bg-black" loading="lazy" />
+                </div>
+              )
+            })}
+        </div>
+      )}
       <ProjectTextBlock project={project} />
     </>
   );
@@ -234,6 +263,7 @@ const ProjectDetailPage = () => {
                   autoplay={video2.autoplay}
                   loop={video2.loop}
                   showControls={video2.showControls}
+                  // FIX: Changed `video` to `video2` to resolve a reference error.
                   hasAudio={video2.hasAudio}
                   projectId={project.id}
                 />
