@@ -59,24 +59,19 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'strange-hour',
-    title: 'Strange Hour',
+    title: 'Unstill',
     client: 'A24 Labs',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverSH2.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
-    mainVideos: [
-      { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Elsie%20and%20Fay%20v4.mp4', 
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true
-      }
-    ],
-    descriptor: 'Archival reconstructions - pilot excerpt',
-    description: 'Brought 1920s Sydney to life from mugshots, blueprints, and crime records. Voice, music, and sound effects by ElevenLabs. Proof-of-concept pitched to museums for activating archival collections.',
+    mainVideos: [],
+    interactivePitch: {
+      url: 'https://wonderylab.my.canva.site/unstill-museumpitch-pdf',
+      previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Interior%20Vid%20Unstill2.mp4',
+    },
+    descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
+    description: 'A museum-facing concept for turning archival collections into short, narrative experiences grounded in true records. Interactive web pitch with embedded pilot excerpt.\n\nReconstructed 1920s Sydney from mugshots, blueprints, and crime records. Voice, music, and sound design using ElevenLabs. Developed as proof-of-concept for pitching to museums.',
     tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
   },
   {
