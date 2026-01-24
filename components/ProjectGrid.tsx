@@ -12,7 +12,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ onAboutClick }) => {
   const projectsToShow = PROJECTS.filter(p => p.category === 'Selected' || p.category === 'Experiments');
 
   return (
-    <div className="w-full bg-[#f8f8f8] px-6 md:px-12 py-12">
+    <div className="w-full bg-[#f8f8f8] px-6 py-12">
       <div className="flex justify-start items-center space-x-8 mb-12">
          <button 
            onClick={onAboutClick}
@@ -29,7 +29,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ onAboutClick }) => {
          </a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projectsToShow.map((project, index) => (
           <ProjectTile key={project.id} project={project} index={index} />
         ))}
