@@ -15,6 +15,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const [isMuteButtonHovered, setIsMuteButtonHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const tileRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   
   // Parallax effect logic
   const parallaxFactor = 0.05; // A small factor for a subtle effect
@@ -54,6 +55,33 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     };
   }, []); // Empty dependency array ensures this effect runs only once on mount and unmount
 
+  // Scroll-triggered animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
+
+    const currentTileRef = tileRef.current;
+    if (currentTileRef) {
+      observer.observe(currentTileRef);
+    }
+
+    return () => {
+      if (currentTileRef) {
+        observer.unobserve(currentTileRef);
+      }
+    };
+  }, []);
+
+
   const handleMouseEnter = () => {
     setIsHovered(true);
     if (!project.previewAutoplay && videoRef.current) {
@@ -89,7 +117,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         to={`/project/${project.id}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="group"
+        className={`block group transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+        style={{ transitionDelay: `${(index % 4) * 100}ms` }}
       >
         <div className="relative aspect-video bg-gray-200 overflow-hidden">
             {/* Info Box - Static, will be revealed by video moving */}

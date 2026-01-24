@@ -89,27 +89,6 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Google AI Studio (Gemini)',
   },
   {
-    id: 'the-last-city',
-    title: 'Multiverse Quad',
-    client: 'Amazon AGI',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [],
-    mainImages: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
-    ],
-    descriptor: 'Multiformat storytelling',
-    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote.\n\nDeveloped and pitched the concept to Amazon's AGI team: adapting one story from The Last City into four formats. Co-developed prototypes with AGI engineers and product lead, delivering final versions for the keynote. Worked with Go-To-Market on presentation strategy.",
-    formats: [
-        'Animated short film',
-        'Graphic novel',
-        'Visual audiobook',
-        'Podcast'
-    ],
-  },
-  {
     id: 'split-continuity',
     title: 'Split Continuity',
     client: 'Self-initiated',
@@ -122,6 +101,28 @@ export const PROJECTS: Project[] = [
     descriptor: 'VEO3.1 showcase',
     description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
+  },
+  {
+    id: 'film-rd',
+    title: 'Film Style Lab',
+    coverTitle: 'Film Style Lab',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
+    previewAutoplay: true,
+    previewHasAudio: false,
+    mainVideos: [
+       { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
+        aspectRatio: '16:9', 
+        autoplay: true,
+        loop: true,
+        showControls: true
+      }
+    ],
+    descriptor: 'Cinematic AI Research & Development',
+    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
+    tools: 'Tools: o3, Midjourney, Runway, Magnific',
   },
   {
     id: 'ai-creator-lab',
@@ -146,18 +147,25 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova, Google Labs.'
   },
   {
-    id: 'storycraft',
-    title: 'StoryCraft',
-    client: 'Wondery',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
+    id: 'the-last-city',
+    title: 'Multiverse Quad',
+    client: 'Amazon AGI',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
     previewAutoplay: true,
-    mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
+    previewHasAudio: true,
+    mainVideos: [],
+    mainImages: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
     ],
-    descriptor: 'Adaptation app',
-    description: "Built a writer's tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. Supports writer-led changes to tone, structure, and language, plus content flags and age guidance. Greenlit to pilot with Kids and Family.",
-    tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
+    descriptor: 'Multiformat storytelling',
+    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote.\n\nDeveloped and pitched the concept to Amazon's AGI team: adapting one story from The Last City into four formats. Co-developed prototypes with AGI engineers and product lead, delivering final versions for the keynote. Worked with Go-To-Market on presentation strategy.",
+    formats: [
+        'Animated short film',
+        'Graphic novel',
+        'Visual audiobook',
+        'Podcast'
+    ],
   },
   {
     id: 'news-tracker',
@@ -179,25 +187,17 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
   },
   {
-    id: 'film-rd',
-    title: 'Film Style Lab',
-    coverTitle: 'Film Style Lab',
-    client: 'Self-initiated',
+    id: 'storycraft',
+    title: 'StoryCraft',
+    client: 'Wondery',
     category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
     previewAutoplay: true,
-    previewHasAudio: false,
     mainVideos: [
-       { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
-        aspectRatio: '16:9', 
-        autoplay: true,
-        loop: true,
-        showControls: true
-      }
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
-    descriptor: 'Cinematic AI Research & Development',
-    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
-    tools: 'Tools: o3, Midjourney, Runway, Magnific',
+    descriptor: 'Adaptation app',
+    description: "Built a writer's tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. Supports writer-led changes to tone, structure, and language, plus content flags and age guidance. Greenlit to pilot with Kids and Family.",
+    tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
   }
 ];
