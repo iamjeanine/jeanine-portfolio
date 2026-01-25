@@ -80,20 +80,6 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     };
   }, []);
 
-  // Logic to close the tile on mobile when tapping outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-        if (isTouchDevice && isHovered && tileRef.current && !tileRef.current.contains(event.target as Node)) {
-            setIsHovered(false);
-        }
-    };
-    
-    document.addEventListener('click', handleClickOutside, true);
-    return () => {
-        document.removeEventListener('click', handleClickOutside, true);
-    };
-  }, [isHovered, isTouchDevice]);
-
   const handleMouseEnter = () => {
     if (!isTouchDevice) {
       setIsHovered(true);
