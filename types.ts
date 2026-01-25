@@ -23,6 +23,7 @@ export interface Project {
   client: string;
   category: 'Selected' | 'All' | 'Experiments';
   previewVideoUrl: string;
+  previewPosterUrl?: string;
   previewAutoplay?: boolean;
   previewHasAudio?: boolean;
   mainVideos: ProjectVideo[];
