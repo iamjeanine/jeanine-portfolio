@@ -1,6 +1,7 @@
 
 export interface ProjectVideo {
   url: string;
+  posterUrl?: string;
   aspectRatio: '16:9' | '9:16' | '4:3' | '1:1';
   autoplay?: boolean;
   loop?: boolean;

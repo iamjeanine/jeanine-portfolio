@@ -125,28 +125,6 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: o3, Midjourney, Runway, Magnific',
   },
   {
-    id: 'ai-creator-lab',
-    title: 'AI Creator Lab',
-    client: 'Google Labs',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2.mp4',
-    mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true },
-        { 
-          url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4', 
-          aspectRatio: '16:9',
-          autoplay: true,
-          loop: true,
-          showControls: true,
-          hasAudio: true,
-          caption: 'AI Lab Archive\n\nBuilt an online hub for the curriculum. Each module included a NotebookLM podcast walkthrough, FAQs, study guide, and original presentation. Some included recorded sessions with industry partners. Team members could learn or revisit sessions.'
-        }
-    ],
-    descriptor: "Creative workflow lab",
-    description: "Founded and launched Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Ran hands-on workshops, built learning modules, and brought in industry partners. Two projects moved from lab to production: Storycraft and two custom GPTs - one for research and media pulls, one for writing metadata across platforms.",
-    tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova, Google Labs.'
-  },
-  {
     id: 'the-last-city',
     title: 'Multiverse Quad',
     client: 'Amazon AGI',
@@ -168,6 +146,35 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'ai-creator-lab',
+    title: 'AI Creator Lab',
+    client: 'Google Labs',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2.mp4',
+    mainVideos: [
+        { 
+          url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4',
+          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Interior-poster.jpg',
+          aspectRatio: '16:9',
+          autoplay: true,
+          loop: true
+        },
+        { 
+          url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4', 
+          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub-poster.jpg',
+          aspectRatio: '16:9',
+          autoplay: true,
+          loop: true,
+          showControls: true,
+          hasAudio: true,
+          caption: 'AI Lab Archive\n\nBuilt an online hub for the curriculum. Each module included a NotebookLM podcast walkthrough, FAQs, study guide, and original presentation. Some included recorded sessions with industry partners. Team members could learn or revisit sessions.'
+        }
+    ],
+    descriptor: "Creative workflow lab",
+    description: "Founded and launched Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Ran hands-on workshops, built learning modules, and brought in industry partners. Two projects moved from lab to production: Storycraft and two custom GPTs - one for research and media pulls, one for writing metadata across platforms.",
+    tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova, Google Labs.'
+  },
+  {
     id: 'news-tracker',
     title: 'Throughline',
     coverTitle: 'Story Tracker',
@@ -177,6 +184,7 @@ export const PROJECTS: Project[] = [
     mainVideos: [
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
+        posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior-poster.jpg',
         aspectRatio: '16:9', 
         autoplay: true,
         showControls: true
