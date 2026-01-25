@@ -187,7 +187,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Sci-fi audio series pitch',
-    description: "Created an original series pitch exploring uncanny phenomena in a quarantined zone, told through survivors' fractured memories. Inspired by Missing 411 disappearances in National Parks. This is one of several mood pieces developed for the QCODE pitch. Visuals and sound added to inspire thinking beyond the audio format. Music, sound effects, and voices created with ElevenLabs.",
+    description: "Created an original series pitch exploring uncanny phenomena in a quarantined zone, told through survivors' fractured memories. Inspired by Missing 411 disappearances in National Parks.\n\nThis is one of several mood pieces developed for the QCODE pitch. Visuals and sound added to inspire thinking beyond the audio format. Music, sound effects, and voices created with ElevenLabs.",
     tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
   },
   {
