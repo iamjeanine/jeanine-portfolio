@@ -8,6 +8,49 @@ export const HERO_VIDEOS = {
 
 export const PROJECTS: Project[] = [
   {
+    id: 'the-last-city',
+    title: 'Multiverse Quad',
+    client: 'Amazon AGI',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [],
+    mainImages: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
+    ],
+    descriptor: 'Multiformat storytelling',
+    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote.\n\nDeveloped and pitched the concept to Amazon's AGI team: adapting one story from The Last City into four formats. Co-developed prototypes with AGI engineers and product lead, delivering final versions for the keynote. Worked with Go-To-Market on presentation strategy.",
+    formats: [
+        'Animated short film',
+        'Graphic novel',
+        'Visual audiobook',
+        'Podcast'
+    ],
+  },
+  {
+    id: 'film-rd',
+    title: 'Film Style Lab',
+    coverTitle: 'Film Style Lab',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
+    previewAutoplay: true,
+    previewHasAudio: false,
+    mainVideos: [
+       { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
+        aspectRatio: '16:9', 
+        autoplay: true,
+        loop: true,
+        showControls: true
+      }
+    ],
+    descriptor: 'Cinematic AI Research & Development',
+    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
+    tools: 'Tools: o3, Midjourney, Runway, Magnific',
+  },
+  {
     id: 'in-world-social-campaign',
     title: 'The Last City',
     coverTitle: 'Social Campaign',
@@ -43,19 +86,18 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
   {
-    id: 'the-anomaly-zone',
-    title: 'The Anomaly Zone',
-    client: 'Speculative',
+    id: 'podcast-mixtape',
+    title: 'Podcast Mixtape',
+    client: 'Self-initiated',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20cover.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
     previewAutoplay: true,
-    previewHasAudio: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B3-MiniDisc.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
-    descriptor: 'Sci-fi audio series pitch',
-    description: "Created an original series pitch exploring uncanny phenomena in a quarantined zone, told through survivors' fractured memories. Inspired by Missing 411 disappearances in National Parks.\n\nThis is one of several mood pieces developed for the QCODE pitch. Visuals and sound added to inspire thinking beyond the audio format.",
-    tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
+    descriptor: 'Audio discovery prototype',
+    description: "Developed the concept and built a working prototype for mood-based audio discovery. Listeners enter a feeling, AI generates a custom podcast mixtape. Designed around a vintage cassette interface.\n\nBuilt to evolve into conversational discovery where listeners share what they're going through and receive a mix that helps.",
+    tools: 'Tools: Google AI Studio (Gemini)',
   },
   {
     id: 'strange-hour',
@@ -75,20 +117,6 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
   },
   {
-    id: 'podcast-mixtape',
-    title: 'Podcast Mixtape',
-    client: 'Self-initiated',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B3-MiniDisc.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'Audio discovery prototype',
-    description: "Developed the concept and built a working prototype for mood-based audio discovery. Listeners enter a feeling, AI generates a custom podcast mixtape. Designed around a vintage cassette interface.\n\nBuilt to evolve into conversational discovery where listeners share what they're going through and receive a mix that helps.",
-    tools: 'Tools: Google AI Studio (Gemini)',
-  },
-  {
     id: 'split-continuity',
     title: 'Split Continuity',
     client: 'Self-initiated',
@@ -101,49 +129,6 @@ export const PROJECTS: Project[] = [
     descriptor: 'VEO3.1 showcase',
     description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
-  },
-  {
-    id: 'film-rd',
-    title: 'Film Style Lab',
-    coverTitle: 'Film Style Lab',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
-    previewAutoplay: true,
-    previewHasAudio: false,
-    mainVideos: [
-       { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
-        aspectRatio: '16:9', 
-        autoplay: true,
-        loop: true,
-        showControls: true
-      }
-    ],
-    descriptor: 'Cinematic AI Research & Development',
-    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
-    tools: 'Tools: o3, Midjourney, Runway, Magnific',
-  },
-  {
-    id: 'the-last-city',
-    title: 'Multiverse Quad',
-    client: 'Amazon AGI',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [],
-    mainImages: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
-    ],
-    descriptor: 'Multiformat storytelling',
-    description: "Shortlisted for Andy Jassy's AWS re:Invent keynote.\n\nDeveloped and pitched the concept to Amazon's AGI team: adapting one story from The Last City into four formats. Co-developed prototypes with AGI engineers and product lead, delivering final versions for the keynote. Worked with Go-To-Market on presentation strategy.",
-    formats: [
-        'Animated short film',
-        'Graphic novel',
-        'Visual audiobook',
-        'Podcast'
-    ],
   },
   {
     id: 'ai-creator-lab',
@@ -177,6 +162,35 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova, Google Labs.'
   },
   {
+    id: 'storycraft',
+    title: 'StoryCraft',
+    client: 'Wondery',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
+    ],
+    descriptor: 'Adaptation app',
+    description: "Built a writer's tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. Supports writer-led changes to tone, structure, and language, plus content flags and age guidance. Greenlit to pilot with Kids and Family.",
+    tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
+  },
+  {
+    id: 'the-anomaly-zone',
+    title: 'The Anomaly Zone',
+    client: 'Speculative',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20cover.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
+    ],
+    descriptor: 'Sci-fi audio series pitch',
+    description: "Created an original series pitch exploring uncanny phenomena in a quarantined zone, told through survivors' fractured memories. Inspired by Missing 411 disappearances in National Parks.\n\nThis is one of several mood pieces developed for the QCODE pitch. Visuals and sound added to inspire thinking beyond the audio format.",
+    tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
+  },
+  {
     id: 'news-tracker',
     title: 'Throughline',
     coverTitle: 'Story Tracker',
@@ -197,19 +211,5 @@ export const PROJECTS: Project[] = [
     descriptor: 'Long-tail news tracking',
     description: "Developed a concept and prototype for long-tail news tracking. Some stories flare up, disappear, then resurface. Throughline follows a single story across that entire arc, keeping reporting connected as it evolves. Built using Google's Antigravity with a four-agent workflow.",
     tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
-  },
-  {
-    id: 'storycraft',
-    title: 'StoryCraft',
-    client: 'Wondery',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'Adaptation app',
-    description: "Built a writer's tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. Supports writer-led changes to tone, structure, and language, plus content flags and age guidance. Greenlit to pilot with Kids and Family.",
-    tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
   }
 ];
