@@ -180,7 +180,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                       onMouseEnter={() => setIsMuteButtonHovered(true)}
                       onMouseLeave={() => setIsMuteButtonHovered(false)}
                       aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                      className={`p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-opacity ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                      className={`p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-opacity ${isHovered ? 'opacity-100' : 'opacity-0'} ${isTouchDevice && !isHovered ? 'pointer-events-none' : ''}`}
                     >
                       {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
                     </button>
@@ -189,7 +189,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                   <button
                     onClick={toggleMute}
                     aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                    className={`absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity ${isTouchDevice && !isHovered ? 'pointer-events-none' : ''}`}
                   >
                     {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
                   </button>
