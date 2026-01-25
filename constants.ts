@@ -100,6 +100,20 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Google AI Studio (Gemini)',
   },
   {
+    id: 'split-continuity',
+    title: 'Split Continuity',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
+    ],
+    descriptor: 'VEO3.1 showcase',
+    description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
+    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
+  },
+  {
     id: 'strange-hour',
     title: 'Unstill',
     client: 'A24 Labs',
@@ -115,20 +129,6 @@ export const PROJECTS: Project[] = [
     descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
     description: 'A museum-facing concept for turning archival collections into short, narrative experiences. Interactive web pitch with embedded pilot excerpt.\n\nReconstructed 1920s Sydney from mugshots, blueprints, and crime records. Voice, music, and sound design using ElevenLabs. Developed as proof-of-concept for pitching to museums.',
     tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
-  },
-  {
-    id: 'split-continuity',
-    title: 'Split Continuity',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'VEO3.1 showcase',
-    description: "Two-minute split-screen sequence built in VEO3. The scene extender couldn't sustain this length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Creates the effect of dual continuous shots.",
-    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   },
   {
     id: 'ai-creator-lab',
