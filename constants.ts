@@ -82,7 +82,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'In-World Social Campaign',
-    description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces played with TikTok formats and trending sounds. All voices by ElevenLabs. Two prototypes moved into production.",
+    description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces played with TikTok formats and trending sounds - the video above adapts a trending TikTok audio format from the time. All voices by ElevenLabs. Two prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
   {
