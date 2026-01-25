@@ -4,6 +4,7 @@ import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 
 interface VideoPlayerProps {
   src: string;
+  posterUrl?: string;
   aspectRatio: '16:9' | '9:16' | '4:3' | '1:1';
   autoplay?: boolean;
   loop?: boolean;
@@ -12,7 +13,7 @@ interface VideoPlayerProps {
   projectId?: string;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // A video that autoplays should start muted. A video without audio is always muted.
   const [isMuted, setIsMuted] = useState(autoplay || !hasAudio);
@@ -83,6 +84,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, aspectRatio, autoplay = 
         ref={videoRef}
         className="w-full h-full object-contain bg-black"
         src={src}
+        poster={posterUrl}
         autoPlay={autoplay}
         loop={loop}
         muted={isMuted}

@@ -108,6 +108,7 @@ const ProjectDetailPage = () => {
                 <div key={`video-container-${index}`}>
                   <VideoPlayer 
                     src={video.url} 
+                    posterUrl={video.posterUrl}
                     aspectRatio={video.aspectRatio} 
                     autoplay={video.autoplay}
                     loop={video.loop}
@@ -148,7 +149,8 @@ const ProjectDetailPage = () => {
           {project.mainVideos[0] && (
               <div key="video-container-0">
                   <VideoPlayer 
-                      src={project.mainVideos[0].url} 
+                      src={project.mainVideos[0].url}
+                      posterUrl={project.mainVideos[0].posterUrl}
                       aspectRatio={project.mainVideos[0].aspectRatio} 
                       autoplay={project.mainVideos[0].autoplay}
                       loop={project.mainVideos[0].loop}
@@ -182,6 +184,7 @@ const ProjectDetailPage = () => {
             )}
             <VideoPlayer
               src={project.mainVideos[1].url}
+              posterUrl={project.mainVideos[1].posterUrl}
               aspectRatio={project.mainVideos[1].aspectRatio}
               autoplay={project.mainVideos[1].autoplay}
               loop={project.mainVideos[1].loop}
@@ -210,6 +213,7 @@ const ProjectDetailPage = () => {
             )}
             <VideoPlayer
               src={project.mainVideos[2].url}
+              posterUrl={project.mainVideos[2].posterUrl}
               aspectRatio={project.mainVideos[2].aspectRatio}
               autoplay={project.mainVideos[2].autoplay}
               loop={project.mainVideos[2].loop}
@@ -236,6 +240,7 @@ const ProjectDetailPage = () => {
               <div key="video-container-0">
                 <VideoPlayer
                   src={project.mainVideos[0].url}
+                  posterUrl={project.mainVideos[0].posterUrl}
                   aspectRatio={project.mainVideos[0].aspectRatio}
                   autoplay={project.mainVideos[0].autoplay}
                   loop={project.mainVideos[0].loop}
@@ -259,11 +264,11 @@ const ProjectDetailPage = () => {
               <div key="video-container-1">
                 <VideoPlayer
                   src={video2.url}
+                  posterUrl={video2.posterUrl}
                   aspectRatio={video2.aspectRatio}
                   autoplay={video2.autoplay}
                   loop={video2.loop}
                   showControls={video2.showControls}
-                  // FIX: Changed `video` to `video2` to resolve a reference error.
                   hasAudio={video2.hasAudio}
                   projectId={project.id}
                 />
