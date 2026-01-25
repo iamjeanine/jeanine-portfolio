@@ -136,6 +136,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     ref={videoRef}
                     className="w-full h-full object-cover"
                     src={project.previewVideoUrl}
+                    poster={project.previewPosterUrl}
                     autoPlay={project.previewAutoplay}
                     loop
                     muted={project.previewHasAudio ? isMuted : true}

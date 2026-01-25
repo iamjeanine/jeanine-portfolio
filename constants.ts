@@ -151,6 +151,8 @@ export const PROJECTS: Project[] = [
     client: 'Google Labs',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2.mp4',
+    previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
+    previewAutoplay: true,
     mainVideos: [
         { 
           url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4',
@@ -181,6 +183,8 @@ export const PROJECTS: Project[] = [
     client: 'Google Antigravity',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4.mp4',
+    previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4-poster.jpg',
+    previewAutoplay: true,
     mainVideos: [
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
