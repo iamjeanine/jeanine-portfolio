@@ -102,6 +102,13 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   };
 
   const toggleMute = (e: React.MouseEvent) => {
+    // On touch devices, if the tile is closed, the tap should only open it.
+    // By returning early, we let the event bubble up to the parent Link's onClick (`handleTap`).
+    if (isTouchDevice && !isHovered) {
+      return;
+    }
+
+    // For desktop or when the tile is already open on mobile, toggle mute and stop propagation.
     e.preventDefault();
     e.stopPropagation();
     setIsMuted(prev => !prev);
