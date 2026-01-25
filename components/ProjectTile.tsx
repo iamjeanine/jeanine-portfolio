@@ -16,24 +16,25 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const tileRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   
   // Parallax effect logic
   const parallaxFactor = 0.05; // A small factor for a subtle effect
 
   useEffect(() => {
+    // Detect if it's a touch-only device on component mount
+    setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+
     const handleScroll = () => {
       if (tileRef.current) {
         const rect = tileRef.current.getBoundingClientRect();
-        // Check if the element is within the viewport
         if (rect.top < window.innerHeight && rect.bottom >= 0) {
-          // Calculate offset based on the element's position relative to the viewport center
           const offset = (rect.top - window.innerHeight / 2) * parallaxFactor;
           tileRef.current.style.transform = `translateY(${offset}px)`;
         }
       }
     };
     
-    // Use requestAnimationFrame to throttle scroll events for better performance
     let ticking = false;
     const scrollHandler = () => {
       if (!ticking) {
@@ -46,14 +47,12 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     };
 
     window.addEventListener('scroll', scrollHandler, { passive: true });
-    // Run once on mount to set the initial position
     handleScroll();
 
-    // Cleanup listener on component unmount
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
-  }, []); // Empty dependency array ensures this effect runs only once on mount and unmount
+  }, []);
 
   // Scroll-triggered animation
   useEffect(() => {
@@ -66,7 +65,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           }
         });
       },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
+      { threshold: 0.1 }
     );
 
     const currentTileRef = tileRef.current;
@@ -81,24 +80,38 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     };
   }, []);
 
+  // Logic to close the tile on mobile when tapping outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+        if (isTouchDevice && isHovered && tileRef.current && !tileRef.current.contains(event.target as Node)) {
+            setIsHovered(false);
+        }
+    };
+    
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+        document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [isHovered, isTouchDevice]);
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (!project.previewAutoplay && videoRef.current) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        // By adding an empty catch, we prevent unhandled promise rejection errors
-        // from appearing in the console. This is the recommended way to
-        // handle the interruption error when play() is followed quickly by pause().
-        playPromise.catch(() => {});
+    if (!isTouchDevice) {
+      setIsHovered(true);
+      if (!project.previewAutoplay && videoRef.current) {
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
       }
     }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (!project.previewAutoplay && videoRef.current) {
-      videoRef.current.pause();
+    if (!isTouchDevice) {
+      setIsHovered(false);
+      if (!project.previewAutoplay && videoRef.current) {
+        videoRef.current.pause();
+      }
     }
   };
 
@@ -106,6 +119,19 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     e.preventDefault();
     e.stopPropagation();
     setIsMuted(prev => !prev);
+  };
+
+  const handleTap = (e: React.MouseEvent) => {
+    if (isTouchDevice) {
+      if (!isHovered) {
+        e.preventDefault();
+        setIsHovered(true);
+
+        if (videoRef.current?.paused) {
+          videoRef.current.play().catch(() => {});
+        }
+      }
+    }
   };
 
   return (
@@ -117,11 +143,11 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         to={`/project/${project.id}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleTap}
         className={`block group transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
         style={{ transitionDelay: `${(index % 4) * 100}ms` }}
       >
         <div className="relative aspect-video bg-gray-200 overflow-hidden">
-            {/* Info Box - Static, will be revealed by video moving */}
             <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6">
                  <div className="overflow-hidden">
                     <h2 className={`text-base md:text-lg font-light transition-all duration-500 ease-in-out delay-100 will-change-transform will-change-opacity ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
@@ -130,7 +156,6 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 </div>
             </div>
 
-            {/* Video Container - moves on hover */}
             <div className={`absolute inset-0 transform transition-transform duration-500 ease-in-out ${isHovered ? 'translate-x-[33.33%]' : 'translate-x-0'}`}>
                 <video
                     ref={videoRef}
