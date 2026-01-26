@@ -86,18 +86,25 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
   {
-    id: 'podcast-mixtape',
-    title: 'Podcast Mixtape',
+    id: 'tender',
+    title: 'Tender',
     client: 'Self-initiated',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20Cover2.mp4',
     previewAutoplay: true,
     mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/Podcastnotitle.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
+      }
     ],
-    descriptor: 'Audio discovery prototype',
-    description: "Developed the concept and built a working prototype for mood-based audio discovery. Listeners enter a feeling, AI generates a custom podcast mixtape. Designed around a vintage cassette interface.\n\nBuilt to evolve into conversational discovery where listeners share what they're going through and receive a mix that helps.",
-    tools: 'Tools: Google AI Studio (Gemini)',
+    descriptor: 'What to read, watch, listen to',
+    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
+    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
   },
   {
     id: 'split-continuity',
@@ -191,25 +198,17 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
   },
   {
-    id: 'news-tracker',
-    title: 'Throughline',
-    coverTitle: 'Story Tracker',
-    client: 'Google Antigravity',
+    id: 'podcast-mixtape',
+    title: 'Podcast Mixtape',
+    client: 'Self-initiated',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4.mp4',
-    previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverStoryTracker4-poster.jpg',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
     previewAutoplay: true,
     mainVideos: [
-      { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior.mp4', 
-        posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Newtrackerinterior-poster.jpg',
-        aspectRatio: '16:9', 
-        autoplay: true,
-        showControls: true
-      }
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/Podcastnotitle.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
-    descriptor: 'Long-tail news tracking',
-    description: "Developed a concept and prototype for long-tail news tracking. Some stories flare up, disappear, then resurface. Throughline follows a single story across that entire arc, keeping reporting connected as it evolves. Built using Google's Antigravity with a four-agent workflow.",
-    tools: 'Tools: Antigravity (Gemini 3 Pro, Deep Think, Flash)',
-  }
+    descriptor: 'Audio discovery prototype',
+    description: "Developed the concept and built a working prototype for mood-based audio discovery. Listeners enter a feeling, AI generates a custom podcast mixtape. Designed around a vintage cassette interface.\n\nBuilt to evolve into conversational discovery where listeners share what they're going through and receive a mix that helps.",
+    tools: 'Tools: Google AI Studio (Gemini)',
+  },
 ];
