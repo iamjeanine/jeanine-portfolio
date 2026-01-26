@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
     title: 'Tender',
     client: 'Self-initiated',
     category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20Cover2.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
     previewAutoplay: true,
     mainVideos: [
       {
