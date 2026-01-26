@@ -208,7 +208,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/Podcastnotitle.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'Audio discovery prototype',
-    description: "Developed the concept and built a working prototype for mood-based audio discovery. Listeners enter a feeling, AI generates a custom podcast mixtape. Designed around a vintage cassette interface.\n\nBuilt to evolve into conversational discovery where listeners share what they're going through and receive a mix that helps.",
+    description: "I built a prototype for a different kind of podcast discovery. You describe a vibe, and it builds you a custom mixtape. Designed around a vintage cassette interface.",
     tools: 'Tools: Google AI Studio (Gemini)',
   },
 ];
