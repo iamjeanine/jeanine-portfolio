@@ -117,7 +117,7 @@ export const PROJECTS: Project[] = [
       { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
     ],
     descriptor: 'VEO3.1 showcase',
-    description: "I've always loved the long take - Touch of Evil, The Player, The Studio. I wanted to see if I could simulate that in AI video. VEO's scene extender couldn't sustain the length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Then pushed it to a two-panel split screen. Creates the effect of dual continuous shots.\n\n<a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">[Annotated version on YouTube]</a>",
+    description: "I've always loved the continuous take - Touch of Evil, The Player, The Studio. I wanted to see if I could simulate that in AI video. VEO's scene extender couldn't sustain the length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Then pushed it to a two-panel split screen. Creates the effect of dual continuous shots.\n\n<a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">[Annotated version on YouTube]</a>",
     tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
   },
   {
