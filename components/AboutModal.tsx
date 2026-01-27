@@ -46,7 +46,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <h2 id="about-title" className="text-2xl md:text-3xl font-light mb-6">About</h2>
         <div className="space-y-4 text-sm md:text-base font-light text-neutral-700">
           <p>
-            Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, video, and television.
+            Emmy and Ambie Award-winning showrunner across podcasts, video, and television.
           </p>
           <p>
             Created Scamfluencers (53M+, #1 on Apple Podcasts, Ambie Best Entertainment Podcast) and The Last City (starring Rhea Seehorn, #1 Fiction on Apple Charts in 20 countries).
