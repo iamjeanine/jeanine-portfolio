@@ -56,7 +56,7 @@ const Hero = () => {
             className={`text-base md:text-lg font-normal tracking-[0.2em] uppercase text-white mix-blend-lighten mt-4 transition-opacity duration-1000 ease-in ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
             style={{ transitionDelay: '600ms' }}
           >
-            AI Creative Producer
+            Creative Technologist
           </p>
         </div>
       </div>
