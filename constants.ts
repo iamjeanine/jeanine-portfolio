@@ -134,7 +134,7 @@ export const PROJECTS: Project[] = [
       previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Interior%20Vid%20Unstill2.mp4',
     },
     descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
-    description: "The archive records power, not truth. These mugshots tell us who was arrested, not who they were.\n\nI tried to fill in what the record left out with primary documents.\n\nSydney police archives from the 1920s. Mugshots, crime records, hand-drawn blueprints. I reconstructed the streets, interiors, and daily life around them. Built a short narrative experience as proof-of-concept for pitching to museums. ElevenLabs for music, sound effects, and narration scratch track.\n\nThe deck walks through the approach: what it means to work with archival material responsibly, how interpretation gets labeled, and why institutions might need new ways to surface collections no one sees.",
+    description: "\"The archive is a record of power, not of truth.\" — Saidiya Hartman\n\nThese mugshots tell us who was arrested, not who they were. I tried to fill in what the record left out with primary documents.\n\nSydney police archives from the 1920s. Mugshots, crime records, hand-drawn blueprints. I reconstructed the streets, interiors, and daily life around them. Built a short narrative experience as proof-of-concept for pitching to museums. ElevenLabs for music, sound effects, and narration scratch track.\n\nThe deck walks through the approach: what it means to work with archival material responsibly, how interpretation gets labeled, and why institutions might need new ways to surface collections no one sees.",
     tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
   },
   {
