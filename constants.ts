@@ -102,7 +102,7 @@ export const PROJECTS: Project[] = [
         hasAudio: true
       }
     ],
-    descriptor: 'What to read, watch, listen to',
+    descriptor: 'Culture, curated for how you feel.',
     description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
     tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
   },
