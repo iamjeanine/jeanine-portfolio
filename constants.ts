@@ -8,6 +8,49 @@ export const HERO_VIDEOS = {
 
 export const PROJECTS: Project[] = [
   {
+    id: 'tender',
+    title: 'Tender',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
+      }
+    ],
+    descriptor: 'Culture, curated for how you feel.',
+    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
+    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
+  },
+  {
+    id: 'narrative-space',
+    title: 'Narrative Space',
+    client: 'Speculative',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero%20Shot%20with%20Header.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+      { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space.mp4', 
+        aspectRatio: '16:9', 
+        autoplay: true, 
+        loop: true, 
+        showControls: true, 
+        hasAudio: true 
+      }
+    ],
+    descriptor: 'Interactive Story Bible',
+    description: "What happens when a story bible becomes a space you can walk through?\n\nI built an environment for developing narrative worlds. Characters, locations, and themes become nodes you can orbit, rearrange, and question in conversation. See your story from multiple angles. Click anything to understand how it connects.\n\nThe Writer's Room is a collaborator that knows what you've built. It can add to the world, explain the connections, or push back when something conflicts.\n\nStranger Things pitch bible used as demo.",
+    tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with Claude Code.',
+  },
+  {
     id: 'the-last-city',
     title: 'Multiverse Quad',
     client: 'Amazon AGI',
@@ -27,28 +70,6 @@ export const PROJECTS: Project[] = [
         'Visual audiobook',
         'Podcast'
     ],
-  },
-  {
-    id: 'film-rd',
-    title: 'Film Style Lab',
-    coverTitle: 'Film Style Lab',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
-    previewAutoplay: true,
-    previewHasAudio: false,
-    mainVideos: [
-       { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
-        aspectRatio: '16:9', 
-        autoplay: true,
-        loop: true,
-        showControls: true
-      }
-    ],
-    descriptor: 'Cinematic AI Research & Development',
-    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
-    tools: 'Tools: o3, Midjourney, Runway, Magnific',
   },
   {
     id: 'in-world-social-campaign',
@@ -77,65 +98,13 @@ export const PROJECTS: Project[] = [
         loop: true,
         showControls: true,
         hasAudio: true,
-        title: 'Story Bible Explorer',
+        title: 'The Last City Companion',
         subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
       }
     ],
     descriptor: 'In-World Social Campaign',
     description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces leaned into viral TikTok trends - the video above adapts one from the time. All voices by ElevenLabs. Two prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
-  },
-  {
-    id: 'tender',
-    title: 'Tender',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true
-      }
-    ],
-    descriptor: 'Culture, curated for how you feel.',
-    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
-    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
-  },
-  {
-    id: 'split-continuity',
-    title: 'Split Continuity',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'VEO3.1 showcase',
-    description: "I've always loved the continuous take - Touch of Evil, The Player, The Studio. I wanted to see if I could simulate that in AI video. VEO's scene extender couldn't sustain the length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Then pushed it to a two-panel split screen. Creates the effect of dual continuous shots.\n\n<a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">[Annotated version on YouTube]</a>",
-    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
-  },
-  {
-    id: 'strange-hour',
-    title: 'Unstill',
-    client: 'A24 Labs',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverSH2.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [],
-    interactivePitch: {
-      url: 'https://wonderylab.my.canva.site/unstill-museumpitch-pdf',
-      previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Interior%20Vid%20Unstill2.mp4',
-    },
-    descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
-    description: "\"The archive is a record of power, not of truth.\" — Saidiya Hartman\n\nThese mugshots tell us who was arrested, not who they were. I tried to fill in what the record left out with primary documents.\n\nSydney police archives from the 1920s. Mugshots, crime records, hand-drawn blueprints. I reconstructed the streets, interiors, and daily life around them. Built a short narrative experience as proof-of-concept for pitching to museums. ElevenLabs for music, sound effects, and narration scratch track.\n\nThe deck walks through the approach: what it means to work with archival material responsibly, how interpretation gets labeled, and why institutions might need new ways to surface collections no one sees.",
-    tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
   },
   {
     id: 'ai-creator-lab',
@@ -183,19 +152,57 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
   },
   {
-    id: 'the-anomaly-zone',
-    title: 'The Anomaly Zone',
-    client: 'Speculative',
+    id: 'film-rd',
+    title: 'Film Style Lab',
+    coverTitle: 'Film Style Lab',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
+    previewAutoplay: true,
+    previewHasAudio: false,
+    mainVideos: [
+       { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
+        aspectRatio: '16:9', 
+        autoplay: true,
+        loop: true,
+        showControls: true
+      }
+    ],
+    descriptor: 'Cinematic AI Research & Development',
+    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
+    tools: 'Tools: o3, Midjourney, Runway, Magnific',
+  },
+  {
+    id: 'split-continuity',
+    title: 'Split Continuity',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
+    ],
+    descriptor: 'VEO3.1 showcase',
+    description: "I've always loved the continuous take - Touch of Evil, The Player, The Studio. I wanted to see if I could simulate that in AI video. VEO's scene extender couldn't sustain the length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Then pushed it to a two-panel split screen. Creates the effect of dual continuous shots.\n\n<a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">[Annotated version on YouTube]</a>",
+    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
+  },
+  {
+    id: 'strange-hour',
+    title: 'Unstill',
+    client: 'A24 Labs',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20cover.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverSH2.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B2%20Moodpiece.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'Sci-fi audio series pitch',
-    description: "Created an original series pitch exploring uncanny phenomena in a quarantined zone, told through survivors' fractured memories. Inspired by Missing 411 disappearances in National Parks.\n\nThis is one of several mood pieces developed for the QCODE pitch. Visuals and sound added to inspire thinking beyond the audio format. Music, sound effects, and voices created with ElevenLabs.",
-    tools: 'Tools: ElevenLabs, Runway, Midjourney, Magnific, CapCut',
+    mainVideos: [],
+    interactivePitch: {
+      url: 'https://wonderylab.my.canva.site/unstill-museumpitch-pdf',
+      previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Interior%20Vid%20Unstill2.mp4',
+    },
+    descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
+    description: "\"The archive is a record of power, not of truth.\" — Saidiya Hartman\n\nThese mugshots tell us who was arrested, not who they were. I tried to fill in what the record left out with primary documents.\n\nSydney police archives from the 1920s. Mugshots, crime records, hand-drawn blueprints. I reconstructed the streets, interiors, and daily life around them. Built a short narrative experience as proof-of-concept for pitching to museums. ElevenLabs for music, sound effects, and narration scratch track.\n\nThe deck walks through the approach: what it means to work with archival material responsibly, how interpretation gets labeled, and why institutions might need new ways to surface collections no one sees.",
+    tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
   },
   {
     id: 'podcast-mixtape',

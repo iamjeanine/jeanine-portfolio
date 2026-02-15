@@ -1,6 +1,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
+import { FullscreenEnterIcon, FullscreenExitIcon } from './icons/NavigationIcons';
 
 interface VideoPlayerProps {
   src: string;
@@ -15,11 +16,13 @@ interface VideoPlayerProps {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   // A video that autoplays should start muted. A video without audio is always muted.
   const [isMuted, setIsMuted] = useState(autoplay || !hasAudio);
   const [isHovering, setIsHovering] = useState(false);
   const [showHighlightOverlay, setShowHighlightOverlay] = useState(false);
   const overlayShownRef = useRef(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -55,6 +58,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, 
     };
   }, [projectId]);
 
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, []);
+
   const getAspectRatioClass = () => {
     switch (aspectRatio) {
       case '16:9': return 'aspect-video';
@@ -70,19 +81,30 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, 
     e.stopPropagation();
     setIsMuted(prev => !prev);
   };
+  
+  const handleFullscreen = () => {
+    if (!isFullscreen) {
+      containerRef.current?.requestFullscreen().catch(err => {
+        console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
 
-  const showNativeControls = showControls && isHovering;
+  const showNativeControls = showControls && (projectId === 'narrative-space' || isHovering);
   const isSpecialElevenLabsVideo = false; // No videos use the special hover effect anymore.
 
   return (
     <div 
-      className={`relative w-full mx-auto ${getAspectRatioClass()} group`}
+      ref={containerRef}
+      className={`relative w-full mx-auto ${getAspectRatioClass()} group overflow-hidden`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       <video
         ref={videoRef}
-        className="w-full h-full object-contain bg-black"
+        className={`w-full h-full bg-black ${projectId === 'narrative-space' ? 'object-contain' : 'object-cover'}`}
         src={src}
         poster={posterUrl}
         autoPlay={autoplay}
@@ -90,6 +112,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, 
         muted={isMuted}
         playsInline
         controls={showNativeControls}
+        controlsList="nodownload"
       />
       
       {projectId === 'storycraft' && (
@@ -102,6 +125,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, 
             </h3>
           </div>
         </div>
+      )}
+
+      {projectId === 'narrative-space' && (
+        <button 
+          onClick={handleFullscreen} 
+          aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+          className={`absolute top-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-opacity duration-200 ${showNativeControls ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        >
+          {isFullscreen ? <FullscreenExitIcon /> : <FullscreenEnterIcon />}
+        </button>
       )}
 
       {hasAudio && (
