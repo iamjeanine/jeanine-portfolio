@@ -26,7 +26,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'Interactive Story Bible',
-    description: "What happens when a story bible becomes a space you can walk through?\n\nI built an environment for developing narrative worlds. Characters, locations, and themes become nodes you can orbit, rearrange, and question in conversation. See your story from multiple angles. Click anything to understand how it connects.\n\nThe Writer's Room is a collaborator that knows what you've built. It can add to the world, explain the connections, or push back when something conflicts.\n\nStranger Things pitch bible used as demo.",
+    description: "What happens when a story bible becomes a space you can walk through?\n\nI built an environment for developing narrative worlds. Characters, locations, and themes become nodes you can orbit, rearrange, and question in conversation. See your story from multiple angles. Click anything to understand how it connects.\n\nThe Writer's Room is a collaborator that knows what you've built. It can add to the world, explain the connections, or push back when something conflicts.\n\nPrototype uses the Stranger Things pitch bible as source material.",
     tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with Claude Code.',
   },
   {
