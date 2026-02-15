@@ -152,7 +152,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             <div className={`absolute inset-0 transform transition-transform duration-500 ease-in-out ${isHovered ? 'translate-x-[33.33%]' : 'translate-x-0'}`}>
                 <video
                     ref={videoRef}
-                    className="w-full h-full object-cover pointer-events-none"
+                    className={`w-full h-full pointer-events-none ${project.id === 'narrative-space' ? 'object-contain bg-black' : 'object-cover'}`}
                     src={project.previewVideoUrl}
                     poster={project.previewPosterUrl}
                     autoPlay={project.previewAutoplay}
