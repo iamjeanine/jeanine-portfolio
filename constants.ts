@@ -8,27 +8,6 @@ export const HERO_VIDEOS = {
 
 export const PROJECTS: Project[] = [
   {
-    id: 'tender',
-    title: 'Tender',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true
-      }
-    ],
-    descriptor: 'Culture, curated for how you feel.',
-    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
-    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
-  },
-  {
     id: 'narrative-space',
     title: 'Narrative Space',
     client: 'Speculative',
@@ -49,6 +28,27 @@ export const PROJECTS: Project[] = [
     descriptor: 'Interactive Story Bible',
     description: "What happens when a story bible becomes a space you can walk through?\n\nI built an environment for developing narrative worlds. Characters, locations, and themes become nodes you can orbit, rearrange, and question in conversation. See your story from multiple angles. Click anything to understand how it connects.\n\nThe Writer's Room is a collaborator that knows what you've built. It can add to the world, explain the connections, or push back when something conflicts.\n\nStranger Things pitch bible used as demo.",
     tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with Claude Code.',
+  },
+  {
+    id: 'tender',
+    title: 'Tender',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
+      }
+    ],
+    descriptor: 'Culture, curated for how you feel.',
+    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
+    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
   },
   {
     id: 'the-last-city',
