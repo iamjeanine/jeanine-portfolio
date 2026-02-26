@@ -8,6 +8,29 @@ export const HERO_VIDEOS = {
 
 export const PROJECTS: Project[] = [
   {
+    id: 'unstill',
+    title: 'Unstill',
+    client: 'A24 Labs',
+    category: 'Selected',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero%20Shot.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+      { 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Portfolio.mp4',
+        glassPlateImageUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill-Glass-Plate.jpg',
+        aspectRatio: '16:9', 
+        autoplay: true, 
+        loop: true, 
+        showControls: true, 
+        hasAudio: true 
+      }
+    ],
+    descriptor: 'Archives in motion. Interactive experience.',
+    description: `"The archive is a record of power, not of truth." That line from Saidiya Hartman is the starting point.\n\n1920s Sydney. A generation testing every boundary of the old Victorian order. What survives for most of them is the moment the system caught up. A name, a date, a charge.\n\nHover and color returns to the photograph. Click and the portrait starts breathing. Their stories are built from court records, press clippings, and the photographs themselves. Hold the loupe over the moving image and the original glass plate appears underneath. The person is always there if you look for them.\n\nSeven full stories. Below them, the collection opens up. Dozens more faces, each one carrying a fragment of the world they lived in. 2,500 photographs in the archive. 130,000 glass plate negatives. 52,000 searchable right now.\n\nBuilt around the collection at Museums of History NSW.`,
+    tools: 'Tools: React, Claude API, ElevenLabs, VEO 3.1, Nano Banana, Vite. Built with Claude Code.'
+  },
+  {
     id: 'narrative-space',
     title: 'Narrative Space',
     client: 'Speculative',
@@ -53,6 +76,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'the-last-city',
     title: 'Multiverse Quad',
+    coverTitle: 'The Last City',
     client: 'Amazon AGI',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
@@ -70,41 +94,6 @@ export const PROJECTS: Project[] = [
         'Visual audiobook',
         'Podcast'
     ],
-  },
-  {
-    id: 'in-world-social-campaign',
-    title: 'The Last City',
-    coverTitle: 'Social Campaign',
-    client: 'Wondery',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Socials3.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Prototype.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true },
-      { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Whiteboard.mp4', 
-        aspectRatio: '16:9', 
-        autoplay: true, 
-        loop: true, 
-        showControls: false,
-        title: 'Whiteboard',
-        subtitle: 'Process board used to develop concepts and test formats.'
-      },
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Story%20Bible%20Explorer.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true,
-        title: 'The Last City Companion',
-        subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
-      }
-    ],
-    descriptor: 'In-World Social Campaign',
-    description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces leaned into viral TikTok trends - the video above adapts one from the time. All voices by ElevenLabs. Two prototypes moved into production.",
-    tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.',
   },
   {
     id: 'ai-creator-lab',
@@ -150,72 +139,5 @@ export const PROJECTS: Project[] = [
     descriptor: 'Adaptation app',
     description: "Built a writer's tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. Supports writer-led changes to tone, structure, and language, plus content flags and age guidance. Greenlit to pilot with Kids and Family.",
     tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
-  },
-  {
-    id: 'film-rd',
-    title: 'Film Style Lab',
-    coverTitle: 'Film Style Lab',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Film%20Lab.mp4',
-    previewAutoplay: true,
-    previewHasAudio: false,
-    mainVideos: [
-       { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Film%20Lab.mp4',
-        aspectRatio: '16:9', 
-        autoplay: true,
-        loop: true,
-        showControls: true
-      }
-    ],
-    descriptor: 'Cinematic AI Research & Development',
-    description: "I wanted to know which cinematography tags actually work in Midjourney. So I used OpenAI's o3 to research its internal logic around film stocks, lenses, cameras, and lighting. Found about 50 prompt tags that mattered. Tested them - and these 12 showed the most dramatic shifts in look and feel.",
-    tools: 'Tools: o3, Midjourney, Runway, Magnific',
-  },
-  {
-    id: 'split-continuity',
-    title: 'Split Continuity',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-cover.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B8-2interior.mp4', aspectRatio: '16:9', autoplay: true, loop: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'VEO3.1 showcase',
-    description: "I've always loved the continuous take - Touch of Evil, The Player, The Studio. I wanted to see if I could simulate that in AI video. VEO's scene extender couldn't sustain the length, so I developed a repeatable technique: stitching 18 clips by using each ending frame as the next prompt. Then pushed it to a two-panel split screen. Creates the effect of dual continuous shots.\n\n<a href=\"https://www.youtube.com/watch?v=-VUlz4VmdRU\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-[#2C4A3C] transition-colors\">[Annotated version on YouTube]</a>",
-    tools: 'Tools: VEO 3.1, Nano Banana, ChatGPT, ElevenLabs.'
-  },
-  {
-    id: 'strange-hour',
-    title: 'Unstill',
-    client: 'A24 Labs',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverSH2.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [],
-    interactivePitch: {
-      url: 'https://wonderylab.my.canva.site/unstill-museumpitch-pdf',
-      previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Interior%20Vid%20Unstill2.mp4',
-    },
-    descriptor: 'Archives in Motion - interactive web pitch + pilot excerpt',
-    description: "\"The archive is a record of power, not of truth.\" — Saidiya Hartman\n\nThese mugshots tell us who was arrested, not who they were. I tried to fill in what the record left out with primary documents.\n\nSydney police archives from the 1920s. Mugshots, crime records, hand-drawn blueprints. I reconstructed the streets, interiors, and daily life around them. Built a short narrative experience as proof-of-concept for pitching to museums. ElevenLabs for music, sound effects, and narration scratch track.\n\nThe deck walks through the approach: what it means to work with archival material responsibly, how interpretation gets labeled, and why institutions might need new ways to surface collections no one sees.",
-    tools: 'Tools: ElevenLabs, Midjourney, Nano Banana, Runway, Veo 3.1, CapCut'
-  },
-  {
-    id: 'podcast-mixtape',
-    title: 'Podcast Mixtape',
-    client: 'Self-initiated',
-    category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/Podcastnotitle.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
-    ],
-    descriptor: 'Audio discovery prototype',
-    description: "I wanted podcast discovery to feel more like asking a friend than scrolling a grid. Describe a vibe or what you're in the mood for, build a library over time. So I built it myself. The cassette interface brings back something tactile. A reminder that curation used to feel personal.",
-    tools: 'Tools: Google AI Studio (Gemini)',
   },
 ];
