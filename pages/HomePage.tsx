@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
     <main className="bg-[#f8f8f8]">
       <Hero />
-      <ProjectGrid onAboutClick={() => setIsAboutOpen(true)} />
+      <ProjectGrid />
       <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
     </main>
   );
