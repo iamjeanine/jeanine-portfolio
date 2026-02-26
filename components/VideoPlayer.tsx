@@ -6,6 +6,7 @@ import { FullscreenEnterIcon, FullscreenExitIcon } from './icons/NavigationIcons
 interface VideoPlayerProps {
   src: string;
   posterUrl?: string;
+  glassPlateImageUrl?: string;
   aspectRatio: '16:9' | '9:16' | '4:3' | '1:1';
   autoplay?: boolean;
   loop?: boolean;
@@ -14,7 +15,7 @@ interface VideoPlayerProps {
   projectId?: string;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   // A video that autoplays should start muted. A video without audio is always muted.
@@ -114,6 +115,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, aspectRatio, 
         controls={showNativeControls}
         controlsList="nodownload"
       />
+
+      {glassPlateImageUrl && (
+        <div 
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out pointer-events-none ${isHovering ? 'opacity-100' : 'opacity-0'}`}
+          style={{ backgroundImage: `url(${glassPlateImageUrl})` }}
+        >
+          <div className="absolute inset-0 backdrop-blur-sm bg-black/10"></div>
+        </div>
+      )}
       
       {projectId === 'storycraft' && (
         <div 

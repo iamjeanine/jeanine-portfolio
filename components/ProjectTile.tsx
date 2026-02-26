@@ -15,70 +15,11 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const [isMuteButtonHovered, setIsMuteButtonHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const tileRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   
-  // Parallax effect logic
-  const parallaxFactor = 0.05; // A small factor for a subtle effect
 
-  useEffect(() => {
-    // Detect if it's a touch-only device on component mount
-    setIsTouchDevice(window.matchMedia('(hover: none)').matches);
 
-    const handleScroll = () => {
-      if (tileRef.current) {
-        const rect = tileRef.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom >= 0) {
-          const offset = (rect.top - window.innerHeight / 2) * parallaxFactor;
-          tileRef.current.style.transform = `translateY(${offset}px)`;
-        }
-      }
-    };
-    
-    let ticking = false;
-    const scrollHandler = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
 
-    window.addEventListener('scroll', scrollHandler, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', scrollHandler);
-    };
-  }, []);
-
-  // Scroll-triggered animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentTileRef = tileRef.current;
-    if (currentTileRef) {
-      observer.observe(currentTileRef);
-    }
-
-    return () => {
-      if (currentTileRef) {
-        observer.unobserve(currentTileRef);
-      }
-    };
-  }, []);
 
   const handleMouseEnter = () => {
     if (!isTouchDevice) {
@@ -130,15 +71,14 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   return (
     <div 
         ref={tileRef}
-        className="relative will-change-transform"
+        className="relative"
     >
       <Link 
         to={`/project/${project.id}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleTap}
-        className={`block group transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-        style={{ transitionDelay: `${(index % 4) * 100}ms` }}
+        className={`block group`}
       >
         <div className="relative aspect-video bg-gray-200 overflow-hidden">
             <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6">
