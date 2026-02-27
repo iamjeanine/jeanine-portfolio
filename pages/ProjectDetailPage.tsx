@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { PROJECTS } from '../constants';
 import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
-import { CloseIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
+import { BackIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
 
 
 // Reusable component for the text block
@@ -297,8 +297,9 @@ const ProjectDetailPage = () => {
       <div className="w-full minh-screen p-4 md:p-8 flex flex-col">
         {/* Header */}
         <header className="flex justify-end items-center w-full mb-8 shrink-0">
-          <button onClick={handleClose} className="text-neutral-600 hover:text-[#2C4A3C] transition-colors">
-            <CloseIcon />
+          <button onClick={handleClose} className="group flex items-center space-x-2 text-neutral-600 hover:text-[#2C4A3C] transition-colors">
+            <BackIcon />
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm">Work</span>
           </button>
         </header>
 
