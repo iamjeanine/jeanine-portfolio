@@ -6,9 +6,10 @@ import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [scrollMuted, setScrollMuted] = useState(false);
+  const isMutedRef = useRef(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const scrollMutedRef = useRef(false);
 
   const handleVideoReady = () => {
     setIsLoaded(true);
@@ -17,7 +18,12 @@ const Hero = () => {
   const toggleMute = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsMuted(prev => !prev);
+    const next = !isMutedRef.current;
+    isMutedRef.current = next;
+    setIsMuted(next);
+    if (videoRef.current) {
+      videoRef.current.muted = next || scrollMutedRef.current;
+    }
   };
 
   // Scroll-triggered recession: sets CSS custom property, zero re-renders
@@ -26,12 +32,19 @@ const Hero = () => {
     if (!hero) return;
 
     const handleScroll = () => {
-      const rect = hero.getBoundingClientRect();
-      const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+      const heroHeight = hero.offsetHeight;
+      const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
       hero.style.setProperty('--scroll', String(progress));
 
-      // Mute hero audio when scrolled past halfway
-      setScrollMuted(progress > 0.5);
+      // Mute hero audio when scrolled past halfway — set imperatively
+      const shouldScrollMute = progress > 0.5;
+      if (shouldScrollMute !== scrollMutedRef.current) {
+        scrollMutedRef.current = shouldScrollMute;
+        if (videoRef.current) {
+          // Mute if scrolled past OR user manually muted; unmute only if both are false
+          videoRef.current.muted = shouldScrollMute || isMutedRef.current;
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -60,7 +73,7 @@ const Hero = () => {
           poster={HERO_VIDEOS.posterUrl}
           autoPlay
           loop
-          muted={isMuted || scrollMuted}
+          muted={isMuted}
           playsInline
           preload="auto"
           onPlaying={handleVideoReady}
