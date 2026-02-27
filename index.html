@@ -42,6 +42,52 @@
           background-position: -200% center;
         }
       }
+
+      /* Film grain */
+      @keyframes grain {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -10%); }
+        20% { transform: translate(-15%, 5%); }
+        30% { transform: translate(7%, -25%); }
+        40% { transform: translate(-5%, 25%); }
+        50% { transform: translate(-15%, 10%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(3%, 35%); }
+        90% { transform: translate(-10%, 10%); }
+      }
+
+      /* View transitions */
+      ::view-transition-old(project-hero),
+      ::view-transition-new(project-hero) {
+        animation-duration: 0.45s;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      ::view-transition-old(root) {
+        animation: vt-fade-out 0.2s ease-out both;
+      }
+
+      ::view-transition-new(root) {
+        animation: vt-fade-in 0.3s ease-in 0.1s both;
+      }
+
+      @keyframes vt-fade-out {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+
+      @keyframes vt-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .grain-overlay { animation: none !important; }
+        ::view-transition-old(*),
+        ::view-transition-new(*) { animation-duration: 0.01s !important; }
+      }
     </style>
   <script type="importmap">
 {

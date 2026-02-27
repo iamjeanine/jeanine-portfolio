@@ -1,10 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { PROJECTS } from '../constants';
+import { PROJECTS, getVisibleProjects } from '../constants';
 import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
 import { BackIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
+import { useViewTransitionNavigate } from '../hooks/useViewTransition';
 
 
 // Reusable component for the text block
@@ -44,6 +45,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
 const ProjectDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const vtNavigate = useViewTransitionNavigate();
   const [project, setProject] = useState<Project | null>(null);
   const [projectIndex, setProjectIndex] = useState(-1);
   const [isClosing, setIsClosing] = useState(false);
@@ -66,21 +68,28 @@ const ProjectDetailPage = () => {
     
 
   const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => navigate('/'), 300); // Match transition duration
+    if (!(document as any).startViewTransition) {
+      // Fallback for browsers without View Transitions API
+      setIsClosing(true);
+      setTimeout(() => navigate('/'), 300);
+      return;
+    }
+    vtNavigate('/');
   };
   
   if (!project) {
     return null; 
   }
 
-  const prevProject = projectIndex > 0 ? PROJECTS[projectIndex - 1] : PROJECTS[PROJECTS.length - 1];
-  const nextProject = projectIndex < PROJECTS.length - 1 ? PROJECTS[projectIndex + 1] : PROJECTS[0];
+  const visibleProjects = getVisibleProjects();
+  const visibleIndex = visibleProjects.findIndex(p => p.id === id);
+  const prevProject = visibleIndex > 0 ? visibleProjects[visibleIndex - 1] : visibleProjects[visibleProjects.length - 1];
+  const nextProject = visibleIndex < visibleProjects.length - 1 ? visibleProjects[visibleIndex + 1] : visibleProjects[0];
   
   const renderDefaultLayout = () => (
     <>
       {project.interactivePitch ? (
-         <div className="w-full max-w-5xl">
+         <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
             <a 
                 href={project.interactivePitch.url} 
                 target="_blank" 
@@ -109,7 +118,7 @@ const ProjectDetailPage = () => {
       ) : (
         <div className="w-full max-w-5xl space-y-8">
             {project.mainVideos.map((video, index) => (
-                <div key={`video-container-${index}`}>
+                <div key={`video-container-${index}`} style={index === 0 ? { viewTransitionName: 'project-hero' } as React.CSSProperties : undefined}>
                   <VideoPlayer 
                     src={video.url} 
                     posterUrl={video.posterUrl}
@@ -126,7 +135,8 @@ const ProjectDetailPage = () => {
                   )}
                 </div>
             ))}
-            {project.mainImages && project.mainImages.map((image, index) => {
+            {project.mainImages && project.mainImages.map((image, index: number) => {
+              const needsTransitionName = project.mainVideos.length === 0 && index === 0;
               const getAspectRatioClass = () => {
                 switch (image.aspectRatio) {
                   case '16:9': return 'aspect-video';
@@ -137,7 +147,7 @@ const ProjectDetailPage = () => {
                 }
               };
               return (
-                <div key={`image-${index}`} className={`relative w-full mx-auto ${getAspectRatioClass()}`}>
+                <div key={`image-${index}`} className={`relative w-full mx-auto ${getAspectRatioClass()}`} style={needsTransitionName ? { viewTransitionName: 'project-hero' } as React.CSSProperties : undefined}>
                   <img src={image.url} alt={`${project?.title} content`} className="w-full h-full object-contain bg-black" loading="lazy" />
                 </div>
               )
@@ -152,7 +162,7 @@ const ProjectDetailPage = () => {
     <>
       <div className="w-full max-w-5xl">
           {project.mainVideos[0] && (
-              <div key="video-container-0">
+              <div key="video-container-0" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
                   <VideoPlayer 
                       src={project.mainVideos[0].url}
                       posterUrl={project.mainVideos[0].posterUrl}
@@ -242,7 +252,7 @@ const ProjectDetailPage = () => {
         <>
           <div className="w-full max-w-5xl">
             {project.mainVideos[0] && (
-              <div key="video-container-0">
+              <div key="video-container-0" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
                 <VideoPlayer
                   src={project.mainVideos[0].url}
                   posterUrl={project.mainVideos[0].posterUrl}
@@ -261,7 +271,7 @@ const ProjectDetailPage = () => {
               </div>
             )}
           </div>
-    
+
           <ProjectTextBlock project={project} />
     
           <div className="w-full max-w-5xl mt-8 md:mt-12">
@@ -293,8 +303,11 @@ const ProjectDetailPage = () => {
   }
 
   return (
-    <div className={`fixed inset-0 bg-[#f8f8f8] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}>
-      <div className="w-full minh-screen p-4 md:p-8 flex flex-col">
+    <div
+      className={`fixed inset-0 bg-[#f8f8f8] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
+      style={{ overscrollBehavior: 'contain', willChange: 'scroll-position' }}
+    >
+      <div className="w-full min-h-screen p-4 md:p-8 flex flex-col" style={{ contain: 'layout' }}>
         {/* Header */}
         <header className="flex justify-end items-center w-full mb-8 shrink-0">
           <button onClick={handleClose} className="group flex items-center space-x-2 text-neutral-600 hover:text-[#2C4A3C] transition-colors">

@@ -6,6 +6,8 @@ export const HERO_VIDEOS = {
   posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero-poster.jpg',
 };
 
+export const getVisibleProjects = () => PROJECTS.filter(p => p.category === 'Selected' || p.category === 'Experiments');
+
 export const PROJECTS: Project[] = [
   {
     id: 'unstill',
@@ -74,7 +76,7 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
   },
   {
-    id: 'the-last-city',
+    id: 'multiverse-quad',
     title: 'Multiverse Quad',
     client: 'Amazon AGI',
     category: 'Selected',
@@ -141,9 +143,11 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'in-world-social-campaign',
-    title: 'The Last City',
+    title: 'In-World Social Campaign',
+    coverTitle: 'In-World Socials',
     client: 'Wondery',
     category: 'Experiments',
+    descriptor: 'The Last City',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Socials3.mp4',
     previewAutoplay: true,
     mainVideos: [
@@ -176,7 +180,6 @@ export const PROJECTS: Project[] = [
             subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
         }
     ],
-    descriptor: "In-World Social Campaign",
     description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces leaned into viral TikTok trends - the video above adapts one from the time. All voices by ElevenLabs. Two prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.'
   },
