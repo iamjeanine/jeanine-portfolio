@@ -1,31 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Hero from '../components/Hero';
 import ProjectGrid from '../components/ProjectGrid';
 import AboutModal from '../components/AboutModal';
-import ScrollCue from '../components/ScrollCue';
 import { useIntersectionReveal } from '../hooks/useIntersectionReveal';
 
 const HomePage = () => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const { ref: closingRef, isVisible: closingVisible } = useIntersectionReveal({ threshold: 0.3 });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setHasScrolled(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <main className="bg-[#f8f8f8]">
       <Hero />
-      {!hasScrolled && <ScrollCue />}
       {/* Grid sits above the sticky hero in z-order */}
       <div className="relative" style={{ zIndex: 2 }}>
         <ProjectGrid />
