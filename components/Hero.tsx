@@ -2,10 +2,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { HERO_VIDEOS } from '../constants';
 import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
+import ScrollCue from './ScrollCue';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const isMutedRef = useRef(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -46,6 +48,8 @@ const Hero = () => {
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
       hero.style.setProperty('--scroll', String(progress));
+
+      if (window.scrollY > 50 && !hasScrolled) setHasScrolled(true);
 
       // Fade hero audio out as user scrolls (30%–60% scroll range)
       if (videoRef.current && !isMutedRef.current) {
@@ -144,6 +148,7 @@ const Hero = () => {
           </button>
         </div>
       </div>
+      {!hasScrolled && <ScrollCue />}
     </div>
   );
 };
