@@ -36,15 +36,25 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       aria-modal="true"
       aria-labelledby="about-title"
     >
-      <div 
-        className="bg-[#f8f8f8] p-8 md:p-12 max-w-2xl w-full relative overflow-y-auto max-h-[90vh]"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+      <div
+        className="bg-neutral-900 p-8 md:p-12 max-w-2xl w-full relative overflow-y-auto max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-600 hover:text-[#2C4A3C] transition-colors" aria-label="Close about section">
+        {/* Grain texture inside modal */}
+        <div
+          className="grain-overlay absolute inset-0 pointer-events-none mix-blend-overlay rounded-none"
+          style={{
+            opacity: 0.03,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: '256px 256px',
+            animation: 'grain 0.5s steps(6) infinite',
+          }}
+        />
+        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors" aria-label="Close about section">
           <CloseIcon />
         </button>
-        <h2 id="about-title" className="text-2xl md:text-3xl font-light mb-6">About</h2>
-        <div className="space-y-4 text-sm md:text-base font-light text-neutral-700">
+        <h2 id="about-title" className="text-2xl md:text-3xl font-serif text-white mb-6">About</h2>
+        <div className="space-y-4 text-sm md:text-base font-light text-neutral-300">
           <p>
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
@@ -57,11 +67,11 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <p>
             Now building narrative experiences, story tools, and interactive prototypes with AI.
           </p>
-          <p className="pt-2">
-            <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2C4A3C] transition-colors">LinkedIn</a>
-            <span className="mx-2 text-neutral-400">/</span>
-            <a href="mailto:iamjeanine@me.com" className="underline hover:text-[#2C4A3C] transition-colors">Email</a>
-          </p>
+          <div className="border-t border-neutral-800 pt-4 mt-6">
+            <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors underline">LinkedIn</a>
+            <span className="mx-2 text-neutral-600">/</span>
+            <a href="mailto:iamjeanine@me.com" className="text-neutral-400 hover:text-white transition-colors underline">Email</a>
+          </div>
         </div>
       </div>
     </div>
