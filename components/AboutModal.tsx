@@ -46,19 +46,16 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <h2 id="about-title" className="text-2xl md:text-3xl font-light mb-6">About</h2>
         <div className="space-y-4 text-sm md:text-base font-light text-neutral-700">
           <p>
-            Emmy and Ambie Award-winning showrunner across podcasts, video, and television.
+            Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
           <p>
-            Created Scamfluencers (53M+, #1 on Apple Podcasts, Ambie Best Entertainment Podcast) and The Last City (starring Rhea Seehorn, #1 Fiction on Apple Charts in 20 countries).
+            Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (FX limited series, 9 Primetime Emmy nominations). Created The Last City (#1 Apple Fiction in 20 countries).
           </p>
           <p>
-            Producer on Dying for Sex (Apple and Ambie Podcast of the Year), adapted as an FX series starring Michelle Williams with 9 Emmy nominations.
+            Founded Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Multiple projects moved from lab to production.
           </p>
           <p>
-            At Wondery, founded and scaled the AI Creator Lab from 4 to 50+ people across content, marketing, product, and ad sales.
-          </p>
-          <p>
-            I build new ways to tell stories and help teams bring them to life.
+            Now building narrative experiences, story tools, and interactive prototypes with AI.
           </p>
           <p className="pt-2">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2C4A3C] transition-colors">LinkedIn</a>

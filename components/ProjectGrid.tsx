@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { PROJECTS } from '../constants';
+import { getVisibleProjects } from '../constants';
 import ProjectTile from './ProjectTile';
 
 const ProjectGrid: React.FC = () => {
 
-  const projectsToShow = PROJECTS.filter(p => p.category === 'Selected' || p.category === 'Experiments');
+  const projectsToShow = getVisibleProjects();
 
   return (
     <div className="w-full bg-[#f8f8f8] px-6 py-12">

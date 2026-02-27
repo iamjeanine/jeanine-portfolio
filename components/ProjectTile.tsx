@@ -1,8 +1,9 @@
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import type { Project } from '../types';
-import { Link } from 'react-router-dom';
 import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
+import { useIntersectionReveal } from '../hooks/useIntersectionReveal';
+import { useViewTransitionNavigate } from '../hooks/useViewTransition';
 
 interface ProjectTileProps {
   project: Project;
@@ -12,14 +13,11 @@ interface ProjectTileProps {
 const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [isMuteButtonHovered, setIsMuteButtonHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const tileRef = useRef<HTMLDivElement>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  
-
-
-
+  const [isTouchDevice] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const { ref: tileRef, isVisible } = useIntersectionReveal();
+  const vtNavigate = useViewTransitionNavigate();
 
   const handleMouseEnter = () => {
     if (!isTouchDevice) {
@@ -43,53 +41,63 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   };
 
   const toggleMute = (e: React.MouseEvent) => {
-    // On touch devices, if the tile is closed, the tap should only open it.
-    // By returning early, we let the event bubble up to the parent Link's onClick (`handleTap`).
     if (isTouchDevice && !isHovered) {
       return;
     }
-
-    // For desktop or when the tile is already open on mobile, toggle mute and stop propagation.
     e.preventDefault();
     e.stopPropagation();
     setIsMuted(prev => !prev);
   };
 
-  const handleTap = (e: React.MouseEvent) => {
-    if (isTouchDevice) {
-      if (!isHovered) {
-        e.preventDefault();
-        setIsHovered(true);
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
 
-        if (videoRef.current?.paused) {
-          videoRef.current.play().catch(() => {});
-        }
+    // Touch devices: first tap expands tile, second tap navigates
+    if (isTouchDevice && !isHovered) {
+      setIsHovered(true);
+      if (videoRef.current?.paused) {
+        videoRef.current.play().catch(() => {});
       }
+      return;
     }
+
+    // Set transition name on this tile's video container before navigating
+    setIsTransitioning(true);
+    vtNavigate(`/project/${project.id}`);
   };
 
   return (
-    <div 
-        ref={tileRef}
-        className="relative"
+    <div
+      ref={tileRef}
+      className={`relative transition-all duration-700 ease-out ${
+        isVisible
+          ? 'opacity-100 translate-y-0 scale-100'
+          : 'opacity-0 translate-y-8 scale-[0.97]'
+      }`}
+      style={{ transitionDelay: `${(index % 2) * 100}ms` }}
     >
-      <Link 
-        to={`/project/${project.id}`}
+      <a
+        href={`#/project/${project.id}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={handleTap}
-        className={`block group`}
+        onClick={handleClick}
+        className="block group"
       >
         <div className="relative aspect-video bg-gray-200 overflow-hidden">
-            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6">
+            {/* Title overlay — left side */}
+            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6 z-[2]">
                  <div className="overflow-hidden">
-                    <h2 className={`text-base md:text-lg font-sans font-light transition-all duration-500 ease-in-out delay-100 will-change-transform will-change-opacity ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                    <h2 className={`text-base md:text-lg font-sans font-light transition-all duration-500 ease-in-out delay-100 will-change-transform ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
                         {project.coverTitle || project.title}
                     </h2>
                 </div>
             </div>
 
-            <div className={`absolute inset-0 transform transition-transform duration-500 ease-in-out ${isHovered ? 'translate-x-[15%]' : 'translate-x-0'} group-hover:scale-105`}>
+            {/* Video container — shifts right on hover, view-transition-name on click */}
+            <div
+              className={`absolute inset-0 transform transition-all duration-500 ease-in-out ${isHovered ? 'translate-x-[15%]' : 'translate-x-0'} group-hover:scale-105`}
+              style={{ viewTransitionName: isTransitioning ? 'project-hero' : 'none' } as React.CSSProperties}
+            >
                 <video
                     ref={videoRef}
                     className={`w-full h-full pointer-events-none ${project.id === 'narrative-space' ? 'object-contain bg-black' : 'object-cover'}`}
@@ -100,43 +108,33 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     muted={project.previewHasAudio ? isMuted : true}
                     playsInline
                     preload={index < 5 ? "auto" : "metadata"}
+                    style={{
+                      filter: isHovered ? 'saturate(1) brightness(1)' : 'saturate(0.6) brightness(0.85)',
+                      transition: 'filter 600ms ease-out',
+                    }}
                 />
             </div>
-             {project.previewHasAudio && (
-                project.id === 'the-anomaly-zone' ? (
-                  <div className="absolute bottom-4 right-4 z-10 flex items-center">
-                    <div className={`mr-2 overflow-hidden transition-opacity duration-300 ${isMuteButtonHovered ? 'opacity-100' : 'opacity-0'}`}>
-                      <div className={`transition-transform duration-500 ease-out ${isMuteButtonHovered ? 'translate-y-0' : 'translate-y-full'}`}>
-                        <span
-                          className={`block font-serif text-xs whitespace-nowrap bg-gradient-to-r from-white/70 via-white to-white/70 [background-size:200%_auto] bg-clip-text text-transparent ${isMuteButtonHovered ? 'animate-[shimmer_0.8s_ease-out]' : ''}`}
-                          aria-hidden="true"
-                        >
-                          ElevenLabs music
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={toggleMute}
-                      onMouseEnter={() => setIsMuteButtonHovered(true)}
-                      onMouseLeave={() => setIsMuteButtonHovered(false)}
-                      aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                      className={`p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-opacity ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                    >
-                      {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={toggleMute}
-                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
-                  </button>
-                )
+
+            {/* Vignette overlay — lifts on hover */}
+            <div
+              className={`absolute inset-0 pointer-events-none z-[1] transition-opacity duration-600 ease-out ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+              style={{
+                background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%)',
+              }}
+            />
+
+            {/* Mute button — audio tiles only */}
+            {project.previewHasAudio && (
+                <button
+                  onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                  className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
+                </button>
             )}
         </div>
-      </Link>
+      </a>
     </div>
   );
 };
