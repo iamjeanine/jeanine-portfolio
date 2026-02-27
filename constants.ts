@@ -179,5 +179,26 @@ export const PROJECTS: Project[] = [
     descriptor: "In-World Social Campaign",
     description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces leaned into viral TikTok trends - the video above adapts one from the time. All voices by ElevenLabs. Two prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.'
+  },
+  {
+    id: 'podcast-mixtape',
+    title: 'Podcast Mixtape',
+    client: 'Experiments',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+        {
+            url: 'https://storage.googleapis.com/jeanine-portfolio-video/Podcastnotitle.mp4',
+            aspectRatio: '16:9',
+            autoplay: true,
+            loop: true,
+            showControls: true,
+            hasAudio: true
+        }
+    ],
+    descriptor: 'Audio discovery prototype',
+    description: "I wanted podcast discovery to feel more like asking a friend than scrolling a grid. Describe a vibe or what you're in the mood for, build a library over time. So I built it myself. The cassette interface brings back something tactile. A reminder that curation used to feel personal.",
+    tools: 'Tools: Google AI Studio - Build (Gemini)'
   }
 ];
