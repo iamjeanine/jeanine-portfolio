@@ -137,7 +137,8 @@ const Hero = () => {
           <button
             onClick={toggleMute}
             aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-            className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white transition-all"
+            className={`p-2 rounded-full backdrop-blur-sm text-white transition-all ${isMuted ? 'bg-white/15 hover:bg-white/25' : 'bg-white/10 hover:bg-white/20'}`}
+            style={isLoaded && isMuted ? { animation: 'mute-pulse 2s ease-out 1.8s 1' } : undefined}
           >
             {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
           </button>
