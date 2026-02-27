@@ -9,7 +9,6 @@ const Hero = () => {
   const isMutedRef = useRef(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const scrollMutedRef = useRef(false);
 
   const handleVideoReady = () => {
     setIsLoaded(true);
@@ -22,7 +21,19 @@ const Hero = () => {
     isMutedRef.current = next;
     setIsMuted(next);
     if (videoRef.current) {
-      videoRef.current.muted = next || scrollMutedRef.current;
+      if (next) {
+        videoRef.current.muted = true;
+      } else {
+        videoRef.current.muted = false;
+        // Set volume based on current scroll position
+        const hero = heroRef.current;
+        if (hero) {
+          const progress = Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1);
+          const fadeStart = 0.3;
+          const fadeEnd = 0.6;
+          videoRef.current.volume = progress <= fadeStart ? 1 : progress >= fadeEnd ? 0 : 1 - (progress - fadeStart) / (fadeEnd - fadeStart);
+        }
+      }
     }
   };
 
@@ -36,13 +47,18 @@ const Hero = () => {
       const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
       hero.style.setProperty('--scroll', String(progress));
 
-      // Mute hero audio when scrolled past halfway — set imperatively
-      const shouldScrollMute = progress > 0.5;
-      if (shouldScrollMute !== scrollMutedRef.current) {
-        scrollMutedRef.current = shouldScrollMute;
-        if (videoRef.current) {
-          // Mute if scrolled past OR user manually muted; unmute only if both are false
-          videoRef.current.muted = shouldScrollMute || isMutedRef.current;
+      // Fade hero audio out as user scrolls (30%–60% scroll range)
+      if (videoRef.current && !isMutedRef.current) {
+        const fadeStart = 0.3;
+        const fadeEnd = 0.6;
+        if (progress <= fadeStart) {
+          videoRef.current.volume = 1;
+          videoRef.current.muted = false;
+        } else if (progress >= fadeEnd) {
+          videoRef.current.volume = 0;
+        } else {
+          videoRef.current.muted = false;
+          videoRef.current.volume = 1 - (progress - fadeStart) / (fadeEnd - fadeStart);
         }
       }
     };
