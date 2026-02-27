@@ -43,6 +43,13 @@
         }
       }
 
+      /* Mute button pulse — single soft glow to draw attention */
+      @keyframes mute-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+        50% { box-shadow: 0 0 12px 4px rgba(255,255,255,0.2); }
+        100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+      }
+
       /* Film grain */
       @keyframes grain {
         0%, 100% { transform: translate(0, 0); }
