@@ -16,7 +16,6 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero%20Shot.mp4',
     previewAutoplay: true,
-    previewHasAudio: true,
     mainVideos: [
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Portfolio.mp4',
@@ -39,7 +38,6 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero%20Shot%20with%20Header.mp4',
     previewAutoplay: true,
-    previewHasAudio: true,
     mainVideos: [
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/NarrativeSpace%202.16.mp4', 
@@ -150,6 +148,7 @@ export const PROJECTS: Project[] = [
     descriptor: 'The Last City',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Socials3.mp4',
     previewAutoplay: true,
+    previewHasAudio: true,
     mainVideos: [
         {
             url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Prototype.mp4',
