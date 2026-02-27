@@ -42,3 +42,9 @@ export const FullscreenExitIcon = () => (
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 9L3.75 3.75M3.75 3.75v4.5m0-4.5h4.5m12 6L20.25 3.75m0 0v4.5m0-4.5h-4.5M9 15l-5.25 5.25m0 0v-4.5m0 4.5h4.5m12-6l-5.25 5.25m0 0v-4.5m0 4.5h4.5" />
     </svg>
 );
+
+export const BackIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+);

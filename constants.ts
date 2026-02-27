@@ -27,7 +27,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'Archives in motion. Interactive experience.',
-    description: `"The archive is a record of power, not of truth." That line from Saidiya Hartman is the starting point.\n\n1920s Sydney. A generation testing every boundary of the old Victorian order. What survives for most of them is the moment the system caught up. A name, a date, a charge.\n\nHover and color returns to the photograph. Click and the portrait starts breathing. Their stories are built from court records, press clippings, and the photographs themselves. Hold the loupe over the moving image and the original glass plate appears underneath. The person is always there if you look for them.\n\nSeven full stories. Below them, the collection opens up. Dozens more faces, each one carrying a fragment of the world they lived in. 2,500 photographs in the archive. 130,000 glass plate negatives. 52,000 searchable right now.\n\nBuilt around the collection at Museums of History NSW.`,
+    description: `"The archive is a record of power, not of truth." That line from Saidiya Hartman is the starting point. \n\n1920s Sydney. A generation testing every boundary of the old Victorian order. What survives for most of them is the moment the system caught up. A name, a date, a charge. Hover and color returns to the photograph. Click and the portrait starts breathing. Their stories are built from court records, press clippings, and the photographs themselves. Hold the loupe over the moving image and the original glass plate appears underneath. \n\nThe person is always there if you look for them. \n\nSeven full stories. Then a dozen more faces from the Museums of History NSW collection — each one a fragment of the world they carried.\n\nBuilt as a proposal for Museums of History NSW.`,
     tools: 'Tools: React, Claude API, ElevenLabs, VEO 3.1, Nano Banana, Vite. Built with Claude Code.'
   },
   {
@@ -76,7 +76,6 @@ export const PROJECTS: Project[] = [
   {
     id: 'the-last-city',
     title: 'Multiverse Quad',
-    coverTitle: 'The Last City',
     client: 'Amazon AGI',
     category: 'Selected',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
@@ -140,4 +139,45 @@ export const PROJECTS: Project[] = [
     description: "Built a writer's tool for adapting Wondery narrative series into kids and family adventures. Developed with titles like Against the Odds in mind. Supports writer-led changes to tone, structure, and language, plus content flags and age guidance. Greenlit to pilot with Kids and Family.",
     tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
   },
+  {
+    id: 'in-world-social-campaign',
+    title: 'The Last City',
+    client: 'Wondery',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Socials3.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+        {
+            url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Prototype.mp4',
+            aspectRatio: '16:9',
+            autoplay: true,
+            loop: true,
+            showControls: true,
+            hasAudio: true
+        },
+        {
+            url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Whiteboard.mp4',
+            aspectRatio: '16:9',
+            autoplay: true,
+            loop: true,
+            showControls: true,
+            hasAudio: true,
+            title: 'Whiteboard',
+            subtitle: 'Process board used to develop concepts and test formats.'
+        },
+        {
+            url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Story%20Bible%20Explorer.mp4',
+            aspectRatio: '16:9',
+            autoplay: true,
+            loop: true,
+            showControls: true,
+            hasAudio: true,
+            title: 'The Last City Hub',
+            subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
+        }
+    ],
+    descriptor: "In-World Social Campaign",
+    description: "In-world social prototypes for a Wondery sci-fi series. Marketing from the perspective of the fictional city: destination spots, mission videos, tours, and character testimonials.\n\nPitched the concept to marketing and content, then built 12+ prototypes to demonstrate the approach. Some pieces leaned into viral TikTok trends - the video above adapts one from the time. All voices by ElevenLabs. Two prototypes moved into production.",
+    tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.'
+  }
 ];
