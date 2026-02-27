@@ -14,7 +14,7 @@ export const PROJECTS: Project[] = [
     title: 'Unstill',
     client: 'A24 Labs',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero%20Shot.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Cover%20Spotlight.mp4',
     previewAutoplay: true,
     mainVideos: [
       { 
