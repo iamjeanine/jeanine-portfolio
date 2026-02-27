@@ -53,27 +53,6 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with Claude Code.',
   },
   {
-    id: 'tender',
-    title: 'Tender',
-    client: 'Self-initiated',
-    category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true
-      }
-    ],
-    descriptor: 'Culture, curated for how you feel.',
-    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
-    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
-  },
-  {
     id: 'multiverse-quad',
     title: 'Multiverse Quad',
     client: 'Amazon AGI',
@@ -123,7 +102,28 @@ export const PROJECTS: Project[] = [
     ],
     descriptor: "Creative workflow lab",
     description: "Founded and launched Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Ran hands-on workshops, built learning modules, and brought in industry partners. Two projects moved from lab to production: Storycraft and two custom GPTs - one for research and media pulls, one for writing metadata across platforms.",
-    tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova, Google Labs.'
+    tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
+  },
+  {
+    id: 'tender',
+    title: 'Tender',
+    client: 'Self-initiated',
+    category: 'Experiments',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
+      }
+    ],
+    descriptor: 'Culture, curated for how you feel.',
+    description: "You know when you're looking for something to watch or read and nothing feels right? You scroll, you browse, you give up. I wanted to build something you could talk to about how you're feeling - and it finds culture that meets you there. An essay, a film, a poem, a myth, a podcast.",
+    tools: 'Tools: Claude Code, Claude API, React, Web Speech API, Vite',
   },
   {
     id: 'storycraft',

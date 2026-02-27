@@ -309,9 +309,29 @@ const ProjectDetailPage = () => {
       className={`fixed inset-0 bg-[#f8f8f8] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
       style={{ overscrollBehavior: 'contain', willChange: 'scroll-position' }}
     >
-      <div className="w-full min-h-screen p-4 md:p-8 flex flex-col" style={{ contain: 'layout' }}>
+      {/* Atmospheric overlays — subtle grain + top gradient */}
+      <div
+        className="grain-overlay fixed inset-0 pointer-events-none mix-blend-overlay"
+        style={{
+          opacity: 0.015,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: '256px 256px',
+          animation: 'grain 0.5s steps(6) infinite',
+          zIndex: 0,
+        }}
+      />
+      <div
+        className="fixed top-0 left-0 right-0 pointer-events-none"
+        style={{
+          height: '200px',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.03), transparent)',
+          zIndex: 0,
+        }}
+      />
+
+      <div className="w-full min-h-screen p-4 md:p-8 flex flex-col" style={{ contain: 'layout', position: 'relative', zIndex: 1 }}>
         {/* Header */}
-        <header className="flex justify-end items-center w-full mb-8 shrink-0">
+        <header className="flex justify-start items-center w-full mb-8 shrink-0">
           <button onClick={handleClose} className="group flex items-center space-x-2 text-neutral-600 hover:text-[#2C4A3C] transition-colors">
             <BackIcon />
             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm">Work</span>
