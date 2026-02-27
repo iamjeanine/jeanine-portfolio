@@ -41,6 +41,13 @@ const HomePage = () => {
             Jeanine Cornillot
           </h2>
           <div className="flex items-center space-x-6 text-sm font-light">
+            <button
+              onClick={() => setIsAboutOpen(true)}
+              className="text-neutral-500 hover:text-neutral-800 transition-colors duration-300 tracking-wider uppercase"
+            >
+              About
+            </button>
+            <span className="text-neutral-300">|</span>
             <a
               href="https://www.linkedin.com/in/jcornillot"
               target="_blank"
