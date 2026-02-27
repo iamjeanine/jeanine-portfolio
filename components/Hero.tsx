@@ -6,7 +6,9 @@ import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [scrollMuted, setScrollMuted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoReady = () => {
     setIsLoaded(true);
@@ -27,6 +29,9 @@ const Hero = () => {
       const rect = hero.getBoundingClientRect();
       const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
       hero.style.setProperty('--scroll', String(progress));
+
+      // Mute hero audio when scrolled past halfway
+      setScrollMuted(progress > 0.5);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -49,12 +54,13 @@ const Hero = () => {
       >
         {/* Background Video */}
         <video
+          ref={videoRef}
           className="absolute top-0 left-0 w-full h-full object-cover"
           src={HERO_VIDEOS.url}
           poster={HERO_VIDEOS.posterUrl}
           autoPlay
           loop
-          muted={isMuted}
+          muted={isMuted || scrollMuted}
           playsInline
           preload="auto"
           onPlaying={handleVideoReady}
