@@ -13,13 +13,15 @@ interface VideoPlayerProps {
   showControls?: boolean;
   hasAudio?: boolean;
   projectId?: string;
+  startUnmuted?: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  // A video that autoplays should start muted. A video without audio is always muted.
-  const [isMuted, setIsMuted] = useState(autoplay || !hasAudio);
+  // Only the first video on a detail page starts unmuted (tile click provides user gesture).
+  // All other videos start muted. Videos without audio are always muted.
+  const [isMuted, setIsMuted] = useState(!startUnmuted || !hasAudio);
   const [isHovering, setIsHovering] = useState(false);
   const [showHighlightOverlay, setShowHighlightOverlay] = useState(false);
   const overlayShownRef = useRef(false);

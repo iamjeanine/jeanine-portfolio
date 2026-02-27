@@ -119,16 +119,17 @@ const ProjectDetailPage = () => {
         <div className="w-full max-w-5xl space-y-8">
             {project.mainVideos.map((video, index) => (
                 <div key={`video-container-${index}`} style={index === 0 ? { viewTransitionName: 'project-hero' } as React.CSSProperties : undefined}>
-                  <VideoPlayer 
-                    src={video.url} 
+                  <VideoPlayer
+                    src={video.url}
                     posterUrl={video.posterUrl}
                     glassPlateImageUrl={video.glassPlateImageUrl}
-                    aspectRatio={video.aspectRatio} 
+                    aspectRatio={video.aspectRatio}
                     autoplay={video.autoplay}
                     loop={video.loop}
                     showControls={video.showControls}
                     hasAudio={video.hasAudio}
                     projectId={project.id}
+                    startUnmuted={index === 0}
                   />
                   {video.caption && (
                       <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{video.caption}</p>
@@ -163,15 +164,16 @@ const ProjectDetailPage = () => {
       <div className="w-full max-w-5xl">
           {project.mainVideos[0] && (
               <div key="video-container-0" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
-                  <VideoPlayer 
+                  <VideoPlayer
                       src={project.mainVideos[0].url}
                       posterUrl={project.mainVideos[0].posterUrl}
-                      aspectRatio={project.mainVideos[0].aspectRatio} 
+                      aspectRatio={project.mainVideos[0].aspectRatio}
                       autoplay={project.mainVideos[0].autoplay}
                       loop={project.mainVideos[0].loop}
                       showControls={project.mainVideos[0].showControls}
                       hasAudio={project.mainVideos[0].hasAudio}
                       projectId={project.id}
+                      startUnmuted
                   />
                   {project.mainVideos[0].caption && (
                       <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{project.mainVideos[0].caption}</p>
