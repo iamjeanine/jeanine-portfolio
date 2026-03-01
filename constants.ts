@@ -18,7 +18,7 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     mainVideos: [
       { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Portfolio.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Video%203.1.mp4',
         glassPlateImageUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill-Glass-Plate.jpg',
         aspectRatio: '16:9', 
         autoplay: true, 
