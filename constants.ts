@@ -36,11 +36,13 @@ export const PROJECTS: Project[] = [
     title: 'Narrative Space',
     client: 'Speculative',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero%20Shot%20with%20Header.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Narrative%20Space.mp4',
     previewAutoplay: true,
+    previewHasAudio: true,
+    previewLayout: 'stack',
     mainVideos: [
       { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/NarrativeSpace%202.16.mp4', 
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space_Screen%20Studio%20.mp4', 
         aspectRatio: '16:9', 
         autoplay: true, 
         loop: true, 
