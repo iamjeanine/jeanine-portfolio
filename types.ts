@@ -26,7 +26,6 @@ export interface Project {
   previewPosterUrl?: string;
   previewAutoplay?: boolean;
   previewHasAudio?: boolean;
-  previewLayout?: 'slide' | 'stack';
   mainVideos: ProjectVideo[];
   mainImages?: ProjectImage[];
   description: string;
