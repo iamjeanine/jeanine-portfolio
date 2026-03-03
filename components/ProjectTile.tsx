@@ -66,8 +66,6 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     vtNavigate(`/project/${project.id}`);
   };
 
-  const isStacked = project.previewLayout === 'stack';
-
   return (
     <div
       ref={tileRef}
@@ -86,33 +84,23 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         className="block group"
       >
         <div className="relative aspect-video bg-gray-200 overflow-hidden">
-            {/* Title overlay — stacked at bottom or left side */}
-            {isStacked ? (
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 z-[2]">
-                <div className="overflow-hidden">
-                  <h2 className={`text-base md:text-lg font-sans font-light transition-all duration-500 ease-in-out delay-100 will-change-transform ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-                    {project.coverTitle || project.title}
-                  </h2>
-                </div>
-              </div>
-            ) : (
-              <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6 z-[2]">
+            {/* Title overlay — left side */}
+            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6 z-[2]">
                  <div className="overflow-hidden">
                     <h2 className={`text-base md:text-lg font-sans font-light transition-all duration-500 ease-in-out delay-100 will-change-transform ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
                         {project.coverTitle || project.title}
                     </h2>
                 </div>
-              </div>
-            )}
+            </div>
 
-            {/* Video container — stays put if stacked, shifts right on hover otherwise */}
+            {/* Video container — shifts right on hover, view-transition-name on click */}
             <div
-              className={`absolute inset-0 transform transition-all duration-500 ease-in-out ${isStacked ? '' : isHovered ? 'translate-x-[15%]' : 'translate-x-0'} group-hover:scale-105`}
+              className={`absolute inset-0 transform transition-all duration-500 ease-in-out ${isHovered ? 'translate-x-[15%]' : 'translate-x-0'} group-hover:scale-105`}
               style={{ viewTransitionName: isTransitioning ? 'project-hero' : 'none' } as React.CSSProperties}
             >
                 <video
                     ref={videoRef}
-                    className={`w-full h-full pointer-events-none ${project.id === 'narrative-space' ? 'object-cover scale-110' : 'object-cover'}`}
+                    className="w-full h-full pointer-events-none object-cover"
                     src={project.previewVideoUrl}
                     poster={project.previewPosterUrl}
                     autoPlay={project.previewAutoplay}
