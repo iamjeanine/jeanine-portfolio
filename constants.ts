@@ -39,7 +39,6 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Narrative%20Space.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
-    previewLayout: 'stack',
     mainVideos: [
       { 
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space_Screen%20Studio%20.mp4', 
