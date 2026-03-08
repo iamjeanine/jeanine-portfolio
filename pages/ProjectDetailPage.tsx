@@ -15,10 +15,9 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
         <div className="max-w-2xl">
             <div className="mb-6">
               <h1 className="text-xl md:text-2xl font-light">{project.title}</h1>
-              {project.descriptor && <p className="text-md md:text-lg text-neutral-500 font-light italic">{project.descriptor}</p>}
-              {project.subtitle && <p className="text-md md:text-lg text-neutral-500 font-light">{project.subtitle}</p>}
+              {(project.subtitle || project.descriptor) && <p className="text-md md:text-lg text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
             </div>
-            <p 
+            <div
                 className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line mb-6"
                 dangerouslySetInnerHTML={{ __html: project.description }}
             />
