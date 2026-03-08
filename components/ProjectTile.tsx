@@ -91,6 +91,13 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                         {project.coverTitle || project.title}
                     </h2>
                 </div>
+                {project.subtitle && (
+                  <div className="overflow-hidden mt-1.5">
+                    <p className={`text-sm md:text-base font-sans font-light text-neutral-500 transition-all ease-in-out will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-500 delay-200' : 'opacity-0 translate-y-2 duration-200 delay-0'}`}>
+                        {project.subtitle}
+                    </p>
+                  </div>
+                )}
             </div>
 
             {/* Video container — shifts right on hover, view-transition-name on click */}
