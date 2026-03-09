@@ -15,7 +15,7 @@ export const PROJECTS: Project[] = [
     subtitle: 'Regenerative lives',
     client: 'A24 Labs',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Cover%20Spotlight.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill2_New%20Cover.mp4',
     previewAutoplay: true,
     mainVideos: [
       { 
@@ -38,7 +38,7 @@ export const PROJECTS: Project[] = [
     subtitle: 'Interactive world building',
     client: 'Speculative',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Narrative%20Space.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space4_New%20Cover.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
@@ -77,9 +77,10 @@ export const PROJECTS: Project[] = [
     subtitle: 'Wondery creator lab',
     client: 'Google Labs',
     category: 'Selected',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
     previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
     previewAutoplay: true,
+    previewHasAudio: true,
     mainVideos: [
         { 
           url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4',
@@ -109,7 +110,7 @@ export const PROJECTS: Project[] = [
     subtitle: 'Conversation with culture',
     client: 'Self-initiated',
     category: 'Experiments',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/TenderCover3.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%202_New%20Cover.mp4',
     previewAutoplay: true,
     mainVideos: [
       {
@@ -148,7 +149,7 @@ export const PROJECTS: Project[] = [
     client: 'Wondery',
     category: 'Experiments',
     descriptor: 'The Last City',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Socials3.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Social%20Campaign_New%20Cover2.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [

@@ -116,19 +116,12 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     playsInline
                     preload={index < 5 ? "auto" : "metadata"}
                     style={{
-                      filter: isHovered ? 'saturate(1) brightness(1)' : 'saturate(0.6) brightness(0.85)',
-                      transition: 'filter 600ms ease-out',
+                      filter: isHovered ? 'saturate(1) brightness(1)' : 'saturate(0.7) brightness(0.9)',
+                      transition: 'filter 250ms ease',
                     }}
                 />
             </div>
 
-            {/* Vignette overlay — lifts on hover */}
-            <div
-              className={`absolute inset-0 pointer-events-none z-[1] transition-opacity duration-600 ease-out ${isHovered ? 'opacity-0' : 'opacity-100'}`}
-              style={{
-                background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%)',
-              }}
-            />
 
             {/* Mute button — audio tiles only */}
             {project.previewHasAudio && (
