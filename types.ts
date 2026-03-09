@@ -10,6 +10,7 @@ export interface ProjectVideo {
   caption?: string;
   showControls?: boolean;
   hasAudio?: boolean;
+  startMuted?: boolean;
 }
 
 export interface ProjectImage {

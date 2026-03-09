@@ -114,7 +114,7 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20App.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%204_new%20cover.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -135,7 +135,7 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
     previewAutoplay: true,
     mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true }
+        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true, startMuted: true }
     ],
     descriptor: 'Adaptation app',
     description: "When you have a large catalog of narrative shows, the question becomes how those stories might travel to new audiences.\n\nStoryCraft explores that idea.\n\nIt\u2019s a tool for adapting narrative podcasts into kids and family adventures. Writers can reshape tone, structure, and language while preserving the core story. The tool also helps flag sensitive content and guide age appropriateness as the adaptation evolves.\n\nThe prototype was developed at Wondery with shows like Against the Odds in mind. The idea was to see whether a back catalog could be reinvented for younger listeners without losing what made the original story work.\n\nGreenlit to pilot with the Kids and Family team.",
