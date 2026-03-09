@@ -149,7 +149,7 @@ export const PROJECTS: Project[] = [
     client: 'Wondery',
     category: 'Experiments',
     descriptor: 'The Last City',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Social%20Campaign_New%20Cover2.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Social%20Campaing3_New%20Cover.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
