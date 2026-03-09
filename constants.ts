@@ -159,7 +159,8 @@ export const PROJECTS: Project[] = [
             autoplay: true,
             loop: true,
             showControls: true,
-            hasAudio: true
+            hasAudio: true,
+            startMuted: true
         },
         {
             url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Whiteboard.mp4',
@@ -200,7 +201,8 @@ export const PROJECTS: Project[] = [
             autoplay: true,
             loop: true,
             showControls: true,
-            hasAudio: true
+            hasAudio: true,
+            startMuted: true
         }
     ],
     descriptor: 'Audio discovery prototype',
