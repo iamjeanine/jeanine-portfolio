@@ -83,27 +83,31 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         onClick={handleClick}
         className="block group"
       >
-        <div className="relative aspect-video bg-gradient-to-r from-neutral-300/80 to-neutral-200 overflow-hidden">
-            {/* Title overlay — left side */}
-            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6 z-[2]" style={{ boxShadow: 'inset -8px 0 12px -8px rgba(0,0,0,0.08)' }}>
+        <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: '#f3f3f2' }}>
+            {/* Title panel — sits behind video, revealed as video slides */}
+            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6">
                  <div className="overflow-hidden">
-                    <h2 className={`text-base md:text-lg font-sans font-light transition-all duration-500 ease-in-out delay-100 will-change-transform ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                    <h2 className={`text-base md:text-lg font-sans font-medium transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-150' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
                         {project.coverTitle || project.title}
                     </h2>
                 </div>
                 {project.subtitle && (
                   <div className="overflow-hidden mt-1.5">
-                    <p className={`text-sm md:text-base font-sans font-light text-neutral-500 transition-all ease-in-out will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-500 delay-200' : 'opacity-0 translate-y-2 duration-200 delay-0'}`}>
+                    <p className={`text-sm md:text-base font-sans font-light text-neutral-500 transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
                         {project.subtitle}
                     </p>
                   </div>
                 )}
             </div>
 
-            {/* Video container — shifts right on hover, view-transition-name on click */}
+            {/* Video container — slides right on hover, crisply masks the text panel */}
             <div
-              className={`absolute inset-0 transform transition-all duration-500 ease-in-out ${isHovered ? 'translate-x-[15%]' : 'translate-x-0'} group-hover:scale-105`}
-              style={{ viewTransitionName: isTransitioning ? 'project-hero' : 'none' } as React.CSSProperties}
+              className={`absolute inset-0 z-[1] ${isHovered ? 'translate-x-[15%] scale-[1.03]' : 'translate-x-0 scale-100'}`}
+              style={{
+                viewTransitionName: isTransitioning ? 'project-hero' : 'none',
+                transition: 'transform 350ms cubic-bezier(.22,.61,.36,1)',
+                boxShadow: isHovered ? '-12px 0 24px rgba(0,0,0,0.1)' : 'none',
+              } as React.CSSProperties}
             >
                 <video
                     ref={videoRef}
@@ -116,8 +120,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     playsInline
                     preload={index < 5 ? "auto" : "metadata"}
                     style={{
-                      filter: isHovered ? 'saturate(1) brightness(1)' : 'saturate(0.7) brightness(0.9)',
-                      transition: 'filter 250ms ease',
+                      filter: isHovered ? 'saturate(1) brightness(0.95)' : 'saturate(0.7) brightness(0.9)',
+                      transition: 'filter 350ms cubic-bezier(.22,.61,.36,1)',
                     }}
                 />
             </div>
