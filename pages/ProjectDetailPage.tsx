@@ -172,7 +172,7 @@ const ProjectDetailPage = () => {
                       showControls={project.mainVideos[0].showControls}
                       hasAudio={project.mainVideos[0].hasAudio}
                       projectId={project.id}
-                      startUnmuted
+                      startUnmuted={!project.mainVideos[0].startMuted}
                   />
                   {project.mainVideos[0].caption && (
                       <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{project.mainVideos[0].caption}</p>
