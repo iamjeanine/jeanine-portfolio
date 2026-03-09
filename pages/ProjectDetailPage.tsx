@@ -14,27 +14,27 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
     <div className="w-full max-w-5xl mt-8 md:mt-12">
         <div className="max-w-2xl">
             <div className="mb-6">
-              <h1 className="text-xl md:text-2xl font-light">{project.title}</h1>
-              {(project.subtitle || project.descriptor) && <p className="text-md md:text-lg text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
+              <h1 className="text-2xl md:text-3xl font-light">{project.title}</h1>
+              {(project.subtitle || project.descriptor) && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
             </div>
             <div
-                className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line mb-6"
+                className="text-base md:text-lg font-light text-neutral-700 leading-relaxed whitespace-pre-line mb-6"
                 dangerouslySetInnerHTML={{ __html: project.description }}
             />
-            
+
             {project.formats && (
                 <div className="mt-6 mb-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
                         {project.formats.map((format, index) => (
                             <div key={index} className="border-l-2 border-neutral-300 pl-4">
-                                <p className="text-sm md:text-base font-light text-neutral-800">{format}</p>
+                                <p className="text-base md:text-lg font-light text-neutral-800">{format}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             )}
 
-            {project.tools && <p className="text-xs md:text-sm text-neutral-500 font-light tracking-wider mt-6">{project.tools}</p>}
+            {project.tools && <p className="text-xs md:text-sm text-neutral-500 font-light tracking-wider mt-8 pt-4 border-t border-neutral-200">{project.tools}</p>}
         </div>
     </div>
   );

@@ -9,9 +9,8 @@ const ProjectGrid: React.FC = () => {
 
   return (
     <div className="w-full bg-[#f8f8f8] px-6 py-12">
-      
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6 md:gap-8">
         {projectsToShow.map((project, index) => (
           <ProjectTile key={project.id} project={project} index={index} />
         ))}

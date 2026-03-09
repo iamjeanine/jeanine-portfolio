@@ -143,7 +143,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'in-world-social-campaign',
     title: 'In-World Social Campaign',
-    coverTitle: 'In-World Socials',
+    coverTitle: 'Social Campaign',
     subtitle: 'In-world marketing',
     client: 'Wondery',
     category: 'Experiments',
