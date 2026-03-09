@@ -83,9 +83,9 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         onClick={handleClick}
         className="block group"
       >
-        <div className="relative aspect-video bg-gray-200 overflow-hidden">
+        <div className="relative aspect-video bg-gradient-to-r from-neutral-300/80 to-neutral-200 overflow-hidden">
             {/* Title overlay — left side */}
-            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6 z-[2]">
+            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6 z-[2]" style={{ boxShadow: 'inset -8px 0 12px -8px rgba(0,0,0,0.08)' }}>
                  <div className="overflow-hidden">
                     <h2 className={`text-base md:text-lg font-sans font-light transition-all duration-500 ease-in-out delay-100 will-change-transform ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
                         {project.coverTitle || project.title}
