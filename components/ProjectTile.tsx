@@ -86,6 +86,13 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: '#f3f3f2' }}>
             {/* Title panel — sits behind video, revealed as video slides */}
             <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6">
+                 {project.categoryLabel && (
+                   <div className="overflow-hidden mb-1.5">
+                     <span className={`block text-[10px] md:text-[11px] tracking-[0.14em] uppercase text-neutral-500 font-normal transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-100' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
+                       {project.categoryLabel}
+                     </span>
+                   </div>
+                 )}
                  <div className="overflow-hidden">
                     <h2 className={`text-base md:text-lg font-sans font-medium transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-150' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
                         {project.coverTitle || project.title}
