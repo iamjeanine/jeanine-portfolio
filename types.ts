@@ -11,6 +11,7 @@ export interface ProjectVideo {
   showControls?: boolean;
   hasAudio?: boolean;
   startMuted?: boolean;
+  glassPlateImageUrl?: string;
 }
 
 export interface ProjectImage {
