@@ -10,31 +10,6 @@ export const getVisibleProjects = () => PROJECTS.filter(p => p.category === 'Sel
 
 export const PROJECTS: Project[] = [
   {
-    id: 'unstill',
-    title: 'Unstill',
-    subtitle: 'Regenerative lives',
-    client: 'A24 Labs',
-    category: 'Selected',
-    filterCategories: ['cultural-experiment'],
-    categoryLabel: 'Cultural Experiment',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20cover%20new.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-      { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20w%20Screen%20Studio%284%29.mp4',
-        glassPlateImageUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill-Glass-Plate.jpg',
-        aspectRatio: '16:9', 
-        autoplay: true, 
-        loop: true, 
-        showControls: true, 
-        hasAudio: true 
-      }
-    ],
-    descriptor: 'Archives in motion. Interactive experience.',
-    description: `\u201CThe archive is a record of power, not of truth.\u201D\n\u2014 Saidiya Hartman\n\nUnstill begins with that idea.\n\n1920s Sydney. A generation pushing against the old Victorian order. What survives in the archive is often the moment the system caught up: a name, a date, a charge.\n\nHover and color returns to the photograph. Click and the portrait begins to breathe. A loupe reveals the original glass plate beneath the moving image.\n\nEach portrait draws from court records, press clippings, and the historical archive to generate new inscriptions about the life behind the record. Every visit produces a different reading.\n\nSeven full stories appear first. Then a dozen more faces from the Museums of History NSW collection \u2014 fragments of the world they carried.\n\nBuilt as a proposal for Museums of History NSW.`,
-    tools: 'Tools: React, Claude API, ElevenLabs, VEO 3.1, Nano Banana, Vite. Built with Claude Code.'
-  },
-  {
     id: 'narrative-space',
     title: 'Narrative Space',
     subtitle: 'Interactive world building',
@@ -46,18 +21,43 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
-      { 
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space_Screen%20Studio%20.mp4', 
-        aspectRatio: '16:9', 
-        autoplay: true, 
-        loop: true, 
-        showControls: true, 
-        hasAudio: true 
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space_Screen%20Studio%20.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
       }
     ],
     descriptor: 'Interactive Story Bible',
     description: "Story worlds usually begin as documents. Notes about characters, places, timelines, and relationships.\n\nNarrative Space turns that material into something you can explore.\n\nYou can upload an existing story bible and watch the world assemble itself. Or start from scratch. The tool asks questions that help shape the structure of the story as you go.\n\nCharacters, locations, and themes appear as nodes in a shared space. You can move through the world in three dimensions, or switch to more familiar views that organize everything into categories and cards.\n\nSeeing the material from different angles helps new connections emerge. Relationships between characters, places, and events start to reveal themselves as part of a living world rather than a stack of notes.\n\nYou can also talk with the world as you build it. Ask questions about characters, conflicts, or story logic. It can clarify relationships, suggest additions, or point out conflicts in the story.\n\nThe process stays human-led. Writers decide what belongs in the world. If you want to add a beat, you can simply say where it should go and it places it on the story grid.\n\nA space for thinking through a story.",
     tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with Claude Code.',
+  },
+  {
+    id: 'unstill',
+    title: 'Unstill',
+    subtitle: 'Regenerative lives',
+    client: 'A24 Labs',
+    category: 'Selected',
+    filterCategories: ['cultural-experiment'],
+    categoryLabel: 'Cultural Experiment',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20cover%20new.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20w%20Screen%20Studio%284%29.mp4',
+        glassPlateImageUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill-Glass-Plate.jpg',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true
+      }
+    ],
+    descriptor: 'Archives in motion. Interactive experience.',
+    description: `\u201CThe archive is a record of power, not of truth.\u201D\n\u2014 Saidiya Hartman\n\nUnstill begins with that idea.\n\n1920s Sydney. A generation pushing against the old Victorian order. What survives in the archive is often the moment the system caught up: a name, a date, a charge.\n\nHover and color returns to the photograph. Click and the portrait begins to breathe. A loupe reveals the original glass plate beneath the moving image.\n\nEach portrait draws from court records, press clippings, and the historical archive to generate new inscriptions about the life behind the record. Every visit produces a different reading.\n\nSeven full stories appear first. Then a dozen more faces from the Museums of History NSW collection \u2014 fragments of the world they carried.\n\nBuilt as a proposal for Museums of History NSW.`,
+    tools: 'Tools: React, Claude API, ElevenLabs, VEO 3.1, Nano Banana, Vite. Built with Claude Code.'
   },
   {
     id: 'multiverse-quad',
