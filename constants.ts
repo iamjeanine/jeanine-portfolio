@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     filterCategories: ['story-system'],
     categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space4_New%20Cover.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Sphere%20Cover.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
