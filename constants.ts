@@ -91,11 +91,13 @@ export const PROJECTS: Project[] = [
     previewHasAudio: true,
     mainVideos: [
         { 
-          url: 'https://storage.googleapis.com/jeanine-portfolio-video/B6%20Interior.mp4',
+          url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab2.mp4',
           posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Interior-poster.jpg',
           aspectRatio: '16:9',
           autoplay: true,
-          loop: true
+          loop: true,
+          showControls: true,
+          hasAudio: true
         },
         { 
           url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4', 
