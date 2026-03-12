@@ -76,15 +76,22 @@ const Hero = () => {
 
   return (
     <div ref={heroRef} className="sticky top-0 h-screen w-full overflow-hidden bg-black" style={{ zIndex: 1 }}>
-      {/* Inner wrapper — darkens and recedes on scroll */}
+      {/* Inner wrapper — recedes on scroll */}
       <div
         className="absolute inset-0"
         style={{
           transform: 'scale(calc(1 - var(--scroll, 0) * 0.05))',
-          filter: 'brightness(calc(1 - var(--scroll, 0) * 0.6))',
-          willChange: 'transform, filter',
+          willChange: 'transform',
         }}
       >
+        {/* Scroll-driven darken overlay (cheaper than filter: brightness) */}
+        <div
+          className="absolute inset-0 bg-black pointer-events-none"
+          style={{
+            opacity: 'calc(var(--scroll, 0) * 0.6)',
+            zIndex: 1,
+          }}
+        />
         {/* Background Video */}
         <video
           ref={videoRef}
@@ -111,7 +118,7 @@ const Hero = () => {
         />
 
         {/* Text Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ zIndex: 2 }}>
           <div className="text-center text-white">
             <h1 className="font-serif text-8xl md:text-9xl lg:text-[160px] font-normal text-white mix-blend-lighten text-center tracking-[-0.05em] leading-none animate-[subtle-zoom_20s_ease-in-out_infinite_alternate]">
               <span
@@ -137,7 +144,7 @@ const Hero = () => {
         </div>
 
         {/* Mute toggle */}
-        <div className="absolute bottom-8 right-8 z-10">
+        <div className="absolute bottom-8 right-8" style={{ zIndex: 2 }}>
           <button
             onClick={toggleMute}
             aria-label={isMuted ? 'Unmute video' : 'Mute video'}
