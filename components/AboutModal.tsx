@@ -59,7 +59,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
           <p>
-            Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (FX limited series, 9 Primetime Emmy nominations). Created The Last City (#1 Apple Fiction in 20 countries).
+            Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (Apple's Podcast of the Year, FX limited series, 9 Primetime Emmy nominations). Created The Last City (scripted sci-fi, #1 Apple Fiction in 20 countries).
           </p>
           <p>
             Founded Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Multiple projects moved from lab to production.
