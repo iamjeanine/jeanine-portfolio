@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
         loop: true,
         showControls: true,
         hasAudio: true,
-        startMuted: true
+        startMuted: false
       }
     ],
     descriptor: 'Interactive Story Bible',
