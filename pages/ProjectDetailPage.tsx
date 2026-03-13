@@ -305,7 +305,7 @@ const ProjectDetailPage = () => {
                 />
                 {video2.caption && (
                   <div className="max-w-2xl mt-4">
-                    <h3 className="text-lg md:text-xl font-light mb-2">{captionTitle}</h3>
+                    <h3 className="text-2xl md:text-3xl font-light mb-2">{captionTitle}</h3>
                     <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
                       {captionBody}
                     </p>
