@@ -54,7 +54,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <CloseIcon />
         </button>
         <h2 id="about-title" className="text-2xl md:text-3xl font-serif text-white mb-6">About</h2>
-        <div className="space-y-4 text-sm md:text-base font-light text-neutral-300">
+        <div className="space-y-4 text-sm md:text-base font-normal text-neutral-300">
           <p>
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
