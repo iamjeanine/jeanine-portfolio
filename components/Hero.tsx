@@ -117,8 +117,8 @@ const Hero = () => {
           }}
         />
 
-        {/* Text Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ zIndex: 2 }}>
+        {/* Text Content — fades out on scroll so it doesn't bleed through at the bottom */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ zIndex: 2, opacity: 'calc(1 - var(--scroll, 0) * 3)' }}>
           <div className="text-center text-white">
             <h1 className="font-serif text-8xl md:text-9xl lg:text-[160px] font-normal text-white mix-blend-lighten text-center tracking-[-0.05em] leading-none animate-[subtle-zoom_20s_ease-in-out_infinite_alternate]">
               <span
