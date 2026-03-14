@@ -103,7 +103,7 @@ const Hero = () => {
           muted={isMuted}
           playsInline
           preload="auto"
-          onPlaying={handleVideoReady}
+          onLoadedData={handleVideoReady}
         />
 
         {/* Film grain overlay */}
