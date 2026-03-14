@@ -30,9 +30,9 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               </p>
             )}
 
-            {/* Subtle divider on mobile between lead and body */}
+            {/* Subtle divider between lead and body */}
             {bodyParagraphs.length > 0 && (
-              <div className="w-10 h-px bg-neutral-300 mb-6 md:hidden" />
+              <div className="w-10 h-px bg-neutral-300 mb-6" />
             )}
 
             {/* Body paragraphs */}
@@ -44,18 +44,17 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
 
             {/* Closing callout — short final lines get pulled out */}
             {hasCallout && (
-              <p className="text-lg md:text-xl font-light text-neutral-800 italic mt-8 mb-6 pl-4 border-l-2 border-neutral-300">
+              <p className="text-lg md:text-xl font-light text-neutral-800 italic mt-8 mb-6">
                 {lastParagraph}
               </p>
             )}
 
             {project.formats && (
-                <div className="mt-6 mb-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
+                <div className="mt-8 mb-6">
+                    <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 font-normal mb-3">Formats</span>
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {project.formats.map((format, index) => (
-                            <div key={index} className="border-l-2 border-neutral-300 pl-4">
-                                <p className="text-base md:text-lg font-light text-neutral-800">{format}</p>
-                            </div>
+                            <p key={index} className="text-base md:text-lg font-light text-neutral-700">{format}</p>
                         ))}
                     </div>
                 </div>
@@ -231,7 +230,7 @@ const ProjectDetailPage = () => {
             {(project.mainVideos[1].title || project.mainVideos[1].subtitle) && (
               <div className="max-w-2xl mb-4">
                 {project.mainVideos[1].title && (
-                  <h3 className="text-xs tracking-[0.12em] uppercase text-neutral-500 font-normal mb-1.5">{project.mainVideos[1].title}</h3>
+                  <h3 className="text-xl md:text-2xl font-light text-neutral-800 mb-2">{project.mainVideos[1].title}</h3>
                 )}
                 {project.mainVideos[1].subtitle && (
                   <p className="text-base md:text-lg text-neutral-700 font-light leading-relaxed">
@@ -260,7 +259,7 @@ const ProjectDetailPage = () => {
              {(project.mainVideos[2].title || project.mainVideos[2].subtitle) && (
               <div className="max-w-2xl mb-4">
                 {project.mainVideos[2].title && (
-                  <h3 className="text-xs tracking-[0.12em] uppercase text-neutral-500 font-normal mb-1.5">{project.mainVideos[2].title}</h3>
+                  <h3 className="text-xl md:text-2xl font-light text-neutral-800 mb-2">{project.mainVideos[2].title}</h3>
                 )}
                 {project.mainVideos[2].subtitle && (
                   <p className="text-base md:text-lg text-neutral-700 font-light leading-relaxed">
@@ -332,7 +331,7 @@ const ProjectDetailPage = () => {
                 />
                 {video2.caption && (
                   <div className="max-w-2xl mt-4">
-                    <h3 className="text-xs tracking-[0.12em] uppercase text-neutral-500 font-normal mb-1.5">{captionTitle}</h3>
+                    <h3 className="text-xl md:text-2xl font-light text-neutral-800 mb-2">{captionTitle}</h3>
                     <p className="text-base md:text-lg font-light text-neutral-700 leading-relaxed whitespace-pre-line">
                       {captionBody}
                     </p>
