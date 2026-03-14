@@ -1,0 +1,41 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review this pull request for:
+            - Code correctness and potential bugs
+            - TypeScript type safety issues
+            - React 19 best practices and hooks usage
+            - Tailwind CSS 4 usage and responsive design
+            - Security concerns (especially around API key handling and Google GenAI integration)
+            - Code readability and maintainability
+            - Vite and build configuration issues
+
+            Be constructive and specific. Reference file names and line numbers.
+            Focus on meaningful issues rather than style nitpicks.
+          claude_args: "--max-turns 5"
