@@ -6,19 +6,31 @@ import ScrollCue from './ScrollCue';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [hasScrolled, setHasScrolled] = useState(false);
   const isMutedRef = useRef(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Show text after a short timeout even if video hasn't loaded yet
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleVideoReady = () => {
+    setVideoReady(true);
     setIsLoaded(true);
   };
+
+  // On mobile, keep everything muted
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   const toggleMute = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isMobile) return;
     const next = !isMutedRef.current;
     isMutedRef.current = next;
     setIsMuted(next);
@@ -92,18 +104,23 @@ const Hero = () => {
             zIndex: 1,
           }}
         />
+        {/* Poster image — shown immediately while video loads */}
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${HERO_VIDEOS.posterUrl})` }}
+        />
         {/* Background Video */}
         <video
           ref={videoRef}
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
           src={HERO_VIDEOS.url}
           poster={HERO_VIDEOS.posterUrl}
           autoPlay
           loop
           muted={isMuted}
           playsInline
-          preload="auto"
-          onLoadedData={handleVideoReady}
+          preload="metadata"
+          onCanPlayThrough={handleVideoReady}
         />
 
         {/* Film grain overlay */}

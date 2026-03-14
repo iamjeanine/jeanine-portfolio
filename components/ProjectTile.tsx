@@ -16,8 +16,26 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isTouchDevice] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const { ref: tileRef, isVisible } = useIntersectionReveal();
   const vtNavigate = useViewTransitionNavigate();
+
+  // Lazy-load video: only set src when tile is near the viewport
+  React.useEffect(() => {
+    const el = tileRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleMouseEnter = () => {
     if (!isTouchDevice) {
@@ -40,7 +58,10 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     }
   };
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const toggleMute = (e: React.MouseEvent) => {
+    if (isMobile) return;
     if (isTouchDevice && !isHovered) {
       return;
     }
@@ -84,8 +105,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         className="block group"
       >
         <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: '#f3f3f2' }}>
-            {/* Title panel — sits behind video, revealed as video slides */}
-            <div className="absolute inset-0 w-1/3 flex flex-col justify-center p-4 md:p-6">
+            {/* Title panel — sits behind video, revealed as video slides (desktop only) */}
+            <div className="absolute inset-0 w-1/3 hidden md:flex flex-col justify-center p-4 md:p-6">
                  {project.categoryLabel && (
                    <div className="overflow-hidden mb-1.5">
                      <span className={`block text-[10px] md:text-[11px] tracking-[0.14em] uppercase text-neutral-500 font-normal transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-100' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
@@ -107,9 +128,9 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 )}
             </div>
 
-            {/* Video container — slides right on hover, crisply masks the text panel */}
+            {/* Video container — slides right on hover (desktop), static on mobile */}
             <div
-              className={`absolute inset-0 z-[1] ${isHovered ? 'translate-x-[15%] scale-[1.03]' : 'translate-x-0 scale-100'}`}
+              className={`absolute inset-0 z-[1] bg-neutral-900 ${isHovered ? 'md:translate-x-[30%] md:scale-[1.03]' : 'translate-x-0 scale-100'}`}
               style={{
                 viewTransitionName: isTransitioning ? 'project-hero' : 'none',
                 transition: 'transform 350ms cubic-bezier(.22,.61,.36,1)',
@@ -119,13 +140,13 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 <video
                     ref={videoRef}
                     className="w-full h-full pointer-events-none object-cover"
-                    src={project.previewVideoUrl}
+                    src={shouldLoad ? project.previewVideoUrl : undefined}
                     poster={project.previewPosterUrl}
                     autoPlay={project.previewAutoplay}
                     loop
                     muted={project.previewHasAudio ? isMuted : true}
                     playsInline
-                    preload={index < 5 ? "auto" : "metadata"}
+                    preload="metadata"
                     style={{
                       filter: isHovered ? 'saturate(1) brightness(0.95)' : 'saturate(0.7) brightness(0.9)',
                       transition: 'filter 350ms cubic-bezier(.22,.61,.36,1)',
@@ -144,6 +165,23 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                   {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
                 </button>
             )}
+        </div>
+
+        {/* Mobile caption — always visible below the tile */}
+        <div className="mt-3 mb-1 md:hidden">
+          {project.categoryLabel && (
+            <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 font-normal mb-1">
+              {project.categoryLabel}
+            </span>
+          )}
+          <h2 className="text-base font-sans font-medium text-neutral-800">
+            {project.coverTitle || project.title}
+          </h2>
+          {project.subtitle && (
+            <p className="text-sm font-light text-neutral-500 mt-0.5">
+              {project.subtitle}
+            </p>
+          )}
         </div>
       </a>
     </div>

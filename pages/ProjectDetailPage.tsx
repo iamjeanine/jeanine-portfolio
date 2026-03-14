@@ -10,6 +10,11 @@ import { useViewTransitionNavigate } from '../hooks/useViewTransition';
 
 // Reusable component for the text block
 const ProjectTextBlock = ({ project }: { project: Project }) => {
+  const paragraphs = project.description.split('\n\n').filter(Boolean);
+  const lastParagraph = paragraphs[paragraphs.length - 1];
+  const hasCallout = paragraphs.length > 2 && lastParagraph.length < 80;
+  const bodyParagraphs = hasCallout ? paragraphs.slice(1, -1) : paragraphs.slice(1);
+
   return (
     <div className="w-full max-w-5xl mt-8 md:mt-12">
         <div className="max-w-2xl">
@@ -17,10 +22,32 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               <h1 className="text-2xl md:text-3xl font-light">{project.title}</h1>
               {(project.subtitle || project.descriptor) && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
             </div>
-            <div
-                className="text-base md:text-lg font-light text-neutral-700 leading-relaxed whitespace-pre-line mb-6"
-                dangerouslySetInnerHTML={{ __html: project.description }}
-            />
+
+            {/* Lead paragraph */}
+            {paragraphs[0] && (
+              <p className="text-lg md:text-xl font-light text-neutral-800 leading-relaxed mb-6">
+                {paragraphs[0]}
+              </p>
+            )}
+
+            {/* Subtle divider on mobile between lead and body */}
+            {bodyParagraphs.length > 0 && (
+              <div className="w-10 h-px bg-neutral-300 mb-6 md:hidden" />
+            )}
+
+            {/* Body paragraphs */}
+            {bodyParagraphs.map((para, i) => (
+              <p key={i} className="text-base md:text-lg font-light text-neutral-700 leading-relaxed mb-5">
+                {para}
+              </p>
+            ))}
+
+            {/* Closing callout — short final lines get pulled out */}
+            {hasCallout && (
+              <p className="text-lg md:text-xl font-light text-neutral-800 italic mt-8 mb-6 pl-4 border-l-2 border-neutral-300">
+                {lastParagraph}
+              </p>
+            )}
 
             {project.formats && (
                 <div className="mt-6 mb-6">
@@ -204,10 +231,10 @@ const ProjectDetailPage = () => {
             {(project.mainVideos[1].title || project.mainVideos[1].subtitle) && (
               <div className="max-w-2xl mb-4">
                 {project.mainVideos[1].title && (
-                  <h3 className="text-lg md:text-xl font-light mb-1">{project.mainVideos[1].title}</h3>
+                  <h3 className="text-xs tracking-[0.12em] uppercase text-neutral-500 font-normal mb-1.5">{project.mainVideos[1].title}</h3>
                 )}
                 {project.mainVideos[1].subtitle && (
-                  <p className="text-sm md:text-base text-neutral-600 font-light">
+                  <p className="text-base md:text-lg text-neutral-700 font-light leading-relaxed">
                     {project.mainVideos[1].subtitle}
                   </p>
                 )}
@@ -233,10 +260,10 @@ const ProjectDetailPage = () => {
              {(project.mainVideos[2].title || project.mainVideos[2].subtitle) && (
               <div className="max-w-2xl mb-4">
                 {project.mainVideos[2].title && (
-                  <h3 className="text-lg md:text-xl font-light mb-1">{project.mainVideos[2].title}</h3>
+                  <h3 className="text-xs tracking-[0.12em] uppercase text-neutral-500 font-normal mb-1.5">{project.mainVideos[2].title}</h3>
                 )}
                 {project.mainVideos[2].subtitle && (
-                  <p className="text-sm md:text-base text-neutral-600 font-light">
+                  <p className="text-base md:text-lg text-neutral-700 font-light leading-relaxed">
                     {project.mainVideos[2].subtitle}
                   </p>
                 )}
@@ -305,8 +332,8 @@ const ProjectDetailPage = () => {
                 />
                 {video2.caption && (
                   <div className="max-w-2xl mt-4">
-                    <h3 className="text-2xl md:text-3xl font-light mb-2">{captionTitle}</h3>
-                    <p className="text-sm md:text-base font-light text-neutral-700 whitespace-pre-line">
+                    <h3 className="text-xs tracking-[0.12em] uppercase text-neutral-500 font-normal mb-1.5">{captionTitle}</h3>
+                    <p className="text-base md:text-lg font-light text-neutral-700 leading-relaxed whitespace-pre-line">
                       {captionBody}
                     </p>
                   </div>
@@ -370,18 +397,59 @@ const ProjectDetailPage = () => {
             })()}
         </main>
         
-        {/* Footer Navigation */}
-        <footer className="w-full flex justify-between items-center mt-auto pt-8 shrink-0">
-            <div>
-                {/* Potentially other info here */}
-            </div>
-            <div className="flex items-center space-x-4">
-                <Link to={`/project/${prevProject.id}`} className="text-neutral-600 hover:text-[#2C4A3C] transition-colors">
+        {/* Footer Navigation — full-width on mobile, icon-only on desktop */}
+        <footer className="w-full mt-auto pt-8 shrink-0">
+            {/* Mobile: full-width prev/next with project names */}
+            <div className="flex flex-col gap-3 md:hidden">
+                <Link
+                  to={`/project/${prevProject.id}`}
+                  className="flex items-center gap-3 px-4 py-3 border border-neutral-200 rounded-sm text-neutral-600 hover:text-neutral-800 hover:border-neutral-400 transition-colors"
+                >
                     <PrevIcon />
+                    <div className="min-w-0">
+                      <span className="block text-[10px] tracking-[0.12em] uppercase text-neutral-400">Previous</span>
+                      <span className="block text-sm font-light truncate">{prevProject.title}</span>
+                    </div>
                 </Link>
-                <Link to={`/project/${nextProject.id}`} className="text-neutral-600 hover:text-[#2C4A3C] transition-colors">
+                <Link
+                  to={`/project/${nextProject.id}`}
+                  className="flex items-center justify-end gap-3 px-4 py-3 border border-neutral-200 rounded-sm text-neutral-600 hover:text-neutral-800 hover:border-neutral-400 transition-colors text-right"
+                >
+                    <div className="min-w-0">
+                      <span className="block text-[10px] tracking-[0.12em] uppercase text-neutral-400">Next</span>
+                      <span className="block text-sm font-light truncate">{nextProject.title}</span>
+                    </div>
                     <NextIcon />
                 </Link>
+            </div>
+            {/* Desktop: full-width editorial nav */}
+            <div className="hidden md:block border-t border-neutral-200 mt-4">
+              <div className="grid grid-cols-2">
+                <Link
+                  to={`/project/${prevProject.id}`}
+                  className="group flex items-center gap-4 py-6 pr-8 text-neutral-500 hover:text-neutral-800 transition-colors"
+                >
+                  <span className="transition-transform duration-200 group-hover:-translate-x-1">
+                    <PrevIcon />
+                  </span>
+                  <div>
+                    <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 mb-1">Previous</span>
+                    <span className="block text-base font-light">{prevProject.title}</span>
+                  </div>
+                </Link>
+                <Link
+                  to={`/project/${nextProject.id}`}
+                  className="group flex items-center justify-end gap-4 py-6 pl-8 border-l border-neutral-200 text-neutral-500 hover:text-neutral-800 transition-colors text-right"
+                >
+                  <div>
+                    <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 mb-1">Next</span>
+                    <span className="block text-base font-light">{nextProject.title}</span>
+                  </div>
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                    <NextIcon />
+                  </span>
+                </Link>
+              </div>
             </div>
         </footer>
       </div>
