@@ -38,13 +38,13 @@ const ProjectGrid: React.FC = () => {
     <div className="w-full bg-[#f8f8f8] px-6 py-12">
 
       {/* Filter navigation */}
-      <nav className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14">
+      <nav className="flex flex-col items-stretch gap-2 md:flex-row md:flex-wrap md:justify-center md:gap-3 mb-10 md:mb-14">
         {FILTERS.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => handleFilter(key)}
             className={`
-              px-5 py-2 rounded-full text-[11px] md:text-xs tracking-[0.12em] uppercase
+              px-5 py-2.5 md:py-2 rounded-full text-[11px] md:text-xs tracking-[0.12em] uppercase
               transition-all duration-200 whitespace-nowrap
               ${activeFilter === key
                 ? 'bg-neutral-800 text-white border border-neutral-800'
@@ -59,7 +59,7 @@ const ProjectGrid: React.FC = () => {
 
       {/* Project grid with fade transition */}
       <div
-        className="grid grid-cols-2 gap-6 md:gap-8 transition-opacity ease-out"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 transition-opacity ease-out"
         style={{
           opacity: isFading ? 0 : 1,
           transitionDuration: `${FADE_MS}ms`,
