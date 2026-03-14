@@ -19,13 +19,33 @@ interface VideoPlayerProps {
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  // Only the first video on a detail page starts unmuted (tile click provides user gesture).
-  // All other videos start muted. Videos without audio are always muted.
-  const [isMuted, setIsMuted] = useState(!startUnmuted || !hasAudio);
+  // Always start muted so autoplay works (browsers block unmuted autoplay).
+  // If startUnmuted is requested, we unmute programmatically after play begins.
+  const wantsUnmuted = startUnmuted && hasAudio;
+  const [isMuted, setIsMuted] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const [showHighlightOverlay, setShowHighlightOverlay] = useState(false);
   const overlayShownRef = useRef(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Unmute after autoplay succeeds (browsers require muted for autoplay)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !wantsUnmuted) return;
+
+    const handlePlaying = () => {
+      // Small delay to ensure playback is stable before unmuting
+      setTimeout(() => {
+        if (video && !video.paused) {
+          video.muted = false;
+          setIsMuted(false);
+        }
+      }, 100);
+    };
+
+    video.addEventListener('playing', handlePlaying, { once: true });
+    return () => video.removeEventListener('playing', handlePlaying);
+  }, [wantsUnmuted]);
 
   useEffect(() => {
     const video = videoRef.current;
