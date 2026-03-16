@@ -26,10 +26,20 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
     return text.trim().replace(/^[\u201C"]/,'').replace(/[\u201D"]$/,'');
   };
 
-  // Drop cap: split first paragraph into first letter + rest
+  // Lead paragraph analysis
   const leadText = paragraphs[0] || '';
+  const isEpigraph = leadText.startsWith('\u201C') || leadText.startsWith('"');
   const dropCapLetter = leadText.charAt(0);
   const leadRest = leadText.slice(1);
+
+  // Parse epigraph into quote + attribution
+  const parseEpigraph = (text: string) => {
+    const dashMatch = text.match(/(.+?)\n\u2014\s*(.+)/s) || text.match(/(.+?)\s*\u2014\s*(.+)/);
+    if (dashMatch) {
+      return { quote: stripQuotes(dashMatch[1].trim()), attribution: dashMatch[2].trim() };
+    }
+    return { quote: stripQuotes(text), attribution: '' };
+  };
 
   return (
     <div className="w-full max-w-5xl mt-8 md:mt-12">
@@ -46,13 +56,24 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               {(project.subtitle || project.descriptor) && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
             </div>
 
-            {/* Lead paragraph with drop cap */}
-            {leadText && (
+            {/* Lead: epigraph or drop cap */}
+            {leadText && isEpigraph ? (
+              <blockquote className="border-l-2 border-neutral-300 pl-6 mb-8">
+                <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-700 leading-relaxed italic">
+                  {parseEpigraph(leadText).quote}
+                </p>
+                {parseEpigraph(leadText).attribution && (
+                  <p className="text-sm text-neutral-500 font-light mt-3 tracking-wide">
+                    &mdash; {parseEpigraph(leadText).attribution}
+                  </p>
+                )}
+              </blockquote>
+            ) : leadText ? (
               <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-800 leading-relaxed mb-8">
                 <span className="float-left text-5xl md:text-6xl font-normal leading-[0.8] mr-2 mt-1">{dropCapLetter}</span>
                 {leadRest}
               </p>
-            )}
+            ) : null}
 
             {/* Subtle divider between lead and body */}
             {bodyParagraphs.length > 0 && (
