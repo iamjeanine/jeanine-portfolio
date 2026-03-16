@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"Uncut Sans"', 'sans-serif'],
+        'body-serif': ['"Source Serif 4"', 'Georgia', 'serif'],
       },
     },
   },
