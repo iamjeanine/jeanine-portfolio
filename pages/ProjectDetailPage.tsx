@@ -15,42 +15,74 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
   const hasCallout = paragraphs.length > 2 && lastParagraph.length < 80;
   const bodyParagraphs = hasCallout ? paragraphs.slice(1, -1) : paragraphs.slice(1);
 
+  // Detect pull quotes — paragraphs wrapped in curly quotes or straight quotes
+  const isPullQuote = (text: string) => {
+    const trimmed = text.trim();
+    return (trimmed.startsWith('\u201C') && trimmed.endsWith('\u201D')) ||
+           (trimmed.startsWith('"') && trimmed.endsWith('"'));
+  };
+
+  const stripQuotes = (text: string) => {
+    return text.trim().replace(/^[\u201C"]/,'').replace(/[\u201D"]$/,'');
+  };
+
+  // Drop cap: split first paragraph into first letter + rest
+  const leadText = paragraphs[0] || '';
+  const dropCapLetter = leadText.charAt(0);
+  const leadRest = leadText.slice(1);
+
   return (
     <div className="w-full max-w-5xl mt-8 md:mt-12">
         <div className="max-w-2xl">
-            <div className="mb-6">
+            {/* Category label */}
+            {(project.client || project.categoryLabel) && (
+              <p className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 font-normal mb-4">
+                {[project.client, project.categoryLabel].filter(Boolean).join(' \u00B7 ')}
+              </p>
+            )}
+
+            <div className="mb-8">
               <h1 className="text-2xl md:text-3xl font-light">{project.title}</h1>
               {(project.subtitle || project.descriptor) && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
             </div>
 
-            {/* Lead paragraph */}
-            {paragraphs[0] && (
-              <p className="text-lg md:text-xl font-light text-neutral-800 leading-relaxed mb-6">
-                {paragraphs[0]}
+            {/* Lead paragraph with drop cap */}
+            {leadText && (
+              <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-800 leading-relaxed mb-8">
+                <span className="float-left text-5xl md:text-6xl font-normal leading-[0.8] mr-2 mt-1">{dropCapLetter}</span>
+                {leadRest}
               </p>
             )}
 
             {/* Subtle divider between lead and body */}
             {bodyParagraphs.length > 0 && (
-              <div className="w-10 h-px bg-neutral-300 mb-6" />
+              <div className="w-10 h-px bg-neutral-300 mb-8" />
             )}
 
-            {/* Body paragraphs */}
-            {bodyParagraphs.map((para, i) => (
-              <p key={i} className="text-base md:text-lg font-light text-neutral-700 leading-relaxed mb-5">
-                {para}
-              </p>
-            ))}
+            {/* Body paragraphs — with pull quote detection */}
+            {bodyParagraphs.map((para, i) =>
+              isPullQuote(para) ? (
+                <blockquote key={i} className="border-l-2 border-neutral-300 pl-6 my-10">
+                  <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-700 leading-relaxed italic">
+                    {stripQuotes(para)}
+                  </p>
+                </blockquote>
+              ) : (
+                <p key={i} className="font-body-serif text-base md:text-lg font-light text-neutral-700 leading-[1.85] mb-7">
+                  {para}
+                </p>
+              )
+            )}
 
             {/* Closing callout — short final lines get pulled out */}
             {hasCallout && (
-              <p className="text-lg md:text-xl font-light text-neutral-800 italic mt-8 mb-6">
+              <p className="font-body-serif text-lg md:text-xl font-light text-neutral-800 italic mt-10 mb-8">
                 {lastParagraph}
               </p>
             )}
 
             {project.formats && (
-                <div className="mt-8 mb-6">
+                <div className="mt-10 mb-8">
                     <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 font-normal mb-3">Formats</span>
                     <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {project.formats.map((format, index) => (
@@ -61,7 +93,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
             )}
 
             {project.liveUrl && (
-              <div className="mt-8 mb-2 border border-neutral-200 rounded-sm px-6 py-5 bg-neutral-50/60">
+              <div className="mt-10 mb-2 border border-neutral-200 rounded-sm px-6 py-5 bg-neutral-50/60">
                 <p className="text-xs font-light tracking-[0.2em] uppercase text-neutral-500 mb-3">Try the prototype</p>
                 <a
                   href={project.liveUrl}
@@ -75,7 +107,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               </div>
             )}
 
-            {project.tools && <p className="text-xs md:text-sm text-neutral-500 font-light tracking-wider mt-8 pt-4 border-t border-neutral-200">{project.tools}</p>}
+            {project.tools && <p className="text-xs md:text-sm text-neutral-500 font-light tracking-wider mt-10 pt-4 border-t border-neutral-200">{project.tools}</p>}
         </div>
     </div>
   );
