@@ -207,7 +207,7 @@ export const PROJECTS: Project[] = [
             subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
         }
     ],
-    description: "Most show marketing happens outside the story.\n\nFor The Last City, the city marketed itself.\n\nDestination posts. Recruitment ads. Brand spots. All produced as if the city had its own creative agency — selling a world, not a show.\n\nThe format didn't exist in podcasting, so I built a dozen concepts to show how it could work. Two were greenlit. One outperformed engagement benchmarks.",
+    description: "Most show marketing happens outside the story.\n\nFor The Last City, we tried something different. The city itself started speaking.\n\nSocial posts came from inside the fictional world: destination posts, recruitment ads, brand spots — even a trailer made as if the city had its own creative agency.\n\nBecause the format isn't widely used in podcasting, I built more than a dozen prototypes to show how in-world marketing could work for The Last City. AI tools made it possible to create and test these quickly.\n\nTwo prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.'
   },
   {
