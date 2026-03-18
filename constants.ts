@@ -132,6 +132,7 @@ export const PROJECTS: Project[] = [
     categoryLabel: 'Cultural Experiment',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20Tender%20Updated.mp4',
     previewAutoplay: true,
+    previewHasAudio: true,
     mainVideos: [
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%204_new%20cover.mp4',

@@ -148,7 +148,9 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     playsInline
                     preload="metadata"
                     style={{
-                      filter: isHovered ? 'saturate(1) brightness(0.95)' : 'saturate(0.7) brightness(0.9)',
+                      filter: project.id === 'tender'
+                        ? 'none'
+                        : isHovered ? 'saturate(1) brightness(0.95)' : 'saturate(0.7) brightness(0.9)',
                       transition: 'filter 350ms cubic-bezier(.22,.61,.36,1)',
                     }}
                 />
