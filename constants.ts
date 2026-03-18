@@ -130,7 +130,7 @@ export const PROJECTS: Project[] = [
     category: 'Experiments',
     filterCategories: ['cultural-experiment'],
     categoryLabel: 'Cultural Experiment',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%202_New%20Cover.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Tender%20Looping%20Cover.mp4',
     previewAutoplay: true,
     mainVideos: [
       {
