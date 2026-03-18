@@ -184,7 +184,6 @@ const ProjectDetailPage = () => {
     <>
       {project.embedUrl ? (
         <div className="w-full max-w-5xl py-8" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
-          <p className="text-center text-xs tracking-[0.15em] uppercase text-neutral-400 font-light mb-6">interactive &mdash; click to explore</p>
           <PhoneEmbed src={project.embedUrl} title={`${project.title} — interactive prototype`} />
         </div>
       ) : project.interactivePitch ? (
