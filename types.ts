@@ -43,4 +43,5 @@ export interface Project {
     previewVideoUrl: string;
   };
   liveUrl?: string;
+  embedUrl?: string;
 }
