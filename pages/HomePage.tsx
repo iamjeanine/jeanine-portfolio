@@ -19,7 +19,7 @@ const HomePage = () => {
         {/* Closing section — end credits */}
         <section
           ref={closingRef}
-          className={`w-full bg-[#f8f8f8] flex flex-col items-center justify-center py-20 md:py-56 px-6 transition-all duration-1000 ease-out ${
+          className={`w-full bg-[#f8f8f8] flex flex-col items-center justify-center py-16 md:py-40 px-6 transition-all duration-1000 ease-out ${
             closingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
