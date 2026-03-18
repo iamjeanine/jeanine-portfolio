@@ -142,8 +142,9 @@ export const PROJECTS: Project[] = [
         hasAudio: true
       }
     ],
-    descriptor: 'Culture, curated for how you feel.',
-    description: "Recommendation feeds slowly train us downward. We linger on something for a second too long, and the algorithm decides we want more of that.\n\nTender tries a different path.\n\nIt begins with a library of films, essays, poems, myths, and podcasts chosen by people who care deeply about culture. You talk to Tender about where you are or what you need, and it thoughtfully assembles something to meet you there.\n\nPart human curation, part conversational system. A way of finding culture that feels closer to asking a thoughtful friend than scrolling a feed.",
+    descriptor: 'Feel something, find something.',
+    description: "Recommendation feeds slowly train us downward. Not dramatically\u2009\u2014\u2009just a little less curious, a little more numb, each time.\n\nTender tries a different path.\n\nIt begins with a library of films, essays, poems, myths, and podcasts chosen by people who care deeply about culture. You tell Tender how you\u2019re feeling or what you need, and it thoughtfully assembles something to meet you there.\n\nPart human curation, part conversational system.\n\nA way of finding culture that feels closer to asking a thoughtful friend than scrolling a feed.",
+    liveUrl: 'https://tender-tau.vercel.app/',
     tools: 'Tools: React, Claude Code, Claude API, Web Speech API, Vite.',
   },
   {
