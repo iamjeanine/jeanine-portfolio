@@ -123,7 +123,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center text-base font-light text-neutral-800 hover:text-[#2C4A3C] transition-colors"
                 >
-                  Visit the live site
+                  {project.liveUrlLabel || 'Visit the live site'}
                   <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">&rarr;</span>
                 </a>
               </div>

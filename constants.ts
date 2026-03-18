@@ -146,6 +146,7 @@ export const PROJECTS: Project[] = [
     description: "Recommendation feeds slowly train us downward. Not dramatically\u2009\u2014\u2009just a little less curious, a little more numb, each time.\n\nTender tries a different path.\n\nIt begins with a library of films, essays, poems, myths, and podcasts chosen by people who care deeply about culture. You tell Tender how you\u2019re feeling or what you need, and it thoughtfully assembles something to meet you there.\n\nPart human curation, part conversational system.\n\nA way of finding culture that feels closer to asking a thoughtful friend than scrolling a feed.",
     embedUrl: 'https://tender-app-gamma.vercel.app',
     liveUrl: 'https://tender-app-gamma.vercel.app/demo',
+    liveUrlLabel: 'Visit the live app',
     tools: 'Tools: React, Claude Code, Claude API, Web Speech API, Vite.',
   },
   {
