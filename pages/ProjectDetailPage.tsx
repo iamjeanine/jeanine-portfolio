@@ -5,6 +5,7 @@ import { PROJECTS, getVisibleProjects } from '../constants';
 import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
 import { BackIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
+import PhoneEmbed from '../components/PhoneEmbed';
 import { useViewTransitionNavigate } from '../hooks/useViewTransition';
 
 
@@ -181,7 +182,11 @@ const ProjectDetailPage = () => {
   
   const renderDefaultLayout = () => (
     <>
-      {project.interactivePitch ? (
+      {project.embedUrl ? (
+        <div className="w-full max-w-5xl py-8" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
+          <PhoneEmbed src={project.embedUrl} title={`${project.title} — interactive prototype`} />
+        </div>
+      ) : project.interactivePitch ? (
          <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
             <a 
                 href={project.interactivePitch.url} 
