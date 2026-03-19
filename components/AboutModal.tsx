@@ -56,6 +56,9 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <h2 id="about-title" className="text-2xl md:text-3xl font-serif text-white mb-6">About</h2>
         <div className="space-y-4 text-sm md:text-base font-normal text-neutral-300">
           <p>
+            I build the tools I used to commission.
+          </p>
+          <p>
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
           <p>
@@ -65,7 +68,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Founded Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Multiple projects moved from lab to production.
           </p>
           <p>
-            Now building narrative experiences, story tools, and interactive prototypes with AI.
+            Now I make new forms. Interactive experiences and AI-native work that didn't exist before these tools arrived.
           </p>
           <div className="border-t border-neutral-800 pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors underline">LinkedIn</a>
