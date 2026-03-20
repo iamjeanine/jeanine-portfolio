@@ -65,7 +65,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (Apple's Podcast of the Year, FX limited series, 9 Primetime Emmy nominations). Created The Last City (scripted sci-fi, #1 Apple Fiction in 20 countries).
           </p>
           <p>
-            Founded Wondery's first AI Creator Lab, scaling from 4 to 50+ people across content, marketing, product, and ad sales. Multiple projects moved from lab to production.
+            Founded Wondery's first Creator Lab, scaling from 4 to 50+ people.
           </p>
           <div className="border-t border-neutral-800 pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors underline">LinkedIn</a>
