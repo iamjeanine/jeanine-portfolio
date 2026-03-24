@@ -33,7 +33,7 @@ export const PROJECTS: Project[] = [
     ],
     descriptor: 'Interactive Story Bible',
     description: "Story worlds usually begin as documents. Notes about characters, places, timelines, and relationships.\n\nNarrative Space turns that material into something you can explore.\n\nYou can upload an existing story bible and watch the world assemble itself. Or start from scratch. The tool asks questions that help shape the structure of the story as you go.\n\nCharacters, locations, and themes appear as nodes in a shared space. You can move through the world in three dimensions, or switch to more familiar views that organize everything into categories and cards.\n\nSeeing the material from different angles helps new connections emerge. Relationships between characters, places, and events start to reveal themselves as part of a living world rather than a stack of notes.\n\nYou can also talk with the world as you build it. Ask questions about characters, conflicts, or story logic. It can clarify relationships, suggest additions, or point out conflicts in the story.\n\nThe process stays human-led. Writers decide what belongs in the world. If you want to add a beat, you can simply say where it should go and it places it on the story grid.\n\nA space for thinking through a story.",
-    tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with Claude Code.',
+    tools: 'Tools: React, Three.js, Claude API, AI Studio Build, vector embeddings. Built with Claude Code.',
     liveUrl: 'https://narrative-space.vercel.app/',
   },
   {
