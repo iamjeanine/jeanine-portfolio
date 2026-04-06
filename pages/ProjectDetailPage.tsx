@@ -390,11 +390,13 @@ const ProjectDetailPage = () => {
                   projectId={project.id}
                 />
                 {video2.caption && (
-                  <div className="max-w-2xl mt-4">
-                    <h3 className="text-xl md:text-2xl font-light text-neutral-800 mb-2">{captionTitle}</h3>
-                    <p className="text-base md:text-lg font-light text-neutral-700 leading-relaxed whitespace-pre-line">
-                      {captionBody}
-                    </p>
+                  <div className="max-w-2xl mt-8">
+                    <h3 className="text-2xl md:text-3xl font-light text-neutral-800 mb-8">{captionTitle}</h3>
+                    {captionParts.slice(1).map((para, i) => (
+                      <p key={i} className="font-body-serif text-base md:text-lg font-light text-neutral-700 leading-[1.85] mb-7">
+                        {para}
+                      </p>
+                    ))}
                   </div>
                 )}
               </div>
