@@ -123,6 +123,32 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
   },
   {
+    id: 'mythos',
+    title: 'MythOS',
+    subtitle: 'Data visualization + Storytelling',
+    client: 'Ghost Mode Labs',
+    category: 'Experiments',
+    filterCategories: ['cultural-experiment'],
+    categoryLabel: 'Cultural Experiment',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
+    previewAutoplay: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOSDemo2.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true,
+        startMuted: true
+      }
+    ],
+    descriptor: 'Interactive mythology globe',
+    description: "Six figures. 3,000 years of stories. No one\u2019s developing them.\n\nThe source material is scattered across folklore archives and academic databases, never mapped, never visualized.\n\nI built an interactive globe that tracks six mythological figures as their stories migrate across cultures and continents. Click Circe and descend into her full timeline, from Christopher Nolan\u2019s The Odyssey to before the written word existed.\n\nIt also shows you what\u2019s been erased from cultural memory but never actually lost. The source material exists. It\u2019s just never been developed.\n\nBuilt as a prototype for studio development teams.",
+    tools: 'Tools: React, Three.js, React Three Fiber, GSAP, Vite. Built with Claude Code.',
+    liveUrl: 'https://mythos-globe.vercel.app',
+  },
+  {
     id: 'tender',
     title: 'Tender',
     subtitle: 'Conversation with culture',
@@ -214,29 +240,4 @@ export const PROJECTS: Project[] = [
     description: "Most show marketing happens outside the story.\n\nFor The Last City, we tried something different. The city itself started speaking.\n\nSocial posts came from inside the fictional world: destination posts, recruitment ads, brand spots — even a trailer made as if the city had its own creative agency.\n\nBecause the format isn't widely used in podcasting, I built more than a dozen prototypes to show how in-world marketing could work for The Last City. AI tools made it possible to create and test these quickly.\n\nTwo prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.'
   },
-  {
-    id: 'podcast-mixtape',
-    title: 'Podcast Mixtape',
-    subtitle: 'Listening, remixed',
-    client: 'Ghost Mode Labs',
-    category: 'Experiments',
-    filterCategories: ['cultural-experiment'],
-    categoryLabel: 'Cultural Experiment',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Minisdisc%20recorder2.mp4',
-    previewAutoplay: true,
-    mainVideos: [
-        {
-            url: 'https://storage.googleapis.com/jeanine-portfolio-video/Podcastnotitle.mp4',
-            aspectRatio: '16:9',
-            autoplay: true,
-            loop: true,
-            showControls: true,
-            hasAudio: true,
-            startMuted: true
-        }
-    ],
-    descriptor: 'Audio discovery prototype',
-    description: "Podcast discovery usually means scrolling endless grids.\n\nPodcast Mixtape turns listening into something you can organize and play.\n\nAdd shows you care about and they appear as discs in your library. You can start with the latest episode or go back to the beginning and follow a series over time.\n\nYou can also generate a mixtape. Describe what you\u2019re looking for and the app assembles five podcasts onto a single disc. Something to help you rethink your career. Something to get your finances in order. Something to keep you company on a long trip.\n\nDrag a disc into the player and press play.\n\nA more tactile way to listen.",
-    tools: 'Tools: Google AI Studio - Build (Gemini)'
-  }
 ];
