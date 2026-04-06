@@ -132,6 +132,7 @@ export const PROJECTS: Project[] = [
     categoryLabel: 'Cultural Experiment',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
     previewAutoplay: true,
+    previewHasAudio: true,
     mainVideos: [
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOSDemo2.mp4',
