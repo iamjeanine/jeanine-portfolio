@@ -120,8 +120,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                     </h2>
                 </div>
                 {project.subtitle && (
-                  <div className="overflow-visible mt-1.5">
-                    <p className={`text-sm md:text-base font-sans font-light text-neutral-500 transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
+                  <div className="overflow-hidden mt-1.5">
+                    <p className={`text-sm md:text-base font-sans font-light text-neutral-500 whitespace-pre-line transition-all will-change-transform ${isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]' : 'opacity-0 translate-y-2 duration-200 delay-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}>
                         {project.subtitle}
                     </p>
                   </div>

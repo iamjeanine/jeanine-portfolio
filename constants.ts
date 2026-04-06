@@ -125,7 +125,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'mythos',
     title: 'MythOS',
-    subtitle: 'Data visualization + Storytelling',
+    subtitle: 'Data visualization\n+ Storytelling',
     client: 'Ghost Mode Labs',
     category: 'Experiments',
     filterCategories: ['cultural-experiment'],
