@@ -128,7 +128,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     >
       <video
         ref={videoRef}
-        className={`w-full h-full bg-black ${projectId === 'narrative-space' || projectId === 'unstill' ? 'object-contain' : 'object-cover'}`}
+        className={`w-full h-full bg-black ${projectId === 'narrative-space' || projectId === 'unstill' || projectId === 'mythos' ? 'object-contain' : 'object-cover'}`}
         src={src}
         poster={posterUrl}
         autoPlay={autoplay}
