@@ -144,7 +144,7 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Interactive mythology globe',
+    descriptor: 'Franchise intelligence',
     description: "Studios circle the same franchises. Meanwhile, thousands of stories sit in public domain archives, never mapped, never developed.\n\nI built an interactive globe tracking how myths travel across cultures and centuries. Where they originated, where they traveled, where they were adapted, and where the gaps are. 494 source stories in the prototype. Click Circe and descend into her full timeline, from Christopher Nolan\u2019s The Odyssey to before the written word existed. Ask questions, surface connections, find what\u2019s developable.\n\nThe tool works with any mythology, any folklore tradition, any public domain IP.\n\nBuilt as a prototype for studio development and franchise teams.",
     tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
   },
