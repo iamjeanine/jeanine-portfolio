@@ -145,8 +145,8 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'Interactive mythology globe',
-    description: "Six figures. 3,000 years of stories. No one\u2019s developing them.\n\nThe source material is scattered across folklore archives and academic databases, never mapped, never visualized.\n\nI built an interactive globe that tracks six mythological figures as their stories migrate across cultures and continents. Click Circe and descend into her full timeline, from Christopher Nolan\u2019s The Odyssey to before the written word existed.\n\nIt also shows you what\u2019s been erased from cultural memory but never actually lost. The source material exists. It\u2019s just never been developed.\n\nBuilt as a prototype for studio development teams.",
-    tools: 'Tools: React, Three.js, React Three Fiber, GSAP, Vite. Built with Claude Code.',
+    description: "Studios circle the same franchises. Meanwhile, thousands of stories sit in public domain archives, never mapped, never developed.\n\nI built an interactive globe tracking how myths travel across cultures and centuries. Where they originated, where they traveled, where they were adapted, and where the gaps are. 494 source stories in the prototype. Click Circe and descend into her full timeline, from Christopher Nolan\u2019s The Odyssey to before the written word existed. Ask questions, surface connections, find what\u2019s developable.\n\nThe tool works with any mythology, any folklore tradition, any public domain IP.\n\nBuilt as a prototype for studio development and franchise teams.",
+    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
   },
   {
     id: 'tender',
