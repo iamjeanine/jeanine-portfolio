@@ -125,7 +125,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'mythos',
     title: 'MythOS',
-    subtitle: 'Data + Storytelling',
+    subtitle: 'Franchise intelligence',
     client: 'Ghost Mode Labs',
     category: 'Experiments',
     filterCategories: ['story-system'],
