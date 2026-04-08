@@ -145,7 +145,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'Franchise intelligence',
-    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, any folklore tradition, any public domain IP.\n\nBuilt for studio development and franchise teams.",
+    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
     tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
   },
   {
