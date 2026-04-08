@@ -135,7 +135,7 @@ export const PROJECTS: Project[] = [
     previewHasAudio: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOSDemo2.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
