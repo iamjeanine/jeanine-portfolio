@@ -25,7 +25,7 @@ const HomePage = () => {
         >
           <div className="w-16 h-px bg-neutral-300 mb-12" />
           <h2 className="font-serif text-5xl md:text-7xl text-neutral-800 mb-12 tracking-[-0.02em] text-center">
-            Jeanine Cornillot
+            Jeanine Emilia Cornillot
           </h2>
           <div className="flex items-center space-x-8 md:space-x-10 text-xs md:text-sm font-light">
             <button

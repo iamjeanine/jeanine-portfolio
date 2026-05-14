@@ -83,7 +83,7 @@ const Hero = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const name1 = 'Jeanine';
+  const name1 = 'Jeanine Emilia';
   const name2 = 'Cornillot';
 
   return (
