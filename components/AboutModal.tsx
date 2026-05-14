@@ -62,10 +62,10 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
           <p>
-            Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (Apple's Podcast of the Year, FX limited series, 9 Primetime Emmy nominations). Created The Last City (scripted sci-fi, #1 Apple Fiction in 20 countries).
+            Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (Apple Podcast of the Year, adapted as a Peabody-winning FX series with 9 Emmy nominations). Created The Last City (scripted sci-fi, #1 Apple Fiction in 20 countries).
           </p>
           <p>
-            Founded Wondery's first Creator Lab, scaling from 4 to 50+ people.
+            Founded Wondery's first Creator Lab, training 50+ staff on emerging production tools.
           </p>
           <div className="border-t border-neutral-800 pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors underline">LinkedIn</a>
