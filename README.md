@@ -32,7 +32,13 @@ Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes ac
 
 Portfolio site: React · TypeScript · Vite · Tailwind CSS · React Router
 
-Projects use: React · Three.js · Claude API · Google AI Studio · ElevenLabs · Veo 3 · Vite · Vercel
+UNSTILL: React · Vite · GSAP ScrollTrigger · Canvas API · Anthropic Claude API · Vercel serverless proxy · Google Veo 3.1 · AI colorization
+
+MythOS: React · Three.js · React Three Fiber · GSAP · Anthropic Claude API · Zustand · Vite · Vercel
+
+Narrative Space: React · Three.js · React Three Fiber · GSAP · Anthropic Claude API · Zustand · Playwright · Vite · Vercel
+
+Tender: React · Vite · Anthropic Claude API · Express · Node.js · Vercel
 
 ## Built with
 
