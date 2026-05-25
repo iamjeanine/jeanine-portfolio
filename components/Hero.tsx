@@ -119,7 +119,7 @@ const Hero = () => {
           loop
           muted={isMuted}
           playsInline
-          preload="metadata"
+          preload="auto"
           onCanPlayThrough={handleVideoReady}
         />
 
