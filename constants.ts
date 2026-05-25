@@ -3,7 +3,7 @@ import type { Project } from './types';
 
 export const HERO_VIDEOS = {
   url: 'https://storage.googleapis.com/jeanine-portfolio-video/Heroshotmusic2.mp4',
-  posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Hero-poster.jpg',
+  posterUrl: '/hero-poster.jpg',
 };
 
 export const getVisibleProjects = () => PROJECTS.filter(p => p.category === 'Selected' || p.category === 'Experiments');
