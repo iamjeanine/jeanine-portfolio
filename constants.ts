@@ -107,7 +107,7 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     filterCategories: ['cultural-experiment'],
     categoryLabel: 'Cultural Experiment',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20cover%20new.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20Kelly%20Cover.mp4',
     previewAutoplay: true,
     mainVideos: [
       {
