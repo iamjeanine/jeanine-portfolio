@@ -203,7 +203,7 @@ export const PROJECTS: Project[] = [
     filterCategories: ['production-tool'],
     categoryLabel: 'Production Tool',
     descriptor: 'The Last City',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Social%20Campaing3_New%20Cover.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cityscape.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
