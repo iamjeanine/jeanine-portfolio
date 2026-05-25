@@ -36,19 +36,32 @@ const PhoneEmbed: React.FC<PhoneEmbedProps> = ({ src, title = 'Interactive proto
             zIndex: 2,
           }}
         />
-        <iframe
-          src={src}
-          title={title}
-          loading="lazy"
-          allow="microphone"
-          style={{
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            borderRadius: 36,
-            background: '#0a0a0a',
-          }}
-        />
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          borderRadius: 36,
+          overflow: 'hidden',
+          background: '#f5f2ec',
+          backgroundImage: 'url(/tender-poster.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+          <iframe
+            src={src}
+            title={title}
+            loading="lazy"
+            allow="microphone"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              borderRadius: 36,
+            }}
+          />
+        </div>
 
         {/* Interactive hint overlay — fades on click */}
         {!hintDismissed && (
