@@ -49,12 +49,12 @@ const HomePage = () => {
         {/* Closing section — end credits */}
         <section
           ref={closingRef}
-          className={`w-full bg-[#F5F2EC] flex flex-col items-center justify-center py-16 md:py-40 px-6 transition-all duration-1000 ease-out ${
+          className={`w-full bg-[#F5F2EC] flex flex-col items-center justify-center py-16 md:py-24 px-6 transition-all duration-1000 ease-out ${
             closingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="w-16 h-px bg-neutral-300 mb-12" />
-          <h2 className="font-serif text-5xl md:text-7xl text-neutral-800 mb-12 tracking-[-0.02em] text-center">
+          <div className="w-16 h-px bg-neutral-300 mb-8" />
+          <h2 className="font-serif text-5xl md:text-7xl text-neutral-800 mb-8 tracking-[-0.02em] text-center">
             Jeanine Emilia Cornillot
           </h2>
           <div className="flex items-center space-x-8 md:space-x-10 text-xs md:text-sm font-light">
