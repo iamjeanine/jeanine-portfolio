@@ -1,6 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Uncut+Sans:wght@400;700&display=swap');
-
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Uncut Sans';
+  src: url('/fonts/UncutSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Uncut Sans';
+  src: url('/fonts/UncutSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --font-body-serif: "Source Serif 4", Georgia, serif;
