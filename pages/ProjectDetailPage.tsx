@@ -53,7 +53,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
             )}
 
             <div className="mb-8">
-              <h1 className="text-2xl md:text-3xl font-light">{project.title}</h1>
+              <h1 className="text-3xl md:text-4xl font-normal">{project.title}</h1>
               {(project.subtitle || project.descriptor) && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
             </div>
 
