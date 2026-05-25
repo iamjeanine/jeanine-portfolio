@@ -411,17 +411,7 @@ const ProjectDetailPage = () => {
       className={`fixed inset-0 bg-[#F5F2EC] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
       style={{ overscrollBehavior: 'contain', willChange: 'scroll-position' }}
     >
-      {/* Atmospheric overlays — subtle grain + top gradient */}
-      <div
-        className="grain-overlay fixed inset-0 pointer-events-none mix-blend-overlay"
-        style={{
-          opacity: 0.015,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: '256px 256px',
-          animation: 'grain 0.5s steps(6) infinite',
-          zIndex: 0,
-        }}
-      />
+      {/* Top gradient only — grain removed from detail pages (invisible at 0.015 on light bg, wastes CPU) */}
       <div
         className="fixed top-0 left-0 right-0 pointer-events-none"
         style={{
