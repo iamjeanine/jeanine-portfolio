@@ -37,15 +37,15 @@ const ProjectGrid: React.FC = () => {
   return (
     <div className="w-full bg-[#f8f8f8] px-6 py-12">
 
-      {/* Filter navigation */}
-      <nav className="flex flex-col items-stretch gap-2 md:flex-row md:flex-wrap md:justify-center md:gap-3 mb-10 md:mb-14">
+      {/* Filter navigation — horizontal scroll on mobile, centered row on desktop */}
+      <nav className="flex flex-row gap-2 md:flex-wrap md:justify-center md:gap-3 mb-8 md:mb-14 overflow-x-auto scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0 md:overflow-visible">
         {FILTERS.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => handleFilter(key)}
             className={`
-              px-5 py-2.5 md:py-2 rounded-full text-[11px] md:text-xs tracking-[0.12em] uppercase
-              transition-all duration-200 whitespace-nowrap
+              px-4 py-2 md:px-5 md:py-2 rounded-full text-[11px] md:text-xs tracking-[0.12em] uppercase
+              transition-all duration-200 whitespace-nowrap shrink-0
               ${activeFilter === key
                 ? 'bg-neutral-800 text-white border border-neutral-800'
                 : 'bg-transparent text-neutral-500 border border-neutral-300 hover:border-neutral-500 hover:text-neutral-700'
