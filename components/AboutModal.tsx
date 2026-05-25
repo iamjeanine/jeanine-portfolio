@@ -37,7 +37,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       aria-labelledby="about-title"
     >
       <div
-        className="bg-neutral-900 p-8 md:p-12 max-w-2xl w-full relative overflow-y-auto max-h-[90vh]"
+        className="bg-[#222D25] p-8 md:p-12 max-w-2xl w-full relative overflow-y-auto max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Grain texture inside modal */}
@@ -70,10 +70,10 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <p>
             Now through Ghost Mode Labs, I'm developing original IP and building creative tools across nonfiction, scripted, and interactive formats.
           </p>
-          <div className="border-t border-neutral-800 pt-4 mt-6">
-            <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors underline">LinkedIn</a>
+          <div className="border-t border-[#2B3A2E] pt-4 mt-6">
+            <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#EDE8DF] transition-colors underline">LinkedIn</a>
             <span className="mx-2 text-neutral-600">/</span>
-            <a href="mailto:iamjeanine@me.com" className="text-neutral-400 hover:text-white transition-colors underline">Email</a>
+            <a href="mailto:iamjeanine@me.com" className="text-neutral-400 hover:text-[#EDE8DF] transition-colors underline">Email</a>
           </div>
         </div>
       </div>

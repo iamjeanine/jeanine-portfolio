@@ -408,7 +408,7 @@ const ProjectDetailPage = () => {
 
   return (
     <div
-      className={`fixed inset-0 bg-[#f8f8f8] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
+      className={`fixed inset-0 bg-[#F5F2EC] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
       style={{ overscrollBehavior: 'contain', willChange: 'scroll-position' }}
     >
       {/* Atmospheric overlays — subtle grain + top gradient */}

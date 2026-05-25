@@ -104,7 +104,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         onClick={handleClick}
         className="block group"
       >
-        <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: '#f3f3f2' }}>
+        <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: '#EEEAE3' }}>
             {/* Title panel — sits behind video, revealed as video slides (desktop only) */}
             <div className="absolute inset-0 w-1/3 hidden md:flex flex-col justify-center p-4 md:p-6">
                  {project.categoryLabel && (
