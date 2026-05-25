@@ -67,6 +67,9 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <p>
             Founded Wondery's first Creator Lab, training 50+ staff on emerging production tools.
           </p>
+          <p>
+            Now through Ghost Mode Labs, I'm developing original IP and building creative tools across nonfiction, scripted, and interactive formats.
+          </p>
           <div className="border-t border-neutral-800 pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors underline">LinkedIn</a>
             <span className="mx-2 text-neutral-600">/</span>
