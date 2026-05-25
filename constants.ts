@@ -37,6 +37,69 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://narrative-space.vercel.app/',
   },
   {
+    id: 'ai-creator-lab',
+    title: 'AI Creator Lab',
+    subtitle: 'Wondery creator lab',
+    client: 'Ghost Mode Labs',
+    category: 'Selected',
+    filterCategories: ['production-tool'],
+    categoryLabel: 'Production Tool',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
+    previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+        {
+          url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab2.mp4',
+          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Interior-poster.jpg',
+          aspectRatio: '16:9',
+          autoplay: true,
+          loop: true,
+          showControls: true,
+          hasAudio: true
+        },
+        {
+          url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4',
+          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub-poster.jpg',
+          aspectRatio: '16:9',
+          autoplay: true,
+          loop: true,
+          showControls: true,
+          hasAudio: true,
+          caption: 'AI Lab Archive\n\nTo support the lab, I built an online hub where the curriculum could live.\n\nEach module included a NotebookLM podcast walkthrough, study guide, FAQs, and the original presentation. Some modules also included recorded sessions with industry partners demonstrating the tools in practice.\n\nThe archive allowed teams across the company to learn at their own pace or revisit sessions as the tools evolved.'
+        }
+    ],
+    descriptor: "Creative workflow lab",
+    description: "I founded Wondery\u2019s first AI Creator Lab to explore how new tools could fit into real production workflows.\n\nThe lab grew from four people to more than fifty across content, marketing, product, and ad sales. I ran hands-on workshops, built learning modules, and brought in outside partners who were building these tools to demonstrate how they worked and how our teams could use them.\n\nThree projects came out of the lab.\n\nStoryCraft, a tool for adapting narrative series for kids and family audiences.\n\nA research assistant that helped teams gather background material and media pulls for new stories.\n\nAnd a metadata tool that generated titles, descriptions, and tags for publishing across platforms.",
+    tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
+  },
+  {
+    id: 'mythos',
+    title: 'MythOS',
+    subtitle: 'Franchise intelligence',
+    client: 'Ghost Mode Labs',
+    category: 'Experiments',
+    filterCategories: ['story-system'],
+    categoryLabel: 'Story System',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true,
+        startMuted: false
+      }
+    ],
+    descriptor: 'Franchise intelligence',
+    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
+    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
+  },
+  {
     id: 'unstill',
     title: 'Unstill',
     subtitle: 'Regenerative lives',
@@ -84,69 +147,6 @@ export const PROJECTS: Project[] = [
         'Visual audiobook',
         'Podcast'
     ],
-  },
-  {
-    id: 'ai-creator-lab',
-    title: 'AI Creator Lab',
-    subtitle: 'Wondery creator lab',
-    client: 'Ghost Mode Labs',
-    category: 'Selected',
-    filterCategories: ['production-tool'],
-    categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
-    previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [
-        { 
-          url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab2.mp4',
-          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Interior-poster.jpg',
-          aspectRatio: '16:9',
-          autoplay: true,
-          loop: true,
-          showControls: true,
-          hasAudio: true
-        },
-        { 
-          url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4', 
-          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub-poster.jpg',
-          aspectRatio: '16:9',
-          autoplay: true,
-          loop: true,
-          showControls: true,
-          hasAudio: true,
-          caption: 'AI Lab Archive\n\nTo support the lab, I built an online hub where the curriculum could live.\n\nEach module included a NotebookLM podcast walkthrough, study guide, FAQs, and the original presentation. Some modules also included recorded sessions with industry partners demonstrating the tools in practice.\n\nThe archive allowed teams across the company to learn at their own pace or revisit sessions as the tools evolved.'
-        }
-    ],
-    descriptor: "Creative workflow lab",
-    description: "I founded Wondery\u2019s first AI Creator Lab to explore how new tools could fit into real production workflows.\n\nThe lab grew from four people to more than fifty across content, marketing, product, and ad sales. I ran hands-on workshops, built learning modules, and brought in outside partners who were building these tools to demonstrate how they worked and how our teams could use them.\n\nThree projects came out of the lab.\n\nStoryCraft, a tool for adapting narrative series for kids and family audiences.\n\nA research assistant that helped teams gather background material and media pulls for new stories.\n\nAnd a metadata tool that generated titles, descriptions, and tags for publishing across platforms.",
-    tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
-  },
-  {
-    id: 'mythos',
-    title: 'MythOS',
-    subtitle: 'Franchise intelligence',
-    client: 'Ghost Mode Labs',
-    category: 'Experiments',
-    filterCategories: ['story-system'],
-    categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true,
-        startMuted: false
-      }
-    ],
-    descriptor: 'Franchise intelligence',
-    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
-    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
   },
   {
     id: 'tender',
@@ -237,7 +237,7 @@ export const PROJECTS: Project[] = [
             subtitle: 'Built an internal tool for cross-department teams. One source to answer questions about the show for marketing, ad sales, and film/TV.'
         }
     ],
-    description: "Most show marketing happens outside the story.\n\nFor The Last City, we tried something different. The city itself started speaking.\n\nSocial posts came from inside the fictional world: destination posts, recruitment ads, brand spots — even a trailer made as if the city had its own creative agency.\n\nBecause the format isn't widely used in podcasting, I built more than a dozen prototypes to show how in-world marketing could work for The Last City. AI tools made it possible to create and test these quickly.\n\nTwo prototypes moved into production.",
+    description: "Most show marketing happens outside the story.\n\nFor The Last City, we tried something different. The city itself started speaking.\n\nSocial posts came from inside the fictional world: destination posts, recruitment ads, brand spots \u2014 even a trailer made as if the city had its own creative agency.\n\nBecause the format isn't widely used in podcasting, I built more than a dozen prototypes to show how in-world marketing could work for The Last City. AI tools made it possible to create and test these quickly.\n\nTwo prototypes moved into production.",
     tools: 'Tools: ElevenLabs, Midjourney, Runway, Luma, Magnific, After Effects, Premiere Pro, CapCut.'
   },
 ];
