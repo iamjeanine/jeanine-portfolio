@@ -237,7 +237,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 top: '12px',
                 left: '18px',
                 fontFamily: "'Bodoni Moda', serif",
-                fontStyle: 'normal',
+                fontStyle: 'italic',
                 fontWeight: 400,
                 fontSize: '5.2cqw',
                 lineHeight: 0.9,
