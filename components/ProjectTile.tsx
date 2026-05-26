@@ -260,33 +260,6 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               />
             </div>
 
-            {/* Corner Arrow — click affordance */}
-            <div
-              className="absolute z-[2] hidden md:inline-flex items-center"
-              style={{
-                bottom: '14px',
-                right: '18px',
-                fontSize: '1.6cqw',
-                color: isHovered ? 'var(--cream)' : 'rgba(246,239,231,0.85)',
-                textShadow: '0 1px 6px rgba(0,0,0,0.55)',
-                gap: '0.45em',
-                transition: 'transform 300ms ease, color 300ms ease',
-                transform: isHovered ? 'translate(2px, -2px)' : 'translate(0, 0)',
-              }}
-            >
-              <span
-                style={{
-                  fontSize: '0.65em',
-                  letterSpacing: '0.28em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(246,239,231,0.65)',
-                }}
-              >
-                See the project
-              </span>
-              <span>↗</span>
-            </div>
-
             <video
               ref={videoRef}
               className="w-full h-full pointer-events-none object-cover"
