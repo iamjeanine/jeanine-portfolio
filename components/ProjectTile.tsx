@@ -138,7 +138,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
 
         {/* ── MOBILE: Title ── */}
         <h2
-          className="md:hidden font-serif italic font-medium text-[22px] leading-none tracking-[-0.01em] mb-2"
+          className="md:hidden font-serif font-normal text-[22px] leading-none tracking-[-0.01em] mb-2"
           style={{ color: 'var(--ink)' }}
         >
           {project.coverTitle || project.title}
@@ -167,7 +167,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             )}
             <div className="overflow-hidden">
               <h2
-                className={`text-base md:text-lg font-serif italic font-medium transition-all will-change-transform ${
+                className={`text-base md:text-lg font-serif font-normal transition-all will-change-transform ${
                   isHovered
                     ? 'opacity-100 translate-y-0 duration-[350ms] delay-150'
                     : 'opacity-0 translate-y-2 duration-200 delay-0'
@@ -237,8 +237,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 top: '12px',
                 left: '18px',
                 fontFamily: "'Bodoni Moda', serif",
-                fontStyle: 'italic',
-                fontWeight: 500,
+                fontStyle: 'normal',
+                fontWeight: 400,
                 fontSize: '5.2cqw',
                 lineHeight: 0.9,
                 color: 'rgba(246,239,231,0.92)',
