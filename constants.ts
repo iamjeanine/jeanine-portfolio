@@ -112,7 +112,7 @@ export const PROJECTS: Project[] = [
     previewHasAudio: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Demo%20Static%203.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Last%20Active_Static_Demo.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
