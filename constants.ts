@@ -107,7 +107,7 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     filterCategories: ['cultural-experiment'],
     categoryLabel: 'Cultural Experiment',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Face.mov',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Face-compressed.mp4',
     previewAutoplay: true,
     mainVideos: [
       {
