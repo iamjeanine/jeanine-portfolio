@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+:root {
+  --bg-site: #F5F2EC;
+  --ink: #150E0A;
+  --ink-soft: rgba(21,14,10,0.70);
+  --ink-mute: rgba(21,14,10,0.55);
+  --ink-faint: rgba(21,14,10,0.32);
+  --cream: #F6EFE7;
+  --cream-faint: rgba(246,239,231,0.55);
+  --terra: #B3543A;
+  --umber-deep: #150E0A;
+}
+
 @font-face {
   font-family: 'Uncut Sans';
   src: url('/fonts/UncutSans-Regular.woff2') format('woff2');

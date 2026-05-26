@@ -59,7 +59,7 @@ const ProjectGrid: React.FC = () => {
 
       {/* Project grid with fade transition */}
       <div
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 transition-opacity ease-out"
+        className="grid grid-cols-1 md:grid-cols-2 gap-[22px] md:gap-y-3 md:gap-x-[18px] transition-opacity ease-out"
         style={{
           opacity: isFading ? 0 : 1,
           transitionDuration: `${FADE_MS}ms`,
