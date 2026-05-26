@@ -10,19 +10,19 @@ export const getVisibleProjects = () => PROJECTS.filter(p => p.category === 'Sel
 
 export const PROJECTS: Project[] = [
   {
-    id: 'narrative-space',
-    title: 'Narrative Space',
-    subtitle: 'Interactive world building',
+    id: 'mythos',
+    title: 'MythOS',
+    subtitle: 'Franchise intelligence',
     client: 'Ghost Mode Labs',
-    category: 'Selected',
+    category: 'Experiments',
     filterCategories: ['story-system'],
     categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Sphere%20Cover%202.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space%203.14.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -31,10 +31,33 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Interactive Story Bible',
-    description: "Story worlds usually begin as documents. Notes about characters, places, timelines, and relationships.\n\nNarrative Space turns that material into something you can explore.\n\nYou can upload an existing story bible and watch the world assemble itself. Or start from scratch. The tool asks questions that help shape the structure of the story as you go.\n\nCharacters, locations, and themes appear as nodes in a shared space. You can move through the world in three dimensions, or switch to more familiar views that organize everything into categories and cards.\n\nSeeing the material from different angles helps new connections emerge. Relationships between characters, places, and events start to reveal themselves as part of a living world rather than a stack of notes.\n\nYou can also talk with the world as you build it. Ask questions about characters, conflicts, or story logic. It can clarify relationships, suggest additions, or point out conflicts in the story.\n\nThe process stays human-led. Writers decide what belongs in the world. If you want to add a beat, you can simply say where it should go and it places it on the story grid.\n\nA space for thinking through a story.",
-    tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with AI Studio Build and Claude Code.',
-    liveUrl: 'https://narrative-space.vercel.app/',
+    descriptor: 'Franchise intelligence',
+    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
+    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
+  },
+  {
+    id: 'multiverse-quad',
+    title: 'Multiverse Quad',
+    subtitle: 'One story, four formats',
+    client: 'Amazon AGI',
+    category: 'Selected',
+    filterCategories: ['story-system'],
+    categoryLabel: 'Story System',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [],
+    mainImages: [
+      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
+    ],
+    descriptor: 'Multiformat storytelling',
+    description: "Most stories live in a single format. A podcast stays a podcast. A film stays a film.\n\nMultiverse Quad explores what happens when a story launches across several formats at once.\n\nUsing the sci-fi series The Last City as the starting point, the project adapts a single narrative into four different formats.\n\nI pitched the concept to Amazon\u2019s AGI team and worked with engineers, scientists, product leadership, and Go To Market teams to build a working demo. The quad showed how one story could unfold across four formats at the same time.\n\nThe project was shortlisted for Andy Jassy\u2019s AWS re:Invent keynote.",
+    formats: [
+        'Animated short film',
+        'Graphic novel',
+        'Visual audiobook',
+        'Podcast'
+    ],
   },
   {
     id: 'ai-creator-lab',
@@ -74,19 +97,44 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
   },
   {
-    id: 'mythos',
-    title: 'MythOS',
-    subtitle: 'Franchise intelligence',
+    id: 'static',
+    title: 'Static',
+    subtitle: 'Scripted series built from online folklore',
     client: 'Ghost Mode Labs',
     category: 'Experiments',
-    filterCategories: ['story-system'],
-    categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
+    filterCategories: ['production-tool'],
+    categoryLabel: 'Production Tool',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Last%20Active_Static_Demo.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true,
+        startMuted: true
+      }
+    ],
+    descriptor: 'Scripted series built from online folklore',
+    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules. What came out is a scripted series told across multiple seasons.\n\n7,000 voices. One American haunting.",
+  },
+  {
+    id: 'narrative-space',
+    title: 'Narrative Space',
+    subtitle: 'Interactive world building',
+    client: 'Ghost Mode Labs',
+    category: 'Selected',
+    filterCategories: ['story-system'],
+    categoryLabel: 'Story System',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Sphere%20Cover%202.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space%203.14.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -95,9 +143,10 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Franchise intelligence',
-    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
-    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
+    descriptor: 'Interactive Story Bible',
+    description: "Story worlds usually begin as documents. Notes about characters, places, timelines, and relationships.\n\nNarrative Space turns that material into something you can explore.\n\nYou can upload an existing story bible and watch the world assemble itself. Or start from scratch. The tool asks questions that help shape the structure of the story as you go.\n\nCharacters, locations, and themes appear as nodes in a shared space. You can move through the world in three dimensions, or switch to more familiar views that organize everything into categories and cards.\n\nSeeing the material from different angles helps new connections emerge. Relationships between characters, places, and events start to reveal themselves as part of a living world rather than a stack of notes.\n\nYou can also talk with the world as you build it. Ask questions about characters, conflicts, or story logic. It can clarify relationships, suggest additions, or point out conflicts in the story.\n\nThe process stays human-led. Writers decide what belongs in the world. If you want to add a beat, you can simply say where it should go and it places it on the story grid.\n\nA space for thinking through a story.",
+    tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with AI Studio Build and Claude Code.',
+    liveUrl: 'https://narrative-space.vercel.app/',
   },
   {
     id: 'unstill',
@@ -123,55 +172,6 @@ export const PROJECTS: Project[] = [
     description: `\u201CThe archive is a record of power, not of truth.\u201D\n\u2014 Saidiya Hartman\n\nUnstill begins with that idea.\n\n1920s Sydney. A generation pushing against the old Victorian order. What survives in the archive is often the moment the system caught up: a name, a date, a charge.\n\nHover and color returns to the photograph. Click and the portrait begins to breathe. A loupe reveals the original glass plate beneath the moving image.\n\nEach portrait draws from court records, press clippings, and the historical archive to generate new inscriptions about the life behind the record. Every visit produces a different reading.\n\nSeven full stories appear first. Then a dozen more faces from the Museums of History NSW collection.\n\nBuilt as a proposal for Museums of History NSW.`,
     tools: 'Tools: React, Claude API, ElevenLabs, Gemini VEO 3.1, Nano Banana, Vite. Built with Claude Code.',
     liveUrl: 'https://unstill.vercel.app/',
-  },
-  {
-    id: 'multiverse-quad',
-    title: 'Multiverse Quad',
-    subtitle: 'One story, four formats',
-    client: 'Amazon AGI',
-    category: 'Selected',
-    filterCategories: ['story-system'],
-    categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [],
-    mainImages: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
-    ],
-    descriptor: 'Multiformat storytelling',
-    description: "Most stories live in a single format. A podcast stays a podcast. A film stays a film.\n\nMultiverse Quad explores what happens when a story launches across several formats at once.\n\nUsing the sci-fi series The Last City as the starting point, the project adapts a single narrative into four different formats.\n\nI pitched the concept to Amazon\u2019s AGI team and worked with engineers, scientists, product leadership, and Go To Market teams to build a working demo. The quad showed how one story could unfold across four formats at the same time.\n\nThe project was shortlisted for Andy Jassy\u2019s AWS re:Invent keynote.",
-    formats: [
-        'Animated short film',
-        'Graphic novel',
-        'Visual audiobook',
-        'Podcast'
-    ],
-  },
-  {
-    id: 'static',
-    title: 'Static',
-    subtitle: 'Scripted series built from online folklore',
-    client: 'Ghost Mode Labs',
-    category: 'Experiments',
-    filterCategories: ['production-tool'],
-    categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Last%20Active_Static_Demo.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true,
-        startMuted: true
-      }
-    ],
-    descriptor: 'Scripted series built from online folklore',
-    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules. What came out is a scripted series told across multiple seasons.\n\n7,000 voices. One American haunting.",
   },
   {
     id: 'tender',
