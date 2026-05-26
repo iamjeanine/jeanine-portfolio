@@ -100,6 +100,31 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
   },
   {
+    id: 'static',
+    title: 'Static',
+    subtitle: 'Scripted series built from online folklore',
+    client: 'Ghost Mode Labs',
+    category: 'Experiments',
+    filterCategories: ['production-tool'],
+    categoryLabel: 'Production Tool',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
+    previewAutoplay: true,
+    previewHasAudio: true,
+    mainVideos: [
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Demo%20Static%203.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true,
+        startMuted: true
+      }
+    ],
+    descriptor: 'Scripted series built from online folklore',
+    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules. What came out is a scripted series told across multiple seasons.\n\n7,000 voices. One American haunting.",
+  },
+  {
     id: 'unstill',
     title: 'Unstill',
     subtitle: 'Regenerative lives',
@@ -175,31 +200,6 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://tender-app-gamma.vercel.app/demo',
     liveUrlLabel: 'Try it on your phone',
     tools: 'Tools: React, Claude Code, Claude API, Web Speech API, Vite.',
-  },
-  {
-    id: 'static',
-    title: 'Static',
-    subtitle: 'Scripted series built from online folklore',
-    client: 'Ghost Mode Labs',
-    category: 'Experiments',
-    filterCategories: ['production-tool'],
-    categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
-    previewAutoplay: true,
-    previewHasAudio: true,
-    mainVideos: [
-      {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Demo%20Static%203.mp4',
-        aspectRatio: '16:9',
-        autoplay: true,
-        loop: true,
-        showControls: true,
-        hasAudio: true,
-        startMuted: true
-      }
-    ],
-    descriptor: 'Scripted series built from online folklore',
-    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules. What came out is a scripted series told across multiple seasons.\n\n7,000 voices. One American haunting.",
   },
   {
     id: 'in-world-social-campaign',
