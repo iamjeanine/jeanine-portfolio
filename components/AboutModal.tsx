@@ -37,7 +37,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       aria-labelledby="about-title"
     >
       <div
-        className="bg-[#1A1412] p-8 md:p-12 max-w-2xl w-full relative overflow-y-auto max-h-[90vh]"
+        className="bg-[#2A1F1A] p-8 md:p-12 max-w-2xl w-full relative overflow-y-auto max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Grain texture inside modal */}
