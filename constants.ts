@@ -184,7 +184,7 @@ export const PROJECTS: Project[] = [
     category: 'Experiments',
     filterCategories: ['production-tool'],
     categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Last%20Active_Static_Demo.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
