@@ -177,21 +177,29 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: React, Claude Code, Claude API, Web Speech API, Vite.',
   },
   {
-    id: 'storycraft',
-    title: 'StoryCraft',
-    subtitle: 'Story adaptation tool',
-    client: 'Wondery',
+    id: 'static',
+    title: 'Static',
+    subtitle: 'Scripted series built from online folklore',
+    client: 'Ghost Mode Labs',
     category: 'Experiments',
     filterCategories: ['production-tool'],
     categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Demo%20Static%203.mp4',
     previewAutoplay: true,
+    previewHasAudio: true,
     mainVideos: [
-        { url: 'https://storage.googleapis.com/jeanine-portfolio-video/StoryCraft2.mp4', aspectRatio: '16:9', autoplay: true, showControls: true, hasAudio: true, startMuted: true }
+      {
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Last%20Active_Static_Demo.mp4',
+        aspectRatio: '16:9',
+        autoplay: true,
+        loop: true,
+        showControls: true,
+        hasAudio: true,
+        startMuted: true
+      }
     ],
-    descriptor: 'Adaptation app',
-    description: "When you have a large catalog of narrative shows, the question becomes how those stories might travel to new audiences. StoryCraft explores that idea.\n\nIt\u2019s a tool for adapting adult narrative podcasts into kids and family adventures. Writers can reshape tone, structure, and language while preserving the core story.\n\nThe tool extracts every story beat and theme from the source material. It flags darker content a writer needs to navigate as the adaptation evolves.\n\nThe prototype was developed at Wondery using Against the Odds. A four-episode arc turned into a 30-minute kids\u2019 adventure, to see whether a back catalog could be reinvented for younger listeners without losing what made the original story work.\n\nGreenlit to pilot with the Kids and Family team.",
-    tools: 'Tools: Party Rock, Claude, Stable Diffusion, NotebookLM, Google Vids.'
+    descriptor: 'Scripted series built from online folklore',
+    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules.\n\nStatic is a scripted series shaped by what the tool found.\n\n7,000 voices. One American haunting. Told across multiple seasons.",
   },
   {
     id: 'in-world-social-campaign',
@@ -203,7 +211,7 @@ export const PROJECTS: Project[] = [
     filterCategories: ['production-tool'],
     categoryLabel: 'Production Tool',
     descriptor: 'The Last City',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cityscape.mp4',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
