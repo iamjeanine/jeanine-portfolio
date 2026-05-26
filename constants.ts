@@ -199,7 +199,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: 'Scripted series built from online folklore',
-    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening. Over the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules. What came out is a scripted series told across multiple seasons.\n\n7,000 voices. One American haunting.",
+    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active that analyzed 6,884 public accounts across those communities and found 582 recurring patterns. Creatures, phenomena, rules. What came out is a scripted series told across multiple seasons.\n\n7,000 voices. One American haunting.",
   },
   {
     id: 'in-world-social-campaign',
