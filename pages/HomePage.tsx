@@ -60,7 +60,7 @@ const HomePage = () => {
           <div className="flex items-center space-x-8 md:space-x-10 text-xs md:text-sm font-light">
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="text-neutral-500 hover:text-[#2B3A2E] transition-colors duration-300 tracking-[0.25em] uppercase"
+              className="text-neutral-500 hover:text-[#B3543A] transition-colors duration-300 tracking-[0.25em] uppercase"
             >
               About
             </button>
@@ -68,13 +68,13 @@ const HomePage = () => {
               href="https://www.linkedin.com/in/jcornillot"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-500 hover:text-[#2B3A2E] transition-colors duration-300 tracking-[0.25em] uppercase"
+              className="text-neutral-500 hover:text-[#B3543A] transition-colors duration-300 tracking-[0.25em] uppercase"
             >
               LinkedIn
             </a>
             <a
               href="mailto:iamjeanine@me.com"
-              className="text-neutral-500 hover:text-[#2B3A2E] transition-colors duration-300 tracking-[0.25em] uppercase"
+              className="text-neutral-500 hover:text-[#B3543A] transition-colors duration-300 tracking-[0.25em] uppercase"
             >
               Email
             </a>

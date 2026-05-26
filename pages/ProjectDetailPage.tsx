@@ -123,7 +123,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center text-base font-light text-neutral-800 hover:text-[#2C4A3C] transition-colors"
+                  className="group inline-flex items-center text-base font-light text-neutral-800 hover:text-[#B3543A] transition-colors"
                 >
                   {project.liveUrlLabel || 'Visit the live site'}
                   <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">&rarr;</span>
@@ -424,7 +424,7 @@ const ProjectDetailPage = () => {
       <div className="w-full min-h-screen p-4 md:p-8 flex flex-col" style={{ contain: 'layout', position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <header className="flex justify-between items-center w-full mb-8 shrink-0">
-          <button onClick={handleClose} className="group flex items-center space-x-2 text-neutral-600 hover:text-[#2C4A3C] transition-colors">
+          <button onClick={handleClose} className="group flex items-center space-x-2 text-neutral-600 hover:text-[#B3543A] transition-colors">
             <BackIcon />
             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm">Work</span>
           </button>
