@@ -167,7 +167,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             )}
             <div className="overflow-hidden">
               <h2
-                className={`text-base md:text-lg font-sans font-medium transition-all will-change-transform ${
+                className={`text-base md:text-lg font-serif italic font-medium transition-all will-change-transform ${
                   isHovered
                     ? 'opacity-100 translate-y-0 duration-[350ms] delay-150'
                     : 'opacity-0 translate-y-2 duration-200 delay-0'
