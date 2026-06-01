@@ -73,6 +73,8 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <div className="border-t border-[#2A201C] pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">LinkedIn</a>
             <span className="mx-2 text-neutral-600">/</span>
+            <a href="https://github.com/iamjeanine" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">GitHub</a>
+            <span className="mx-2 text-neutral-600">/</span>
             <a href="mailto:iamjeanine@me.com" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">Email</a>
           </div>
         </div>
