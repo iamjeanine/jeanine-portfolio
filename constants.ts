@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
         loop: true,
         showControls: true,
         hasAudio: true,
-        startMuted: true
+        startMuted: false
       }
     ],
     descriptor: 'Scripted series built from online folklore',
