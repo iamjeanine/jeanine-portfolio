@@ -65,15 +65,13 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced Dying for Sex (Apple Podcast of the Year, adapted as a Peabody-winning FX series with 9 Emmy nominations). Created The Last City (scripted sci-fi, #1 Apple Fiction in 20 countries).
           </p>
           <p>
-            Founded Wondery's first Creator Lab, training 50+ staff on emerging production tools.
+            Founded Wondery's first Creator Lab, training 50+ staff on AI creative tools.
           </p>
           <p>
-            Now through Ghost Mode Labs, I'm developing original IP and building creative tools across nonfiction, scripted, and interactive formats.
+            At Ghost Mode Labs, I'm developing original IP and building creative tools across nonfiction, scripted, and interactive formats.
           </p>
           <div className="border-t border-[#2A201C] pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">LinkedIn</a>
-            <span className="mx-2 text-neutral-600">/</span>
-            <a href="https://github.com/iamjeanine" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">GitHub</a>
             <span className="mx-2 text-neutral-600">/</span>
             <a href="mailto:iamjeanine@me.com" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">Email</a>
           </div>
