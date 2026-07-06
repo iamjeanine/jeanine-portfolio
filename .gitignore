@@ -15,7 +15,6 @@ dist-ssr
 # Local working files (not part of the site)
 .claude/
 .impeccable.md
-CLAUDE.md
 compose-linkedin.py
 ghost-mode-cover-export.html
 ghost-mode-favicon-test.html
