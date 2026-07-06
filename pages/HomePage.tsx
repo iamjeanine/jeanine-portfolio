@@ -73,14 +73,6 @@ const HomePage = () => {
               LinkedIn
             </a>
             <a
-              href="https://github.com/iamjeanine"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-500 hover:text-[#B3543A] transition-colors duration-300 tracking-[0.25em] uppercase"
-            >
-              GitHub
-            </a>
-            <a
               href="mailto:iamjeanine@me.com"
               className="text-neutral-500 hover:text-[#B3543A] transition-colors duration-300 tracking-[0.25em] uppercase"
             >
