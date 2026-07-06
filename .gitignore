@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# Local working files (not part of the site)
+.claude/
+.impeccable.md
+CLAUDE.md
+compose-linkedin.py
+ghost-mode-cover-export.html
+ghost-mode-favicon-test.html
+ghost-mode-logo-small-export.html
+ghost-mode-rethink.html
+ghost-mode-labs-exports/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
