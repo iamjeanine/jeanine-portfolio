@@ -150,7 +150,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           style={{ containerType: 'inline-size', borderRadius: '1px', backgroundColor: '#EEEAE3' }}
         >
           {/* Title panel — sits behind video, revealed as video slides (desktop only) */}
-          <div className="absolute inset-0 w-1/3 hidden md:flex flex-col justify-center p-3 lg:p-5">
+          <div className="absolute inset-0 w-2/5 lg:w-1/3 hidden md:flex flex-col justify-center p-3 lg:p-5">
             {project.categoryLabel && (
               <div className="overflow-hidden mb-1.5">
                 <span
@@ -167,7 +167,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             )}
             <div className="overflow-hidden">
               <h2
-                className={`text-sm lg:text-base xl:text-lg font-serif font-normal transition-all will-change-transform ${
+                className={`text-base lg:text-lg font-serif font-normal transition-all will-change-transform ${
                   isHovered
                     ? 'opacity-100 translate-y-0 duration-[350ms] delay-150'
                     : 'opacity-0 translate-y-2 duration-200 delay-0'
@@ -178,9 +178,9 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               </h2>
             </div>
             {project.subtitle && (
-              <div className="hidden lg:block overflow-hidden mt-1.5">
+              <div className="overflow-hidden mt-1.5">
                 <p
-                  className={`text-xs font-sans font-light leading-snug transition-all will-change-transform ${
+                  className={`text-xs font-sans font-light leading-snug line-clamp-2 transition-all will-change-transform ${
                     isHovered
                       ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]'
                       : 'opacity-0 translate-y-2 duration-200 delay-0'
@@ -192,8 +192,8 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               </div>
             )}
 
-            {/* CTA pill — "See the project →" */}
-            <div className="overflow-hidden mt-4">
+            {/* CTA pill — "See the project →" — only at lg+ where panel has room */}
+            <div className="hidden lg:block overflow-hidden mt-4">
               <div
                 className={`transition-all will-change-transform ${
                   isHovered
@@ -222,7 +222,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           {/* Video container — slides right on hover (desktop), static on mobile */}
           <div
             className={`absolute inset-0 z-[1] bg-neutral-900 ${
-              isHovered ? 'md:translate-x-[30%] md:scale-[1.03]' : 'translate-x-0 scale-100'
+              isHovered ? 'md:translate-x-[40%] lg:translate-x-[30%] md:scale-[1.03]' : 'translate-x-0 scale-100'
             }`}
             style={{
               viewTransitionName: isTransitioning ? 'project-hero' : 'none',
