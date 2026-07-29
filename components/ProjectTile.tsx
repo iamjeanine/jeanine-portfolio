@@ -150,11 +150,11 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           style={{ containerType: 'inline-size', borderRadius: '1px', backgroundColor: '#EEEAE3' }}
         >
           {/* Title panel — sits behind video, revealed as video slides (desktop only) */}
-          <div className="absolute inset-0 w-1/3 hidden md:flex flex-col justify-center p-4 md:p-6">
+          <div className="absolute inset-0 w-1/3 hidden md:flex flex-col justify-center p-3 lg:p-5">
             {project.categoryLabel && (
               <div className="overflow-hidden mb-1.5">
                 <span
-                  className={`block text-[10px] md:text-[11px] tracking-[0.14em] uppercase font-normal transition-all will-change-transform ${
+                  className={`block text-[10px] tracking-[0.14em] uppercase font-normal transition-all will-change-transform ${
                     isHovered
                       ? 'opacity-100 translate-y-0 duration-[350ms] delay-100'
                       : 'opacity-0 translate-y-2 duration-200 delay-0'
@@ -167,7 +167,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             )}
             <div className="overflow-hidden">
               <h2
-                className={`text-base md:text-lg font-serif font-normal transition-all will-change-transform ${
+                className={`text-sm lg:text-base xl:text-lg font-serif font-normal transition-all will-change-transform ${
                   isHovered
                     ? 'opacity-100 translate-y-0 duration-[350ms] delay-150'
                     : 'opacity-0 translate-y-2 duration-200 delay-0'
@@ -178,9 +178,9 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               </h2>
             </div>
             {project.subtitle && (
-              <div className="overflow-hidden mt-1.5">
+              <div className="hidden lg:block overflow-hidden mt-1.5">
                 <p
-                  className={`text-xs md:text-sm font-sans font-light leading-snug transition-all will-change-transform ${
+                  className={`text-xs font-sans font-light leading-snug transition-all will-change-transform ${
                     isHovered
                       ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]'
                       : 'opacity-0 translate-y-2 duration-200 delay-0'
