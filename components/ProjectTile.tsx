@@ -180,7 +180,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             {project.subtitle && (
               <div className="overflow-hidden mt-1.5">
                 <p
-                  className={`text-xs font-sans font-light leading-snug line-clamp-2 transition-all will-change-transform ${
+                  className={`text-xs font-sans font-light leading-snug transition-all will-change-transform ${
                     isHovered
                       ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]'
                       : 'opacity-0 translate-y-2 duration-200 delay-0'
