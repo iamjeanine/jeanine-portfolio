@@ -116,9 +116,9 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
 
             {project.liveUrl && (
               <div className="mt-10 mb-2 border border-neutral-200 rounded-sm px-6 py-5 bg-neutral-50/60">
-                {!project.liveUrlLabel && (
-                  <p className="text-xs font-light tracking-[0.2em] uppercase text-neutral-500 mb-3">Try the prototype</p>
-                )}
+                <p className="text-xs font-light tracking-[0.2em] uppercase text-neutral-500 mb-3">
+                  {project.liveUrlEyebrow || (!project.liveUrlLabel ? 'Try the prototype' : null)}
+                </p>
                 <a
                   href={project.liveUrl}
                   target="_blank"

@@ -44,5 +44,6 @@ export interface Project {
   };
   liveUrl?: string;
   liveUrlLabel?: string;
+  liveUrlEyebrow?: string;
   embedUrl?: string;
 }
