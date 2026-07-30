@@ -150,7 +150,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           style={{ containerType: 'inline-size', borderRadius: '1px', backgroundColor: '#EEEAE3' }}
         >
           {/* Title panel — sits behind video, revealed as video slides (desktop only) */}
-          <div className="absolute inset-0 w-2/5 lg:w-1/3 hidden md:flex flex-col justify-center p-3 lg:p-5">
+          <div className="absolute inset-0 w-2/5 hidden md:flex flex-col justify-center p-3 lg:p-5">
             {project.categoryLabel && (
               <div className="overflow-hidden mb-1.5">
                 <span
@@ -192,7 +192,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               </div>
             )}
 
-            {/* CTA pill — "See the project →" — only at lg+ where panel has room */}
+            {/* CTA pill — "See the project →" */}
             <div className="hidden lg:block overflow-hidden mt-4">
               <div
                 className={`transition-all will-change-transform ${
@@ -222,7 +222,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           {/* Video container — slides right on hover (desktop), static on mobile */}
           <div
             className={`absolute inset-0 z-[1] bg-neutral-900 ${
-              isHovered ? 'md:translate-x-[40%] lg:translate-x-[34%] md:scale-[1.03]' : 'translate-x-0 scale-100'
+              isHovered ? 'md:translate-x-[40%] md:scale-[1.03]' : 'translate-x-0 scale-100'
             }`}
             style={{
               viewTransitionName: isTransitioning ? 'project-hero' : 'none',
