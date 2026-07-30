@@ -222,7 +222,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
           {/* Video container — slides right on hover (desktop), static on mobile */}
           <div
             className={`absolute inset-0 z-[1] bg-neutral-900 ${
-              isHovered ? 'md:translate-x-[40%] lg:translate-x-[30%] md:scale-[1.03]' : 'translate-x-0 scale-100'
+              isHovered ? 'md:translate-x-[40%] lg:translate-x-[34%] md:scale-[1.03]' : 'translate-x-0 scale-100'
             }`}
             style={{
               viewTransitionName: isTransitioning ? 'project-hero' : 'none',
