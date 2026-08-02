@@ -25,19 +25,19 @@ export const PROJECTS: Project[] = [
     tools: '',
   },
   {
-    id: 'mythos',
-    title: 'MythOS',
-    subtitle: 'Franchise intelligence',
+    id: 'static',
+    title: 'Static',
+    subtitle: 'Scripted series built from online folklore',
     client: 'Ghost Mode Labs',
     category: 'Experiments',
-    filterCategories: ['story-system'],
-    categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
+    filterCategories: ['production-tool'],
+    categoryLabel: 'Production Tool',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/last-active-v2-web-1080p.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -46,9 +46,11 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Franchise intelligence',
-    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan\u2019s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what\u2019s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
-    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
+    descriptor: 'Scripted series built from online folklore',
+    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active. You point it at a public archive and it finds story patterns, under-reported stories, and hidden gems. Pointed at those thirteen communities, it found 582 recurring overlaps across 6,884 accounts. Creatures, phenomena, rules. Static is the first story to come out of it.\n\n7,000 voices. One American haunting.",
+    liveUrl: 'https://static-show.vercel.app/',
+    liveUrlLabel: 'See the original pitch',
+    liveUrlEyebrow: 'Built as a proposal for iHeart',
   },
   {
     id: 'multiverse-quad',
@@ -112,19 +114,19 @@ export const PROJECTS: Project[] = [
     tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
   },
   {
-    id: 'static',
-    title: 'Static',
-    subtitle: 'Scripted series built from online folklore',
+    id: 'mythos',
+    title: 'MythOS',
+    subtitle: 'Franchise intelligence',
     client: 'Ghost Mode Labs',
     category: 'Experiments',
-    filterCategories: ['production-tool'],
-    categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
+    filterCategories: ['story-system'],
+    categoryLabel: 'Story System',
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Cover3.mp4',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/last-active-v2-web-1080p.mp4',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -133,11 +135,9 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Scripted series built from online folklore',
-    description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active. You point it at a public archive and it finds story patterns, under-reported stories, and hidden gems. Pointed at those thirteen communities, it found 582 recurring overlaps across 6,884 accounts. Creatures, phenomena, rules. Static is the first story to come out of it.\n\n7,000 voices. One American haunting.",
-    liveUrl: 'https://static-show.vercel.app/',
-    liveUrlLabel: 'See the original pitch',
-    liveUrlEyebrow: 'Built as a proposal for iHeart',
+    descriptor: 'Franchise intelligence',
+    description: "Studios keep looping the same franchises. Meanwhile, there are thousands of stories in public domain archives, never mapped, never developed.\n\nI built an interactive globe that tracks how myths travel across cultures and centuries.\n\nClick Circe and the globe lights up with every culture that told her story, 46 of them, across 3,500 years. Scroll down and you descend through her full timeline, from Nolan’s The Odyssey this summer to before the written word. You can ask it questions, make connections, find what’s developable.\n\nThere are 494 source stories in the prototype. The tool works with any mythology, folklore tradition, or public domain IP.\n\nBuilt for studio development and franchise teams.",
+    tools: 'Tools: React, Three.js, React Three Fiber, Claude API, GSAP, Vite. Built with Claude Code.',
   },
   {
     id: 'narrative-space',
