@@ -298,7 +298,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 pointerEvents: 'none',
                 zIndex: 2,
                 transform: isHovered ? 'translateX(40%)' : 'translateX(0)',
-                clipPath: isHovered ? 'inset(0 40% 0px 0)' : 'inset(0 0 -20px 0)',
+                clipPath: isHovered ? 'inset(0 40% 0px 0)' : 'inset(0 0 -72px 0)',
                 transition: 'transform 350ms cubic-bezier(.22,.61,.36,1), clip-path 350ms cubic-bezier(.22,.61,.36,1)',
               }}
             >
