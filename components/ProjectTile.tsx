@@ -21,13 +21,11 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
   const { ref: tileRef, isVisible } = useIntersectionReveal();
   const vtNavigate = useViewTransitionNavigate();
 
-  // Stable project number — position in full list, not filtered view
   const projectNumber = React.useMemo(() => {
     const all = getVisibleProjects();
     return String(all.findIndex(p => p.id === project.id) + 1).padStart(2, '0');
   }, [project.id]);
 
-  // Lazy-load video: only set src when tile is near the viewport
   React.useEffect(() => {
     const el = tileRef.current;
     if (!el) return;
@@ -48,10 +46,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
     if (!isTouchDevice) {
       setIsHovered(true);
       if (!project.previewAutoplay && videoRef.current) {
-        const playPromise = videoRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {});
-        }
+        videoRef.current.play().catch(() => {});
       }
     }
   };
@@ -69,9 +64,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
 
   const toggleMute = (e: React.MouseEvent) => {
     if (isMobile) return;
-    if (isTouchDevice && !isHovered) {
-      return;
-    }
+    if (isTouchDevice && !isHovered) return;
     e.preventDefault();
     e.stopPropagation();
     setIsMuted(prev => !prev);
@@ -79,29 +72,24 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    // Touch devices: first tap expands tile, second tap navigates
     if (isTouchDevice && !isHovered) {
       setIsHovered(true);
-      if (videoRef.current?.paused) {
-        videoRef.current.play().catch(() => {});
-      }
+      if (videoRef.current?.paused) videoRef.current.play().catch(() => {});
       return;
     }
-
     setIsTransitioning(true);
     vtNavigate(`/project/${project.id}`);
   };
+
+  const isImageTile = !!project.previewImageUrl && !project.previewVideoUrl;
 
   return (
     <div
       ref={tileRef}
       className={`relative transition-all duration-700 ease-out ${
-        isVisible
-          ? 'opacity-100 translate-y-0 scale-100'
-          : 'opacity-0 translate-y-8 scale-[0.97]'
+        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-[0.97]'
       }`}
-      style={{ transitionDelay: `${(index % 2) * 100}ms` }}
+      style={{ transitionDelay: `${(index % 2) * 100}ms`, ...(project.id === 'visual-audiobooks' ? { zIndex: 2 } : {}) }}
     >
       <a
         href={`#/project/${project.id}`}
@@ -117,21 +105,13 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             : '0 0 0 0 transparent',
         }}
       >
-        {/* ── MOBILE: Head row — № + type | CTA ── */}
+        {/* ── MOBILE: Head row ── */}
         <div className="flex justify-between items-baseline mb-2 md:hidden">
-          <span
-            className="text-[9px] tracking-[0.22em] uppercase"
-            style={{ color: 'var(--ink-mute)' }}
-          >
-            <span className="text-[11px]" style={{ color: 'var(--terra)' }}>
-              № {projectNumber}
-            </span>
+          <span className="text-[9px] tracking-[0.22em] uppercase" style={{ color: 'var(--ink-mute)' }}>
+            <span className="text-[11px]" style={{ color: 'var(--terra)' }}>№ {projectNumber}</span>
             &nbsp;&nbsp;{project.categoryLabel}
           </span>
-          <span
-            className="text-[9px] tracking-[0.22em] uppercase"
-            style={{ color: 'var(--terra)' }}
-          >
+          <span className="text-[9px] tracking-[0.22em] uppercase" style={{ color: 'var(--terra)' }}>
             See the project →
           </span>
         </div>
@@ -145,19 +125,111 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         </h2>
 
         {/* ── Tile container ── */}
-        <div
-          className="relative aspect-video overflow-hidden"
-          style={{ containerType: 'inline-size', borderRadius: '1px', backgroundColor: '#EEEAE3' }}
-        >
-          {/* Title panel — sits behind video, revealed as video slides (desktop only) */}
-          <div className="absolute inset-0 w-2/5 hidden md:flex flex-col justify-center p-3 lg:p-5">
+        <div className="relative">
+
+          {/* Media frame — clipped to 16:9, contains only the sliding image */}
+          <div
+            className="relative aspect-video overflow-hidden"
+            style={{ containerType: 'inline-size', borderRadius: '1px', backgroundColor: '#EEEAE3' }}
+          >
+            {/* Media container — slides right on hover */}
+            <div
+              className={`absolute inset-0 z-[1] bg-neutral-900 ${
+                isHovered ? 'md:translate-x-[40%] md:scale-[1.03]' : 'translate-x-0 scale-100'
+              }`}
+              style={{
+                viewTransitionName: isTransitioning ? 'project-hero' : 'none',
+                transition: 'transform 350ms cubic-bezier(.22,.61,.36,1)',
+                boxShadow: isHovered ? '-12px 0 24px rgba(0,0,0,0.1)' : 'none',
+              } as React.CSSProperties}
+            >
+              {/* Corner Number */}
+              <div
+                className="absolute z-[2] hidden md:inline-flex items-start"
+                style={{
+                  top: '12px',
+                  left: '18px',
+                  fontFamily: "'Bodoni Moda', serif",
+                  fontStyle: 'italic',
+                  fontWeight: 400,
+                  fontSize: '5.2cqw',
+                  lineHeight: 0.9,
+                  color: 'rgba(246,239,231,0.92)',
+                  textShadow: '0 1px 10px rgba(0,0,0,0.6)',
+                  gap: '0.15em',
+                }}
+              >
+                <span>{projectNumber}</span>
+                <span
+                  style={{
+                    width: '0.85cqw',
+                    height: '0.85cqw',
+                    background: 'var(--terra)',
+                    borderRadius: '999px',
+                    marginTop: '0.45em',
+                    boxShadow: '0 0 1cqw rgba(179,84,58,0.55)',
+                    display: 'inline-block',
+                  }}
+                />
+              </div>
+
+              {/* Image tile */}
+              {isImageTile && (
+                <img
+                  className="w-full h-full object-cover pointer-events-none"
+                  style={{
+                    objectPosition: 'center 54%',
+                    filter: 'saturate(.86) contrast(1.03)',
+                    transform: 'scale(1.015)',
+                  }}
+                  src={project.previewImageUrl}
+                  alt=""
+                  loading="lazy"
+                />
+              )}
+
+              {/* Video tile */}
+              {!isImageTile && (
+                <video
+                  ref={videoRef}
+                  className="w-full h-full pointer-events-none object-cover"
+                  src={shouldLoad ? project.previewVideoUrl : undefined}
+                  poster={project.previewPosterUrl}
+                  autoPlay={project.previewAutoplay}
+                  loop
+                  muted={project.previewHasAudio ? isMuted : true}
+                  playsInline
+                  preload="metadata"
+                />
+              )}
+
+              {/* Mute button */}
+              {project.previewHasAudio && !isImageTile && (
+                <button
+                  onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                  className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Title panel — above scarf (z:3), revealed as media slides right */}
+          <div
+            className="absolute inset-0 w-2/5 hidden md:flex flex-col justify-center p-3 lg:p-5"
+            style={{
+              zIndex: 3,
+              backgroundColor: isHovered ? '#EEEAE3' : 'transparent',
+              transition: 'background-color 350ms cubic-bezier(.22,.61,.36,1)',
+            }}
+          >
             {project.categoryLabel && (
               <div className="overflow-hidden mb-1.5">
                 <span
                   className={`block text-[10px] tracking-[0.14em] uppercase font-normal transition-all will-change-transform ${
-                    isHovered
-                      ? 'opacity-100 translate-y-0 duration-[350ms] delay-100'
-                      : 'opacity-0 translate-y-2 duration-200 delay-0'
+                    isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-100' : 'opacity-0 translate-y-2 duration-200 delay-0'
                   }`}
                   style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)', color: 'var(--ink-mute)' }}
                 >
@@ -168,9 +240,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             <div className="overflow-hidden">
               <h2
                 className={`text-base lg:text-lg font-serif font-normal transition-all will-change-transform ${
-                  isHovered
-                    ? 'opacity-100 translate-y-0 duration-[350ms] delay-150'
-                    : 'opacity-0 translate-y-2 duration-200 delay-0'
+                  isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-150' : 'opacity-0 translate-y-2 duration-200 delay-0'
                 }`}
                 style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}
               >
@@ -181,9 +251,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               <div className="overflow-hidden mt-1.5">
                 <p
                   className={`text-xs font-sans font-light leading-snug transition-all will-change-transform ${
-                    isHovered
-                      ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]'
-                      : 'opacity-0 translate-y-2 duration-200 delay-0'
+                    isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-[250ms]' : 'opacity-0 translate-y-2 duration-200 delay-0'
                   }`}
                   style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)', color: 'var(--ink-soft)' }}
                 >
@@ -191,14 +259,10 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
                 </p>
               </div>
             )}
-
-            {/* CTA pill — "See the project →" */}
             <div className="hidden lg:block overflow-hidden mt-4">
               <div
                 className={`transition-all will-change-transform ${
-                  isHovered
-                    ? 'opacity-100 translate-y-0 duration-[350ms] delay-[350ms]'
-                    : 'opacity-0 translate-y-2 duration-200 delay-0'
+                  isHovered ? 'opacity-100 translate-y-0 duration-[350ms] delay-[350ms]' : 'opacity-0 translate-y-2 duration-200 delay-0'
                 }`}
                 style={{ transitionTimingFunction: 'cubic-bezier(.22,.61,.36,1)' }}
               >
@@ -219,78 +283,57 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             </div>
           </div>
 
-          {/* Video container — slides right on hover (desktop), static on mobile */}
-          <div
-            className={`absolute inset-0 z-[1] bg-neutral-900 ${
-              isHovered ? 'md:translate-x-[40%] md:scale-[1.03]' : 'translate-x-0 scale-100'
-            }`}
-            style={{
-              viewTransitionName: isTransitioning ? 'project-hero' : 'none',
-              transition: 'transform 350ms cubic-bezier(.22,.61,.36,1)',
-              boxShadow: isHovered ? '-12px 0 24px rgba(0,0,0,0.1)' : 'none',
-            } as React.CSSProperties}
-          >
-            {/* Corner Number — identity mark */}
+          {/* Scarf overlay — Visual Audiobooks only */}
+          {project.id === 'visual-audiobooks' && (
             <div
-              className="absolute z-[2] hidden md:inline-flex items-start"
+              aria-hidden="true"
+              className="scarf-stage"
               style={{
-                top: '12px',
-                left: '18px',
-                fontFamily: "'Bodoni Moda', serif",
-                fontStyle: 'italic',
-                fontWeight: 400,
-                fontSize: '5.2cqw',
-                lineHeight: 0.9,
-                color: 'rgba(246,239,231,0.92)',
-                textShadow: '0 1px 10px rgba(0,0,0,0.6)',
-                gap: '0.15em',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                aspectRatio: '16/9',
+                overflow: 'visible',
+                pointerEvents: 'none',
+                zIndex: 2,
+                transform: isHovered ? 'translateX(40%)' : 'translateX(0)',
+                clipPath: isHovered ? 'inset(0 40% 0px 0)' : 'inset(0 0 -20px 0)',
+                transition: 'transform 350ms cubic-bezier(.22,.61,.36,1), clip-path 350ms cubic-bezier(.22,.61,.36,1)',
               }}
             >
-              <span>{projectNumber}</span>
-              <span
-                style={{
-                  width: '0.85cqw',
-                  height: '0.85cqw',
-                  background: 'var(--terra)',
-                  borderRadius: '999px',
-                  marginTop: '0.45em',
-                  boxShadow: '0 0 1cqw rgba(179,84,58,0.55)',
-                  display: 'inline-block',
-                }}
-              />
-            </div>
-
-            <video
-              ref={videoRef}
-              className="w-full h-full pointer-events-none object-cover"
-              src={shouldLoad ? project.previewVideoUrl : undefined}
-              poster={project.previewPosterUrl}
-              autoPlay={project.previewAutoplay}
-              loop
-              muted={project.previewHasAudio ? isMuted : true}
-              playsInline
-              preload="metadata"
-            />
-
-            {/* Mute button — audio tiles only, top-right to clear corner arrow */}
-            {project.previewHasAudio && (
-              <button
-                onClick={toggleMute}
-                aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+              <svg
+                viewBox="0 0 1672 941"
+                preserveAspectRatio="xMidYMid slice"
+                style={{ display: 'block', width: '100%', height: '100%', overflow: 'visible' }}
               >
-                {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
-              </button>
-            )}
-          </div>
-        </div>
+                <g className="scarf-body">
+                  <path
+                    className="scarf-fill"
+                    d="M456 358 C557 383 629 441 742 454 C870 469 954 416 1062 455 C1180 498 1215 610 1275 696 C1347 800 1452 845 1510 963 C1557 1058 1493 1147 1367 1167 L1360 1128 C1456 1110 1495 1048 1468 982 C1427 880 1321 829 1241 730 C1171 630 1139 548 1038 508 C939 469 857 521 733 493 C614 466 534 418 454 377 Z"
+                  />
+                  <path
+                    className="scarf-fold"
+                    d="M482 376 C610 439 732 477 850 454 C980 428 1073 460 1137 542 C1210 637 1228 737 1324 823 C1412 901 1514 947 1519 1030 C1525 1108 1463 1140 1375 1151"
+                  />
+                  <path
+                    className="scarf-fold"
+                    d="M494 390 C619 455 738 491 856 470 C979 448 1058 481 1120 559 C1192 650 1212 751 1308 839 C1392 914 1493 958 1500 1036 C1506 1094 1452 1122 1368 1136"
+                  />
+                  <path
+                    className="scarf-fringe"
+                    d="M1370 1151 l-32 4 M1372 1157 l-29 14 M1375 1163 l-24 22 M1380 1167 l-16 28"
+                  />
+                </g>
+              </svg>
+            </div>
+          )}
+
+        </div>{/* end tile container */}
 
         {/* ── MOBILE: Subtitle ── */}
         {project.subtitle && (
-          <p
-            className="md:hidden mt-2"
-            style={{ fontSize: '11px', color: 'var(--ink-soft)' }}
-          >
+          <p className="md:hidden mt-2" style={{ fontSize: '11px', color: 'var(--ink-soft)' }}>
             {project.subtitle}
           </p>
         )}

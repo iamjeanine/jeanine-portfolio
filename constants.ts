@@ -10,6 +10,21 @@ export const getVisibleProjects = () => PROJECTS.filter(p => p.category === 'Sel
 
 export const PROJECTS: Project[] = [
   {
+    id: 'visual-audiobooks',
+    title: 'Visual Audiobooks',
+    coverTitle: 'Visual Audio Book',
+    subtitle: 'A new visual telling with every listen.',
+    client: 'Ghost Mode Labs',
+    category: 'Experiments',
+    filterCategories: ['story-system'],
+    categoryLabel: 'Story System',
+    previewImageUrl: '/charcoal-cover.png',
+    mainVideos: [],
+    descriptor: 'A new visual telling with every listen.',
+    description: '',
+    tools: '',
+  },
+  {
     id: 'mythos',
     title: 'MythOS',
     subtitle: 'Franchise intelligence',

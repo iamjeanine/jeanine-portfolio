@@ -115,6 +115,48 @@
         ::view-transition-old(*),
         ::view-transition-new(*) { animation-duration: 0.01s !important; }
       }
+
+      /* Scarf animation — Visual Audiobooks tile */
+      @keyframes scarf-beyond-frame {
+        0%, 100% { transform: rotate(-.6deg) skewY(0deg) scaleX(.99); }
+        18%       { transform: rotate(.25deg) skewY(.35deg) scaleX(1.015); }
+        41%       { transform: rotate(1.15deg) skewY(-.55deg) scaleX(1.045); }
+        62%       { transform: rotate(.35deg) skewY(.25deg) scaleX(1.02); }
+        82%       { transform: rotate(-.9deg) skewY(-.25deg) scaleX(.995); }
+      }
+      .scarf-body {
+        transform-box: view-box;
+        transform-origin: 28.2% 40.5%;
+        animation: scarf-beyond-frame 7.2s cubic-bezier(.45,.05,.3,1) infinite;
+        will-change: transform;
+      }
+
+      /* Reduced motion — scarf static */
+      @media (prefers-reduced-motion: reduce) {
+        .scarf-body { animation: none !important; transform: rotate(.2deg) scaleX(1.01) !important; }
+        .scarf-stage { transition: none !important; }
+      }
+
+      /* Scarf SVG path styles */
+      .scarf-fill {
+        fill: var(--terra);
+        fill-opacity: .78;
+        stroke: oklch(31% 0.052 46 / .62);
+        stroke-width: 2.4;
+        stroke-linejoin: round;
+      }
+      .scarf-fold {
+        fill: none;
+        stroke: oklch(31% 0.05 46 / .36);
+        stroke-width: 2.8;
+        stroke-linecap: round;
+      }
+      .scarf-fringe {
+        fill: none;
+        stroke: oklch(35% 0.065 48 / .72);
+        stroke-width: 3;
+        stroke-linecap: round;
+      }
     </style>
 <link rel="stylesheet" href="/index.css">
 </head>

@@ -26,7 +26,8 @@ export interface Project {
   category: 'Selected' | 'All' | 'Experiments';
   filterCategories?: string[];
   categoryLabel?: string;
-  previewVideoUrl: string;
+  previewVideoUrl?: string;
+  previewImageUrl?: string;
   previewPosterUrl?: string;
   previewAutoplay?: boolean;
   previewHasAudio?: boolean;
