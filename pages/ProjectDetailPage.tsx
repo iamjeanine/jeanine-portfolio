@@ -436,7 +436,34 @@ const ProjectDetailPage = () => {
         {/* Content */}
         <main className="flex-grow flex flex-col items-center">
             {(() => {
-              if (project.id === 'in-world-social-campaign') {
+              if (project.id === 'visual-audiobooks') {
+                return (
+                  <>
+                    <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
+                      <img
+                        src={project.previewImageUrl}
+                        alt=""
+                        className="w-full aspect-video object-cover"
+                        style={{ objectPosition: 'center 54%', filter: 'saturate(.86) contrast(1.03)' }}
+                      />
+                    </div>
+                    <div className="w-full max-w-5xl mt-8 md:mt-12">
+                      <div className="max-w-2xl">
+                        {(project.client || project.categoryLabel) && (
+                          <p className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 font-normal mb-4">
+                            {[project.client, project.categoryLabel].filter(Boolean).join(' · ')}
+                          </p>
+                        )}
+                        <div className="mb-8">
+                          <h1 className="text-3xl md:text-4xl font-normal">{project.title}</h1>
+                          {project.subtitle && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle}</p>}
+                        </div>
+                        <p className="text-sm text-neutral-400 font-light tracking-[0.14em] uppercase">Coming soon</p>
+                      </div>
+                    </div>
+                  </>
+                );
+              } else if (project.id === 'in-world-social-campaign') {
                 return renderSocialCampaignLayout();
               } else if (project.id === 'ai-creator-lab') {
                 return renderAICreatorLabLayout();
@@ -444,7 +471,6 @@ const ProjectDetailPage = () => {
                 return (
                   <>
                     {renderDefaultLayout()}
-                    
                   </>
                 );
               }
