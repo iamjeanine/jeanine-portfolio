@@ -440,11 +440,13 @@ const ProjectDetailPage = () => {
                 return (
                   <>
                     <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
-                      <img
-                        src={project.previewImageUrl}
-                        alt=""
+                      <video
+                        src={project.previewVideoUrl}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
                         className="w-full aspect-video object-cover"
-                        style={{ objectPosition: 'center 54%', filter: 'saturate(.86) contrast(1.03)' }}
                       />
                     </div>
                     <div className="w-full max-w-5xl mt-8 md:mt-12">
