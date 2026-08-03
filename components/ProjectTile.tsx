@@ -89,7 +89,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
       className={`relative transition-all duration-700 ease-out ${
         isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-[0.97]'
       }`}
-      style={{ transitionDelay: `${(index % 2) * 100}ms`, ...(project.id === 'visual-audiobooks' ? { zIndex: 2 } : {}) }}
+      style={{ transitionDelay: `${(index % 2) * 100}ms` }}
     >
       <a
         href={`#/project/${project.id}`}
@@ -282,52 +282,6 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
               </div>
             </div>
           </div>
-
-          {/* Scarf overlay — Visual Audiobooks only */}
-          {project.id === 'visual-audiobooks' && (
-            <div
-              aria-hidden="true"
-              className="scarf-stage"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                aspectRatio: '16/9',
-                overflow: 'visible',
-                pointerEvents: 'none',
-                zIndex: 2,
-                transform: isHovered ? 'translateX(40%)' : 'translateX(0)',
-                clipPath: isHovered ? 'inset(0 40% 0px 0)' : 'inset(0 0 -72px 0)',
-                transition: 'transform 350ms cubic-bezier(.22,.61,.36,1), clip-path 350ms cubic-bezier(.22,.61,.36,1)',
-              }}
-            >
-              <svg
-                viewBox="0 0 1672 941"
-                preserveAspectRatio="xMidYMid slice"
-                style={{ display: 'block', width: '100%', height: '100%', overflow: 'visible' }}
-              >
-                <g className="scarf-body">
-                  <path
-                    className="scarf-fill"
-                    d="M456 358 C557 383 629 441 742 454 C870 469 954 416 1062 455 C1180 498 1215 610 1275 696 C1347 800 1452 845 1510 963 C1557 1058 1493 1147 1367 1167 L1360 1128 C1456 1110 1495 1048 1468 982 C1427 880 1321 829 1241 730 C1171 630 1139 548 1038 508 C939 469 857 521 733 493 C614 466 534 418 454 377 Z"
-                  />
-                  <path
-                    className="scarf-fold"
-                    d="M482 376 C610 439 732 477 850 454 C980 428 1073 460 1137 542 C1210 637 1228 737 1324 823 C1412 901 1514 947 1519 1030 C1525 1108 1463 1140 1375 1151"
-                  />
-                  <path
-                    className="scarf-fold"
-                    d="M494 390 C619 455 738 491 856 470 C979 448 1058 481 1120 559 C1192 650 1212 751 1308 839 C1392 914 1493 958 1500 1036 C1506 1094 1452 1122 1368 1136"
-                  />
-                  <path
-                    className="scarf-fringe"
-                    d="M1370 1151 l-32 4 M1372 1157 l-29 14 M1375 1163 l-24 22 M1380 1167 l-16 28"
-                  />
-                </g>
-              </svg>
-            </div>
-          )}
 
         </div>{/* end tile container */}
 
