@@ -56,9 +56,6 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <h2 id="about-title" className="text-2xl md:text-3xl font-serif text-white mb-6">About</h2>
         <div className="space-y-4 text-sm md:text-base font-normal text-neutral-300">
           <p>
-            Producing and prototyping new ways to tell stories.
-          </p>
-          <p>
             Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital.
           </p>
           <p>
@@ -68,7 +65,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             Founded Wondery's first Creator Lab, training 50+ staff on AI creative tools.
           </p>
           <p>
-            At Ghost Mode Labs, I'm developing original IP and building creative tools across nonfiction, scripted, and interactive formats.
+            At Ghost Mode Labs, I develop original IP and prototype new ways to research, develop, and extend stories across scripted, nonfiction, and interactive formats.
           </p>
           <div className="border-t border-[#2A201C] pt-4 mt-6">
             <a href="https://www.linkedin.com/in/jcornillot" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#B3543A] transition-colors underline">LinkedIn</a>
