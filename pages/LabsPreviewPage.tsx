@@ -259,7 +259,7 @@ const ENTRIES: LabEntry[] = [
     expandables: [
       {
         label: 'Concept',
-        body: 'I founded Wondery’s first AI Creator Lab to explore how new tools could fit into real production workflows.',
+        body: 'Founded Wondery’s first AI Creator Lab to explore how new tools could fit into real production workflows.',
       },
       {
         label: 'Build',
