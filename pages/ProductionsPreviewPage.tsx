@@ -68,11 +68,7 @@ const SPREADS: SpreadData[] = [
     expandables: [
       {
         label: 'Role',
-        body: 'Created the series and ran it as showrunner: format, hosting, editorial voice, and weekly production across its run at Wondery.',
-      },
-      {
-        label: 'Series',
-        body: 'Each week, two culture writers unravel how a scammer built the con, who fell for it, and what it says about the internet we all live in.',
+        body: 'Created the original IP and pitched it to Wondery, then ran the series as showrunner: format, hosting, editorial voice, and weekly production across its run.',
       },
       {
         label: 'Impact',
@@ -120,10 +116,6 @@ const SPREADS: SpreadData[] = [
         body: 'Producer on the original Wondery podcast, from development through editorial.',
       },
       {
-        label: 'Series',
-        body: 'An intimate, funny, devastating series about desire at the end of a life. A conversation between best friends that became a cultural moment.',
-      },
-      {
         label: 'Impact',
         body: 'Winner, Ambie Podcast of the Year. Named to Apple Podcasts’ Favorites of the Year. Adapted as a Peabody-winning FX limited series starring Michelle Williams, with 9 Primetime Emmy nominations.',
       },
@@ -164,10 +156,6 @@ const SPREADS: SpreadData[] = [
       {
         label: 'Role',
         body: 'Created the series and ran it as showrunner across two seasons, from development through serialized production.',
-      },
-      {
-        label: 'Series',
-        body: 'Audio-first science fiction built like prestige television: a city under glass, and the cost of being the ones who survived.',
       },
       {
         label: 'Impact',
@@ -218,10 +206,6 @@ const BORN_THIS_WAY: SpreadData = {
       body: 'Supervising producer across the series, shaping story at A&E through its Emmy-winning run.',
     },
     {
-      label: 'Series',
-      body: 'A docuseries built around joy and independence rather than diagnosis, following its cast through work, dating, and moving out on their own.',
-    },
-    {
       label: 'Impact',
       body: '3 wins, 16 Primetime Emmy nominations.',
     },
@@ -262,10 +246,6 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
     {
       label: 'Role',
       body: 'Supervising producer on the series for Vox Media and PBS, shaping story across its run.',
-    },
-    {
-      label: 'Series',
-      body: 'Each episode follows Samuelsson into a different American city, tracing how immigrant communities have shaped what the country eats.',
     },
     {
       label: 'Impact',
@@ -314,10 +294,6 @@ const LIFE_OF_KYLIE: SpreadData = {
     {
       label: 'Role',
       body: 'Senior supervising producer on the series for E! and Bunim/Murray, overseeing production during the height of media attention around the family.',
-    },
-    {
-      label: 'Series',
-      body: 'An unscripted series following Kylie Jenner in real time, through brand launches and the pressures of life inside one of the most-watched families in the world.',
     },
     {
       label: 'Impact',
@@ -557,7 +533,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
     },
     {
       label: 'Series',
-      body: 'The Execution of Bonny Lee reopens a decades-old Hollywood mystery. Billionaire Boys Club follows a circle of young men whose investment scheme spiraled into murder.',
+      body: 'Billionaire Boys Club (Season 6): co-hosted with Tracy Pattin and Timothy Olyphant, critically praised. The Execution of Bonny Lee Bakley (Season 7): co-hosted with Tracy Pattin and Josh Lucas, a chart-topping true-crime hit.',
     },
     {
       label: 'Impact',
@@ -567,7 +543,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
   media: {
     main: {
       src: '/proto/hc-bonny-motion.mp4',
-      alt: 'The Execution of Bonny Lee animated cover art',
+      alt: 'The Execution of Bonny Lee Bakley animated cover art',
       isVideo: true,
     },
     overlap: {
