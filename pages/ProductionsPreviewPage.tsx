@@ -155,7 +155,7 @@ const SPREADS: SpreadData[] = [
     expandables: [
       {
         label: 'Role',
-        body: 'Created the series and ran it as showrunner across two seasons, from development through serialized production.',
+        body: 'Created the original IP and pitched it to Wondery, then ran the series as showrunner across two seasons, from development through serialized production.',
       },
       {
         label: 'Impact',
