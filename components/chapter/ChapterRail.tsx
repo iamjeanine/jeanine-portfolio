@@ -4,16 +4,25 @@ export interface RailSection {
   id: string;
   index: string;
   label: string;
-  /** true if this section sits on a dark ground (Ghost Mode Labs). */
-  dark?: boolean;
 }
 
 /**
  * Persistent chapter position indicator (REDESIGN-PLAN.md 4.2). Fixed
  * right edge on desktop, a single compact current-position label on
- * mobile. Recolors between ink/terra (paper sections) and cream-ink/ember
- * (the Labs dark ground) based on whichever section is centered in the
- * viewport. No pill, no glass, no backdrop blur.
+ * mobile.
+ *
+ * The plan specifies ink-on-paper vs cream-ink-on-dark, but the rail
+ * spends most of the scroll floating over Productions' saturated
+ * per-spread fields (terra orange, navy, near-black plum), not just
+ * "paper" or "the Labs dark ground": a binary light/dark scheme goes
+ * unreadable there (e.g. muted ink or terra on the Scamfluencers
+ * orange field measures under 2:1). Instead the rail is white text in
+ * `mix-blend-mode: difference`, which inverts against whatever is
+ * behind it and stays legible against every ground in the spine
+ * without needing to know what that ground is. Active vs inactive is
+ * conveyed by opacity and weight instead of hue, since the whole
+ * point is not depending on a color read against a variable backdrop.
+ * Still no pill, no glass, no backdrop blur.
  */
 export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections }) => {
   const [activeId, setActiveId] = useState(sections[0]?.id);
@@ -38,10 +47,6 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
   }, [sections]);
 
   const active = sections.find((s) => s.id === activeId) ?? sections[0];
-  const onDark = Boolean(active?.dark);
-  const mutedColor = onDark ? 'rgba(242,237,226,0.45)' : 'rgba(21,14,10,0.4)';
-  const accentColor = onDark ? 'var(--ember)' : 'var(--terra)';
-  const focusClass = onDark ? 'chapter-rail-btn-dark' : 'chapter-rail-btn-light';
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -61,8 +66,8 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
               key={s.id}
               type="button"
               onClick={() => scrollToSection(s.id)}
-              className={`chapter-label chapter-rail-btn ${focusClass} flex items-baseline gap-2 transition-colors duration-300`}
-              style={{ color: isActive ? accentColor : mutedColor }}
+              className="chapter-label chapter-rail-btn chapter-rail-invert flex items-baseline gap-2 transition-opacity duration-300"
+              style={{ opacity: isActive ? 1 : 0.55, fontWeight: isActive ? 700 : 400 }}
               aria-current={isActive ? 'true' : undefined}
             >
               <span>{s.index}</span>
@@ -77,8 +82,7 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
         <button
           type="button"
           onClick={() => scrollToSection(active.id)}
-          className={`md:hidden fixed bottom-5 right-5 z-40 chapter-label chapter-rail-btn ${focusClass} transition-colors duration-300`}
-          style={{ color: accentColor }}
+          className="md:hidden fixed bottom-5 right-5 z-40 chapter-label chapter-rail-btn chapter-rail-invert"
           aria-label={`Currently in chapter: ${active.label}. Tap to scroll to its start.`}
         >
           {active.index} &middot; {active.label}

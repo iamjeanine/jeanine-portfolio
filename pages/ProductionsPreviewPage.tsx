@@ -534,14 +534,37 @@ export const PRODUCTIONS_FIRST_COLOR = gradientStart(CHAPTER_ORDER[0].palette.fi
 export const PRODUCTIONS_LAST_COLOR = gradientEnd(CHAPTER_ORDER[CHAPTER_ORDER.length - 1].palette.field);
 
 /**
- * The chapter's spreads and their internal bridges only. No boundary
- * bridges: the page or Spine composing this owns the transition to
- * whatever comes before and after.
+ * The chapter's own title card, its spreads, and their internal bridges.
+ * No boundary bridges: the page or Spine composing this owns the
+ * transition to whatever comes before and after. The title card mirrors
+ * LabsChapter carrying its own "Ghost Mode Labs" header, so both
+ * chapters read as siblings wherever this is embedded (previously
+ * Productions' title lived only in the standalone page's identity
+ * header, so the Spine skipped straight into Scamfluencers unannounced).
  */
 export const ProductionsChapter: React.FC<{ face?: (typeof FACES)[string] }> = ({
   face = FACES.bodoni,
 }) => (
   <>
+    <div
+      className="px-6 md:px-20 pt-16 md:pt-24 pb-16 md:pb-24"
+      style={{ backgroundColor: 'var(--bg-site)' }}
+    >
+      <div className="flex items-end justify-between">
+        <h2
+          className="text-[2rem] md:text-[2.75rem] leading-none"
+          style={{ fontFamily: face.family, color: 'var(--ink)' }}
+        >
+          Productions
+        </h2>
+        <span
+          className="hidden md:block text-[0.8rem] italic"
+          style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-mute)' }}
+        >
+          2015–Present &middot; podcasts &amp; television
+        </span>
+      </div>
+    </div>
     {CHAPTER_ORDER.map((spread, i) => (
       <React.Fragment key={spread.index}>
         <Spread data={spread} face={face} />
@@ -576,8 +599,10 @@ const ProductionsPreviewPage: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
-      {/* Cream connective tissue: chapter opening */}
-      <header className="px-6 md:px-20 pt-12 pb-16 md:pt-16 md:pb-24">
+      {/* Cream connective tissue: chapter opening (identity only; the
+          "Productions" title itself lives in ProductionsChapter, see
+          there for why) */}
+      <header className="px-6 md:px-20 pt-12 md:pt-16">
         <div className="flex items-baseline justify-between">
           <Link
             to="/"
@@ -588,20 +613,6 @@ const ProductionsPreviewPage: React.FC = () => {
           </Link>
           <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: 'var(--ink-faint)' }}>
             Prototype
-          </span>
-        </div>
-        <div className="mt-16 md:mt-24 flex items-end justify-between">
-          <h1
-            className="text-[2rem] md:text-[2.75rem] leading-none"
-            style={{ fontFamily: face.family, color: 'var(--ink)' }}
-          >
-            Productions
-          </h1>
-          <span
-            className="hidden md:block text-[0.8rem] italic"
-            style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-mute)' }}
-          >
-            2015–Present · podcasts &amp; television
           </span>
         </div>
       </header>

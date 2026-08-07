@@ -111,3 +111,16 @@
   outline: 2px solid var(--ember);
   outline-offset: 2px;
 }
+
+/* The fixed ChapterRail overlays every ground in the spine, including
+   Productions' saturated per-spread fields, not just paper/dark: see
+   the comment in ChapterRail.tsx for why this inverts instead of
+   picking a color. */
+.chapter-rail-invert {
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+.chapter-rail-invert:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}

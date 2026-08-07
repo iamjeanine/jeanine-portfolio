@@ -19,9 +19,9 @@ import { LabsChapter, LAB } from './LabsPreviewPage';
  */
 
 const RAIL_SECTIONS: RailSection[] = [
-  { id: 'productions', index: '01', label: 'Productions', dark: false },
-  { id: 'labs', index: '02', label: 'Ghost Mode', dark: true },
-  { id: 'about', index: '03', label: 'About', dark: false },
+  { id: 'productions', index: '01', label: 'Productions' },
+  { id: 'labs', index: '02', label: 'Ghost Mode' },
+  { id: 'about', index: '03', label: 'About' },
 ];
 
 const CONTENTS = [
@@ -120,12 +120,29 @@ const SpinePreviewPage: React.FC = () => {
       <div id="productions">
         <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
         <ProductionsChapter />
-        <ColorBridge
-          from={PRODUCTIONS_LAST_COLOR}
-          to={LAB.ground}
-          heightClassName="h-[32vh] md:h-[40vh]"
-        />
+        <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
+
+        {/*
+          Cream breather: Kylie's field and the Labs ground are both
+          near-black, so a bridge straight between them has no visible
+          swing and the "lights down" moment disappears. Surfacing back
+          to paper first, however briefly, gives the real dip (below) a
+          light stop to fall from.
+        */}
+        <div className="px-6 md:px-20 py-16 md:py-20" style={{ backgroundColor: 'var(--bg-site)' }}>
+          <p
+            className="text-[1rem] italic leading-relaxed"
+            style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
+          >
+            Ghost Mode Labs follows: the studio for what she is building next.
+          </p>
+        </div>
       </div>
+
+      {/* The biggest lightness swing in the spine: paper diving into the
+          Labs ground. Kept outside both chapter ids since it belongs to
+          neither. */}
+      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[32vh] md:h-[40vh]" />
 
       {/* Chapter 02: Ghost Mode Labs */}
       <div id="labs">
@@ -154,10 +171,12 @@ const SpinePreviewPage: React.FC = () => {
             300+ episodes across podcasts, television, and digital.
           </p>
           <p>
-            Created Scamfluencers (53M downloads, #1 Apple Podcasts). Produced
-            Dying for Sex (Apple Podcast of the Year, adapted as a
-            Peabody-winning FX series with 9 Emmy nominations). Created The
-            Last City (scripted sci-fi, #1 Apple Fiction in 20 countries).
+            Created Scamfluencers (53M downloads, winner of the 2023 Ambie
+            for Best Entertainment Podcast). Produced Dying for Sex (Ambie
+            Podcast of the Year, named to Apple Podcasts&rsquo; Favorites of
+            the Year, adapted as a Peabody-winning FX series with 9 Emmy
+            nominations). Created The Last City (scripted sci-fi, #1 Apple
+            Fiction in 20 countries).
           </p>
           <p>Founded Wondery&rsquo;s first Creator Lab, training 50+ staff on AI creative tools.</p>
           <p>
