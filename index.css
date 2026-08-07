@@ -214,6 +214,37 @@
   outline-offset: 2px;
 }
 
+/* Windows High Contrast / forced-colors fallback (Impeccable navigation
+   critique, P3): mix-blend-mode is ignored entirely under forced-colors
+   per spec, so without this rule the rail, its mobile menu, and
+   MotionToggle would all fall back to plain white text (or whatever the
+   forced palette maps #ffffff to) floating over whichever photo or
+   saturated field happened to be behind them: exactly the illegibility
+   the blend mode exists to prevent, for the one visitor who needs a
+   legible nav most.
+   System color keywords, not literal hex, so this adapts to whichever
+   high-contrast theme the visitor chose (light-on-dark or dark-on-light)
+   instead of assuming one direction.
+   Two selectors on the button rule because chapter-rail-invert lands on
+   two different kinds of element: MotionToggle carries both classes on
+   the same <button>, while ChapterRail's own buttons are descendants of
+   a separate <nav>/<div> that carries chapter-rail-invert alone. */
+@media (forced-colors: active) {
+  .chapter-rail-invert {
+    color: ButtonText;
+  }
+  .chapter-rail-invert.chapter-rail-btn,
+  .chapter-rail-invert .chapter-rail-btn {
+    background-color: ButtonFace;
+    border: 1px solid ButtonText;
+    padding: 0.25rem 0.5rem;
+  }
+  .chapter-rail-invert:focus-visible,
+  .chapter-rail-invert :focus-visible {
+    outline-color: Highlight;
+  }
+}
+
 /* WCAG 2.5.8 target size: these controls are 11.2px label type, so the
    text box alone measured 17px tall. Padding lifts the hit area past the
    24px minimum without changing where the text sits, and the negative
