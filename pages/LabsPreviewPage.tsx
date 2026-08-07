@@ -13,11 +13,15 @@ const GRAIN_URI =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
 const LAB = {
-  ground: '#0A0A0C',
+  // Warm ink-black: the site's own ink (#150E0A) deepened, same hue family
+  // as terra. Labs is the site with the lights down, not a different site.
+  ground: '#120C08',
   ink: '#F2EDE2',
   inkSoft: 'rgba(242,237,226,0.55)',
   inkBody: 'rgba(242,237,226,0.82)',
-  accent: '#9BE8D2',
+  // Terra tuned for dark ground: same hue as the site accent, lightness
+  // raised for legibility (9.4:1 on the ground; raw terra reads 3.9:1).
+  accent: '#E8A672',
   border: 'rgba(242,237,226,0.16)',
 };
 
@@ -196,8 +200,8 @@ const LabVideo: React.FC<{ video: LabEntry['video'] }> = ({ video }) => {
       ref={ref}
       className="relative aspect-video overflow-hidden"
       style={{
-        background: '#101014',
-        boxShadow: '0 40px 120px rgba(0,0,0,0.6), 0 0 80px rgba(155,232,210,0.05)',
+        background: '#17100B',
+        boxShadow: '0 40px 120px rgba(0,0,0,0.6)',
       }}
     >
       {near && (
