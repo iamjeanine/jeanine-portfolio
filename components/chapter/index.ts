@@ -6,3 +6,5 @@ export { Eyebrow } from './Eyebrow';
 export { Expandable } from './Expandable';
 export { SpreadShell } from './SpreadShell';
 export { LazyVideo } from './LazyVideo';
+export { ChapterRail } from './ChapterRail';
+export type { RailSection } from './ChapterRail';

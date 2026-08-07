@@ -10,7 +10,7 @@ import { ColorBridge, Eyebrow, LazyVideo, SpreadShell } from '../components/chap
  * All media streams from the Google Cloud bucket; nothing local.
  */
 
-const LAB = {
+export const LAB = {
   // Warm ink-black: the site's own ink (#150E0A) deepened, same hue family
   // as terra. Labs is the site with the lights down, not a different site.
   ground: 'var(--ink-deep)',
@@ -308,6 +308,56 @@ const Entry: React.FC<{ data: LabEntry }> = ({ data }) => (
   </article>
 );
 
+/**
+ * The chapter's dark ground, header, and entries only. No boundary
+ * bridges: the page or Spine composing this owns the transition to
+ * whatever comes before and after.
+ */
+export const LabsChapter: React.FC = () => (
+  <>
+    <style>{`
+      .lab-open { border-bottom: 1px solid ${LAB.border}; padding-bottom: 0.4rem; transition: border-color 0.3s ease; }
+      .lab-open:hover { border-color: ${LAB.accent}; }
+    `}</style>
+    <SpreadShell
+      as="div"
+      background={LAB.ground}
+      overflowHidden={false}
+      grainOpacity={0.04}
+      gutterClassName="px-6 md:px-24"
+    >
+      {/* chapter header */}
+      <div className="pt-24 md:pt-40 pb-24 md:pb-40">
+        <div className="flex items-end justify-between">
+          <h1
+            className="text-[2.4rem] md:text-[3.5rem] leading-none"
+            style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
+          >
+            Ghost Mode Labs
+          </h1>
+          <span
+            className="hidden md:block text-[0.8rem] italic"
+            style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
+          >
+            story systems &middot; production tools &middot; cultural experiments
+          </span>
+        </div>
+        <p
+          className="mt-10 md:mt-14 text-[1.1rem] md:text-[1.25rem] leading-relaxed"
+          style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '46ch' }}
+        >
+          The studio for what she is building next: stories and the systems
+          that make them, built hands-on with&nbsp;AI.
+        </p>
+      </div>
+
+      {ENTRIES.map((e) => (
+        <Entry key={e.id} data={e} />
+      ))}
+    </SpreadShell>
+  </>
+);
+
 const LabsPreviewPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -315,11 +365,6 @@ const LabsPreviewPage: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
-      <style>{`
-        .lab-open { border-bottom: 1px solid ${LAB.border}; padding-bottom: 0.4rem; transition: border-color 0.3s ease; }
-        .lab-open:hover { border-color: ${LAB.accent}; }
-      `}</style>
-
       {/* Cream strip: where the Productions coda hands off */}
       <header className="px-6 md:px-24 pt-12 pb-10 md:pt-16 md:pb-14">
         <div className="flex items-baseline justify-between">
@@ -338,43 +383,7 @@ const LabsPreviewPage: React.FC = () => {
 
       <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[18vh] md:h-[26vh]" />
 
-      {/* The chapter: one continuous dark ground */}
-      <SpreadShell
-        as="div"
-        background={LAB.ground}
-        overflowHidden={false}
-        grainOpacity={0.04}
-        gutterClassName="px-6 md:px-24"
-      >
-        {/* chapter header */}
-        <div className="pt-24 md:pt-40 pb-24 md:pb-40">
-          <div className="flex items-end justify-between">
-            <h1
-              className="text-[2.4rem] md:text-[3.5rem] leading-none"
-              style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
-            >
-              Ghost Mode Labs
-            </h1>
-            <span
-              className="hidden md:block text-[0.8rem] italic"
-              style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
-            >
-              story systems &middot; production tools &middot; cultural experiments
-            </span>
-          </div>
-          <p
-            className="mt-10 md:mt-14 text-[1.1rem] md:text-[1.25rem] leading-relaxed"
-            style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '46ch' }}
-          >
-            The studio for what she is building next: stories and the systems
-            that make them, built hands-on with&nbsp;AI.
-          </p>
-        </div>
-
-        {ENTRIES.map((e) => (
-          <Entry key={e.id} data={e} />
-        ))}
-      </SpreadShell>
+      <LabsChapter />
 
       <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[18vh] md:h-[26vh]" />
 

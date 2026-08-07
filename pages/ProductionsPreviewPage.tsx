@@ -272,7 +272,7 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
 
 // Lighter treatment: one image, one line, no expandables or pull-stat.
 // Her value here is cultural reach, not an award, so the spread doesn't
-// pretend otherwise — it just gives that reach a real, quiet page.
+// pretend otherwise: it just gives that reach a real, quiet page.
 const LIFE_OF_KYLIE: SpreadData = {
   index: '07',
   eyebrow: 'E! · Bunim/Murray · 2017–2018',
@@ -375,7 +375,7 @@ const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ 
             {data.description}
           </p>
 
-          {/* pull stat, set editorially — omitted for lighter spreads */}
+          {/* pull stat, set editorially, omitted for lighter spreads */}
           {data.stat && (
             <div className="mt-12 md:mt-16">
               <p
@@ -399,7 +399,7 @@ const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ 
             </div>
           )}
 
-          {/* expandables — omitted for lighter spreads */}
+          {/* expandables, omitted for lighter spreads */}
           {data.expandables && data.expandables.length > 0 && (
             <div className="mt-12 md:mt-16">
               {data.expandables.map((e) => (
@@ -466,7 +466,7 @@ const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ 
   );
 };
 
-// Promoted from a half-scale interstitial band to a full flagship spread —
+// Promoted from a half-scale interstitial band to a full flagship spread:
 // once the chapter grew past three flagships, a single compressed band
 // started to read as inconsistent rather than intentional. Keeps its
 // animated main image as a quiet point of distinction from the rest.
@@ -516,8 +516,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
 };
 
 // Chapter render order. Bridge endpoints are derived from this array (see
-// ProductionsPreviewPage below), so they can never desync from the
-// palettes above.
+// ProductionsChapter below), so they can never desync from the palettes above.
 const CHAPTER_ORDER: SpreadData[] = [
   SPREADS[0],
   SPREADS[1],
@@ -527,6 +526,35 @@ const CHAPTER_ORDER: SpreadData[] = [
   NO_PASSPORT_REQUIRED,
   LIFE_OF_KYLIE,
 ];
+
+// The chapter's own opening and closing colors, for whatever composes it
+// (the standalone page bridges to/from cream; the Spine bridges to/from
+// its neighbors instead) to derive its own boundary bridge from.
+export const PRODUCTIONS_FIRST_COLOR = gradientStart(CHAPTER_ORDER[0].palette.field);
+export const PRODUCTIONS_LAST_COLOR = gradientEnd(CHAPTER_ORDER[CHAPTER_ORDER.length - 1].palette.field);
+
+/**
+ * The chapter's spreads and their internal bridges only. No boundary
+ * bridges: the page or Spine composing this owns the transition to
+ * whatever comes before and after.
+ */
+export const ProductionsChapter: React.FC<{ face?: (typeof FACES)[string] }> = ({
+  face = FACES.bodoni,
+}) => (
+  <>
+    {CHAPTER_ORDER.map((spread, i) => (
+      <React.Fragment key={spread.index}>
+        <Spread data={spread} face={face} />
+        {i + 1 < CHAPTER_ORDER.length && (
+          <ColorBridge
+            from={gradientEnd(spread.palette.field)}
+            to={gradientStart(CHAPTER_ORDER[i + 1].palette.field)}
+          />
+        )}
+      </React.Fragment>
+    ))}
+  </>
+);
 
 const ProductionsPreviewPage: React.FC = () => {
   const [params] = useSearchParams();
@@ -578,21 +606,9 @@ const ProductionsPreviewPage: React.FC = () => {
         </div>
       </header>
 
-      <ColorBridge from="var(--bg-site)" to={gradientStart(CHAPTER_ORDER[0].palette.field)} />
-
-      {CHAPTER_ORDER.map((spread, i) => (
-        <React.Fragment key={spread.index}>
-          <Spread data={spread} face={face} />
-          <ColorBridge
-            from={gradientEnd(spread.palette.field)}
-            to={
-              i + 1 < CHAPTER_ORDER.length
-                ? gradientStart(CHAPTER_ORDER[i + 1].palette.field)
-                : 'var(--bg-site)'
-            }
-          />
-        </React.Fragment>
-      ))}
+      <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
+      <ProductionsChapter face={face} />
+      <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
 
       {/* Cream coda: shows the rhythm continuing */}
       <footer className="px-6 md:px-20 py-20 md:py-28">

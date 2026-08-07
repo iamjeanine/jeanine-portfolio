@@ -19,6 +19,9 @@
 
   /* Shared display title clamp used by chapter spreads/entries. */
   --display-xl: clamp(3.2rem, 12.5vw, 12.5rem);
+  /* Chapter header scale (REDESIGN-PLAN.md 3.2): the Cover's name, and
+     eventually Labs' chapter title once unified with Productions'. */
+  --display-md: clamp(2rem, 4vw, 3.5rem);
 }
 
 @font-face {
@@ -89,4 +92,22 @@
   .chapter-expandable-body {
     transition: none;
   }
+}
+
+/* ChapterRail (REDESIGN-PLAN.md 4.2): plain-text buttons, no chrome.
+   Focus rings match the accessibility floor (8.7): 2px terra/ember,
+   2px offset, keyed to whichever ground the rail is currently over. */
+.chapter-rail-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.chapter-rail-btn-light:focus-visible {
+  outline: 2px solid var(--terra);
+  outline-offset: 2px;
+}
+.chapter-rail-btn-dark:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
 }
