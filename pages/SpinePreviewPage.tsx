@@ -288,7 +288,7 @@ const SpinePreviewPage: React.FC = () => {
               Last City for Wondery and Amazon.
             </p>
             <p>
-              Founded Wondery&rsquo;s first Creator Lab, growing it from four
+              Founded Wondery&rsquo;s first AI Creator Lab, growing it from four
               people to more than fifty across the company.
             </p>
             <p>
