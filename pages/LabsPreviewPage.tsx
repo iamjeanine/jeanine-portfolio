@@ -389,8 +389,14 @@ const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat 
  * light behind it, and Concept / Build / Status expandables for parity with
  * Productions' Role / Series / Impact.
  */
-const FeatureEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
-  <article className="pb-40 md:pb-64">
+const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
+  data,
+  position,
+  total,
+}) => (
+  // id read by ChapterRail's progress observer only ("entry 4 of 9" on the
+  // rail label); not a skip-link target.
+  <article id={`labs-progress-${position}-${total}`} className="pb-40 md:pb-64">
     <Reveal>
       <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
@@ -467,8 +473,12 @@ const FeatureEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
  * expandables. Deliberately faster so the chapter has a back third with a
  * different pace rather than nine identical templates.
  */
-const ShortEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
-  <article className="pb-24 md:pb-36">
+const ShortEntry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
+  data,
+  position,
+  total,
+}) => (
+  <article id={`labs-progress-${position}-${total}`} className="pb-24 md:pb-36">
     <Reveal>
       <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
@@ -524,8 +534,12 @@ const ShortEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
  * and an honest tag. No fabricated description and no stat. Graduating this
  * to a Feature when it ships is a one-word change to its tier.
  */
-const InDevelopmentEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
-  <article className="pb-32 md:pb-48">
+const InDevelopmentEntry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
+  data,
+  position,
+  total,
+}) => (
+  <article id={`labs-progress-${position}-${total}`} className="pb-32 md:pb-48">
     <Reveal>
       <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
@@ -573,10 +587,14 @@ const InDevelopmentEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
   </article>
 );
 
-const Entry: React.FC<{ data: LabEntry }> = ({ data }) => {
-  if (data.tier === 'feature') return <FeatureEntry data={data} />;
-  if (data.tier === 'short') return <ShortEntry data={data} />;
-  return <InDevelopmentEntry data={data} />;
+const Entry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
+  data,
+  position,
+  total,
+}) => {
+  if (data.tier === 'feature') return <FeatureEntry data={data} position={position} total={total} />;
+  if (data.tier === 'short') return <ShortEntry data={data} position={position} total={total} />;
+  return <InDevelopmentEntry data={data} position={position} total={total} />;
 };
 
 /** Quiet divider introducing the compact run at the chapter's end (5.2). */
@@ -646,7 +664,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         {ENTRIES.map((e, i) => (
           <React.Fragment key={e.id}>
             {i === firstShortIndex && <ShortsDivider />}
-            <Entry data={e} />
+            <Entry data={e} position={i + 1} total={ENTRIES.length} />
           </React.Fragment>
         ))}
 

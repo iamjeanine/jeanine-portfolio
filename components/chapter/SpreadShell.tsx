@@ -9,6 +9,7 @@ import { GRAIN_URI } from './constants';
 export const SpreadShell: React.FC<{
   background: string;
   as?: 'section' | 'div';
+  id?: string;
   overflowHidden?: boolean;
   grainOpacity?: number;
   gutterClassName?: string;
@@ -18,6 +19,7 @@ export const SpreadShell: React.FC<{
 }> = ({
   background,
   as = 'section',
+  id,
   overflowHidden = true,
   grainOpacity = 0.05,
   gutterClassName = 'px-6 md:px-20',
@@ -27,7 +29,7 @@ export const SpreadShell: React.FC<{
 }) => {
   const Tag = as as React.ElementType;
   return (
-    <Tag className={`relative ${overflowHidden ? 'overflow-hidden' : ''}`} style={{ background, ...style }}>
+    <Tag id={id} className={`relative ${overflowHidden ? 'overflow-hidden' : ''}`} style={{ background, ...style }}>
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none mix-blend-overlay"

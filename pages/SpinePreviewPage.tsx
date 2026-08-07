@@ -101,7 +101,11 @@ const ColophonList: React.FC<{
 
 const RAIL_SECTIONS: RailSection[] = [
   { id: 'productions', index: '01', label: 'Productions' },
-  { id: 'labs', index: '02', label: 'Ghost Mode' },
+  // Matches CONTENTS' label exactly: the two used to read "Ghost Mode" here
+  // and "Ghost Mode Labs" there, confirmed live as a real inconsistency
+  // (Impeccable navigation critique) even before the rail/Contents overlap
+  // itself was fixed.
+  { id: 'labs', index: '02', label: 'Ghost Mode Labs' },
   { id: 'about', index: '03', label: 'About' },
 ];
 
@@ -171,7 +175,7 @@ const SpinePreviewPage: React.FC = () => {
         ))}
       </nav>
 
-      <ChapterRail sections={RAIL_SECTIONS} />
+      <ChapterRail sections={RAIL_SECTIONS} hideWhileVisibleId="contents" />
       <MotionToggle />
 
       {/*
@@ -192,7 +196,11 @@ const SpinePreviewPage: React.FC = () => {
         {/* Contents page: the magazine beat straight after a cover. The name
             is not repeated here, since the hero above already carries it as
             the h1. */}
-        <section className="px-6 md:px-20 pt-20 pb-28 md:pt-28 md:pb-40">
+        {/* id read by ChapterRail's hideWhileVisibleId: the rail fades out
+            while this section is on screen instead of showing the same
+            three chapters twice at once (Impeccable navigation critique,
+            P0). */}
+        <section id="contents" className="px-6 md:px-20 pt-20 pb-28 md:pt-28 md:pb-40">
           <p className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
             Contents
           </p>

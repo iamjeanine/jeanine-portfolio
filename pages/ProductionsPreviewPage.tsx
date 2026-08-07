@@ -318,7 +318,11 @@ const LIFE_OF_KYLIE: SpreadData = {
   },
 };
 
-const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
+const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal: number }> = ({
+  data,
+  progressIndex,
+  progressTotal,
+}) => {
   const { palette: p, flip } = data;
 
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -343,6 +347,10 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
 
   return (
     <SpreadShell
+      // Read by ChapterRail's progress observer only ("spread 3 of 7" on the
+      // rail label), not a skip-link target: those live on the chapter-level
+      // #productions/#labs/#about divs instead.
+      id={`productions-progress-${progressIndex}-${progressTotal}`}
       background={p.field}
       gutterClassName="px-6 md:px-20"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
@@ -616,7 +624,7 @@ export const ProductionsChapter: React.FC = () => (
     </div>
     {CHAPTER_ORDER.map((spread, i) => (
       <React.Fragment key={spread.index}>
-        <Spread data={spread} />
+        <Spread data={spread} progressIndex={i + 1} progressTotal={CHAPTER_ORDER.length} />
         {i + 1 < CHAPTER_ORDER.length && (
           <ColorBridge
             from={gradientEnd(spread.palette.field)}

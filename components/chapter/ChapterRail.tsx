@@ -6,6 +6,46 @@ export interface RailSection {
   label: string;
 }
 
+interface Progress {
+  chapter: string;
+  position: number;
+  total: number;
+}
+
+/**
+ * Tracks "spread 3 of 7" / "entry 4 of 9" position inside whichever
+ * chapter is currently in view (REDESIGN-PLAN.md navigation critique, P1:
+ * a ~31-viewport-height document with zero sub-chapter feedback). Reads
+ * ids of the form `<chapter>-progress-<position>-<total>`, set by
+ * ProductionsPreviewPage's Spread and LabsPreviewPage's entry components;
+ * those ids exist purely for this observer, not as skip-link targets.
+ */
+const useChapterProgress = (): Progress | null => {
+  const [progress, setProgress] = useState<Progress | null>(null);
+
+  useEffect(() => {
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>('[id^="productions-progress-"], [id^="labs-progress-"]')
+    );
+    if (elements.length === 0) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length === 0) return;
+        const match = visible[0].target.id.match(/^(productions|labs)-progress-(\d+)-(\d+)$/);
+        if (!match) return;
+        setProgress({ chapter: match[1], position: Number(match[2]), total: Number(match[3]) });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+    elements.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  return progress;
+};
+
 /**
  * Persistent chapter position indicator (REDESIGN-PLAN.md 4.2). Fixed
  * right edge on desktop, a single compact current-position label on
@@ -24,7 +64,10 @@ export interface RailSection {
  * point is not depending on a color read against a variable backdrop.
  * Still no pill, no glass, no backdrop blur.
  */
-export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections }) => {
+export const ChapterRail: React.FC<{ sections: RailSection[]; hideWhileVisibleId?: string }> = ({
+  sections,
+  hideWhileVisibleId,
+}) => {
   // Starts undefined, not at the first section: on the Cover no chapter is
   // in view yet, and defaulting to sections[0] made the rail claim
   // "01 Productions" on the very first screen, which is the one place a
@@ -32,6 +75,8 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
   // entered the last value is kept rather than cleared, so passing through
   // an inter-chapter bridge (which belongs to no section) doesn't flicker.
   const [activeId, setActiveId] = useState<string | undefined>(undefined);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const progress = useChapterProgress();
 
   useEffect(() => {
     const elements = sections
@@ -52,6 +97,42 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
     return () => io.disconnect();
   }, [sections]);
 
+  // The rail and the Contents block used to show the same three chapters at
+  // once (Impeccable navigation critique, P0): the fixed rail floated over
+  // the Contents section while it displayed the identical list at a larger
+  // size, with mismatched copy besides. Rather than pick a winner, the rail
+  // now steps aside for whichever element owns that job at the moment: it
+  // fades out while `hideWhileVisibleId` is on screen, and back in once the
+  // visitor has moved on to an actual chapter.
+  const [suppressed, setSuppressed] = useState(false);
+
+  useEffect(() => {
+    if (!hideWhileVisibleId) return;
+    const el = document.getElementById(hideWhileVisibleId);
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setSuppressed(entry.isIntersecting), {
+      threshold: 0,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hideWhileVisibleId]);
+
+  // Closing the mobile menu on every chapter change (rather than leaving it
+  // open) keeps it from surviving into a chapter its contents no longer
+  // describe.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [activeId]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
+
   // No fallback to sections[0]: undefined means "not in a chapter yet", and
   // the mobile chip stays hidden rather than mislabeling the Cover.
   const active = sections.find((s) => s.id === activeId);
@@ -59,6 +140,14 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  // "Ghost Mode Labs · 4/9": only the currently active chapter ever carries
+  // a live count, and only once it actually has one (About has no spreads
+  // or entries to count, so it never grows a suffix).
+  const labelFor = (s: RailSection) =>
+    s.id === activeId && progress && progress.chapter === s.id
+      ? `${s.label} · ${progress.position}/${progress.total}`
+      : s.label;
 
   return (
     <>
@@ -76,7 +165,9 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
         children's.
       */}
       <nav
-        className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert"
+        className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
+        style={{ opacity: suppressed ? 0 : 1, pointerEvents: suppressed ? 'none' : 'auto' }}
+        aria-hidden={suppressed || undefined}
         aria-label="Chapter navigation"
       >
         {sections.map((s) => {
@@ -85,6 +176,7 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
             <button
               key={s.id}
               type="button"
+              tabIndex={suppressed ? -1 : undefined}
               onClick={() => scrollToSection(s.id)}
               className="chapter-label chapter-rail-btn chapter-rail-hit flex items-baseline gap-2 transition-opacity duration-300"
               /* 0.66, not a lower "muted" value: opacity scales the
@@ -98,25 +190,62 @@ export const ChapterRail: React.FC<{ sections: RailSection[] }> = ({ sections })
               aria-current={isActive ? 'true' : undefined}
             >
               <span className="tabular-nums">{s.index}</span>
-              <span>{s.label}</span>
+              <span>{labelFor(s)}</span>
             </button>
           );
         })}
       </nav>
 
-      {/* Mobile: collapsed to the current position only. Top-right rather
-          than bottom-right so it sits outside the thumb zone and stops
-          overlaying the disclosure rows near the viewport bottom, which
-          were measured stealing taps intended for them. */}
+      {/* Mobile: a single current-position chip that expands into the same
+          3-item list on tap. It used to only ever jump back to the top of
+          the chapter already in view, no path existed to reach a different
+          one (Impeccable navigation critique, P0): the one persistent nav
+          element mobile had was non-functional for its actual job. */}
       {active && (
-        <button
-          type="button"
-          onClick={() => scrollToSection(active.id)}
-          className="md:hidden fixed top-3 right-3 z-40 chapter-label chapter-rail-btn chapter-rail-hit chapter-rail-invert"
-          aria-label={`Jump to the start of ${active.label}, the chapter currently in view.`}
+        <div
+          className="md:hidden fixed top-3 right-3 z-40 flex flex-col items-end gap-2 chapter-rail-invert"
         >
-          {active.index} &middot; {active.label}
-        </button>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            className="chapter-label chapter-rail-btn chapter-rail-hit"
+            aria-expanded={mobileOpen}
+            aria-label={
+              mobileOpen
+                ? 'Close chapter list'
+                : `Currently in ${active.label}${
+                    progress && progress.chapter === active.id
+                      ? `, ${progress.position} of ${progress.total}`
+                      : ''
+                  }. Open chapter list.`
+            }
+          >
+            {active.index} &middot; {labelFor(active)}
+          </button>
+          {mobileOpen && (
+            <div className="flex flex-col items-end gap-2" role="menu">
+              {sections.map((s) => {
+                const isActive = s.id === activeId;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      scrollToSection(s.id);
+                      setMobileOpen(false);
+                    }}
+                    className="chapter-label chapter-rail-btn chapter-rail-hit"
+                    style={{ opacity: isActive ? 1 : 0.66, fontWeight: isActive ? 700 : 400 }}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
+                    {s.index} {labelFor(s)}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       )}
     </>
   );
