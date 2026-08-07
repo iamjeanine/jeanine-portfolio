@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ColorBridge, Eyebrow, Expandable, SpreadShell, gradientStart, gradientEnd } from '../components/chapter';
 
 /**
  * PROTOTYPE: not linked from site navigation.
  * Production spread system: one full-bleed color field per production,
  * palette sampled from that production's actual key art.
- * Font comparison via ?face=bodoni | caslon | young
  */
 
-const FACES: Record<string, { label: string; family: string; tracking: string; lineHeight: number }> = {
-  bodoni: { label: 'Bodoni Moda', family: "'Bodoni Moda', serif", tracking: '-0.015em', lineHeight: 0.92 },
-  caslon: { label: 'Libre Caslon Display', family: "'Libre Caslon Display', serif", tracking: '-0.02em', lineHeight: 0.94 },
-  young: { label: 'Young Serif', family: "'Young Serif', serif", tracking: '-0.025em', lineHeight: 0.98 },
-};
+const DISPLAY_FAMILY = "'Bodoni Moda', serif";
 
 interface SpreadPalette {
   field: string; // CSS background for the color field
@@ -76,13 +71,23 @@ const SPREADS: SpreadData[] = [
       },
       overlap: { src: '/proto/scamfluencers-keyart.jpg', alt: 'Scamfluencers key art' },
     },
+    // Contrast repair (REDESIGN-PLAN.md 6.1, computed via WCAG relative
+    // luminance, not eyeballed): the original field's light stops failed
+    // 4.5:1 for small text at every stop (inkSoft as low as 2.67:1). Field
+    // darkened ~22% (uniformly, so its gradient shape is unchanged) and ink
+    // lifted slightly toward white; every stop now clears 4.5:1 for
+    // inkSoft/inkBody and 3:1 for the display-size title, with margin.
+    // Bonus: the chartreuse accent, previously a disclosed 3.69:1 ceiling
+    // against the original field ("no chartreuse-family value passes 4.5:1
+    // there"; see plan 9.1), now clears 4.5:1 too against the darkened
+    // field, unchanged. The hue was never touched.
     palette: {
-      field: 'linear-gradient(160deg, #CC5D24 0%, #BC4E1A 55%, #B04715 100%)',
-      ink: '#FAEFE2',
-      inkSoft: 'rgba(250,239,226,0.75)',
-      inkBody: 'rgba(250,239,226,0.92)',
+      field: 'linear-gradient(160deg, #9F481C 0%, #933D14 55%, #893710 100%)',
+      ink: '#FCF5EC',
+      inkSoft: 'rgba(252,245,236,0.85)',
+      inkBody: 'rgba(252,245,236,0.95)',
       accent: '#F0FF29',
-      border: 'rgba(250,239,226,0.28)',
+      border: 'rgba(252,245,236,0.28)',
       shadow: 'rgba(60,20,0,0.35)',
     },
   },
@@ -312,7 +317,7 @@ const LIFE_OF_KYLIE: SpreadData = {
   },
 };
 
-const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ data, face }) => {
+const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
   const { palette: p, flip } = data;
 
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -347,10 +352,10 @@ const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ 
       <h2
         className="relative z-10 mt-10 md:mt-16"
         style={{
-          fontFamily: face.family,
+          fontFamily: DISPLAY_FAMILY,
           fontSize: 'var(--display-xl)',
-          lineHeight: face.lineHeight,
-          letterSpacing: face.tracking,
+          lineHeight: 0.92,
+          letterSpacing: '-0.015em',
           color: p.ink,
         }}
       >
@@ -381,7 +386,7 @@ const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ 
               <p
                 className="italic"
                 style={{
-                  fontFamily: face.family,
+                  fontFamily: DISPLAY_FAMILY,
                   fontSize:
                     data.stat.value.length > 6
                       ? 'clamp(2.2rem, 3.4vw, 3.2rem)'
@@ -507,7 +512,10 @@ const HOLLYWOOD_CRIME: SpreadData = {
     ink: '#1A1613',
     inkSoft: 'rgba(26,22,19,0.62)',
     inkBody: 'rgba(26,22,19,0.86)',
-    accent: '#C2201F',
+    // Contrast repair (6.1): #C2201F measured a 4.45:1 near miss against
+    // the field's darkest stop. Computed nudge to #BF201F clears 4.5:1
+    // against all three stops with a small margin (4.55-5.10).
+    accent: '#BF201F',
     border: 'rgba(26,22,19,0.2)',
     shadow: 'rgba(20,10,10,0.28)',
   },
@@ -542,9 +550,7 @@ export const PRODUCTIONS_LAST_COLOR = gradientEnd(CHAPTER_ORDER[CHAPTER_ORDER.le
  * Productions' title lived only in the standalone page's identity
  * header, so the Spine skipped straight into Scamfluencers unannounced).
  */
-export const ProductionsChapter: React.FC<{ face?: (typeof FACES)[string] }> = ({
-  face = FACES.bodoni,
-}) => (
+export const ProductionsChapter: React.FC = () => (
   <>
     <div
       className="px-6 md:px-20 pt-16 md:pt-24 pb-16 md:pb-24"
@@ -553,7 +559,7 @@ export const ProductionsChapter: React.FC<{ face?: (typeof FACES)[string] }> = (
       <div className="flex items-end justify-between">
         <h2
           className="text-[2rem] md:text-[2.75rem] leading-none"
-          style={{ fontFamily: face.family, color: 'var(--ink)' }}
+          style={{ fontFamily: DISPLAY_FAMILY, color: 'var(--ink)' }}
         >
           Productions
         </h2>
@@ -567,7 +573,7 @@ export const ProductionsChapter: React.FC<{ face?: (typeof FACES)[string] }> = (
     </div>
     {CHAPTER_ORDER.map((spread, i) => (
       <React.Fragment key={spread.index}>
-        <Spread data={spread} face={face} />
+        <Spread data={spread} />
         {i + 1 < CHAPTER_ORDER.length && (
           <ColorBridge
             from={gradientEnd(spread.palette.field)}
@@ -580,20 +586,7 @@ export const ProductionsChapter: React.FC<{ face?: (typeof FACES)[string] }> = (
 );
 
 const ProductionsPreviewPage: React.FC = () => {
-  const [params] = useSearchParams();
-  const faceKey = params.get('face') || 'bodoni';
-  const face = FACES[faceKey] || FACES.bodoni;
-
   useEffect(() => {
-    const id = 'proto-display-fonts';
-    if (!document.getElementById(id)) {
-      const link = document.createElement('link');
-      link.id = id;
-      link.rel = 'stylesheet';
-      link.href =
-        'https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Young+Serif&display=swap';
-      document.head.appendChild(link);
-    }
     window.scrollTo(0, 0);
   }, []);
 
@@ -611,14 +604,11 @@ const ProductionsPreviewPage: React.FC = () => {
           >
             Jeanine Emilia Cornillot
           </Link>
-          <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: 'var(--ink-faint)' }}>
-            Prototype
-          </span>
         </div>
       </header>
 
       <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
-      <ProductionsChapter face={face} />
+      <ProductionsChapter />
       <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
 
       {/* Cream coda: shows the rhythm continuing */}
@@ -630,27 +620,6 @@ const ProductionsPreviewPage: React.FC = () => {
           Ghost Mode Labs follows: the studio for what she is building next.
         </p>
       </footer>
-
-      {/* prototype-only font switcher */}
-      <nav
-        className="fixed bottom-5 right-5 z-50 flex gap-1 rounded-full px-2 py-1.5"
-        style={{ background: 'rgba(21,14,10,0.85)', backdropFilter: 'blur(8px)' }}
-        aria-label="Display face switcher (prototype)"
-      >
-        {Object.entries(FACES).map(([key, f]) => (
-          <Link
-            key={key}
-            to={`/preview/productions?face=${key}`}
-            className="text-[0.65rem] tracking-wide uppercase px-3 py-1.5 rounded-full transition-colors"
-            style={{
-              color: faceKey === key ? '#150E0A' : 'rgba(246,239,231,0.8)',
-              background: faceKey === key ? '#F6EFE7' : 'transparent',
-            }}
-          >
-            {f.label}
-          </Link>
-        ))}
-      </nav>
     </div>
   );
 };

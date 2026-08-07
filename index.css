@@ -4,8 +4,13 @@
   --bg-site: #F5F2EC;
   --ink: #150E0A;
   --ink-soft: rgba(21,14,10,0.70);
-  --ink-mute: rgba(21,14,10,0.55);
-  --ink-faint: rgba(21,14,10,0.32);
+  /* Contrast repair (REDESIGN-PLAN.md 6.4, computed): --ink-mute measured
+     4.10:1 against paper and --ink-faint 2.09:1, both failing 4.5:1 for the
+     small header/label text they're used on. Raised within the plan's
+     suggested 62-70% range; both now clear 4.5:1 with margin (5.18 and
+     5.74 respectively) while --ink-faint stays the more muted of the two. */
+  --ink-mute: rgba(21,14,10,0.65);
+  --ink-faint: rgba(21,14,10,0.62);
   --cream: #F6EFE7;
   --cream-faint: rgba(246,239,231,0.55);
   --terra: #B3543A;
