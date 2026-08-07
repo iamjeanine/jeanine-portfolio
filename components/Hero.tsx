@@ -88,7 +88,7 @@ const Hero = () => {
 
   return (
     <div ref={heroRef} className="sticky top-0 h-screen w-full overflow-hidden bg-black" style={{ zIndex: 1 }}>
-      {/* Inner wrapper — recedes on scroll */}
+      {/* Inner wrapper, recedes on scroll */}
       <div
         className="absolute inset-0"
         style={{
@@ -104,7 +104,7 @@ const Hero = () => {
             zIndex: 1,
           }}
         />
-        {/* Poster image — shown immediately while video loads */}
+        {/* Poster image, shown immediately while video loads */}
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
           style={{ backgroundImage: `url(${HERO_VIDEOS.posterUrl})` }}
@@ -134,7 +134,7 @@ const Hero = () => {
           }}
         />
 
-        {/* Text Content — fades out on scroll so it doesn't bleed through at the bottom */}
+        {/* Text Content, fades out on scroll so it doesn't bleed through at the bottom */}
         <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ zIndex: 2, opacity: 'calc(1 - var(--scroll, 0) * 3)' }}>
           <div className="text-center text-white">
             <h1 className="font-serif text-8xl md:text-9xl lg:text-[160px] font-normal text-white mix-blend-lighten text-center tracking-[-0.05em] leading-none animate-[subtle-zoom_20s_ease-in-out_infinite_alternate]">

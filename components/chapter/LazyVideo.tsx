@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useMotionPaused } from './motionPreference';
 
 /**
  * Mounts its video only when near the viewport; plays muted and looping
@@ -45,12 +46,28 @@ export const LazyVideo: React.FC<{
   startAt,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [near, setNear] = useState(false);
   const [errored, setErrored] = useState(false);
   const [naturalRatio, setNaturalRatio] = useState<string | undefined>(aspectRatio);
   const reduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionPaused = useMotionPaused();
+  const shouldPlay = !reduced && !motionPaused;
+
+  // Apply the site-wide pause to this video whenever the flag flips, and to
+  // videos that mount while already paused (a later entry scrolled into
+  // view after the visitor pressed pause).
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (shouldPlay) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }, [shouldPlay, near]);
 
   useEffect(() => {
     const el = ref.current;
@@ -81,13 +98,14 @@ export const LazyVideo: React.FC<{
     >
       {near && !errored && (
         <video
+          ref={videoRef}
           src={src}
           poster={poster}
           aria-label={alt}
           muted
           loop={startAt === undefined}
           playsInline
-          autoPlay={!reduced}
+          autoPlay={shouldPlay}
           preload="metadata"
           className="w-full h-full object-cover"
           onLoadedMetadata={(e) => {

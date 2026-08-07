@@ -19,7 +19,7 @@ interface VideoPlayerProps {
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  // On mobile, keep everything muted — no auto-unmuting
+  // On mobile, keep everything muted, no auto-unmuting
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   // Always start muted so autoplay works (browsers block unmuted autoplay).
   // If startUnmuted is requested, we unmute programmatically after play begins.

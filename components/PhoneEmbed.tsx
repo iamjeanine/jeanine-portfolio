@@ -63,7 +63,7 @@ const PhoneEmbed: React.FC<PhoneEmbedProps> = ({ src, title = 'Interactive proto
           />
         </div>
 
-        {/* Interactive hint overlay — fades on click */}
+        {/* Interactive hint overlay, fades on click */}
         {!hintDismissed && (
           <div
             onClick={() => setHintDismissed(true)}

@@ -45,7 +45,11 @@ const SPREADS: SpreadData[] = [
   {
     index: '01',
     eyebrow: 'Wondery · Amazon · 2022–Present',
-    title: <>Scam&shy;fluencers</>,
+    // Zero-width space, not a soft hyphen: the title needs a break
+    // opportunity to fit a 375px measure, but &shy; renders a visible
+    // hyphen there, which reads as if the show's name were hyphenated.
+    // This breaks cleanly with no inserted character.
+    title: <>Scam&#8203;fluencers</>,
     role: 'Creator & Showrunner',
     description:
       'A weekly true-crime pop series unpacking the internet’s most audacious scammers, hosted by Scaachi Koul and Sarah Hagi.',
@@ -126,7 +130,10 @@ const SPREADS: SpreadData[] = [
     palette: {
       field: 'linear-gradient(165deg, #F7E1DB 0%, #F3D5CE 60%, #EFCCC5 100%)',
       ink: '#26141A',
-      inkSoft: 'rgba(38,20,26,0.62)',
+      // Phase 5 sweep: measured 4.24:1 against the field's lightest stop,
+      // failing the 4.5:1 floor for the eyebrow/stat-label/expandable-label
+      // text this drives. Raised to the computed minimum plus a buffer.
+      inkSoft: 'rgba(38,20,26,0.65)',
       inkBody: 'rgba(38,20,26,0.85)',
       accent: '#B30957',
       border: 'rgba(38,20,26,0.22)',
@@ -219,7 +226,8 @@ const BORN_THIS_WAY: SpreadData = {
   palette: {
     field: 'linear-gradient(165deg, #EDEAE1 0%, #E6E1D4 55%, #DED7C5 100%)',
     ink: '#211C15',
-    inkSoft: 'rgba(33,28,21,0.62)',
+    // Phase 5 sweep: measured 4.15:1 against the field's lightest stop.
+    inkSoft: 'rgba(33,28,21,0.66)',
     inkBody: 'rgba(33,28,21,0.86)',
     accent: '#066B34',
     border: 'rgba(33,28,21,0.2)',
@@ -262,10 +270,16 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
       alt: 'Marcus Samuelsson standing outside his restaurant, Red Rooster',
     },
   },
+  // Phase 5 sweep: inkSoft measured 3.45:1 here, the worst failure on the
+  // site. Raising alpha alone would have needed 0.91, collapsing inkSoft
+  // into inkBody (0.92) and flattening the text hierarchy, so this splits
+  // the correction: field darkened ~12% uniformly (gradient shape intact)
+  // and inkSoft raised to a still-distinct 0.80. Every stop now clears
+  // 4.5:1 for both ink weights, and 3:1 for the display title.
   palette: {
-    field: 'linear-gradient(160deg, #A83A26 0%, #8F2F1E 55%, #7A2818 100%)',
+    field: 'linear-gradient(160deg, #943322 0%, #7E2A1B 55%, #6C2315 100%)',
     ink: '#F5E6D8',
-    inkSoft: 'rgba(245,230,216,0.72)',
+    inkSoft: 'rgba(245,230,216,0.80)',
     inkBody: 'rgba(245,230,216,0.92)',
     accent: '#00F5D4',
     border: 'rgba(245,230,216,0.28)',
@@ -349,7 +363,7 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
       <Eyebrow label={data.eyebrow} index={data.index} labelColor={p.inkSoft} indexColor={p.accent} />
 
       {/* oversized title, overlapping the media cluster */}
-      <h2
+      <h3
         className="relative z-10 mt-10 md:mt-16"
         style={{
           fontFamily: DISPLAY_FAMILY,
@@ -360,7 +374,7 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
         }}
       >
         {data.title}
-      </h2>
+      </h3>
 
       {/* spread body: text and media alternate sides per spread */}
       <div className="mt-10 md:mt-4 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
@@ -374,7 +388,7 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
             {data.role}
           </p>
           <p
-            className="mt-5 text-[1.05rem] leading-relaxed"
+            className="mt-5 text-[length:var(--body)] leading-relaxed"
             style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '36ch' }}
           >
             {data.description}
@@ -388,9 +402,7 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
                 style={{
                   fontFamily: DISPLAY_FAMILY,
                   fontSize:
-                    data.stat.value.length > 6
-                      ? 'clamp(2.2rem, 3.4vw, 3.2rem)'
-                      : 'clamp(3.5rem, 6vw, 5.5rem)',
+                    data.stat.value.length > 6 ? 'var(--stat-long)' : 'var(--stat)',
                   lineHeight: 1.05,
                   color: p.ink,
                   maxWidth: '12ch',
@@ -447,6 +459,11 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
             <img
               src={data.media.main.src}
               alt={data.media.main.alt}
+              /* Spread art runs to 2.4MB per file and only the first spread
+                 is ever above the fold, so everything defers. decoding=async
+                 keeps a large decode off the main thread during scroll. */
+              loading="lazy"
+              decoding="async"
               className={
                 data.media.main.className ??
                 `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
@@ -458,6 +475,8 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
             <img
               src={data.media.overlap.src}
               alt={data.media.overlap.alt}
+              loading="lazy"
+              decoding="async"
               className={
                 data.media.overlap.className ??
                 `hidden md:block absolute w-[36%] -bottom-14 ${flip ? '-right-[8%]' : '-left-[8%]'}`

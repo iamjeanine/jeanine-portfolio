@@ -16,7 +16,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
   const hasCallout = paragraphs.length > 2 && lastParagraph.length < 80;
   const bodyParagraphs = hasCallout ? paragraphs.slice(1, -1) : paragraphs.slice(1);
 
-  // Detect pull quotes — paragraphs wrapped in curly quotes or straight quotes
+  // Detect pull quotes: paragraphs wrapped in curly quotes or straight quotes
   const isPullQuote = (text: string) => {
     const trimmed = text.trim();
     return (trimmed.startsWith('\u201C') && trimmed.endsWith('\u201D')) ||
@@ -81,7 +81,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               <div className="w-10 h-px bg-neutral-300 mb-8" />
             )}
 
-            {/* Body paragraphs — with pull quote detection */}
+            {/* Body paragraphs, with pull quote detection */}
             {bodyParagraphs.map((para, i) =>
               isPullQuote(para) ? (
                 <blockquote key={i} className="border-l-2 border-neutral-300 pl-6 my-10">
@@ -96,7 +96,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               )
             )}
 
-            {/* Closing callout — short final lines get pulled out */}
+            {/* Closing callout: short final lines get pulled out */}
             {hasCallout && (
               <p className="font-body-serif text-lg md:text-xl font-light text-neutral-800 italic mt-10 mb-8">
                 {lastParagraph}
@@ -186,7 +186,7 @@ const ProjectDetailPage = () => {
     <>
       {project.embedUrl ? (
         <div className="w-full max-w-5xl py-8" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
-          <PhoneEmbed src={project.embedUrl} title={`${project.title} — interactive prototype`} />
+          <PhoneEmbed src={project.embedUrl} title={`${project.title}: interactive prototype`} />
         </div>
       ) : project.interactivePitch ? (
          <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
@@ -411,7 +411,7 @@ const ProjectDetailPage = () => {
       className={`fixed inset-0 bg-[#F5F2EC] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
       style={{ overscrollBehavior: 'contain', willChange: 'scroll-position' }}
     >
-      {/* Top gradient only — grain removed from detail pages (invisible at 0.015 on light bg, wastes CPU) */}
+      {/* Top gradient only. Grain removed from detail pages (invisible at 0.015 on light bg, wastes CPU) */}
       <div
         className="fixed top-0 left-0 right-0 pointer-events-none"
         style={{
@@ -479,7 +479,7 @@ const ProjectDetailPage = () => {
             })()}
         </main>
         
-        {/* Footer Navigation — full-width on mobile, icon-only on desktop */}
+        {/* Footer Navigation: full-width on mobile, icon-only on desktop */}
         <footer className="w-full mt-auto pt-8 shrink-0">
             {/* Mobile: full-width prev/next with project names */}
             <div className="flex flex-col gap-3 md:hidden">

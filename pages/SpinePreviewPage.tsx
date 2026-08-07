@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ColorBridge, ChapterRail, RailSection } from '../components/chapter';
+import { ColorBridge, ChapterRail, MotionToggle, RailSection } from '../components/chapter';
 import { ProductionsChapter, PRODUCTIONS_FIRST_COLOR, PRODUCTIONS_LAST_COLOR } from './ProductionsPreviewPage';
 import { LabsChapter, LAB } from './LabsPreviewPage';
 
@@ -116,6 +116,19 @@ const scrollToSection = (id: string, behavior: ScrollBehavior = 'smooth') => {
   document.getElementById(id)?.scrollIntoView({ behavior, block: 'start' });
 };
 
+/**
+ * Skip-link target handling: scroll there and move focus, so a keyboard
+ * visitor's next Tab continues inside the chapter they jumped to rather
+ * than back at the top of the document. The targets carry tabIndex={-1}
+ * so they can receive programmatic focus without joining the tab order.
+ */
+const skipToSection = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.focus({ preventScroll: true });
+};
+
 const SpinePreviewPage: React.FC = () => {
   const { chapter } = useParams<{ chapter?: string }>();
 
@@ -138,7 +151,27 @@ const SpinePreviewPage: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
+      {/* Skip links (8.7): first in the tab order, offscreen until focused.
+          Buttons rather than href anchors on purpose: this site runs on
+          HashRouter, so an href="#productions" would read as a route change
+          and navigate away instead of jumping down the page. These also move
+          focus to the target, not just the scroll position, so tabbing
+          continues from the chapter the visitor landed on. */}
+      <nav aria-label="Skip to chapter">
+        {RAIL_SECTIONS.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            className="chapter-skip-link"
+            onClick={() => skipToSection(s.id)}
+          >
+            Skip to {s.label}
+          </button>
+        ))}
+      </nav>
+
       <ChapterRail sections={RAIL_SECTIONS} />
+      <MotionToggle />
 
       {/* Cover */}
       <header className="px-6 md:px-20 pt-12 pb-16 md:pt-16 md:pb-24">
@@ -197,7 +230,7 @@ const SpinePreviewPage: React.FC = () => {
       </section>
 
       {/* Chapter 01: Productions */}
-      <div id="productions">
+      <div id="productions" tabIndex={-1}>
         <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
         <ProductionsChapter />
         <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
@@ -225,7 +258,7 @@ const SpinePreviewPage: React.FC = () => {
       <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[32vh] md:h-[40vh]" />
 
       {/* Chapter 02: Ghost Mode Labs */}
-      <div id="labs">
+      <div id="labs" tabIndex={-1}>
         <LabsChapter onAbout={() => scrollToSection('about')} />
       </div>
 
@@ -234,7 +267,7 @@ const SpinePreviewPage: React.FC = () => {
       {/* Colophon: About (REDESIGN-PLAN.md section 7). Editorial
           masthead form: bio narrative and structured lists side by side,
           no cards, no icons, no timeline graphics. */}
-      <section id="about" className="px-6 md:px-20 pt-8 pb-24 md:pt-12 md:pb-36">
+      <section id="about" tabIndex={-1} className="px-6 md:px-20 pt-8 pb-24 md:pt-12 md:pb-36">
         <h2
           style={{
             fontFamily: "'Bodoni Moda', serif",
@@ -245,11 +278,16 @@ const SpinePreviewPage: React.FC = () => {
           About
         </h2>
 
-        <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+        {/* Two columns from lg, not md: at exactly 768px the 12-column grid's
+            eleven 64px gutters exceed the 608px content box, which pushed 16px
+            of horizontal scroll onto the whole page (caught in the Phase 5
+            critique). Below lg the colophon stacks, which also reads better in
+            the 768 to 1023 band than two cramped columns would. */}
+        <div className="mt-10 md:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Bio narrative. Accolade specifics live in the Awards list
               instead of here now, so the two don't repeat each other. */}
           <div
-            className="md:col-span-6 space-y-5 text-[1.02rem] leading-relaxed"
+            className="lg:col-span-6 space-y-5 text-[length:var(--body)] leading-relaxed"
             style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
           >
             <p>
@@ -275,7 +313,9 @@ const SpinePreviewPage: React.FC = () => {
           </div>
 
           {/* Structured lists */}
-          <div className="md:col-span-5 md:col-start-8 flex flex-col gap-10">
+          {/* col-start-7, not 8: starting at 8 left a ~350px void between the
+              bio and the lists that broke the masthead read. */}
+          <div className="lg:col-span-6 lg:col-start-7 flex flex-col gap-10">
             <ColophonList label="Awards" items={AWARDS} />
             <ColophonList label="Teaching" pending="Details to come" />
             <ColophonList label="Publications" items={PUBLICATIONS} />

@@ -37,7 +37,7 @@ const ProjectGrid: React.FC = () => {
   return (
     <div className="w-full bg-[#F5F2EC] px-6 py-12">
 
-      {/* Filter navigation — horizontal scroll on mobile, centered row on desktop */}
+      {/* Filter navigation, horizontal scroll on mobile, centered row on desktop */}
       <nav className="flex flex-row gap-2 md:flex-wrap md:justify-center md:gap-3 mb-8 md:mb-14 overflow-x-auto scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0 md:overflow-visible">
         {FILTERS.map(({ key, label }) => (
           <button

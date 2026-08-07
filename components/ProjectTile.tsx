@@ -127,12 +127,12 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
         {/* ── Tile container ── */}
         <div className="relative">
 
-          {/* Media frame — clipped to 16:9, contains only the sliding image */}
+          {/* Media frame, clipped to 16:9, contains only the sliding image */}
           <div
             className="relative aspect-video overflow-hidden"
             style={{ containerType: 'inline-size', borderRadius: '1px', backgroundColor: '#EEEAE3' }}
           >
-            {/* Media container — slides right on hover */}
+            {/* Media container, slides right on hover */}
             <div
               className={`absolute inset-0 z-[1] bg-neutral-900 ${
                 isHovered ? 'md:translate-x-[40%] md:scale-[1.03]' : 'translate-x-0 scale-100'
@@ -216,7 +216,7 @@ const ProjectTile: React.FC<ProjectTileProps> = ({ project, index }) => {
             </div>
           </div>
 
-          {/* Title panel — above scarf (z:3), revealed as media slides right */}
+          {/* Title panel, above scarf (z:3), revealed as media slides right */}
           <div
             className="absolute inset-0 w-2/5 hidden md:flex flex-col justify-center p-3 lg:p-5"
             style={{

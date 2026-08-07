@@ -5,6 +5,7 @@ import {
   Eyebrow,
   Expandable,
   LazyVideo,
+  MotionToggle,
   ProjectorLight,
   SpreadShell,
 } from '../components/chapter';
@@ -95,7 +96,7 @@ const ENTRIES: LabEntry[] = [
     ],
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
-      alt: 'Static cover video',
+      alt: 'Preview reel for Static, a scripted series built from online folklore',
     },
   },
   {
@@ -124,7 +125,7 @@ const ENTRIES: LabEntry[] = [
     ],
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
-      alt: 'Multiverse Quad cover video',
+      alt: 'Preview reel for Multiverse Quad, one story told across four formats at once',
     },
     flip: true,
   },
@@ -138,7 +139,7 @@ const ENTRIES: LabEntry[] = [
     note: 'Coming soon',
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/visual-audiobook-cover.mp4',
-      alt: 'Visual Audiobooks cover video',
+      alt: 'Preview reel for Visual Audiobooks, a new visual telling with every listen',
     },
   },
   {
@@ -168,7 +169,7 @@ const ENTRIES: LabEntry[] = [
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Sphere%20Cover%202.mp4',
       // Measured directly from the asset (1850x1080).
       aspectRatio: '1850 / 1080',
-      alt: 'Narrative Space cover video',
+      alt: 'Preview reel for Narrative Space, story worlds as nodes you can move through',
     },
     flip: true,
   },
@@ -241,7 +242,7 @@ const ENTRIES: LabEntry[] = [
       // Measured directly from the asset (480x320, 3:2): notably off 16:9,
       // so pinning this one matters most among the three that needed it.
       aspectRatio: '480 / 320',
-      alt: 'Unstill cover video',
+      alt: 'Preview reel for Unstill, 1920s Sydney archive portraits returning to color and motion',
     },
     flip: true,
   },
@@ -274,7 +275,7 @@ const ENTRIES: LabEntry[] = [
       poster: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
       // Measured directly from the asset (1920x946).
       aspectRatio: '1920 / 946',
-      alt: 'AI Creator Lab cover video',
+      alt: 'Preview reel for the AI Creator Lab, a creative workflow lab founded at Wondery',
     },
   },
   {
@@ -288,7 +289,7 @@ const ENTRIES: LabEntry[] = [
       'A library of films, essays, poems, myths, and podcasts chosen by people who care deeply about culture. Tell Tender how you are feeling and it finds something to meet you there. Part human curation, part conversational system.',
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover2%20Tender%20Updated.mp4',
-      alt: 'Tender cover video',
+      alt: 'Preview reel for Tender, a conversational way to find films, essays, poems, and podcasts',
     },
   },
   {
@@ -302,7 +303,7 @@ const ENTRIES: LabEntry[] = [
       'For The Last City, the marketing came from inside the story: destination posts, recruitment ads, a trailer made as if the city had its own creative agency. More than a dozen prototypes; two moved into production.',
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Cover%20StoryCraft5.mp4',
-      alt: 'In-World Social Campaign cover video',
+      alt: 'Preview reel for the In-World Social Campaign, marketing written from inside The Last City',
     },
     flip: true,
   },
@@ -368,7 +369,7 @@ const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat 
         fontFamily: SERIF_DISPLAY,
         // Long values drop a step so a phrase-length stat never overruns
         // its column (3.2).
-        fontSize: stat.value.length > 6 ? 'clamp(1.9rem, 2.8vw, 2.8rem)' : 'clamp(3rem, 5vw, 4.5rem)',
+        fontSize: stat.value.length > 6 ? 'var(--stat-long)' : 'var(--stat)',
         lineHeight: 1.05,
         color: LAB.ink,
         maxWidth: '14ch',
@@ -393,7 +394,7 @@ const FeatureEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
     <Reveal>
       <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
-      <h2
+      <h3
         className="mt-8 md:mt-12"
         style={{
           fontFamily: SERIF_DISPLAY,
@@ -404,7 +405,7 @@ const FeatureEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
         }}
       >
         {data.title}
-      </h2>
+      </h3>
 
       <div className={`mt-10 md:mt-16 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}>
         <ProjectorLight>
@@ -427,7 +428,7 @@ const FeatureEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
 
           {data.description && (
             <p
-              className="mt-5 text-[1.02rem] leading-relaxed"
+              className="mt-5 text-[length:var(--body)] leading-relaxed"
               style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '40ch' }}
             >
               {data.description}
@@ -471,7 +472,7 @@ const ShortEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
     <Reveal>
       <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
-      <h2
+      <h3
         className="mt-6 md:mt-8"
         style={{
           fontFamily: SERIF_DISPLAY,
@@ -482,7 +483,7 @@ const ShortEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
         }}
       >
         {data.title}
-      </h2>
+      </h3>
 
       <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 md:items-center">
         <div className={`md:col-span-7 order-1 ${data.flip ? 'md:col-start-6 md:order-2' : 'md:col-start-1'}`}>
@@ -528,7 +529,7 @@ const InDevelopmentEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
     <Reveal>
       <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
-      <h2
+      <h3
         className="mt-6 md:mt-8"
         style={{
           fontFamily: SERIF_DISPLAY,
@@ -539,7 +540,7 @@ const InDevelopmentEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
         }}
       >
         {data.title}
-      </h2>
+      </h3>
 
       <div className="mt-8 md:mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-4">
         <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: LAB.accent }}>
@@ -620,12 +621,12 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         {/* chapter header */}
         <div className="pt-24 md:pt-40 pb-24 md:pb-40">
           <div className="flex items-end justify-between">
-            <h1
+            <h2
               className="text-[2.4rem] md:text-[3.5rem] leading-none"
               style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
             >
               Ghost Mode Labs
-            </h1>
+            </h2>
             <span
               className="hidden md:block text-[0.8rem] italic"
               style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
@@ -678,6 +679,8 @@ const LabsPreviewPage: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
+      <MotionToggle />
+
       {/* Cream strip: where the Productions coda hands off */}
       <header className="px-6 md:px-24 pt-12 pb-10 md:pt-16 md:pb-14">
         <div className="flex items-baseline justify-between">

@@ -20,7 +20,7 @@ const HomePage = () => {
 
   return (
     <main className="bg-[#F5F2EC]">
-      {/* Sticky header — fades in after scrolling past hero */}
+      {/* Sticky header, fades in after scrolling past hero */}
       <header
         className={`fixed top-0 left-0 right-0 flex justify-between items-center px-6 md:px-8 py-4 bg-[#F5F2EC]/90 backdrop-blur-sm transition-all duration-500 ${
           showHeader ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
@@ -46,7 +46,7 @@ const HomePage = () => {
       <div className="relative overflow-hidden" style={{ zIndex: 2 }}>
         <ProjectGrid />
 
-        {/* Closing section — end credits */}
+        {/* Closing section: end credits */}
         <section
           ref={closingRef}
           className={`w-full bg-[#F5F2EC] flex flex-col items-center justify-center py-16 md:py-24 px-6 transition-all duration-1000 ease-out ${
