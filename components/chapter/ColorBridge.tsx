@@ -1,12 +1,31 @@
 import React, { useEffect, useRef } from 'react';
+import { GRAIN_URI } from './constants';
 
 /**
- * The chapter spine's signature moment: scrolling from one section into
- * the next morphs the background through actual color, instead of
- * cutting. Driven by a CSS custom property set directly via ref on
- * scroll (rAF-throttled), no React re-renders. One implementation shared
- * by Productions (ColorBridge, spread to spread) and Ghost Mode Labs
- * (LightsDown, paper into the chapter's dark ground and back).
+ * The chapter spine's signature moment: scrolling from one section into the
+ * next washes the background through actual color instead of cutting.
+ *
+ * The fill is a real vertical gradient, pinned to `from` at its top edge and
+ * `to` at its bottom edge. That matters: both seams then match their
+ * neighbouring sections *by construction*, at every scroll position. The
+ * previous implementation interpolated a single flat colour with color-mix,
+ * so the whole bridge was one uniform slab whose edges only lined up with
+ * the sections above and below at one exact scroll offset, and visibly
+ * mismatched everywhere else. The Phase 5 critique measured that as ten flat
+ * bands with hard seams, which flattened the lights-down moment the whole
+ * "one publication" thesis leans on.
+ *
+ * Scroll still drives the effect, but only the *position* of the midpoint,
+ * never the endpoints. As the bridge travels up the viewport the blend point
+ * sweeps from low to high, so the leaving colour gives way to the arriving
+ * one as you move through it, and the seams stay exact throughout.
+ *
+ * Shared by Productions (spread to spread) and Ghost Mode Labs (paper into
+ * the chapter's dark ground and back).
+ *
+ * Reduced motion: the midpoint parks at 0.5, which renders a clean
+ * symmetric gradient rather than the muddy frozen mid-mix the flat-colour
+ * version produced.
  */
 export const ColorBridge: React.FC<{
   from: string;
@@ -49,16 +68,30 @@ export const ColorBridge: React.FC<{
     <div
       ref={ref}
       aria-hidden="true"
-      className={heightClassName}
+      className={`relative ${heightClassName}`}
       style={
         {
-          '--t': 0,
+          '--t': 0.5,
           '--from-c': from,
           '--to-c': to,
+          // Midpoint sweeps 82% -> 18% as the bridge rises through the
+          // viewport: early on most of the band still reads as the colour
+          // being left, and by the time it exits, as the colour arriving.
           background:
-            'color-mix(in oklch, var(--from-c) calc((1 - var(--t)) * 100%), var(--to-c) calc(var(--t) * 100%))',
+            'linear-gradient(180deg, var(--from-c) 0%, color-mix(in oklch, var(--from-c), var(--to-c)) calc(82% - var(--t) * 64%), var(--to-c) 100%)',
         } as React.CSSProperties
       }
-    />
+    >
+      {/* The same grain the chapters carry. Without it the bridges were the
+          one ungrained surface on the site, which left a faint but
+          measurable step at each seam (the neighbouring section's grain
+          against the bridge's clean fill) and broke the "one grain" the
+          shared physics depends on. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
+      />
+    </div>
   );
 };
