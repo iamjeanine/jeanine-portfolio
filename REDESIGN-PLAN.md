@@ -119,27 +119,27 @@ The current Labs prototype is structurally flat: 9 identical templates on one hu
 
 ### 5.1 Reorder (fixes P0: chapter currently leads with an unbuilt project)
 
-Lead with proof, close with promise:
+Lead with proof. Jeanine has set Visual Audiobooks at position 3: she is finishing it in parallel and it should sit high, not at the end.
 
 | Position | Project | Tier |
 |---|---|---|
 | L-01 | Static | Feature |
 | L-02 | Multiverse Quad | Feature |
-| L-03 | Narrative Space | Feature |
-| L-04 | MythOS | Feature |
-| L-05 | Unstill | Feature |
-| L-06 | Tender | Short |
-| L-07 | AI Creator Lab | Short |
-| L-08 | In-World Social Campaign | Short |
-| L-09 | Visual Audiobooks | In development (closing note) |
+| L-03 | Visual Audiobooks | In development (graduates to Feature when she ships it) |
+| L-04 | Narrative Space | Feature |
+| L-05 | MythOS | Feature |
+| L-06 | Unstill | Feature |
+| L-07 | Tender | Short |
+| L-08 | AI Creator Lab | Short |
+| L-09 | In-World Social Campaign | Short |
 
-This ordering is a strong default, confirm with Jeanine before shipping (9.2).
+Positions L-01, L-02, and L-03 are confirmed by Jeanine (2026-08-07). The rest is a strong default; confirm remaining tier calls with her (9.2).
 
 ### 5.2 Three tiers (fixes P1 monotony: scale hierarchy plus varied rhythm)
 
 - **Features** (5): full treatment. `--display-xl` title, near-full-width video frame (up to `md:w-[92%]`, alternating pull left/right), description, pull-stat where a verified one exists, and **expandables for parity with Productions** using Labs-appropriate labels: `Concept / Build / Signal` (what it is / how it was made, the tools / what happened: traction, adoption, recognition). Inter-entry gap: generous (`pb-40 md:pb-64`).
 - **Shorts** (3): compact. `--display-md` title, video at `md:w-[60%]`, one-paragraph description, no expandables, no stat slot. Tighter gap (`pb-24 md:pb-36`). A one-line section rule introduces them: "Shorts" or similar quiet divider in `--label` style.
-- **In development** (1): Visual Audiobooks closes the chapter as a forward-looking coda card: title, one line, small looping video, "Coming soon" tag in ember. It reads as "what is next", which is a strength at the end and a liability at the front.
+- **In development** (1): Visual Audiobooks holds position L-03 as a light entry: title, one line, looping cover video, "Coming soon" tag in ember, no fabricated description or stat. Jeanine is completing the project in parallel; when it ships, this entry graduates to full Feature treatment in place. The build should make that graduation cheap (same entry shell, fields optional).
 
 Do not fabricate stats to fill Feature slots. Verified stats only (see Appendix A). A Feature without a stat simply omits the slot (Narrative Space, Unstill currently have none).
 
@@ -203,7 +203,7 @@ Graduates from modal to the publication's closing spread, on paper ground.
 ## 9. Open decisions (Jeanine only; builder must not invent)
 
 1. **Scamfluencers chartreuse**: keep the key-art hue at 3.69:1 as a disclosed exception, or abandon the hue for a compliant accent.
-2. **Labs order and tiers**: confirm the 5.1 ordering and the Feature/Short split (particularly whether AI Creator Lab, a 4-to-50-people program with a real stat, deserves Feature over Short).
+2. **Labs tiers**: L-01/L-02/L-03 order is confirmed. Confirm the remaining order and the Feature/Short split (particularly whether AI Creator Lab, a 4-to-50-people program with a real stat, deserves Feature over Short).
 3. **Home project grid**: retire it once the Labs chapter exists, keep it as a compact "index" section after About, or keep both temporarily.
 4. **Attribution eyebrows**: AI Creator Lab shows `Wondery` (its copy says "Wondery's first AI Creator Lab" but `constants.ts` lists client `Ghost Mode Labs`); Multiverse Quad shows `Amazon AGI`; In-World Social shows `Wondery`. Confirm.
 5. **MythOS cover swap**: cover video carries a baked-in wordmark; approve demo-footage substitution or supply a new cover through the media pipeline.
