@@ -133,6 +133,26 @@
   outline-offset: 2px;
 }
 
+/* Productions media offset: two named states, replacing three hand-tuned
+   px values (-mt-24 / mt-6 / mt-10) whose 16px differences were below the
+   perceptual threshold and whose overlapping default was being applied to
+   images that could not take it.
+   `clear` is a real gap, deliberately larger than the old 24-40px so it
+   reads as space rather than a near-miss. `overlap` is expressed as a
+   fraction of the display size instead of fixed px, so the lift tracks the
+   title's clamp instead of deepening as the viewport narrows (the old fixed
+   -96px went from 37% of the title at 1440 to 54% at 1024).
+   Only from lg, matching the breakpoint where the two-column spread body
+   engages. */
+@media (min-width: 1024px) {
+  .chapter-media-clear {
+    margin-top: clamp(3rem, 5vw, 6rem);
+  }
+  .chapter-media-overlap {
+    margin-top: calc(var(--display-xl) * -0.4);
+  }
+}
+
 /* Skip links (REDESIGN-PLAN.md 8.7): offscreen until focused, so a screen
    reader or keyboard visitor can jump straight to a chapter instead of
    tabbing through every expandable in the spreads before it. */

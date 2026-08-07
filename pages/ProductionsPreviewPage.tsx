@@ -38,7 +38,18 @@ interface SpreadData {
   media: { main: SpreadMedia; overlap?: SpreadMedia };
   palette: SpreadPalette;
   flip?: boolean; // true = media left, text right
-  mediaOffsetClass?: string; // vertical offset of media cluster vs title (default overlaps the title)
+  /**
+   * Let the oversized title cross into the artwork (the magazine collage
+   * move). Opt-in, and only legitimate when the image's top band is empty:
+   * no face, logotype, or credential up there for the title to deface.
+   * Default is a clean gap.
+   *
+   * This used to be a free-form class string defaulting to overlap, which
+   * inverted the rule on four of seven spreads. The worst case had the cream
+   * title crossing the white "Apple Podcasts" endorsement on Scamfluencers
+   * at 1:1 contrast, so the wordmark read as "P/dca/ts".
+   */
+  mediaOverlap?: boolean;
 }
 
 const SPREADS: SpreadData[] = [
@@ -167,12 +178,12 @@ const SPREADS: SpreadData[] = [
       main: {
         src: '/proto/tlc-notext.png',
         alt: 'The Last City key art: a woman looking back at a smoking domed city at golden hour',
-        className: 'w-full md:w-[76%] block md:ml-auto',
+        className: 'w-full lg:w-[76%] block lg:ml-auto',
       },
       overlap: {
         src: '/proto/tlc-s1.jpg',
         alt: 'The Last City season one poster: a silhouette holding a domed city at golden hour',
-        className: 'hidden md:block absolute w-[34%] -bottom-10 left-[2%]',
+        className: 'hidden lg:block absolute w-[34%] aspect-[4/5] object-cover -bottom-10 left-[2%]',
       },
     },
     palette: {
@@ -184,7 +195,9 @@ const SPREADS: SpreadData[] = [
       border: 'rgba(242,236,221,0.25)',
       shadow: 'rgba(0,5,20,0.5)',
     },
-    mediaOffsetClass: 'md:mt-6',
+    // The one spread whose art can take it: the top band is open sky,
+    // with the figure at 45-56% of the image height.
+    mediaOverlap: true,
   },
 ];
 
@@ -233,7 +246,6 @@ const BORN_THIS_WAY: SpreadData = {
     border: 'rgba(33,28,21,0.2)',
     shadow: 'rgba(60,50,30,0.22)',
   },
-  mediaOffsetClass: 'md:mt-10',
 };
 
 // Full flagship treatment: rich, distinct art (kitchen hero shot + a
@@ -286,7 +298,6 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
     shadow: 'rgba(40,10,5,0.4)',
   },
   flip: true,
-  mediaOffsetClass: 'md:mt-10',
 };
 
 // Lighter treatment: one image, one line, no expandables or pull-stat.
@@ -317,7 +328,7 @@ const LIFE_OF_KYLIE: SpreadData = {
     main: {
       src: '/proto/kylie-notext.png',
       alt: 'Life of Kylie key art: a portrait of Kylie Jenner with a neon crown graphic',
-      className: 'w-full md:w-[58%] block md:ml-auto',
+      className: 'w-full lg:w-[58%] block lg:ml-auto',
     },
   },
   palette: {
@@ -371,17 +382,105 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
           lineHeight: 0.92,
           letterSpacing: '-0.015em',
           color: p.ink,
+          // Evens out the two-line titles (No Passport Required, Hollywood &
+          // Crime) instead of leaving a long first line over a short second.
+          // Note a latent risk left in place deliberately: at 0.92 the plan's
+          // specified leading, consecutive ink boxes at 180px sit about 18px
+          // inside each other, so a future title could collide letter-on-letter.
+          // Both current wraps clear it. Loosening the leading to ~1.02 would
+          // fix it but visibly slackens all seven titles to prevent a bug that
+          // does not yet occur, so this stays as the plan specifies.
+          textWrap: 'balance',
         }}
       >
         {data.title}
       </h3>
 
-      {/* spread body: text and media alternate sides per spread */}
-      <div className="mt-10 md:mt-4 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+      {/*
+        Spread body: media and text alternate sides per spread.
+
+        Two columns only from lg, not md. In the 768-1023 band the md grid
+        squeezed the text column to 181px (a ~22 character measure, narrower
+        than the 375px phone layout's 304px) while shrinking the artwork to
+        280px, so the title was larger than the work it introduced. That band
+        now uses the single-column stack, which was already the most coherent
+        of the four widths.
+
+        Media comes first in the DOM and the order-* utilities are gone:
+        col-start does the desktop placement, so source order can match
+        visual order instead of contradicting it on all seven spreads.
+      */}
+      <div className="mt-10 lg:mt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
+        {/* media cluster, asymmetric; mirrors when flipped. self-start so the
+            column shrink-wraps the artwork: as a stretched grid item its
+            height was set by the *text* column, which is why the inset's
+            -bottom-14 produced a 166px interlock on one spread, a 24px gap on
+            another, and 240-406px of drift in the md band. */}
+        {/* Both columns are pinned to row 1. Required, not decorative: with
+            media first in the DOM at col-start-6, grid's default sparse
+            packing cannot backfill row 1 for a following item at col-start-1,
+            so the text column dropped to row 2 and sat ~590px below the
+            artwork on every non-flipped spread. */}
+        <div
+          className={`relative self-start lg:row-start-1 lg:col-span-7 ${
+            data.mediaOverlap ? 'chapter-media-overlap' : 'chapter-media-clear'
+          } ${flip ? 'lg:col-start-1' : 'lg:col-start-6'}`}
+        >
+          {data.media.main.isVideo ? (
+            <video
+              ref={videoRef}
+              src={data.media.main.src}
+              aria-label={data.media.main.alt}
+              muted
+              playsInline
+              preload="auto"
+              className={
+                data.media.main.className ??
+                `w-full lg:w-[82%] block ${flip ? 'lg:mr-auto' : 'lg:ml-auto'}`
+              }
+              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
+            />
+          ) : (
+            <img
+              src={data.media.main.src}
+              alt={data.media.main.alt}
+              /* Spread art runs to 2.4MB per file and only the first spread
+                 is ever above the fold, so everything defers. decoding=async
+                 keeps a large decode off the main thread during scroll. */
+              loading="lazy"
+              decoding="async"
+              className={
+                data.media.main.className ??
+                `w-full lg:w-[82%] block ${flip ? 'lg:mr-auto' : 'lg:ml-auto'}`
+              }
+              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
+            />
+          )}
+          {data.media.overlap && (
+            <img
+              src={data.media.overlap.src}
+              alt={data.media.overlap.alt}
+              loading="lazy"
+              decoding="async"
+              /* Fixed 4:5 crop: at w-[36%] alone the inset's height came from
+                 whatever ratio the source file happened to have, so it ran
+                 from 37% to 99% of the main image's height and the
+                 main-plus-inset hierarchy inverted on two spreads. */
+              className={
+                data.media.overlap.className ??
+                `hidden lg:block absolute w-[36%] aspect-[4/5] object-cover -bottom-14 ${
+                  flip ? '-right-[8%]' : '-left-[8%]'
+                }`
+              }
+              style={{ boxShadow: `0 24px 60px ${p.shadow}` }}
+            />
+          )}
+        </div>
+
         {/* text column */}
         <div
-          className={`md:col-span-4 md:pt-16 order-2 ${
-            flip ? 'md:col-start-9 md:order-2' : 'md:order-1'
+          className={`lg:row-start-1 lg:col-span-4 lg:pt-16 ${
+            flip ? 'lg:col-start-9' : 'lg:col-start-1'
           }`}
         >
           <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
@@ -435,56 +534,6 @@ const Spread: React.FC<{ data: SpreadData }> = ({ data }) => {
           )}
         </div>
 
-        {/* media cluster, asymmetric; mirrors when flipped */}
-        <div
-          className={`md:col-span-7 relative order-1 ${data.mediaOffsetClass ?? 'md:-mt-24'} ${
-            flip ? 'md:col-start-1 md:row-start-1 md:order-1' : 'md:col-start-6 md:order-2'
-          }`}
-        >
-          {data.media.main.isVideo ? (
-            <video
-              ref={videoRef}
-              src={data.media.main.src}
-              aria-label={data.media.main.alt}
-              muted
-              playsInline
-              preload="auto"
-              className={
-                data.media.main.className ??
-                `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
-              }
-              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
-            />
-          ) : (
-            <img
-              src={data.media.main.src}
-              alt={data.media.main.alt}
-              /* Spread art runs to 2.4MB per file and only the first spread
-                 is ever above the fold, so everything defers. decoding=async
-                 keeps a large decode off the main thread during scroll. */
-              loading="lazy"
-              decoding="async"
-              className={
-                data.media.main.className ??
-                `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
-              }
-              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
-            />
-          )}
-          {data.media.overlap && (
-            <img
-              src={data.media.overlap.src}
-              alt={data.media.overlap.alt}
-              loading="lazy"
-              decoding="async"
-              className={
-                data.media.overlap.className ??
-                `hidden md:block absolute w-[36%] -bottom-14 ${flip ? '-right-[8%]' : '-left-[8%]'}`
-              }
-              style={{ boxShadow: `0 24px 60px ${p.shadow}` }}
-            />
-          )}
-        </div>
       </div>
     </SpreadShell>
   );
@@ -539,7 +588,6 @@ const HOLLYWOOD_CRIME: SpreadData = {
     shadow: 'rgba(20,10,10,0.28)',
   },
   flip: true,
-  mediaOffsetClass: 'md:mt-10',
 };
 
 // Chapter render order. Bridge endpoints are derived from this array (see
