@@ -1,7 +1,7 @@
 import React from 'react';
 
 /** The details/summary grid-rows reveal used for Role/Series/Impact (and,
- * from Phase 2, Labs' Concept/Build/Signal). Colors are explicit props so
+ * from Phase 2, Labs' Concept/Build/Status). Colors are explicit props so
  * the component carries no dependency on an ancestor setting CSS vars. */
 export const Expandable: React.FC<{
   label: string;
@@ -13,9 +13,9 @@ export const Expandable: React.FC<{
 }> = ({ label, children, accentColor, labelColor, bodyColor, borderColor }) => (
   <details
     className="chapter-expandable group"
-    style={{ '--exp-border': borderColor } as React.CSSProperties}
+    style={{ '--exp-border': borderColor, '--exp-accent': accentColor } as React.CSSProperties}
   >
-    <summary className="flex items-baseline justify-between cursor-pointer list-none py-4 select-none">
+    <summary className="chapter-expandable-summary flex items-baseline justify-between cursor-pointer list-none py-4 select-none">
       <span className="chapter-label" style={{ color: labelColor }}>
         {label}
       </span>

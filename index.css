@@ -77,6 +77,10 @@
 .chapter-expandable summary::-webkit-details-marker {
   display: none;
 }
+.chapter-expandable-summary:focus-visible {
+  outline: 2px solid var(--exp-accent);
+  outline-offset: 2px;
+}
 .chapter-expandable[open] .chapter-expandable-marker {
   transform: rotate(45deg);
 }
@@ -115,7 +119,12 @@
 /* Projector light (REDESIGN-PLAN.md 5.3): a warm radial wash behind a
    Feature's video frame, opacity and vertical position driven by the
    scroll-set --pl. Gradient, not a box-shadow, so it never reads as the
-   banned zero-offset colored glow. */
+   banned zero-offset colored glow: peak opacity is 0.07, and it sits
+   behind the frame via z-index, not attached to it as a shadow. The live
+   browser detector's radial-spotlight-glow rule flags this anyway; it is
+   the plan's mandated signature moment, not the anti-pattern the rule
+   targets, so it is dispositioned here rather than suppressed blind. */
+/* impeccable-disable-next-line radial-spotlight-glow -- REDESIGN-PLAN.md 5.3 mandated effect, 0.07 peak opacity, positioned behind the frame not as its shadow */
 .chapter-projector-light {
   position: absolute;
   left: 50%;

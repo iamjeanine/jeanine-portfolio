@@ -24,6 +24,14 @@ export const LazyVideo: React.FC<{
   className?: string;
   aspectRatio?: string;
   rootMargin?: string;
+  /**
+   * Seconds into the clip to start (and loop back to). For a cover asset
+   * that opens on a title card, this plays "a clean segment" per
+   * REDESIGN-PLAN.md 5.4 without cropping or re-encoding the file. Bypasses
+   * the native `loop` attribute (which restarts at 0) in favor of a manual
+   * restart on `ended`, so the loop point is the offset, not the clip start.
+   */
+  startAt?: number;
 }> = ({
   src,
   poster,
@@ -34,6 +42,7 @@ export const LazyVideo: React.FC<{
   className = '',
   aspectRatio,
   rootMargin = '400px',
+  startAt,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
@@ -76,7 +85,7 @@ export const LazyVideo: React.FC<{
           poster={poster}
           aria-label={alt}
           muted
-          loop
+          loop={startAt === undefined}
           playsInline
           autoPlay={!reduced}
           preload="metadata"
@@ -86,6 +95,15 @@ export const LazyVideo: React.FC<{
             if (v.videoWidth && v.videoHeight) {
               setNaturalRatio(`${v.videoWidth} / ${v.videoHeight}`);
             }
+            if (startAt !== undefined) {
+              v.currentTime = startAt;
+            }
+          }}
+          onEnded={(e) => {
+            if (startAt === undefined) return;
+            const v = e.currentTarget;
+            v.currentTime = startAt;
+            v.play().catch(() => {});
           }}
           onError={() => setErrored(true)}
         />

@@ -56,7 +56,7 @@ interface LabEntry {
   description?: string;
   stat?: { value: string; label: string };
   expandables?: { label: string; body: string }[];
-  video: { src: string; poster?: string; alt: string };
+  video: { src: string; poster?: string; alt: string; aspectRatio?: string; startAt?: number };
   note?: string;
   flip?: boolean;
 }
@@ -166,6 +166,8 @@ const ENTRIES: LabEntry[] = [
     ],
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Sphere%20Cover%202.mp4',
+      // Measured directly from the asset (1850x1080).
+      aspectRatio: '1850 / 1080',
       alt: 'Narrative Space cover video',
     },
     flip: true,
@@ -196,10 +198,18 @@ const ENTRIES: LabEntry[] = [
     ],
     // Cover swap per 5.4: the original cover carries a baked-in MythOS
     // wordmark that duplicates the page title, so this uses the project's
-    // own demo footage (mainVideos[0] in constants.ts) instead. No media
-    // file was cropped or re-edited.
+    // own demo footage (mainVideos[0] in constants.ts) instead. That demo
+    // clip *also* opens on its own gold "MythOS / Original Signal" title
+    // card for its first ~3.5s (confirmed by frame-capture during Phase 2
+    // review), so this plays "a clean segment" per 5.4 by starting at t=4,
+    // past the card, into the actual globe demo. No media file was cropped
+    // or re-edited; startAt is playback-only.
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
+      // Measured directly from the asset (2664x1440): pinning it up front
+      // avoids the small reflow while metadata loads.
+      aspectRatio: '2664 / 1440',
+      startAt: 4,
       alt: 'MythOS demo: an interactive globe tracking myths across cultures',
     },
   },
@@ -228,6 +238,9 @@ const ENTRIES: LabEntry[] = [
     ],
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Face-compressed.mp4',
+      // Measured directly from the asset (480x320, 3:2): notably off 16:9,
+      // so pinning this one matters most among the three that needed it.
+      aspectRatio: '480 / 320',
       alt: 'Unstill cover video',
     },
     flip: true,
@@ -259,6 +272,8 @@ const ENTRIES: LabEntry[] = [
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
       poster: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
+      // Measured directly from the asset (1920x946).
+      aspectRatio: '1920 / 946',
       alt: 'AI Creator Lab cover video',
     },
   },
@@ -397,6 +412,8 @@ const FeatureEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
             src={data.video.src}
             poster={data.video.poster}
             alt={data.video.alt}
+            aspectRatio={data.video.aspectRatio}
+            startAt={data.video.startAt}
             fallbackTitle={data.title}
           />
         </ProjectorLight>
@@ -473,6 +490,8 @@ const ShortEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
             src={data.video.src}
             poster={data.video.poster}
             alt={data.video.alt}
+            aspectRatio={data.video.aspectRatio}
+            startAt={data.video.startAt}
             fallbackTitle={data.title}
           />
         </div>
@@ -536,7 +555,12 @@ const InDevelopmentEntry: React.FC<{ data: LabEntry }> = ({ data }) => (
         )}
       </div>
 
-      <div className="mt-8 md:mt-12 md:w-[64%]">
+      {/* Right-aligned (md:ml-auto): Static and Multiverse Quad on either
+          side already run right/left, and this entry sits between them and
+          Narrative Space (left). Left-anchoring it, the unstyled default,
+          produced three left frames in a row; this restores strict
+          alternation through the whole Feature run. */}
+      <div className="mt-8 md:mt-12 md:w-[64%] md:ml-auto">
         <LazyVideo
           src={data.video.src}
           poster={data.video.poster}
@@ -575,7 +599,10 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
   return (
     <>
       <style>{`
-        .lab-open { border-bottom: 1px solid ${LAB.border}; padding-bottom: 0.4rem; transition: border-color 0.3s ease; }
+        /* Vertical padding brings the tap target close to the 44px
+           guideline (measured at ~25px before this); the visible
+           underline still sits tight under the text via border-bottom. */
+        .lab-open { border-bottom: 1px solid ${LAB.border}; padding: 0.65rem 0; transition: border-color 0.3s ease; }
         .lab-open:hover { border-color: ${LAB.accent}; }
         .lab-open:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
       `}</style>
