@@ -109,12 +109,29 @@ const OptionA: React.FC = () => (
     </div>
 
     <div className="relative mt-16 md:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
-      <div
-        className="text-[1rem] md:text-[1.15rem] leading-relaxed"
-        style={{ fontFamily: BODY_SERIF, color: TERRA_INK_SOFT, maxWidth: '34ch' }}
-      >
-        <p>{LINE_1}</p>
-        <p className="mt-1">{LINE_2}</p>
+      <div style={{ maxWidth: '34ch' }}>
+        {/* Impeccable critique (2026-08-07): this line and the tagline below
+            it were computed as typographically identical, same font, size,
+            weight, and color down to the alpha channel, 4px apart. A real
+            Emmy and Ambie are the single highest-value credibility claim on
+            the page; they were dressed as filler copy next to a sentence
+            with no informational weight. Given its own tier here: larger,
+            the accent already used for the kicker and Contents index
+            instead of the tagline's ink-soft, and Uncut Sans bold against
+            the display serif name for a masthead-style contrast, not
+            Source Serif 4 matching the prose below it. */}
+        <p
+          className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
+          style={{ fontFamily: "'Uncut Sans', sans-serif", color: TERRA_ACCENT }}
+        >
+          {LINE_1}
+        </p>
+        <p
+          className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
+          style={{ fontFamily: BODY_SERIF, color: TERRA_INK_SOFT }}
+        >
+          {LINE_2}
+        </p>
       </div>
 
       <nav aria-label="Contents" className="flex flex-col gap-3 md:items-end">
@@ -147,11 +164,26 @@ const OptionA: React.FC = () => (
  */
 const OptionB: React.FC = () => (
   <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
+    {/* object-position, not the default 50% 50%: Impeccable critique
+        (2026-08-07) measured the face sitting close enough to "Cornillot"
+        to compete with it at every width tested, worse at 375px (crop runs
+        horizontal on this square source, face lands beside the "J" of
+        "Jeanine") than at 1440px (crop runs vertical, chin fell inside the
+        name's own text box), not just the wide breakpoint assumed at
+        first. Because object-fit: cover only crops one axis at a time,
+        Y and X can be tuned independently here without conflict: the 82%
+        Y raises the face clear of the name at wide viewports where the
+        crop is vertical (X is inert there, full width already shows), the
+        35% X gives it room from "Jeanine" at narrow ones where the crop is
+        horizontal (Y is inert there, full height already shows). A CSS
+        lever only: the source is a square asset, so this remains
+        breakpoint-fragile until it's properly re-cropped wide. */}
     <img
       src="/proto/tlc-notext.png"
       alt=""
       aria-hidden="true"
       className="absolute inset-0 w-full h-full object-cover"
+      style={{ objectPosition: '35% 82%' }}
     />
     {/* Vertical scrim: light at the top so the art reads, then deliberately
         heavy across the bottom 45% where every piece of type sits.
@@ -192,12 +224,22 @@ const OptionB: React.FC = () => (
       </h2>
 
       <div className="mt-10 md:mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
-        <div
-          className="text-[1rem] md:text-[1.15rem] leading-relaxed"
-          style={{ fontFamily: BODY_SERIF, color: 'rgba(247,243,234,0.88)', maxWidth: '34ch' }}
-        >
-          <p>{LINE_1}</p>
-          <p className="mt-1">{LINE_2}</p>
+        <div style={{ maxWidth: '34ch' }}>
+          {/* Same fix as Option A, same reasoning: its own tier, the ember
+              accent already used for Option B's own Contents index, Uncut
+              Sans bold against the display serif name. */}
+          <p
+            className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
+            style={{ fontFamily: "'Uncut Sans', sans-serif", color: '#E8A672' }}
+          >
+            {LINE_1}
+          </p>
+          <p
+            className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
+            style={{ fontFamily: BODY_SERIF, color: 'rgba(247,243,234,0.88)' }}
+          >
+            {LINE_2}
+          </p>
         </div>
 
         <nav aria-label="Contents" className="flex flex-col gap-3 md:items-end">
