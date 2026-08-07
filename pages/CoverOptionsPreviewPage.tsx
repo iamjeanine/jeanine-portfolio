@@ -163,28 +163,39 @@ const OptionA: React.FC = () => (
  * consistent field under it rather than luck.
  */
 const OptionB: React.FC = () => (
-  <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-    {/* object-position, not the default 50% 50%: Impeccable critique
-        (2026-08-07) measured the face sitting close enough to "Cornillot"
-        to compete with it at every width tested, worse at 375px (crop runs
-        horizontal on this square source, face lands beside the "J" of
-        "Jeanine") than at 1440px (crop runs vertical, chin fell inside the
-        name's own text box), not just the wide breakpoint assumed at
-        first. Because object-fit: cover only crops one axis at a time,
-        Y and X can be tuned independently here without conflict: the 82%
-        Y raises the face clear of the name at wide viewports where the
-        crop is vertical (X is inert there, full width already shows), the
-        35% X gives it room from "Jeanine" at narrow ones where the crop is
-        horizontal (Y is inert there, full height already shows). A CSS
-        lever only: the source is a square asset, so this remains
-        breakpoint-fragile until it's properly re-cropped wide. */}
-    <img
-      src="/proto/tlc-notext.png"
-      alt=""
-      aria-hidden="true"
-      className="absolute inset-0 w-full h-full object-cover"
-      style={{ objectPosition: '35% 82%' }}
-    />
+  <section
+    className="relative min-h-screen flex flex-col justify-end overflow-hidden"
+    // Solid ground behind the image band below (mobile only, see the image
+    // wrapper's comment): matches the scrim's own dark end color, so the
+    // region below the photo reads as a continuation of it darkening, not a
+    // seam where a photo stops and a wrapper's default background begins.
+    style={{ backgroundColor: '#0A0E1A' }}
+  >
+    {/*
+      Mobile gets its own landscape-aspect band instead of a full-height
+      crop of the square source. The first version of this fix used a
+      single object-position on a full-bleed image and could only tune one
+      axis per breakpoint: object-fit: cover crops vertically on wide
+      screens (aspect > 1, Y matters, X is inert) and horizontally on
+      narrow ones (aspect < 1 on a portrait viewport, X matters, Y is
+      inert). At 375px that meant no Y lever existed at all, so the face's
+      vertical closeness to the name couldn't be fixed there, only its
+      horizontal one. Constraining the image to a 4:3 band on mobile keeps
+      the container's aspect ratio above 1 at every phone size, so the crop
+      is vertical everywhere and one Y value now genuinely works
+      everywhere: no more per-breakpoint axis limitation, and no separate
+      X tuning needed since horizontal cropping no longer happens at any
+      width. From md, the band is cancelled (inset-0, aspect-auto) and the
+      photo returns to full-bleed as before.
+    */}
+    <div className="absolute top-0 left-0 right-0 aspect-[4/3] md:inset-0 md:aspect-auto overflow-hidden">
+      <img
+        src="/proto/tlc-notext.png"
+        alt=""
+        aria-hidden="true"
+        className="w-full h-full object-cover [object-position:50%_12%] md:[object-position:50%_82%]"
+      />
+    </div>
     {/* Vertical scrim: light at the top so the art reads, then deliberately
         heavy across the bottom 45% where every piece of type sits.
         The 0.86 stop is computed, not eyeballed. Worst case for legibility
