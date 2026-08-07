@@ -6,6 +6,7 @@ import ProjectDetailPage from './pages/ProjectDetailPage';
 import ProductionsPreviewPage from './pages/ProductionsPreviewPage';
 import LabsPreviewPage from './pages/LabsPreviewPage';
 import SpinePreviewPage from './pages/SpinePreviewPage';
+import CoverOptionsPreviewPage from './pages/CoverOptionsPreviewPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/preview/labs" element={<LabsPreviewPage />} />
         <Route path="/preview/spine" element={<SpinePreviewPage />} />
         <Route path="/preview/spine/:chapter" element={<SpinePreviewPage />} />
+        <Route path="/preview/cover-options" element={<CoverOptionsPreviewPage />} />
       </Routes>
     </HashRouter>
   );
