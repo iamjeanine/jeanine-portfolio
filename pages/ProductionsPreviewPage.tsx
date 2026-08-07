@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { ColorBridge, Eyebrow, Expandable, SpreadShell, gradientStart, gradientEnd } from '../components/chapter';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -13,9 +14,6 @@ const FACES: Record<string, { label: string; family: string; tracking: string; l
   caslon: { label: 'Libre Caslon Display', family: "'Libre Caslon Display', serif", tracking: '-0.02em', lineHeight: 0.94 },
   young: { label: 'Young Serif', family: "'Young Serif', serif", tracking: '-0.025em', lineHeight: 0.98 },
 };
-
-const GRAIN_URI =
-  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
 interface SpreadPalette {
   field: string; // CSS background for the color field
@@ -314,41 +312,8 @@ const LIFE_OF_KYLIE: SpreadData = {
   },
 };
 
-const Expandable: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
-  <details className="pp-details group">
-    <summary className="flex items-baseline justify-between cursor-pointer list-none py-4 select-none">
-      <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: 'var(--sp-ink-soft)' }}>
-        {label}
-      </span>
-      <span
-        className="pp-marker text-base leading-none transition-transform duration-300"
-        style={{ color: 'var(--sp-accent)' }}
-        aria-hidden="true"
-      >
-        +
-      </span>
-    </summary>
-    <div className="pp-body">
-      <div className="overflow-hidden">
-        <div
-          className="pb-6 pr-8 text-[0.95rem] leading-relaxed"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--sp-ink-body)', maxWidth: '38ch' }}
-        >
-          {children}
-        </div>
-      </div>
-    </div>
-  </details>
-);
-
 const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ data, face }) => {
   const { palette: p, flip } = data;
-  const vars = {
-    '--sp-ink-soft': p.inkSoft,
-    '--sp-ink-body': p.inkBody,
-    '--sp-accent': p.accent,
-    '--sp-border': p.border,
-  } as React.CSSProperties;
 
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
@@ -371,138 +336,133 @@ const Spread: React.FC<{ data: SpreadData; face: (typeof FACES)[string] }> = ({ 
   }, [data.media.main.isVideo]);
 
   return (
-    <section className="relative overflow-hidden" style={{ background: p.field, ...vars }}>
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
-      />
+    <SpreadShell
+      background={p.field}
+      gutterClassName="px-6 md:px-20"
+      paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
+    >
+      <Eyebrow label={data.eyebrow} index={data.index} labelColor={p.inkSoft} indexColor={p.accent} />
 
-      <div className="relative px-6 md:px-20 pt-10 md:pt-14 pb-24 md:pb-36">
-        {/* eyebrow */}
-        <div className="flex items-baseline justify-between">
-          <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: p.inkSoft }}>
-            {data.eyebrow}
-          </span>
-          <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: p.accent }}>
-            {data.index}
-          </span>
+      {/* oversized title, overlapping the media cluster */}
+      <h2
+        className="relative z-10 mt-10 md:mt-16"
+        style={{
+          fontFamily: face.family,
+          fontSize: 'var(--display-xl)',
+          lineHeight: face.lineHeight,
+          letterSpacing: face.tracking,
+          color: p.ink,
+        }}
+      >
+        {data.title}
+      </h2>
+
+      {/* spread body: text and media alternate sides per spread */}
+      <div className="mt-10 md:mt-4 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+        {/* text column */}
+        <div
+          className={`md:col-span-4 md:pt-16 order-2 ${
+            flip ? 'md:col-start-9 md:order-2' : 'md:order-1'
+          }`}
+        >
+          <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
+            {data.role}
+          </p>
+          <p
+            className="mt-5 text-[1.05rem] leading-relaxed"
+            style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '36ch' }}
+          >
+            {data.description}
+          </p>
+
+          {/* pull stat, set editorially — omitted for lighter spreads */}
+          {data.stat && (
+            <div className="mt-12 md:mt-16">
+              <p
+                className="italic"
+                style={{
+                  fontFamily: face.family,
+                  fontSize:
+                    data.stat.value.length > 6
+                      ? 'clamp(2.2rem, 3.4vw, 3.2rem)'
+                      : 'clamp(3.5rem, 6vw, 5.5rem)',
+                  lineHeight: 1.05,
+                  color: p.ink,
+                  maxWidth: '12ch',
+                }}
+              >
+                {data.stat.value}
+              </p>
+              <p className="mt-2 text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: p.inkSoft }}>
+                {data.stat.label}
+              </p>
+            </div>
+          )}
+
+          {/* expandables — omitted for lighter spreads */}
+          {data.expandables && data.expandables.length > 0 && (
+            <div className="mt-12 md:mt-16">
+              {data.expandables.map((e) => (
+                <Expandable
+                  key={e.label}
+                  label={e.label}
+                  accentColor={p.accent}
+                  labelColor={p.inkSoft}
+                  bodyColor={p.inkBody}
+                  borderColor={p.border}
+                >
+                  {e.body}
+                </Expandable>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* oversized title, overlapping the media cluster */}
-        <h2
-          className="relative z-10 mt-10 md:mt-16"
-          style={{
-            fontFamily: face.family,
-            fontSize: 'clamp(3.2rem, 12.5vw, 12.5rem)',
-            lineHeight: face.lineHeight,
-            letterSpacing: face.tracking,
-            color: p.ink,
-          }}
+        {/* media cluster, asymmetric; mirrors when flipped */}
+        <div
+          className={`md:col-span-7 relative order-1 ${data.mediaOffsetClass ?? 'md:-mt-24'} ${
+            flip ? 'md:col-start-1 md:row-start-1 md:order-1' : 'md:col-start-6 md:order-2'
+          }`}
         >
-          {data.title}
-        </h2>
-
-        {/* spread body: text and media alternate sides per spread */}
-        <div className="mt-10 md:mt-4 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
-          {/* text column */}
-          <div
-            className={`md:col-span-4 md:pt-16 order-2 ${
-              flip ? 'md:col-start-9 md:order-2' : 'md:order-1'
-            }`}
-          >
-            <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
-              {data.role}
-            </p>
-            <p
-              className="mt-5 text-[1.05rem] leading-relaxed"
-              style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '36ch' }}
-            >
-              {data.description}
-            </p>
-
-            {/* pull stat, set editorially — omitted for lighter spreads */}
-            {data.stat && (
-              <div className="mt-12 md:mt-16">
-                <p
-                  className="italic"
-                  style={{
-                    fontFamily: face.family,
-                    fontSize:
-                      data.stat.value.length > 6
-                        ? 'clamp(2.2rem, 3.4vw, 3.2rem)'
-                        : 'clamp(3.5rem, 6vw, 5.5rem)',
-                    lineHeight: 1.05,
-                    color: p.ink,
-                    maxWidth: '12ch',
-                  }}
-                >
-                  {data.stat.value}
-                </p>
-                <p className="mt-2 text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: p.inkSoft }}>
-                  {data.stat.label}
-                </p>
-              </div>
-            )}
-
-            {/* expandables — omitted for lighter spreads */}
-            {data.expandables && data.expandables.length > 0 && (
-              <div className="mt-12 md:mt-16">
-                {data.expandables.map((e) => (
-                  <Expandable key={e.label} label={e.label}>
-                    {e.body}
-                  </Expandable>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* media cluster, asymmetric; mirrors when flipped */}
-          <div
-            className={`md:col-span-7 relative order-1 ${data.mediaOffsetClass ?? 'md:-mt-24'} ${
-              flip ? 'md:col-start-1 md:row-start-1 md:order-1' : 'md:col-start-6 md:order-2'
-            }`}
-          >
-            {data.media.main.isVideo ? (
-              <video
-                ref={videoRef}
-                src={data.media.main.src}
-                aria-label={data.media.main.alt}
-                muted
-                playsInline
-                preload="auto"
-                className={
-                  data.media.main.className ??
-                  `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
-                }
-                style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
-              />
-            ) : (
-              <img
-                src={data.media.main.src}
-                alt={data.media.main.alt}
-                className={
-                  data.media.main.className ??
-                  `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
-                }
-                style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
-              />
-            )}
-            {data.media.overlap && (
-              <img
-                src={data.media.overlap.src}
-                alt={data.media.overlap.alt}
-                className={
-                  data.media.overlap.className ??
-                  `hidden md:block absolute w-[36%] -bottom-14 ${flip ? '-right-[8%]' : '-left-[8%]'}`
-                }
-                style={{ boxShadow: `0 24px 60px ${p.shadow}` }}
-              />
-            )}
-          </div>
+          {data.media.main.isVideo ? (
+            <video
+              ref={videoRef}
+              src={data.media.main.src}
+              aria-label={data.media.main.alt}
+              muted
+              playsInline
+              preload="auto"
+              className={
+                data.media.main.className ??
+                `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
+              }
+              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
+            />
+          ) : (
+            <img
+              src={data.media.main.src}
+              alt={data.media.main.alt}
+              className={
+                data.media.main.className ??
+                `w-full md:w-[82%] block ${flip ? 'md:mr-auto' : 'md:ml-auto'}`
+              }
+              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
+            />
+          )}
+          {data.media.overlap && (
+            <img
+              src={data.media.overlap.src}
+              alt={data.media.overlap.alt}
+              className={
+                data.media.overlap.className ??
+                `hidden md:block absolute w-[36%] -bottom-14 ${flip ? '-right-[8%]' : '-left-[8%]'}`
+              }
+              style={{ boxShadow: `0 24px 60px ${p.shadow}` }}
+            />
+          )}
         </div>
       </div>
-    </section>
+    </SpreadShell>
   );
 };
 
@@ -555,64 +515,18 @@ const HOLLYWOOD_CRIME: SpreadData = {
   mediaOffsetClass: 'md:mt-10',
 };
 
-/**
- * The chapter's signature moment: scrolling from one production into the
- * next morphs the background through its actual color, instead of cutting.
- * Each spread keeps its own internal gradient untouched — only the gap
- * between spreads becomes a liquid wash from the color it's leaving to
- * the color it's entering. Driven by a CSS custom property set directly
- * via ref on scroll (rAF-throttled), no React re-renders.
- */
-const ColorBridge: React.FC<{ from: string; to: string }> = ({ from, to }) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.style.setProperty('--t', '0.5');
-      return;
-    }
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = rect.height + vh;
-      const traveled = vh - rect.top;
-      const t = Math.min(1, Math.max(0, traveled / total));
-      el.style.setProperty('--t', t.toFixed(3));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      aria-hidden="true"
-      className="h-[16vh] md:h-[24vh]"
-      style={
-        {
-          '--t': 0,
-          '--from-c': from,
-          '--to-c': to,
-          background:
-            'color-mix(in oklch, var(--from-c) calc((1 - var(--t)) * 100%), var(--to-c) calc(var(--t) * 100%))',
-        } as React.CSSProperties
-      }
-    />
-  );
-};
+// Chapter render order. Bridge endpoints are derived from this array (see
+// ProductionsPreviewPage below), so they can never desync from the
+// palettes above.
+const CHAPTER_ORDER: SpreadData[] = [
+  SPREADS[0],
+  SPREADS[1],
+  SPREADS[2],
+  HOLLYWOOD_CRIME,
+  BORN_THIS_WAY,
+  NO_PASSPORT_REQUIRED,
+  LIFE_OF_KYLIE,
+];
 
 const ProductionsPreviewPage: React.FC = () => {
   const [params] = useSearchParams();
@@ -634,16 +548,6 @@ const ProductionsPreviewPage: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
-      <style>{`
-        .pp-details { border-top: 1px solid var(--sp-border); }
-        .pp-details:last-of-type { border-bottom: 1px solid var(--sp-border); }
-        .pp-details summary::-webkit-details-marker { display: none; }
-        .pp-details[open] .pp-marker { transform: rotate(45deg); }
-        .pp-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s cubic-bezier(0.22,1,0.36,1); }
-        .pp-details[open] .pp-body { grid-template-rows: 1fr; }
-        @media (prefers-reduced-motion: reduce) { .pp-body { transition: none; } }
-      `}</style>
-
       {/* Cream connective tissue: chapter opening */}
       <header className="px-6 md:px-20 pt-12 pb-16 md:pt-16 md:pb-24">
         <div className="flex items-baseline justify-between">
@@ -674,28 +578,21 @@ const ProductionsPreviewPage: React.FC = () => {
         </div>
       </header>
 
-      <ColorBridge from="var(--bg-site)" to="#CC5D24" />
-      <Spread data={SPREADS[0]} face={face} />
+      <ColorBridge from="var(--bg-site)" to={gradientStart(CHAPTER_ORDER[0].palette.field)} />
 
-      <ColorBridge from="#B04715" to="#F7E1DB" />
-      <Spread data={SPREADS[1]} face={face} />
-
-      <ColorBridge from="#EFCCC5" to="#2B3A55" />
-      <Spread data={SPREADS[2]} face={face} />
-
-      <ColorBridge from="#131A30" to="#E8EBEF" />
-      <Spread data={HOLLYWOOD_CRIME} face={face} />
-
-      <ColorBridge from="#DBDFE2" to="#EDEAE1" />
-      <Spread data={BORN_THIS_WAY} face={face} />
-
-      <ColorBridge from="#DED7C5" to="#A83A26" />
-      <Spread data={NO_PASSPORT_REQUIRED} face={face} />
-
-      <ColorBridge from="#7A2818" to="#2B1233" />
-      <Spread data={LIFE_OF_KYLIE} face={face} />
-
-      <ColorBridge from="#120616" to="var(--bg-site)" />
+      {CHAPTER_ORDER.map((spread, i) => (
+        <React.Fragment key={spread.index}>
+          <Spread data={spread} face={face} />
+          <ColorBridge
+            from={gradientEnd(spread.palette.field)}
+            to={
+              i + 1 < CHAPTER_ORDER.length
+                ? gradientStart(CHAPTER_ORDER[i + 1].palette.field)
+                : 'var(--bg-site)'
+            }
+          />
+        </React.Fragment>
+      ))}
 
       {/* Cream coda: shows the rhythm continuing */}
       <footer className="px-6 md:px-20 py-20 md:py-28">

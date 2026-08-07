@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ColorBridge, Eyebrow, LazyVideo, SpreadShell } from '../components/chapter';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -9,19 +10,16 @@ import { Link } from 'react-router-dom';
  * All media streams from the Google Cloud bucket; nothing local.
  */
 
-const GRAIN_URI =
-  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
-
 const LAB = {
   // Warm ink-black: the site's own ink (#150E0A) deepened, same hue family
   // as terra. Labs is the site with the lights down, not a different site.
-  ground: '#120C08',
-  ink: '#F2EDE2',
+  ground: 'var(--ink-deep)',
+  ink: 'var(--cream-ink)',
   inkSoft: 'rgba(242,237,226,0.55)',
   inkBody: 'rgba(242,237,226,0.82)',
   // Terra tuned for dark ground: same hue as the site accent, lightness
   // raised for legibility (9.4:1 on the ground; raw terra reads 3.9:1).
-  accent: '#E8A672',
+  accent: 'var(--ember)',
   border: 'rgba(242,237,226,0.16)',
 };
 
@@ -171,56 +169,6 @@ const ENTRIES: LabEntry[] = [
   },
 ];
 
-/** Mounts its video only when near the viewport; plays muted on arrival. */
-const LabVideo: React.FC<{ video: LabEntry['video'] }> = ({ video }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [near, setNear] = useState(false);
-  const reduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setNear(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: '400px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className="relative aspect-video overflow-hidden"
-      style={{
-        background: '#17100B',
-        boxShadow: '0 40px 120px rgba(0,0,0,0.6)',
-      }}
-    >
-      {near && (
-        <video
-          src={video.src}
-          poster={video.poster}
-          aria-label={video.alt}
-          muted
-          loop
-          playsInline
-          autoPlay={!reduced}
-          preload="metadata"
-          className="w-full h-full object-cover"
-        />
-      )}
-    </div>
-  );
-};
-
 /** Soft fade-up on scroll into view; skipped under reduced motion. */
 const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -263,15 +211,7 @@ const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 const Entry: React.FC<{ data: LabEntry }> = ({ data }) => (
   <article className="pb-32 md:pb-56">
     <Reveal>
-      {/* eyebrow row */}
-      <div className="flex items-baseline justify-between">
-        <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: LAB.inkSoft }}>
-          {data.client}
-        </span>
-        <span className="text-[0.7rem] tracking-[0.18em] uppercase" style={{ color: LAB.accent }}>
-          {data.index}
-        </span>
-      </div>
+      <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       {/* title */}
       <h2
@@ -294,7 +234,12 @@ const Entry: React.FC<{ data: LabEntry }> = ({ data }) => (
             data.flip ? 'md:col-start-5 md:order-2' : 'md:col-start-1 md:order-1'
           }`}
         >
-          <LabVideo video={data.video} />
+          <LazyVideo
+            src={data.video.src}
+            poster={data.video.poster}
+            alt={data.video.alt}
+            fallbackTitle={data.title}
+          />
         </div>
 
         <div
@@ -363,62 +308,6 @@ const Entry: React.FC<{ data: LabEntry }> = ({ data }) => (
   </article>
 );
 
-/**
- * Lights-down bridge: same scroll-driven color-mix mechanism as the
- * Productions chapter's ColorBridge, reused here for the single moment
- * where the cream site ground dims into the Labs' black.
- */
-const LightsDown: React.FC<{ from: string; to: string }> = ({ from, to }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.style.setProperty('--t', '0.5');
-      return;
-    }
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = rect.height + vh;
-      const traveled = vh - rect.top;
-      const t = Math.min(1, Math.max(0, traveled / total));
-      el.style.setProperty('--t', t.toFixed(3));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      aria-hidden="true"
-      className="h-[18vh] md:h-[26vh]"
-      style={
-        {
-          '--t': 0,
-          '--from-c': from,
-          '--to-c': to,
-          background:
-            'color-mix(in oklch, var(--from-c) calc((1 - var(--t)) * 100%), var(--to-c) calc(var(--t) * 100%))',
-        } as React.CSSProperties
-      }
-    />
-  );
-};
-
 const LabsPreviewPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -447,49 +336,47 @@ const LabsPreviewPage: React.FC = () => {
         </div>
       </header>
 
-      <LightsDown from="var(--bg-site)" to={LAB.ground} />
+      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[18vh] md:h-[26vh]" />
 
       {/* The chapter: one continuous dark ground */}
-      <div className="relative" style={{ background: LAB.ground }}>
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none mix-blend-overlay"
-          style={{ backgroundImage: GRAIN_URI, opacity: 0.04 }}
-        />
-
-        <div className="relative px-6 md:px-24">
-          {/* chapter header */}
-          <div className="pt-24 md:pt-40 pb-24 md:pb-40">
-            <div className="flex items-end justify-between">
-              <h1
-                className="text-[2.4rem] md:text-[3.5rem] leading-none"
-                style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
-              >
-                Ghost Mode Labs
-              </h1>
-              <span
-                className="hidden md:block text-[0.8rem] italic"
-                style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
-              >
-                story systems &middot; production tools &middot; cultural experiments
-              </span>
-            </div>
-            <p
-              className="mt-10 md:mt-14 text-[1.1rem] md:text-[1.25rem] leading-relaxed"
-              style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '46ch' }}
+      <SpreadShell
+        as="div"
+        background={LAB.ground}
+        overflowHidden={false}
+        grainOpacity={0.04}
+        gutterClassName="px-6 md:px-24"
+      >
+        {/* chapter header */}
+        <div className="pt-24 md:pt-40 pb-24 md:pb-40">
+          <div className="flex items-end justify-between">
+            <h1
+              className="text-[2.4rem] md:text-[3.5rem] leading-none"
+              style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
             >
-              The studio for what she is building next: stories and the systems
-              that make them, built hands-on with&nbsp;AI.
-            </p>
+              Ghost Mode Labs
+            </h1>
+            <span
+              className="hidden md:block text-[0.8rem] italic"
+              style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
+            >
+              story systems &middot; production tools &middot; cultural experiments
+            </span>
           </div>
-
-          {ENTRIES.map((e) => (
-            <Entry key={e.id} data={e} />
-          ))}
+          <p
+            className="mt-10 md:mt-14 text-[1.1rem] md:text-[1.25rem] leading-relaxed"
+            style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '46ch' }}
+          >
+            The studio for what she is building next: stories and the systems
+            that make them, built hands-on with&nbsp;AI.
+          </p>
         </div>
-      </div>
 
-      <LightsDown from={LAB.ground} to="var(--bg-site)" />
+        {ENTRIES.map((e) => (
+          <Entry key={e.id} data={e} />
+        ))}
+      </SpreadShell>
+
+      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[18vh] md:h-[26vh]" />
 
       {/* Cream coda: the rhythm continues into About */}
       <footer className="px-6 md:px-24 py-20 md:py-28 flex items-baseline justify-between">
