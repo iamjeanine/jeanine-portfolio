@@ -6,17 +6,97 @@ import { LabsChapter, LAB } from './LabsPreviewPage';
 
 /**
  * PROTOTYPE: not linked from site navigation.
- * Phase 1, the Spine (REDESIGN-PLAN.md section 4): Cover, Productions,
- * Ghost Mode Labs, and About stitched into one continuous scroll, with a
- * persistent chapter rail and anchor deep-links. Reuses the Productions
- * and Labs chapters from their own preview pages unchanged; only the
- * connective tissue (bridges, rail, cover, colophon) is new here.
+ * The Spine (REDESIGN-PLAN.md section 4): Cover, Productions, Ghost Mode
+ * Labs, and the About colophon stitched into one continuous scroll, with
+ * a persistent chapter rail and anchor deep-links. Reuses the Productions
+ * and Labs chapters from their own preview pages unchanged; the
+ * connective tissue (bridges, rail, cover, colophon) is built here.
  *
- * The About section below is a Phase 1 stand-in: enough to prove the
- * spine's structure and anchors, reusing AboutModal's existing bio
- * verbatim. The full colophon (Family Sentence, teaching, awards) is
- * Phase 4 scope per the plan and isn't built here.
+ * The About colophon (below) is Phase 4's full build per section 7: bio
+ * narrative plus structured Awards/Teaching/Publications lists. Teaching
+ * has no source content anywhere in constants.ts or Appendix A, so per
+ * 8.3 it renders as an honest pending marker rather than invented copy,
+ * the same pattern Visual Audiobooks uses in the Labs chapter.
  */
+
+// Colophon data (REDESIGN-PLAN.md section 7). Every entry is drawn from
+// Appendix A or constants.ts; nothing here is invented (8.3). Ordered to
+// match the Productions chapter's own spread order, then Labs. Hollywood &
+// Crime and Life of Kylie are correctly absent: Appendix A states their
+// value is prose-only, with no stat to list.
+const AWARDS: { title: string; detail: string }[] = [
+  {
+    title: 'Scamfluencers',
+    detail:
+      'Winner, 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025. Vogue’s Best Podcasts of the Year. Apple’s Creators We Love.',
+  },
+  {
+    title: 'Dying for Sex',
+    detail:
+      'Winner, Ambie Podcast of the Year, 2021. Named to Apple Podcasts’ Favorites of the Year. Its FX adaptation won a Peabody Award, with 9 Primetime Emmy nominations.',
+  },
+  {
+    title: 'The Last City',
+    detail: '#1 Apple Fiction in 20 countries. Ambie Best Fiction nominee.',
+  },
+  {
+    title: 'Born This Way',
+    detail: '3 wins, 16 Primetime Emmy nominations.',
+  },
+  {
+    title: 'No Passport Required',
+    detail: 'Winner, James Beard Media Award.',
+  },
+  {
+    title: 'Multiverse Quad',
+    detail: 'Shortlisted for Amazon’s AWS re:Invent keynote.',
+  },
+];
+
+const PUBLICATIONS: { title: string; detail: string }[] = [
+  { title: 'Family Sentence', detail: 'Beacon Press' },
+];
+
+const ColophonList: React.FC<{
+  label: string;
+  items?: { title: string; detail: string }[];
+  pending?: string;
+}> = ({ label, items, pending }) => (
+  <div>
+    <p className="chapter-label" style={{ color: 'var(--terra-text)' }}>
+      {label}
+    </p>
+    {items && (
+      <ul className="mt-4 space-y-4">
+        {items.map((item) => (
+          <li key={item.title}>
+            <p
+              className="text-[0.95rem]"
+              style={{ fontFamily: "'Bodoni Moda', serif", color: 'var(--ink)' }}
+            >
+              {item.title}
+            </p>
+            <p
+              className="mt-1 text-[0.85rem] leading-relaxed"
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '38ch' }}
+            >
+              {item.detail}
+            </p>
+          </li>
+        ))}
+      </ul>
+    )}
+    {pending && (
+      <p
+        className="mt-4 chapter-label"
+        style={{ color: 'var(--ink-faint)' }}
+      >
+        {pending}
+      </p>
+    )}
+  </div>
+);
+
 
 const RAIL_SECTIONS: RailSection[] = [
   { id: 'productions', index: '01', label: 'Productions' },
@@ -102,7 +182,7 @@ const SpinePreviewPage: React.FC = () => {
               onClick={() => scrollToSection(c.id)}
               className="chapter-rail-btn chapter-rail-btn-light group flex items-baseline gap-4 text-left w-fit"
             >
-              <span className="chapter-label" style={{ color: 'var(--terra)' }}>
+              <span className="chapter-label" style={{ color: 'var(--terra-text)' }}>
                 {c.index}
               </span>
               <span
@@ -151,7 +231,9 @@ const SpinePreviewPage: React.FC = () => {
 
       <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[32vh] md:h-[40vh]" />
 
-      {/* Colophon: About (Phase 1 stand-in, see file header) */}
+      {/* Colophon: About (REDESIGN-PLAN.md section 7). Editorial
+          masthead form: bio narrative and structured lists side by side,
+          no cards, no icons, no timeline graphics. */}
       <section id="about" className="px-6 md:px-20 pt-8 pb-24 md:pt-12 md:pb-36">
         <h2
           style={{
@@ -162,31 +244,42 @@ const SpinePreviewPage: React.FC = () => {
         >
           About
         </h2>
-        <div
-          className="mt-8 md:mt-10 space-y-5 text-[1.02rem] leading-relaxed"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '58ch' }}
-        >
-          <p>
-            Emmy and Ambie Award-winning executive producer and showrunner.
-            300+ episodes across podcasts, television, and digital.
-          </p>
-          <p>
-            Created Scamfluencers (53M downloads, winner of the 2023 Ambie
-            for Best Entertainment Podcast). Produced Dying for Sex (Ambie
-            Podcast of the Year, named to Apple Podcasts&rsquo; Favorites of
-            the Year, adapted as a Peabody-winning FX series with 9 Emmy
-            nominations). Created The Last City (scripted sci-fi, #1 Apple
-            Fiction in 20 countries).
-          </p>
-          <p>Founded Wondery&rsquo;s first Creator Lab, training 50+ staff on AI creative tools.</p>
-          <p>
-            At Ghost Mode Labs, she develops original IP and prototypes new
-            ways to research, develop, and extend stories across scripted,
-            nonfiction, and interactive formats.
-          </p>
-        </div>
-        <div className="mt-10 flex items-center gap-2 chapter-label" style={{ color: 'var(--ink-faint)' }}>
-          <span>Full colophon (Family Sentence, teaching, awards) lands in Phase 4</span>
+
+        <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+          {/* Bio narrative. Accolade specifics live in the Awards list
+              instead of here now, so the two don't repeat each other. */}
+          <div
+            className="md:col-span-6 space-y-5 text-[1.02rem] leading-relaxed"
+            style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
+          >
+            <p>
+              Emmy and Ambie Award-winning executive producer and showrunner.
+              300+ episodes across podcasts, television, and digital.
+            </p>
+            <p>
+              Created Scamfluencers, produced Dying for Sex, and created The
+              Last City for Wondery and Amazon.
+            </p>
+            <p>
+              Founded Wondery&rsquo;s first Creator Lab, growing it from four
+              people to more than fifty across the company.
+            </p>
+            <p>
+              At Ghost Mode Labs, she develops original IP and prototypes new
+              ways to research, develop, and extend stories across scripted,
+              nonfiction, and interactive formats.
+            </p>
+            <p>
+              She is the author of <em>Family Sentence</em> (Beacon Press).
+            </p>
+          </div>
+
+          {/* Structured lists */}
+          <div className="md:col-span-5 md:col-start-8 flex flex-col gap-10">
+            <ColophonList label="Awards" items={AWARDS} />
+            <ColophonList label="Teaching" pending="Details to come" />
+            <ColophonList label="Publications" items={PUBLICATIONS} />
+          </div>
         </div>
       </section>
 

@@ -14,6 +14,13 @@
   --cream: #F6EFE7;
   --cream-faint: rgba(246,239,231,0.55);
   --terra: #B3543A;
+  /* --terra itself measures 4.43:1 on paper, a near miss for the 4.5:1
+     small-text floor (it's fine for backgrounds/borders, which only need
+     3:1). Rather than touch the shared brand accent, which is also live
+     on the homepage's ProjectTile, this barely-darker variant is for new
+     small text specifically: computed to clear 4.5:1 (4.57), used by the
+     Spine's chapter-label instances (Cover contents, colophon lists). */
+  --terra-text: #B05239;
   --umber-deep: #150E0A;
 
   /* Chapter system tokens (REDESIGN-PLAN.md 3.1-3.2). Labs ground/ink/accent,
