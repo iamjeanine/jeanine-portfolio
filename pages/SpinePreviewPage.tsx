@@ -146,7 +146,7 @@ const SpinePreviewPage: React.FC = () => {
 
       {/* Chapter 02: Ghost Mode Labs */}
       <div id="labs">
-        <LabsChapter />
+        <LabsChapter onAbout={() => scrollToSection('about')} />
       </div>
 
       <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[32vh] md:h-[40vh]" />

@@ -112,6 +112,28 @@
   outline-offset: 2px;
 }
 
+/* Projector light (REDESIGN-PLAN.md 5.3): a warm radial wash behind a
+   Feature's video frame, opacity and vertical position driven by the
+   scroll-set --pl. Gradient, not a box-shadow, so it never reads as the
+   banned zero-offset colored glow. */
+.chapter-projector-light {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 130%;
+  height: 140%;
+  transform: translate(-50%, -50%) translateY(calc((1 - var(--pl, 0)) * 28px));
+  background: radial-gradient(
+    ellipse at center,
+    rgba(232, 166, 114, 0.07) 0%,
+    rgba(232, 166, 114, 0.03) 45%,
+    rgba(232, 166, 114, 0) 70%
+  );
+  opacity: var(--pl, 0);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* The fixed ChapterRail overlays every ground in the spine, including
    Productions' saturated per-spread fields, not just paper/dark: see
    the comment in ChapterRail.tsx for why this inverts instead of
