@@ -168,13 +168,15 @@ const Hero = () => {
               className={`text-base md:text-lg font-normal tracking-[0.2em] uppercase text-white mix-blend-lighten mt-4 transition-all duration-[1200ms] ease-in ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}
               style={{ transitionDelay: '900ms' }}
             >
-              Emmy Award-winning showrunner.
+              Emmy and Ambie Award-winning showrunner.
             </p>
             <p
               className={`text-base md:text-lg font-normal tracking-[0.2em] uppercase text-white mix-blend-lighten mt-1 transition-all duration-[1200ms] ease-in ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}
               style={{ transitionDelay: '1050ms' }}
             >
-              Producing and prototyping new ways to tell stories.
+              {/* Studio name bound so a narrow measure can't split it
+                  ("...AND GHOST / MODE LABS."). It wraps whole instead. */}
+              Podcasts, television, and Ghost&nbsp;Mode&nbsp;Labs.
             </p>
           </div>
         </div>
