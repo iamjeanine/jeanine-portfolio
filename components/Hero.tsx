@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { HERO_VIDEOS } from '../constants';
 import { AudioOnIcon, AudioOffIcon } from './icons/AudioIcons';
 import ScrollCue from './ScrollCue';
+import { useMotionPaused } from './chapter/motionPreference';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,6 +13,18 @@ const Hero = () => {
   const isMutedRef = useRef(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const motionPaused = useMotionPaused();
+
+  // Honor the site-wide motion pause (WCAG 2.2.2). Without this, the Spine's
+  // "Pause motion" control sat directly on top of the one autoplaying video
+  // it did not govern. Inert on the live home page, which renders no such
+  // control, so the flag stays false and this only ever calls play().
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (motionPaused) v.pause();
+    else v.play().catch(() => {});
+  }, [motionPaused, videoReady]);
 
   // Show text after a short timeout even if video hasn't loaded yet
   useEffect(() => {

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Hero from '../components/Hero';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection } from '../components/chapter';
 import { ProductionsChapter, PRODUCTIONS_FIRST_COLOR, PRODUCTIONS_LAST_COLOR } from './ProductionsPreviewPage';
 import { LabsChapter, LAB } from './LabsPreviewPage';
@@ -173,61 +174,49 @@ const SpinePreviewPage: React.FC = () => {
       <ChapterRail sections={RAIL_SECTIONS} />
       <MotionToggle />
 
-      {/* Cover */}
-      <header className="px-6 md:px-20 pt-12 pb-16 md:pt-16 md:pb-24">
-        <div className="flex items-baseline justify-between">
-          <span className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
-            Jeanine Emilia Cornillot
-          </span>
-          <span className="chapter-label" style={{ color: 'var(--ink-faint)' }}>
-            Prototype
-          </span>
-        </div>
-      </header>
+      {/*
+        The Cover proper (4.3, "cover restage"): the real hero, unchanged
+        from the live site, carrying the name as the page's single h1, its
+        video, the scroll-driven recession, and its own mute control. Earlier
+        phases stood in a text-only placeholder here and never came back for
+        this, which left the publication opening on words alone.
+      */}
+      <Hero />
 
-      <section className="px-6 md:px-20 pt-8 pb-28 md:pt-16 md:pb-40">
-        <h1
-          style={{
-            fontFamily: "'Bodoni Moda', serif",
-            fontSize: 'var(--display-md)',
-            lineHeight: 0.95,
-            letterSpacing: '-0.015em',
-            color: 'var(--ink)',
-          }}
-        >
-          Jeanine Emilia Cornillot
-        </h1>
-        <p
-          className="mt-6 md:mt-8 text-[1.05rem] md:text-[1.2rem] leading-relaxed"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '48ch' }}
-        >
-          Emmy and Ambie Award-winning executive producer and showrunner across
-          podcasts and television. At Ghost Mode Labs, she develops original IP
-          and prototypes new ways to tell stories.
-        </p>
-
-        {/* Contents: teaches the structure in the first viewport */}
-        <nav aria-label="Contents" className="mt-16 md:mt-24 flex flex-col gap-4 md:gap-5">
-          {CONTENTS.map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => scrollToSection(c.id)}
-              className="chapter-rail-btn chapter-rail-btn-light group flex items-baseline gap-4 text-left w-fit"
-            >
-              <span className="chapter-label" style={{ color: 'var(--terra-text)' }}>
-                {c.index}
-              </span>
-              <span
-                className="text-[1.4rem] md:text-[1.8rem] transition-colors duration-300 group-hover:opacity-70"
-                style={{ fontFamily: "'Bodoni Moda', serif", color: 'var(--ink)' }}
+      {/*
+        Everything after the Cover rides over the sticky hero, the same
+        z-index handoff HomePage uses, so the hero recedes as the contents
+        page climbs over it.
+      */}
+      <div className="relative" style={{ zIndex: 2, backgroundColor: 'var(--bg-site)' }}>
+        {/* Contents page: the magazine beat straight after a cover. The name
+            is not repeated here, since the hero above already carries it as
+            the h1. */}
+        <section className="px-6 md:px-20 pt-20 pb-28 md:pt-28 md:pb-40">
+          <p className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
+            Contents
+          </p>
+          <nav aria-label="Contents" className="mt-10 md:mt-14 flex flex-col gap-5 md:gap-6">
+            {CONTENTS.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => scrollToSection(c.id)}
+                className="chapter-rail-btn chapter-rail-btn-light group flex items-baseline gap-5 text-left w-fit"
               >
-                {c.label}
-              </span>
-            </button>
-          ))}
-        </nav>
-      </section>
+                <span className="chapter-label tabular-nums" style={{ color: 'var(--terra-text)' }}>
+                  {c.index}
+                </span>
+                <span
+                  className="text-[1.6rem] md:text-[2.2rem] transition-opacity duration-300 group-hover:opacity-70"
+                  style={{ fontFamily: "'Bodoni Moda', serif", color: 'var(--ink)' }}
+                >
+                  {c.label}
+                </span>
+              </button>
+            ))}
+          </nav>
+        </section>
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>
@@ -350,6 +339,7 @@ const SpinePreviewPage: React.FC = () => {
           </a>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
