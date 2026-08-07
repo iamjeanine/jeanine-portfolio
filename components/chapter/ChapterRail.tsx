@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface RailSection {
   id: string;
@@ -64,10 +64,22 @@ const useChapterProgress = (): Progress | null => {
  * point is not depending on a color read against a variable backdrop.
  * Still no pill, no glass, no backdrop blur.
  */
-export const ChapterRail: React.FC<{ sections: RailSection[]; hideWhileVisibleId?: string }> = ({
-  sections,
-  hideWhileVisibleId,
-}) => {
+export const ChapterRail: React.FC<{
+  sections: RailSection[];
+  hideWhileVisibleId?: string;
+  /** Called once per deliberate click (rail button or mobile menu item),
+   * after the click's own scroll. Meant to push a real history entry, so
+   * Back can undo the jump. */
+  onNavigate?: (id: string) => void;
+  /** Called whenever passive scroll moves the active chapter, independent
+   * of onNavigate, including back to undefined once no chapter is in view.
+   * Meant to sync the URL via history.replace, silently, so reload or a
+   * copied link lands where the visitor actually was, without flooding
+   * Back/Forward on ordinary scrolling. Read through a ref internally so
+   * an inline function passed fresh every parent render doesn't re-run
+   * this effect on anything but a real position change. */
+  onActiveChange?: (id: string | undefined) => void;
+}> = ({ sections, hideWhileVisibleId, onNavigate, onActiveChange }) => {
   // Starts undefined, not at the first section: on the Cover no chapter is
   // in view yet, and defaulting to sections[0] made the rail claim
   // "01 Productions" on the very first screen, which is the one place a
@@ -75,6 +87,16 @@ export const ChapterRail: React.FC<{ sections: RailSection[]; hideWhileVisibleId
   // entered the last value is kept rather than cleared, so passing through
   // an inter-chapter bridge (which belongs to no section) doesn't flicker.
   const [activeId, setActiveId] = useState<string | undefined>(undefined);
+  // A second, deliberately non-sticky copy of the same signal, for
+  // onActiveChange only. activeId's stickiness exists so the rail's own
+  // visible label doesn't flicker to blank in a bridge gap, but that same
+  // stickiness is wrong for URL-sync: after a visitor scrolls back up past
+  // every chapter to the Cover, or presses browser Back, activeId keeps
+  // reporting the last chapter seen, and syncing that stale value would
+  // silently push the visitor's own Back action back to where they left.
+  // rawActiveId genuinely clears to undefined the moment nothing is
+  // intersecting, so the URL can clear with it.
+  const [rawActiveId, setRawActiveId] = useState<string | undefined>(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
   const progress = useChapterProgress();
 
@@ -89,6 +111,9 @@ export const ChapterRail: React.FC<{ sections: RailSection[]; hideWhileVisibleId
         const visible = entries.filter((e) => e.isIntersecting);
         if (visible.length > 0) {
           setActiveId(visible[0].target.id);
+          setRawActiveId(visible[0].target.id);
+        } else {
+          setRawActiveId(undefined);
         }
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
@@ -96,6 +121,34 @@ export const ChapterRail: React.FC<{ sections: RailSection[]; hideWhileVisibleId
     elements.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [sections]);
+
+  const onActiveChangeRef = useRef(onActiveChange);
+  onActiveChangeRef.current = onActiveChange;
+
+  // Guards against syncing "no chapter" to the URL before the observer has
+  // ever reported a real position: on a deep link to a chapter, rawActiveId
+  // starts undefined for a moment while the mount scroll and the observer's
+  // first callback catch up, and without this guard that brief undefined
+  // would debounce-fire and wipe out a valid incoming deep link.
+  const hasObservedPosition = useRef(false);
+  if (rawActiveId) hasObservedPosition.current = true;
+
+  // Debounced, not immediate: a single smooth-scroll jump (e.g. Productions
+  // to About) passes *through* every chapter in between, so rawActiveId
+  // changes several times inside one scroll animation. Syncing on every one
+  // of those was clobbering the destination a deliberate click had just
+  // pushed, e.g. clicking "About" correctly pushed /about, then the scroll
+  // animation's transit through Labs silently replaced it with /labs a
+  // moment later. Waiting for rawActiveId to hold still for a beat means
+  // only the chapter the visitor actually lands on and stays on ever
+  // reaches the URL, regardless of how long the animation took.
+  useEffect(() => {
+    if (!hasObservedPosition.current) return;
+    const timeout = window.setTimeout(() => {
+      onActiveChangeRef.current?.(rawActiveId);
+    }, 700);
+    return () => window.clearTimeout(timeout);
+  }, [rawActiveId]);
 
   // The rail and the Contents block used to show the same three chapters at
   // once (Impeccable navigation critique, P0): the fixed rail floated over
@@ -139,6 +192,7 @@ export const ChapterRail: React.FC<{ sections: RailSection[]; hideWhileVisibleId
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    onNavigate?.(id);
   };
 
   // "Ghost Mode Labs · 4/9": only the currently active chapter ever carries

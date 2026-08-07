@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Hero from '../components/Hero';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection } from '../components/chapter';
 import { ProductionsChapter, PRODUCTIONS_FIRST_COLOR, PRODUCTIONS_LAST_COLOR } from './ProductionsPreviewPage';
@@ -136,10 +136,26 @@ const skipToSection = (id: string) => {
 
 const SpinePreviewPage: React.FC = () => {
   const { chapter } = useParams<{ chapter?: string }>();
+  const navigate = useNavigate();
 
-  // Old-route deep links (/preview/spine/productions etc.) land on the
-  // matching anchor instead of the top of the page.
+  // Tracks the last chapter *this component* wrote into the URL, whether
+  // via a deliberate click or a passive-scroll sync below. When `chapter`
+  // changes to that same value, the effect below knows it caused the
+  // change itself (the visitor is already there) and skips re-scrolling.
+  // When `chapter` changes to anything else, the effect knows it came from
+  // outside: the initial load, a pasted link, or Back/Forward, and scrolls
+  // there for real. Without this guard, syncing the URL on every passive
+  // scroll (below) would re-trigger this same effect and fight the
+  // visitor's own scrolling.
+  const lastSyncedChapter = useRef<string | undefined>(undefined);
+
+  // Old-route deep links (/preview/spine/productions etc.), and now also
+  // Back/Forward between chapters, land on the matching anchor instead of
+  // the top of the page (Impeccable navigation critique, P2: Back/Forward
+  // previously did nothing between chapters, and reload always dropped a
+  // visitor at the Cover, since nothing ever wrote the chapter into the URL).
   useEffect(() => {
+    if (chapter === lastSyncedChapter.current) return;
     // No rAF here: every section is always mounted (never conditionally
     // rendered), so the target's layout is already correct on this render
     // and there's nothing to wait a frame for. (An rAF-deferred version of
@@ -152,7 +168,49 @@ const SpinePreviewPage: React.FC = () => {
     } else {
       window.scrollTo(0, 0);
     }
+    lastSyncedChapter.current = chapter;
   }, [chapter]);
+
+  // Deliberate navigation from the Contents block: push a real history
+  // entry, so Back can undo the jump, and scroll there directly (Contents'
+  // buttons own their scroll; unlike the rail, nothing else has already
+  // moved the viewport before this runs).
+  const goToChapter = (id: string) => {
+    lastSyncedChapter.current = id;
+    navigate(`/preview/spine/${id}`);
+    scrollToSection(id);
+  };
+
+  // ChapterRail's onNavigate: the rail and its mobile menu already do their
+  // own scrollIntoView before calling this, so it only needs to push the
+  // history entry, not scroll again.
+  const pushChapterUrl = (id: string) => {
+    lastSyncedChapter.current = id;
+    navigate(`/preview/spine/${id}`);
+  };
+
+  const goToChapterViaSkipLink = (id: string) => {
+    lastSyncedChapter.current = id;
+    navigate(`/preview/spine/${id}`);
+    skipToSection(id);
+  };
+
+  const goToCover = () => {
+    lastSyncedChapter.current = undefined;
+    navigate('/preview/spine');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Passive scroll: silently keep the URL in step via history.replace (no
+  // new entry, so ordinary scrolling never floods Back/Forward), purely so
+  // reload or a copied link lands back where the visitor actually was.
+  // undefined means the visitor has scrolled back up past every chapter to
+  // the Cover (or Contents); the URL clears with them rather than sticking
+  // to whichever chapter they last passed through.
+  const syncActiveChapterToUrl = (id: string | undefined) => {
+    lastSyncedChapter.current = id;
+    navigate(id ? `/preview/spine/${id}` : '/preview/spine', { replace: true });
+  };
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
@@ -168,14 +226,19 @@ const SpinePreviewPage: React.FC = () => {
             key={s.id}
             type="button"
             className="chapter-skip-link"
-            onClick={() => skipToSection(s.id)}
+            onClick={() => goToChapterViaSkipLink(s.id)}
           >
             Skip to {s.label}
           </button>
         ))}
       </nav>
 
-      <ChapterRail sections={RAIL_SECTIONS} hideWhileVisibleId="contents" />
+      <ChapterRail
+        sections={RAIL_SECTIONS}
+        hideWhileVisibleId="contents"
+        onNavigate={pushChapterUrl}
+        onActiveChange={syncActiveChapterToUrl}
+      />
       <MotionToggle />
 
       {/*
@@ -209,7 +272,7 @@ const SpinePreviewPage: React.FC = () => {
               <button
                 key={c.id}
                 type="button"
-                onClick={() => scrollToSection(c.id)}
+                onClick={() => goToChapter(c.id)}
                 className="chapter-rail-btn chapter-rail-btn-light group flex items-baseline gap-5 text-left w-fit"
               >
                 <span className="chapter-label tabular-nums" style={{ color: 'var(--terra-text)' }}>
@@ -324,7 +387,7 @@ const SpinePreviewPage: React.FC = () => {
       <footer className="px-6 md:px-20 py-16 md:py-20 flex flex-col md:flex-row items-baseline justify-between gap-6">
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={goToCover}
           className="chapter-rail-btn chapter-rail-btn-light chapter-label"
           style={{ color: 'var(--ink-mute)' }}
         >
