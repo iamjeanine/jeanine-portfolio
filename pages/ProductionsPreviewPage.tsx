@@ -8,6 +8,7 @@ import {
   gradientStart,
   gradientEnd,
   useRevealOnce,
+  useParallax,
 } from '../components/chapter';
 
 /**
@@ -429,6 +430,32 @@ const Spread: React.FC<{
           transition: `opacity 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
         };
 
+  /*
+   * Parallax depth, the last item on the reconciled motion list. The media
+   * cluster drifts a little slower than the surrounding scroll, which is
+   * what makes The Last City's collage overlap read as a separate physical
+   * layer with real depth rather than a flat inset, and gives the other
+   * three leads a quieter version of the same "the artwork has its own
+   * life" quality. Applied to the existing media div directly, not a new
+   * wrapping element, so the overlap inset's own percentage-based offset
+   * still resolves against the same box it always has.
+   *
+   * 0.05 chosen empirically, not guessed, and only after the first attempt
+   * at measuring it lied: reading getComputedStyle immediately after a
+   * synchronous scrollTo caught the value from before the scroll event and
+   * its rAF handler had run, which held steady across every sample and
+   * looked static rather than broken. Re-measured with a wait between each
+   * step, then confirmed on The Last City across the full transit that
+   * the media's own rect never exceeds the spread article's rect, which is
+   * the actual overflow-hidden boundary, so there is nothing to clip
+   * regardless of how that headroom is split between padding and
+   * whatever's rendered above the media. The parallax also measurably
+   * deepens this spread's existing title/artwork overlap as you scroll
+   * (-57px at rest, -109px mid-transit), which is the effect by name, not
+   * a side effect of it.
+   */
+  const parallaxRef = useParallax(0.05);
+
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
   // Plays once when a video main-image scrolls into view, then rests on its final frame.
@@ -537,9 +564,11 @@ const Spread: React.FC<{
             so the text column dropped to row 2 and sat ~590px below the
             artwork on every non-flipped spread. */}
         <div
+          ref={parallaxRef}
           className={`relative self-start lg:row-start-1 lg:col-span-7 ${
             data.mediaOverlap ? 'chapter-media-overlap' : 'chapter-media-clear'
           } ${flip ? 'lg:col-start-1' : 'lg:col-start-6'}`}
+          style={{ transform: 'translateY(var(--parallax-y, 0px))' }}
         >
           {data.media.main.isVideo ? (
             <video
