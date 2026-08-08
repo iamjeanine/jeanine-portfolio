@@ -18,10 +18,13 @@ import {
  * per-spread color fields; distinction between chapters is structure and pace
  * only, never temperature.
  *
- * Three tiers carry the hierarchy (5.2) so nine entries no longer read as one
- * infinite feed: Features get the full treatment, Shorts are compact, and the
- * one in-development project holds its position without pretending to be
- * finished. All media streams from the Google Cloud bucket; nothing local.
+ * Two tiers carry the hierarchy (5.2) so the chapter does not read as one
+ * infinite feed: five Features get the full treatment, and the rest share a
+ * single credits screen, matching the front-of-book/back-of-book split
+ * Productions uses. ShortEntry and InDevelopmentEntry are kept as live
+ * templates on the Entry dispatcher, reachable by setting a tier, but no
+ * current entry uses them. All media streams from the Google Cloud bucket;
+ * nothing local.
  *
  * All copy here is drawn from constants.ts and the plan's Appendix A. Nothing
  * is invented: the third expandable is "Status" rather than the plan's
@@ -101,11 +104,11 @@ interface LabEntry {
  * frame alternation for the Feature and in-development tiers is still
  * per-entry (`flip`), so it does need re-checking on any reorder: the
  * sequence should read right, left, right, left down the chapter, where a
- * missing `flip` renders right. This ENTRIES array holds five Features
- * (Static, Multiverse Quad, Visual Audiobooks, AI Creator Lab, MythOS) and
- * runs its own right/left/right/left/right; the two Shorts appended after
- * it (see SHORT_ENTRIES below) restart that same alternation independently,
- * since ShortEntry lays out flip the opposite way FeatureEntry does.
+ * missing `flip` renders right. This ENTRIES array is now the Feature run
+ * only: five entries (Static, Multiverse Quad, Visual Audiobooks, AI
+ * Creator Lab, MythOS) running right/left/right/left/right. The two
+ * demoted entries live in CREDIT_ENTRIES below and are rendered as one
+ * credits screen, where `flip` is not read at all.
  */
 const ENTRIES: LabEntry[] = [
   {
@@ -272,19 +275,26 @@ const ENTRIES: LabEntry[] = [
 ];
 
 /**
- * Demoted from Feature to Short on Jeanine's call: her "strong four" for
- * Ghost Mode Labs are Static, Multiverse Quad, AI Creator Lab, and MythOS,
- * each argued as proof of a different capability (originates IP and builds
- * the tool to find it; a frontier AI company's own validation; can bring AI
- * into a real organization and make it stick; speaks a studio's language
- * directly). Visual Audiobooks holds its position by the same call, ahead
- * of its own launch. Narrative Space and Unstill are real, working
- * prototypes, just not part of that top tier, so they run here at Short
- * scale rather than being cut: same Concept/Build/Status content kept
- * in full (a promotion back to Feature is a one-word tier change), just
- * not rendered by ShortEntry, which only reads tagline/description/video.
+ * Back of book. Demoted from Feature on Jeanine's call: her "strong four"
+ * for Ghost Mode Labs are Static, Multiverse Quad, AI Creator Lab, and
+ * MythOS, each argued as proof of a different capability (originates IP and
+ * builds the tool to find it; a frontier AI company's own validation; can
+ * bring AI into a real organization and make it stick; speaks a studio's
+ * language directly). Visual Audiobooks holds its position by the same
+ * call, ahead of its own launch. Narrative Space and Unstill are real,
+ * working prototypes, just not part of that top tier.
+ *
+ * Rendered by LabCredits as one screen, not by ShortEntry as two mini
+ * features. The Short tier was still costing 0.79 and 0.85 viewport-heights
+ * for the run that exists to be quick, and it was a third back-of-book
+ * pattern on a site that had just settled on one in Productions.
+ *
+ * Their full Concept/Build/Status content stays in the data even though the
+ * credits rows do not render it, so promoting either back to a Feature
+ * remains a one-word tier change rather than a rewrite. Same reversibility
+ * as ARCHIVED_ENTRIES below.
  */
-const SHORT_ENTRIES: LabEntry[] = [
+const CREDIT_ENTRIES: LabEntry[] = [
   {
     id: 'narrative-space',
     client: 'Ghost Mode Labs',
@@ -347,7 +357,12 @@ const SHORT_ENTRIES: LabEntry[] = [
   },
 ];
 
-ENTRIES.push(...SHORT_ENTRIES);
+/*
+ * No longer appended to ENTRIES. ENTRIES is now the Feature run only, and
+ * CREDIT_ENTRIES is rendered separately by LabCredits, which is what lets
+ * the chapter count six progress units (five Features plus one credits
+ * screen) instead of claiming seven stops when two share a screen.
+ */
 
 /**
  * Cut from the chapter on Jeanine's call: nine entries read as too much
@@ -557,7 +572,16 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         would trade the chapter's identity for the wrong saving.
       */}
       <div className="mt-10 md:mt-10 grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-10">
-        <div className={data.flip ? 'md:col-span-5 md:col-start-8' : 'md:col-span-5 md:col-start-1'}>
+        {/* Whichever of these two columns lands at col-start-8 is the one at
+            the container's right edge, so the rail clearance follows `flip`
+            rather than being pinned to one column's role. */}
+        <div
+          className={
+            data.flip
+              ? 'md:col-span-5 md:col-start-8 lg:pr-44'
+              : 'md:col-span-5 md:col-start-1'
+          }
+        >
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-4">
             <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: LAB.accent }}>
               {data.tagline}
@@ -591,9 +615,14 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
             without it grid's sparse packing drops it to row 2 on the
             non-flipped entries and nothing is saved. On mobile it stacks
             underneath, in DOM order, unchanged. */}
+        {/* lg:pr-44 only when this column sits at the right edge, reserving
+            the rail's footprint at 1024 and up where the rail exists. Same
+            clearance the Productions spreads and credits screen carry. */}
         <div
           className={`md:row-start-1 ${
-            data.flip ? 'md:col-span-5 md:col-start-1' : 'md:col-span-5 md:col-start-8'
+            data.flip
+              ? 'md:col-span-5 md:col-start-1'
+              : 'md:col-span-5 md:col-start-8 lg:pr-44'
           }`}
         >
           {data.expandables && data.expandables.length > 0 && (
@@ -765,23 +794,103 @@ const Entry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
 
 /**
  * Every Labs entry by name and anchor, in chapter order, for the Cover's
- * index. Derived from ENTRIES rather than hand-listed, so it cannot fall out
- * of sync with what the chapter renders or silently drop a new entry.
+ * index. Spans both tiers so it cannot silently drop the compressed ones.
  */
-export const LABS_INDEX = ENTRIES.map((e, i) => ({
+export const LABS_INDEX = [...ENTRIES, ...CREDIT_ENTRIES].map((e, i) => ({
   anchor: `lab-${e.id}`,
   name: e.title,
   index: `L-0${i + 1}`,
 }));
 
-/** Quiet divider introducing the compact run at the chapter's end (5.2). */
-const ShortsDivider: React.FC = () => (
-  <div className="pb-16 md:pb-24 flex items-baseline gap-6">
-    <span className="chapter-label" style={{ color: LAB.inkSoft }}>
-      Shorts
-    </span>
-    <span aria-hidden="true" className="flex-1" style={{ borderTop: `1px solid ${LAB.border}` }} />
-  </div>
+/**
+ * The chapter's back of book: Narrative Space and Unstill on one screen
+ * instead of two mini-features.
+ *
+ * Matches ProductionCredits in role, so the site has one back-of-book idea
+ * rather than three layout patterns. Measured cost of the old form was 0.79
+ * and 0.85 viewport-heights for two entries whose whole purpose was to be
+ * the quick tier.
+ *
+ * Typographic, with no thumbnails, and that is a considered divergence from
+ * Productions rather than an omission. Neither entry has a poster still, so
+ * a thumbnail would mean downloading an entire video to show one frame of
+ * it, in the one tier whose job is to be light. On the ink-black ground the
+ * ember index numbers, hairlines and display titles already read as a
+ * designed credits list, where paper genuinely needed the images to anchor
+ * it. Descriptions are kept in full: nothing is lost here except the frames
+ * and the space around them.
+ */
+const LabCredits: React.FC<{ position: number; total: number }> = ({ position, total }) => (
+  <article
+    id="lab-credits"
+    tabIndex={-1}
+    data-progress-chapter="labs"
+    data-progress-index={position}
+    data-progress-total={total}
+    className="pb-20 md:pb-28"
+  >
+    <Reveal>
+      <div className="flex items-baseline gap-6">
+        <h3 className="chapter-label" style={{ color: LAB.inkSoft }}>
+          Also in the lab
+        </h3>
+        <span
+          aria-hidden="true"
+          className="flex-1"
+          style={{ borderTop: `1px solid ${LAB.border}` }}
+        />
+      </div>
+
+      <ul className="mt-10 md:mt-14">
+        {CREDIT_ENTRIES.map((entry, i) => (
+          <li
+            key={entry.id}
+            id={`lab-${entry.id}`}
+            tabIndex={-1}
+            className="py-8 md:py-10"
+            style={{ borderBottom: `1px solid ${LAB.border}` }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-y-5 md:gap-x-10">
+              <div className="md:col-span-5 md:col-start-1 flex items-baseline gap-5">
+                <span
+                  className="chapter-label tabular-nums shrink-0"
+                  style={{ color: LAB.accent }}
+                >
+                  {`L-0${ENTRIES.length + i + 1}`}
+                </span>
+                <div className="min-w-0">
+                  <h4
+                    className="text-[1.6rem] md:text-[2rem] leading-tight"
+                    style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
+                  >
+                    {entry.title}
+                  </h4>
+                  <p
+                    className="mt-2 text-[0.8rem] tracking-[0.14em] uppercase"
+                    style={{ color: LAB.accent }}
+                  >
+                    {entry.tagline}
+                  </p>
+                </div>
+              </div>
+
+              <div className="md:col-span-6 md:col-start-7 lg:pr-44">
+                {entry.description && (
+                  <p
+                    className="text-[1rem] leading-relaxed"
+                    style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '44ch' }}
+                  >
+                    {entry.description}
+                  </p>
+                )}
+                {entry.hasProjectPage !== false && <OpenProjectLink id={entry.id} />}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Reveal>
+  </article>
 );
 
 /**
@@ -790,8 +899,6 @@ const ShortsDivider: React.FC = () => (
  * whatever comes before and after.
  */
 export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => {
-  const firstShortIndex = ENTRIES.findIndex((e) => e.tier === 'short');
-
   return (
     <>
       <style>{`
@@ -838,12 +945,14 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
           </p>
         </div>
 
+        {/* Progress counts the credits screen as the chapter's final unit,
+            matching how ProductionCredits is counted, so the rail reads
+            "3/6" rather than claiming seven stops when two of them share a
+            screen. */}
         {ENTRIES.map((e, i) => (
-          <React.Fragment key={e.id}>
-            {i === firstShortIndex && <ShortsDivider />}
-            <Entry data={e} position={i + 1} total={ENTRIES.length} />
-          </React.Fragment>
+          <Entry key={e.id} data={e} position={i + 1} total={ENTRIES.length + 1} />
         ))}
+        <LabCredits position={ENTRIES.length + 1} total={ENTRIES.length + 1} />
 
         {/* Chapter coda: a real link into the About colophon when the
             composing page has one to point at (5.5). */}

@@ -592,7 +592,7 @@ const Spread: React.FC<{
           )}
         </div>
 
-        {/* text column. lg:pr-36 only when flip (text seated at col-start-9,
+        {/* text column. lg:pr-44 only when flip (text seated at col-start-9,
             flush with the container's right edge): the fixed ChapterRail
             sits at right-6 with a ~168px label footprint, which measured
             112px into that column at every width from lg up (both edges are
@@ -601,7 +601,7 @@ const Spread: React.FC<{
             is nowhere near the rail and is left untouched. */}
         <div
           className={`lg:row-start-1 lg:col-span-4 lg:pt-16 ${
-            flip ? 'lg:col-start-9 lg:pr-36' : 'lg:col-start-1'
+            flip ? 'lg:col-start-9 lg:pr-44' : 'lg:col-start-1'
           }`}
         >
           <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
@@ -882,14 +882,14 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
     gutterClassName="px-6 md:px-20"
     paddingClassName="pt-16 md:pt-24 pb-20 md:pb-28"
   >
-    {/* lg:pr-36 reserves the fixed ChapterRail's ~168px footprint, the same
+    {/* lg:pr-44 reserves the fixed ChapterRail's ~168px footprint, the same
         clearance the flipped spreads carry and for the same reason. This
         screen needed it worse than they did: the stat column is deliberately
         right-aligned to the container edge, which is exactly where the rail
         floats, and it landed directly on Born This Way's Emmy line. Applied
         to the whole block, not just the stats, so the header rule, the row
         rules and the stat column all keep one shared right edge. */}
-    <div className="lg:pr-36">
+    <div className="lg:pr-44">
     <div className="flex items-baseline gap-6">
       <h3 className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
         Also produced

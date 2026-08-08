@@ -213,8 +213,23 @@ export const ChapterRail: React.FC<{
         mix-blend-mode blends against its own backdrop rather than its
         children's.
       */}
+      {/*
+        lg, not md. The vertical rail used to appear from 768px, where no
+        chapter has the horizontal room for a fixed right-edge label beside
+        its content: measured at 768, every section on the site put text
+        under it, by 113px on the Productions spreads and their credits
+        screen and 97px in both Labs tiers. That was not one layout's bug
+        but the rail appearing at a width it does not fit, so it is fixed
+        here once rather than by padding six layouts, which at 768 would
+        have spent 144px of a 576px measure.
+
+        The compact chip below now covers 768-1023 instead, which is the
+        right control at that width anyway. The lg:pr-36 clearances in
+        Productions and Labs remain necessary and correct for 1024 and up,
+        where the rail does appear.
+      */}
       <nav
-        className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
+        className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
         style={{ opacity: suppressed ? 0 : 1, pointerEvents: suppressed ? 'none' : 'auto' }}
         aria-hidden={suppressed || undefined}
         aria-label="Chapter navigation"
@@ -252,7 +267,7 @@ export const ChapterRail: React.FC<{
           element mobile had was non-functional for its actual job. */}
       {active && (
         <div
-          className="md:hidden fixed top-3 right-3 z-40 flex flex-col items-end gap-2 chapter-rail-invert"
+          className="lg:hidden fixed top-3 right-3 z-40 flex flex-col items-end gap-2 chapter-rail-invert"
         >
           <button
             type="button"
