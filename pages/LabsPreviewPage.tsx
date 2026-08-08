@@ -55,6 +55,21 @@ interface LabEntry {
   id: string; // links to the existing /project/:id detail page
   client: string;
   /**
+   * Given directly by Jeanine, not inferred: Multiverse Quad and AI Creator
+   * Lab, both built alongside Wondery/Amazon, are 2025; every self-initiated
+   * entry (Static, Visual Audiobooks, MythOS, Narrative Space, Unstill) is
+   * 2026. Worth reading against the client field rather than past it: the
+   * self-initiated work being the *more recent* year is what tells an
+   * employer this is ongoing output, not two old company projects and
+   * everything else undated filler.
+   *
+   * Optional, not required: ARCHIVED_ENTRIES (Tender, In-World Social
+   * Campaign) predate this field and no year for them has been given, so
+   * leaving it required would have meant fabricating one, which 8.3 rules
+   * out. Every entry actually in ENTRIES or CREDIT_ENTRIES sets it.
+   */
+  year?: string;
+  /**
    * Plain string, not ReactNode: the Cover's index renders these as text
    * links, and every Labs title happens to need no typographic binding
    * (unlike the Productions spreads, several of which are JSX).
@@ -117,6 +132,7 @@ const ENTRIES: LabEntry[] = [
   {
     id: 'static',
     client: 'Ghost Mode Labs',
+    year: '2026',
     title: 'Static',
     tagline: 'Scripted series built from online folklore',
     tier: 'feature',
@@ -145,6 +161,7 @@ const ENTRIES: LabEntry[] = [
   {
     id: 'multiverse-quad',
     client: 'Amazon AGI',
+    year: '2025',
     title: 'Multiverse Quad',
     tagline: 'One story, four formats',
     tier: 'feature',
@@ -174,6 +191,7 @@ const ENTRIES: LabEntry[] = [
   {
     id: 'visual-audiobooks',
     client: 'Ghost Mode Labs',
+    year: '2026',
     title: 'Visual Audiobooks',
     tagline: 'Original kids’ stories that draw themselves differently every time a child returns',
     tier: 'feature',
@@ -203,6 +221,7 @@ const ENTRIES: LabEntry[] = [
   {
     id: 'ai-creator-lab',
     client: 'Wondery',
+    year: '2025',
     title: 'AI Creator Lab',
     tagline: 'Creative workflow lab',
     tier: 'feature',
@@ -263,6 +282,7 @@ const CREDIT_ENTRIES: LabEntry[] = [
   {
     id: 'mythos',
     client: 'Ghost Mode Labs',
+    year: '2026',
     title: 'MythOS',
     tagline: 'Franchise intelligence',
     tier: 'feature',
@@ -299,6 +319,7 @@ const CREDIT_ENTRIES: LabEntry[] = [
   {
     id: 'narrative-space',
     client: 'Ghost Mode Labs',
+    year: '2026',
     title: 'Narrative Space',
     tagline: 'Interactive world building',
     tier: 'short',
@@ -328,6 +349,7 @@ const CREDIT_ENTRIES: LabEntry[] = [
   {
     id: 'unstill',
     client: 'Ghost Mode Labs',
+    year: '2026',
     title: 'Unstill',
     tagline: 'Regenerative lives',
     tier: 'short',
@@ -423,6 +445,11 @@ export const ARCHIVED_ENTRIES: LabEntry[] = [
  * putting its title near 68% with room left to animate on screen. Kept
  * numerically identical to the shared hook so both chapters move alike.
  */
+/** "Client · Year", or plain client when year is absent (the two archived
+ *  entries). One place composing this so the Feature eyebrow and the
+ *  credits row's byline can't drift out of the same format. */
+const clientLine = (e: LabEntry): string => (e.year ? `${e.client} · ${e.year}` : e.client);
+
 const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -560,7 +587,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
     {/* Beat 1: eyebrow + title together, since the choreography is three
         beats (title, frame, text), not four. */}
     <div style={beat(0, 10)}>
-      <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={clientLine(data)} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-8 md:mt-12"
@@ -902,13 +929,43 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
             style={{ borderBottom: `1px solid ${LAB.border}` }}
           >
             <div className="grid grid-cols-1 md:grid-cols-12 gap-y-5 md:gap-x-10">
-              <div className="md:col-span-5 md:col-start-1 flex items-baseline gap-5">
+              <div className="md:col-span-5 md:col-start-1 flex items-start gap-5">
                 <span
-                  className="chapter-label tabular-nums shrink-0"
+                  className="chapter-label tabular-nums shrink-0 pt-1"
                   style={{ color: LAB.accent }}
                 >
                   {`L-0${ENTRIES.length + i + 1}`}
                 </span>
+
+                {/* Video, not a still, unlike ProductionCredits' thumbnails.
+                    That screen crops a poster image; nothing here has one,
+                    every entry's own asset is already a muted looping clip,
+                    and this chapter's whole identity is video-led frames, so
+                    a small cover playing is the native form, not a
+                    substitute for a missing one. Square via `compact` so
+                    Static's landscape source and Multiverse Quad's own
+                    ratio still read as one even row of covers.
+
+                    hidden lg:block, not sm: unlike ProductionCredits' row,
+                    which is one unconstrained flex-1 group so a thumbnail
+                    there only ever competes with the index number, this
+                    title/byline block is pinned to a fixed 5-of-12 grid
+                    column. Measured at 768: that column is 217px total, and
+                    index (30) + gap (20) + this video at md:w-28 (112) + gap
+                    (20) left 32px for the title, tagline and byline
+                    combined, which rendered "Ghost Mode Labs · 2026" as one
+                    word per line. lg is where the same column has enough
+                    room for both. */}
+                <LazyVideo
+                  src={entry.video.src}
+                  poster={entry.video.poster}
+                  alt={entry.video.alt}
+                  aspectRatio="1 / 1"
+                  compact
+                  className="hidden lg:block w-28 shrink-0"
+                  fallbackTitle={entry.title}
+                />
+
                 <div className="min-w-0">
                   <h4
                     className="text-[1.6rem] md:text-[2rem] leading-tight"
@@ -921,6 +978,19 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
                     style={{ color: LAB.accent }}
                   >
                     {entry.tagline}
+                  </p>
+                  {/* Client and year, matching ProductionCredits' own
+                      byline under its title. This row had no date anywhere
+                      before, on a chapter where the self-initiated work
+                      (this row, all 2026) is the same age or newer than the
+                      client-backed Features above it (2025): the ongoing,
+                      unassigned output is the more recent half, not the
+                      older one, which is worth a date to actually show. */}
+                  <p
+                    className="mt-1 text-[0.8rem] italic"
+                    style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
+                  >
+                    {clientLine(entry)}
                   </p>
                 </div>
               </div>

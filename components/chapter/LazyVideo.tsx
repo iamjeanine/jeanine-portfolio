@@ -33,6 +33,17 @@ export const LazyVideo: React.FC<{
    * restart on `ended`, so the loop point is the offset, not the clip start.
    */
   startAt?: number;
+  /**
+   * Thumbnail scale, for a credits-row cover rather than a chapter frame.
+   * Two changes from the default: the shadow drops from `0 40px 120px`,
+   * tuned for a frame near the full width of the chapter, to something
+   * proportional (that blur radius is wider than a ~200px thumbnail and
+   * reads as a smudge, not depth); and the aspect ratio locks to whatever
+   * `aspectRatio` was passed rather than snapping to the source's own once
+   * metadata loads, so a row of differently-shaped source clips still reads
+   * as one even grid of covers instead of a different height each.
+   */
+  compact?: boolean;
 }> = ({
   src,
   poster,
@@ -44,6 +55,7 @@ export const LazyVideo: React.FC<{
   aspectRatio,
   rootMargin = '400px',
   startAt,
+  compact = false,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -90,10 +102,15 @@ export const LazyVideo: React.FC<{
       ref={ref}
       className={`relative overflow-hidden ${className}`}
       style={{
-        aspectRatio: naturalRatio ?? '16 / 9',
+        // Compact ignores the detected natural ratio and stays at whatever
+        // aspectRatio was passed in (square, for the two credits screens):
+        // a thumbnail is a cropped cover, not a frame, so snapping to the
+        // source's real shape once metadata loads would make each row a
+        // different height instead of one even grid of covers.
+        aspectRatio: (compact ? aspectRatio : naturalRatio) ?? '16 / 9',
         background: fallbackBackground,
         border: '1px solid rgba(242,237,226,0.14)',
-        boxShadow: '0 40px 120px rgba(0,0,0,0.6)',
+        boxShadow: compact ? '0 8px 24px rgba(0,0,0,0.5)' : '0 40px 120px rgba(0,0,0,0.6)',
       }}
     >
       {near && !errored && (
@@ -110,7 +127,7 @@ export const LazyVideo: React.FC<{
           className="w-full h-full object-cover"
           onLoadedMetadata={(e) => {
             const v = e.currentTarget;
-            if (v.videoWidth && v.videoHeight) {
+            if (!compact && v.videoWidth && v.videoHeight) {
               setNaturalRatio(`${v.videoWidth} / ${v.videoHeight}`);
             }
             if (startAt !== undefined) {
