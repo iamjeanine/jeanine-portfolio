@@ -4,13 +4,12 @@ import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradien
 import {
   ProductionsChapter,
   PRODUCTIONS_LAST_COLOR,
-  PRODUCTIONS_INDEX,
   SCAMFLUENCERS_FIELD,
   SCAMFLUENCERS_INK,
   SCAMFLUENCERS_INK_SOFT,
   SCAMFLUENCERS_ACCENT,
 } from './ProductionsPreviewPage';
-import { LabsChapter, LAB, LABS_INDEX } from './LabsPreviewPage';
+import { LabsChapter, LAB } from './LabsPreviewPage';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -161,89 +160,29 @@ const COVER_CREDENTIAL_ACCENT = '#E9B94C';
  * Carries the page's one h1. Replaces both the old video hero and the
  * separate Contents section that used to sit below it.
  *
- * The index below lists every work by name, not just the three chapters
- * (Impeccable recruiter-persona critique, P0). Before this, the only way to
- * reach spread 6 was scrolling past 1 through 5: every jump control on the
- * site targeted a chapter *start*, and the rail's "3/7" reported a position
- * it could not change. Measured, the full read is ~30 viewport-heights, so a
- * hiring manager with 60-90 seconds saw roughly the first third and had no
- * way to know what else existed. A real magazine contents page lists
- * articles, not sections; doing that here converts the publication from a
- * forced linear read into a random-access one without adding a single tile,
- * and leaves the long-form scroll completely intact for anyone who wants it.
- * The email sits with the credential for the same reason: contact used to be
- * the last element on the page, ~30 viewport-heights deep, so any earlier
- * bail lost it entirely. Mastheads print contact information.
+ * Contents lists the three chapters only, deliberately. A full 16-work
+ * index lived here briefly (recruiter critique, P0) and Jeanine cut it: a
+ * cover teases, a contents page lists, and the flat list under the name
+ * read as a different document stapled onto the cover. The inventory job
+ * moves into the chapters themselves via the front-of-book/back-of-book
+ * restructure (a compact credits screen in Productions, a compact tier in
+ * Labs); the per-work anchors and the PRODUCTIONS_INDEX/LABS_INDEX exports
+ * stay wired so a proper contents beat can return without rebuilding.
+ * The email stays with the credential: contact used to be the last element
+ * on the page, ~30 viewport-heights deep, so any earlier bail lost it.
+ * Mastheads print contact information.
  */
-const CoverIndexGroup: React.FC<{
-  chapterId: string;
-  chapterIndex: string;
-  chapterLabel: string;
-  works: { anchor: string; name: string }[];
-  onSelectChapter: (id: string) => void;
-  onSelectWork: (anchor: string) => void;
-}> = ({ chapterId, chapterIndex, chapterLabel, works, onSelectChapter, onSelectWork }) => (
-  <div>
-    <button
-      type="button"
-      onClick={() => onSelectChapter(chapterId)}
-      // The fixed ChapterRail's own inactive/focus colors (--terra, --ember)
-      // both measure under 3:1 against this field (1.24-1.62 and 2.96-3.87
-      // across its three stops), so neither existing rail focus-ring class
-      // is safe here. Scamfluencers' own accent clears 5.57-7.27:1 on the
-      // same stops, so the ring borrows it rather than reusing an outline
-      // color that would be nearly invisible on this specific field.
-      className="chapter-rail-btn group flex items-baseline gap-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-      style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
-    >
-      <span className="chapter-label tabular-nums" style={{ color: SCAMFLUENCERS_ACCENT }}>
-        {chapterIndex}
-      </span>
-      <span
-        className="text-[1.15rem] md:text-[1.3rem] transition-opacity duration-300 group-hover:opacity-70"
-        style={{ fontFamily: "'Bodoni Moda', serif", color: SCAMFLUENCERS_INK }}
-      >
-        {chapterLabel}
-      </span>
-    </button>
-
-    {works.length > 0 && (
-      <ul className="mt-3 flex flex-col gap-1">
-        {works.map((w) => (
-          <li key={w.anchor}>
-            <button
-              type="button"
-              onClick={() => onSelectWork(w.anchor)}
-              className="chapter-rail-btn text-left text-[0.9rem] leading-snug transition-opacity duration-300 hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              style={{
-                fontFamily: "'Source Serif 4', Georgia, serif",
-                color: SCAMFLUENCERS_INK_SOFT,
-                outlineColor: SCAMFLUENCERS_ACCENT,
-              }}
-            >
-              {w.name}
-            </button>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
-);
-
-const Cover: React.FC<{
-  onSelectChapter: (id: string) => void;
-  onSelectWork: (anchor: string) => void;
-}> = ({ onSelectChapter, onSelectWork }) => (
+const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectChapter }) => (
   <section
     id="cover"
-    // Natural flow, not justify-between: with the full index now here the
-    // cover has real content to distribute, and the old space-between
-    // behavior (which existed only to push two short blocks apart) would
-    // stretch gaps around it. min-h-screen keeps the masthead reading as a
-    // cover on tall viewports; the section grows past one screen on narrow
-    // ones, where the index stacks, which is the correct magazine
-    // behavior rather than something to fight.
-    className="relative min-h-screen flex flex-col px-6 md:px-20 pt-16 md:pt-20 pb-14 md:pb-16"
+    // justify-start below lg, not justify-between: on a min-h-screen flex
+    // column with two short blocks, justify-between distributes ALL
+    // leftover vertical space into the gap between them, measured at
+    // roughly a third of a 375px viewport, worse still at 768x1024
+    // portrait. justify-start plus the fixed mt-20 below replaces that
+    // with a chosen amount at every width under 1024px; true desktop
+    // (>=1024px) keeps the original space-between.
+    className="relative min-h-screen flex flex-col justify-start lg:justify-between px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
     style={{ background: SCAMFLUENCERS_FIELD }}
   >
     <div
@@ -258,12 +197,9 @@ const Cover: React.FC<{
       </p>
       <h1
         className="mt-8 md:mt-10"
-        // A step down from --display-xl (which is 180px at 1440 and left the
-        // middle of the cover empty): the index now occupies that space, and
-        // the name still reads as the largest thing on the screen.
         style={{
           fontFamily: "'Bodoni Moda', serif",
-          fontSize: 'clamp(2.9rem, 9vw, 8.5rem)',
+          fontSize: 'var(--display-xl)',
           lineHeight: 0.88,
           letterSpacing: '-0.02em',
           color: SCAMFLUENCERS_INK,
@@ -273,65 +209,74 @@ const Cover: React.FC<{
         <br />
         Cornillot
       </h1>
-
-      <p
-        className="mt-7 md:mt-8 text-[1.2rem] md:text-[1.45rem] font-bold leading-snug"
-        style={{ fontFamily: "'Uncut Sans', sans-serif", color: COVER_CREDENTIAL_ACCENT }}
-      >
-        Emmy and Ambie Award-winning showrunner.
-      </p>
-      <p
-        className="mt-3 text-[1rem] md:text-[1.1rem] leading-relaxed"
-        style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
-      >
-        Podcasts, television, and Ghost&nbsp;Mode&nbsp;Labs.
-      </p>
-      <a
-        href="mailto:iamjeanine@me.com"
-        className="chapter-label mt-5 inline-block transition-opacity duration-300 hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-        style={{ color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
-      >
-        iamjeanine@me.com
-      </a>
     </div>
 
-    <nav
-      aria-label="Contents"
-      // Three groups: side by side from md, stacked below it. mt-auto pins
-      // the index to the bottom of the viewport on tall screens (so the
-      // masthead above still reads as a cover) while letting it sit
-      // immediately after the masthead when the content is taller than the
-      // screen, instead of a stretched gap either way.
-      className="relative mt-14 md:mt-auto md:pt-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8"
-    >
-      <CoverIndexGroup
-        chapterId="productions"
-        chapterIndex="01"
-        chapterLabel="Productions"
-        works={PRODUCTIONS_INDEX}
-        onSelectChapter={onSelectChapter}
-        onSelectWork={onSelectWork}
-      />
-      <CoverIndexGroup
-        chapterId="labs"
-        chapterIndex="02"
-        chapterLabel="Ghost Mode Labs"
-        works={LABS_INDEX}
-        onSelectChapter={onSelectChapter}
-        onSelectWork={onSelectWork}
-      />
-      {/* About has no sub-works to list, so it's the chapter link alone.
-          Kept in the same grid rather than moved elsewhere so the three
-          chapter numbers still read as one sequence. */}
-      <CoverIndexGroup
-        chapterId="about"
-        chapterIndex="03"
-        chapterLabel="About"
-        works={[]}
-        onSelectChapter={onSelectChapter}
-        onSelectWork={onSelectWork}
-      />
-    </nav>
+    <div className="relative mt-20 lg:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
+      <div style={{ maxWidth: '34ch' }}>
+        <p
+          className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
+          style={{ fontFamily: "'Uncut Sans', sans-serif", color: COVER_CREDENTIAL_ACCENT }}
+        >
+          Emmy and Ambie Award-winning showrunner.
+        </p>
+        <p
+          className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
+        >
+          Podcasts, television, and Ghost&nbsp;Mode&nbsp;Labs.
+        </p>
+        <div className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <a
+            href="mailto:iamjeanine@me.com"
+            className="chapter-label inline-block transition-opacity duration-300 hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
+          >
+            iamjeanine@me.com
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jcornillot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="chapter-label inline-block transition-opacity duration-300 hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <nav aria-label="Contents" className="flex flex-col gap-3 md:items-end">
+        {[
+          { id: 'productions', index: '01', label: 'Productions' },
+          { id: 'labs', index: '02', label: 'Ghost Mode Labs' },
+          { id: 'about', index: '03', label: 'About' },
+        ].map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => onSelectChapter(c.id)}
+            // The fixed ChapterRail's own inactive/focus colors (--terra,
+            // --ember) both measure under 3:1 against this field (1.24-1.62
+            // and 2.96-3.87 across its three stops), so neither existing
+            // rail focus-ring class is safe here. Scamfluencers' own accent
+            // clears 5.57-7.27:1 on the same stops, so the focus ring
+            // borrows it directly.
+            className="chapter-rail-btn group flex items-baseline gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
+          >
+            <span className="chapter-label tabular-nums" style={{ color: SCAMFLUENCERS_ACCENT }}>
+              {c.index}
+            </span>
+            <span
+              className="text-[1.35rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
+              style={{ fontFamily: "'Bodoni Moda', serif", color: SCAMFLUENCERS_INK }}
+            >
+              {c.label}
+            </span>
+          </button>
+        ))}
+      </nav>
+    </div>
   </section>
 );
 
@@ -396,22 +341,6 @@ const SpinePreviewPage: React.FC = () => {
     skipToSection(id);
   };
 
-  /**
-   * A single work, from the Cover's index. Deliberately does NOT push a URL:
-   * the routes are per-chapter (/preview/spine/:chapter), and a work is not a
-   * chapter, so pushing "production-the-last-city" would be an invalid route.
-   * The passive scroll sync updates the chapter in the URL on arrival
-   * anyway, which is the correct outcome. Focus moves as well as scroll (the
-   * targets carry tabIndex={-1}) so a keyboard visitor continues from the
-   * work they jumped to, matching the skip-link behavior.
-   */
-  const goToWork = (anchor: string) => {
-    const el = document.getElementById(anchor);
-    if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    el.focus({ preventScroll: true });
-  };
-
   const goToCover = () => {
     lastSyncedChapter.current = undefined;
     navigate('/preview/spine');
@@ -458,7 +387,7 @@ const SpinePreviewPage: React.FC = () => {
       />
       <MotionToggle hideWhileVisibleId="cover" />
 
-      <Cover onSelectChapter={goToChapter} onSelectWork={goToWork} />
+      <Cover onSelectChapter={goToChapter} />
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>
