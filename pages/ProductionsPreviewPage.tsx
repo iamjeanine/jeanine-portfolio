@@ -28,7 +28,15 @@ interface SpreadMedia {
 }
 
 interface SpreadData {
-  index: string;
+  /*
+   * No stored `index`. The 01-07 labels are derived from position in
+   * CHAPTER_ORDER at render (see displayIndex below), because storing them
+   * meant any promotion between tiers silently desynced the numbering:
+   * moving Born This Way (then '05') into the front of book while Hollywood
+   * & Crime (then '04') stayed compressed would have rendered 01, 02, 03,
+   * 05 in the spreads and 04, 06, 07 in the credits. Same lesson already
+   * learned on the Labs L-0N labels, and the same fix.
+   */
   /**
    * Stable anchor slug, rendered as id="production-<slug>". Exists so the
    * Cover's index can link straight to a single credit: before this, every
@@ -88,7 +96,6 @@ interface SpreadData {
 
 const SPREADS: SpreadData[] = [
   {
-    index: '01',
     slug: 'scamfluencers',
     name: 'Scamfluencers',
     awards: ['2023 Ambie winner', 'Vogue’s Best Podcasts', 'Apple’s Creators We Love'],
@@ -140,7 +147,6 @@ const SPREADS: SpreadData[] = [
     },
   },
   {
-    index: '02',
     slug: 'dying-for-sex',
     name: 'Dying for Sex',
     awards: ['Apple Favorites of the Year', 'Peabody-winning FX series', '9 Primetime Emmy nominations'],
@@ -185,7 +191,6 @@ const SPREADS: SpreadData[] = [
     flip: true,
   },
   {
-    index: '03',
     slug: 'the-last-city',
     name: 'The Last City',
     awards: ['Ambie Best Fiction nominee', 'Audible Original'],
@@ -236,7 +241,6 @@ const SPREADS: SpreadData[] = [
 // show that established her. One flagship-weight spread, not a triptych:
 // the other two TV credits fold into its Impact line instead.
 const BORN_THIS_WAY: SpreadData = {
-  index: '05',
   slug: 'born-this-way',
   name: 'Born This Way',
   eyebrow: 'A&E · 2015–2016',
@@ -275,12 +279,15 @@ const BORN_THIS_WAY: SpreadData = {
     border: 'rgba(33,28,21,0.2)',
     shadow: 'rgba(60,50,30,0.22)',
   },
+  // Required by its promotion to the fourth lead, not cosmetic: The Last
+  // City ahead of it has no flip, so without this the front of book would
+  // run right, left, right, right and lose the alternation.
+  flip: true,
 };
 
 // Full flagship treatment: rich, distinct art (kitchen hero shot + a
 // completely separate restaurant portrait) and a real credential to anchor it.
 const NO_PASSPORT_REQUIRED: SpreadData = {
-  index: '06',
   slug: 'no-passport-required',
   name: 'No Passport Required',
   eyebrow: 'Vox Media · PBS · 2018–2019',
@@ -331,7 +338,6 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
 // Her value here is cultural reach, not an award, so the spread doesn't
 // pretend otherwise: it just gives that reach a real, quiet page.
 const LIFE_OF_KYLIE: SpreadData = {
-  index: '07',
   slug: 'life-of-kylie',
   name: 'Life of Kylie',
   eyebrow: 'E! · Bunim/Murray · 2017–2018',
@@ -367,11 +373,14 @@ const LIFE_OF_KYLIE: SpreadData = {
   },
 };
 
-const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal: number }> = ({
-  data,
-  progressIndex,
-  progressTotal,
-}) => {
+const Spread: React.FC<{
+  data: SpreadData;
+  /** Visible 01-07 label. Passed in rather than read off `data`, because it
+   *  is derived from chapter position; see displayIndex. */
+  label: string;
+  progressIndex: number;
+  progressTotal: number;
+}> = ({ data, label, progressIndex, progressTotal }) => {
   const { palette: p, flip } = data;
 
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -411,7 +420,7 @@ const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal:
       gutterClassName="px-6 md:px-20"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
     >
-      <Eyebrow label={data.eyebrow} index={data.index} labelColor={p.inkSoft} indexColor={p.accent} />
+      <Eyebrow label={data.eyebrow} index={label} labelColor={p.inkSoft} indexColor={p.accent} />
 
       {/* oversized title, overlapping the media cluster */}
       <h3
@@ -617,7 +626,6 @@ const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal:
 // started to read as inconsistent rather than intentional. Keeps its
 // animated main image as a quiet point of distinction from the rest.
 const HOLLYWOOD_CRIME: SpreadData = {
-  index: '04',
   slug: 'hollywood-and-crime',
   name: 'Hollywood & Crime',
   eyebrow: 'Wondery · Amazon · 2019–2024',
@@ -673,7 +681,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
 };
 
 /**
- * Front of book: the three credits that get a full spread.
+ * Front of book: the credits that get a full spread.
  *
  * Seven uniform spreads was the chapter's real pacing problem. An outside
  * review put the drag precisely: spreads one through three held, and "by
@@ -682,38 +690,60 @@ const HOLLYWOOD_CRIME: SpreadData = {
  * paced." Jeanine's call was a few leading spreads with the rest
  * compressed.
  *
- * These three pick themselves from the data rather than from taste. They
- * are the only credits carrying both a stat and an awards strip, they are
- * the most recent (2019-2025 against 2015-2019 for the television work),
- * and two of the three are Creator & Showrunner, the highest-authorship
- * role on the page. They are also the three podcasts Jeanine wants listen
- * links on, so the front of book and the linkable work are the same set.
+ * The first three pick themselves from the data rather than from taste:
+ * the only credits carrying both a stat and an awards strip, the most
+ * recent, and two of three at Creator & Showrunner, the
+ * highest-authorship role on the page. They are also the three podcasts
+ * getting listen links, so the front of book and the linkable work
+ * coincide.
+ *
+ * Born This Way is promoted on a different argument, credential symmetry.
+ * The Cover claims "Emmy and Ambie Award-winning": the Ambie half is
+ * evidenced by two flagship spreads above, while the Emmy half traces
+ * only to this credit, whose 3 wins and 16 Primetime Emmy nominations is
+ * also the largest award figure anywhere on the site. Leaving it as one
+ * line in a list put the weaker evidence under the more prominent claim.
+ * It runs last so the front of book closes on that figure, and it is
+ * deliberately the one lead that is television and the one at Supervising
+ * Producer rather than Creator: mixing formats is what makes "showrunner"
+ * read as range rather than a single lane.
  */
-const LEAD_SPREADS: SpreadData[] = [SPREADS[0], SPREADS[1], SPREADS[2]];
+const LEAD_SPREADS: SpreadData[] = [SPREADS[0], SPREADS[1], SPREADS[2], BORN_THIS_WAY];
 
 /**
  * Back of book: compressed to one screen by ProductionCredits below.
  *
- * Hollywood & Crime is a podcast like the three above but carries neither
- * a stat nor an awards strip, so it compresses on the same evidence the
- * leads were chosen on. The other three are television, older, and the
- * work Jeanine already said she did not want to link.
+ * Hollywood & Crime is a podcast like the leads but carries neither a stat
+ * nor an awards strip, so it compresses on the same evidence they were
+ * chosen on. The other two are the older television work Jeanine said she
+ * did not want to link.
  *
- * Each row keeps its key art and its stat, which is load-bearing and not
- * decorative: Born This Way's "3 wins, 16 Primetime Emmy nominations" is
- * where the Cover's own "Emmy and Ambie Award-winning" credential is
- * evidenced, so compressing it must not mean burying it.
+ * Each row still keeps its key art and its stat: No Passport Required's
+ * James Beard is the same kind of load-bearing credential Born This Way's
+ * Emmy line was, and compression is meant to change the pace, not to
+ * demote what a credit is known for.
  */
 const CREDIT_SPREADS: SpreadData[] = [
   HOLLYWOOD_CRIME,
-  BORN_THIS_WAY,
   NO_PASSPORT_REQUIRED,
   LIFE_OF_KYLIE,
 ];
 
-// Full chapter order, both tiers. Bridge endpoints and PRODUCTIONS_INDEX are
-// derived from this, so they can never desync from the palettes above.
+// Full chapter order, both tiers. Bridge endpoints, PRODUCTIONS_INDEX and
+// the displayed 01-07 labels are all derived from this, so they cannot
+// desync from the palettes above or from each other.
 const CHAPTER_ORDER: SpreadData[] = [...LEAD_SPREADS, ...CREDIT_SPREADS];
+
+/**
+ * The visible 01-07 label, from position in the full chapter order.
+ *
+ * Derived rather than stored so promoting a credit between tiers cannot
+ * leave the numbering out of sequence, which is exactly what storing it
+ * would have done the moment Born This Way moved into the front of book
+ * while Hollywood & Crime stayed compressed.
+ */
+const displayIndex = (s: SpreadData): string =>
+  String(CHAPTER_ORDER.indexOf(s) + 1).padStart(2, '0');
 
 // The chapter's own opening and closing colors, for whatever composes it
 // (the standalone page bridges to/from cream; the Spine bridges to/from
@@ -742,7 +772,7 @@ export const PRODUCTIONS_LAST_COLOR = 'var(--bg-site)';
 export const PRODUCTIONS_INDEX = CHAPTER_ORDER.map((s) => ({
   anchor: `production-${s.slug}`,
   name: s.name,
-  index: s.index,
+  index: displayIndex(s),
 }));
 
 export const SCAMFLUENCERS_FIELD = CHAPTER_ORDER[0].palette.field;
@@ -818,7 +848,7 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
               className="chapter-label tabular-nums pt-1 shrink-0"
               style={{ color: 'var(--terra-text)' }}
             >
-              {credit.index}
+              {displayIndex(credit)}
             </span>
 
             {/* Square, not the 3:2 this started as. The four sources measure
@@ -955,8 +985,13 @@ export const ProductionsChapter: React.FC = () => (
         the rail reads "2/4" rather than claiming seven stops when four of
         them now share one screen. */}
     {LEAD_SPREADS.map((spread, i) => (
-      <React.Fragment key={spread.index}>
-        <Spread data={spread} progressIndex={i + 1} progressTotal={LEAD_SPREADS.length + 1} />
+      <React.Fragment key={spread.slug}>
+        <Spread
+          data={spread}
+          label={displayIndex(spread)}
+          progressIndex={i + 1}
+          progressTotal={LEAD_SPREADS.length + 1}
+        />
         <ColorBridge
           from={gradientEnd(spread.palette.field)}
           // The last lead bridges into the credits screen's paper rather
