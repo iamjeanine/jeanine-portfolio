@@ -26,12 +26,23 @@ import { GRAIN_URI } from './constants';
  * Reduced motion: the midpoint parks at 0.5, which renders a clean
  * symmetric gradient rather than the muddy frozen mid-mix the flat-colour
  * version produced.
+ *
+ * Heights were cut roughly 40% (default was 16vh/24vh) after an outside
+ * review measured all eleven bridges at 2.96 viewport-heights combined,
+ * 11.2% of the whole page, carrying no words and no image: "a magazine
+ * turns the page with a cut; this one dissolves like a 2004 slideshow."
+ * Two findings there, and shortening serves both. The dead space was
+ * padding the scroll with nothing to look at, and the long dissolves were
+ * diluting the per-spread colour blocking that is the chapter's strongest
+ * asset. The wash itself stays: it is still the mechanism that keeps every
+ * seam exact, and hard-cutting would reintroduce the flat-band seams the
+ * Phase 5 critique caught. This is a shorter turn, not a cut.
  */
 export const ColorBridge: React.FC<{
   from: string;
   to: string;
   heightClassName?: string;
-}> = ({ from, to, heightClassName = 'h-[16vh] md:h-[24vh]' }) => {
+}> = ({ from, to, heightClassName = 'h-[10vh] md:h-[14vh]' }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

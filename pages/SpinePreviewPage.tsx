@@ -418,21 +418,28 @@ const SpinePreviewPage: React.FC = () => {
           editorial narration ("Ghost Mode Labs follows..."); Jeanine asked
           for that removed as an unnecessary stage direction, so this is
           now purely the pacing device it was already doing double duty as.
+
+          Halved from py-16/py-20 in the same pass that shortened the
+          bridges. It stacks directly between two of them, so the three
+          together read as one continuous empty stretch: that combination,
+          not the bridge alone, is what an outside review saw as "an entire
+          viewport of literally empty fog" at this seam. Its job only needs
+          enough cream to register as a light stop, which it still does.
         */}
-        <div className="px-6 md:px-20 py-16 md:py-20" style={{ backgroundColor: 'var(--bg-site)' }} />
+        <div className="px-6 md:px-20 py-8 md:py-10" style={{ backgroundColor: 'var(--bg-site)' }} />
       </div>
 
       {/* The biggest lightness swing in the spine: paper diving into the
           Labs ground. Kept outside both chapter ids since it belongs to
           neither. */}
-      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[32vh] md:h-[40vh]" />
+      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[20vh] md:h-[24vh]" />
 
       {/* Chapter 02: Ghost Mode Labs */}
       <div id="labs" tabIndex={-1}>
         <LabsChapter onAbout={() => scrollToSection('about')} />
       </div>
 
-      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[32vh] md:h-[40vh]" />
+      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[20vh] md:h-[24vh]" />
 
       {/* Colophon: About (REDESIGN-PLAN.md section 7). Editorial
           masthead form: bio narrative and structured lists side by side,

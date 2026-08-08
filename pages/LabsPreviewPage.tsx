@@ -838,11 +838,11 @@ const LabsPreviewPage: React.FC = () => {
         </div>
       </header>
 
-      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[18vh] md:h-[26vh]" />
+      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[12vh] md:h-[16vh]" />
 
       <LabsChapter />
 
-      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[18vh] md:h-[26vh]" />
+      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[12vh] md:h-[16vh]" />
 
       {/* Cream coda: same fix as the Spine's own breather, the narration
           line was an unnecessary stage direction; the real navigation
