@@ -101,7 +101,11 @@ interface LabEntry {
  * frame alternation for the Feature and in-development tiers is still
  * per-entry (`flip`), so it does need re-checking on any reorder: the
  * sequence should read right, left, right, left down the chapter, where a
- * missing `flip` renders right.
+ * missing `flip` renders right. This ENTRIES array holds five Features
+ * (Static, Multiverse Quad, Visual Audiobooks, AI Creator Lab, MythOS) and
+ * runs its own right/left/right/left/right; the two Shorts appended after
+ * it (see SHORT_ENTRIES below) restart that same alternation independently,
+ * since ShortEntry lays out flip the opposite way FeatureEntry does.
  */
 const ENTRIES: LabEntry[] = [
   {
@@ -223,35 +227,6 @@ const ENTRIES: LabEntry[] = [
     flip: true,
   },
   {
-    id: 'narrative-space',
-    client: 'Ghost Mode Labs',
-    title: 'Narrative Space',
-    tagline: 'Interactive world building',
-    tier: 'feature',
-    description:
-      'Story worlds usually begin as documents. Narrative Space turns that material into something you can explore: characters, locations, and themes as nodes in a living space you can move through, question, and build in.',
-    expandables: [
-      {
-        label: 'Concept',
-        body: 'Story worlds usually begin as documents: notes about characters, places, timelines, and relationships. Narrative Space turns that material into something you can move through, where characters, locations, and themes appear as nodes in a shared space.',
-      },
-      {
-        label: 'Build',
-        body: 'Upload an existing story bible and watch the world assemble itself, or start from scratch and let the tool ask the questions that shape the structure. Built with React, Three.js, the Claude API, and vector embeddings, using AI Studio Build and Claude Code.',
-      },
-      {
-        label: 'Status',
-        body: 'A working prototype, live to try. The process stays human-led: writers decide what belongs in the world.',
-      },
-    ],
-    video: {
-      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Sphere%20Cover%202.mp4',
-      // Measured directly from the asset (1850x1080).
-      aspectRatio: '1850 / 1080',
-      alt: 'Preview reel for Narrative Space, story worlds as nodes you can move through',
-    },
-  },
-  {
     id: 'mythos',
     client: 'Ghost Mode Labs',
     title: 'MythOS',
@@ -290,14 +265,61 @@ const ENTRIES: LabEntry[] = [
       startAt: 4,
       alt: 'MythOS demo: an interactive globe tracking myths across cultures',
     },
-    flip: true,
+    // No flip: fifth Feature now that Narrative Space and Unstill moved to
+    // Shorts, so this continues the right/left/right/left/right run in
+    // place of the sixth-position left it held before.
+  },
+];
+
+/**
+ * Demoted from Feature to Short on Jeanine's call: her "strong four" for
+ * Ghost Mode Labs are Static, Multiverse Quad, AI Creator Lab, and MythOS,
+ * each argued as proof of a different capability (originates IP and builds
+ * the tool to find it; a frontier AI company's own validation; can bring AI
+ * into a real organization and make it stick; speaks a studio's language
+ * directly). Visual Audiobooks holds its position by the same call, ahead
+ * of its own launch. Narrative Space and Unstill are real, working
+ * prototypes, just not part of that top tier, so they run here at Short
+ * scale rather than being cut: same Concept/Build/Status content kept
+ * in full (a promotion back to Feature is a one-word tier change), just
+ * not rendered by ShortEntry, which only reads tagline/description/video.
+ */
+const SHORT_ENTRIES: LabEntry[] = [
+  {
+    id: 'narrative-space',
+    client: 'Ghost Mode Labs',
+    title: 'Narrative Space',
+    tagline: 'Interactive world building',
+    tier: 'short',
+    description:
+      'Story worlds usually begin as documents. Narrative Space turns that material into something you can explore: characters, locations, and themes as nodes in a living space you can move through, question, and build in.',
+    expandables: [
+      {
+        label: 'Concept',
+        body: 'Story worlds usually begin as documents: notes about characters, places, timelines, and relationships. Narrative Space turns that material into something you can move through, where characters, locations, and themes appear as nodes in a shared space.',
+      },
+      {
+        label: 'Build',
+        body: 'Upload an existing story bible and watch the world assemble itself, or start from scratch and let the tool ask the questions that shape the structure. Built with React, Three.js, the Claude API, and vector embeddings, using AI Studio Build and Claude Code.',
+      },
+      {
+        label: 'Status',
+        body: 'A working prototype, live to try. The process stays human-led: writers decide what belongs in the world.',
+      },
+    ],
+    video: {
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Sphere%20Cover%202.mp4',
+      // Measured directly from the asset (1850x1080).
+      aspectRatio: '1850 / 1080',
+      alt: 'Preview reel for Narrative Space, story worlds as nodes you can move through',
+    },
   },
   {
     id: 'unstill',
     client: 'Ghost Mode Labs',
     title: 'Unstill',
     tagline: 'Regenerative lives',
-    tier: 'feature',
+    tier: 'short',
     description:
       '1920s Sydney, through what survives in the archive: a name, a date, a charge. Hover and color returns to the photograph. Click and the portrait begins to breathe. Built as a proposal for Museums of History NSW.',
     expandables: [
@@ -321,8 +343,11 @@ const ENTRIES: LabEntry[] = [
       aspectRatio: '480 / 320',
       alt: 'Preview reel for Unstill, 1920s Sydney archive portraits returning to color and motion',
     },
+    flip: true,
   },
 ];
+
+ENTRIES.push(...SHORT_ENTRIES);
 
 /**
  * Cut from the chapter on Jeanine's call: nine entries read as too much
