@@ -59,7 +59,17 @@ interface SpreadData {
   description: string;
   stat?: { value: string; label: string };
   expandables?: { label: string; body: string }[];
-  media: { main: SpreadMedia; overlap?: SpreadMedia };
+  /**
+   * `thumb` is only read by the compressed credits screen, and only when the
+   * spread's own art is the wrong choice at thumbnail scale. Hollywood &
+   * Crime is the case it exists for: its main art is a video, so the credits
+   * row fell back to the `overlap` still, which is Billionaire Boys Club
+   * (season 6) rather than the Bonny Lee Bakley cover the spread actually
+   * leads on. Jeanine asked for Bakley there, so the row names its own still
+   * instead of inheriting one by accident of which field happened to be an
+   * image.
+   */
+  media: { main: SpreadMedia; overlap?: SpreadMedia; thumb?: SpreadMedia };
   palette: SpreadPalette;
   flip?: boolean; // true = media left, text right
   /**
@@ -639,6 +649,13 @@ const HOLLYWOOD_CRIME: SpreadData = {
       src: '/proto/hc-bbc.jpg',
       alt: 'Billionaire Boys Club cover art',
     },
+    // Still frame of the same Bakley cover the spread's video leads on, so
+    // the compressed row shows the season this credit is known for rather
+    // than the inset from season 6.
+    thumb: {
+      src: '/proto/hc-bonny-lee.jpg',
+      alt: 'The Execution of Bonny Lee Bakley cover art',
+    },
   },
   palette: {
     field: 'linear-gradient(165deg, #E8EBEF 0%, #E4E8EB 55%, #DBDFE2 100%)',
@@ -804,16 +821,26 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
               {credit.index}
             </span>
 
-            {/* Fixed 3:2 crop so four differently-shaped source files read as
-                one column of thumbnails rather than a ragged stack. Video
-                credits (Hollywood & Crime's motion piece) fall back to their
-                own poster-equivalent still, which is the overlap image. */}
+            {/* Square, not the 3:2 this started as. The four sources measure
+                1.00, 0.68, 1.78 and 0.67, so no single crop flatters all of
+                them, but three of the four are cover art, which is designed
+                to be read whole and is square or portrait. A landscape crop
+                was actively destructive there: on Hollywood & Crime it cut
+                "The Execution of Bonny Lee Bakley" through the middle of its
+                own title. Square fits that one exactly and center-crops the
+                two portraits on their subjects.
+
+                Preference order matters: an explicit `thumb` wins, then the
+                overlap still, then main. Main is last because a video credit
+                cannot render in an <img> at all, and relying on the overlap
+                as an implicit poster picked the wrong season's art on
+                Hollywood & Crime. */}
             <img
-              src={credit.media.overlap?.src ?? credit.media.main.src}
-              alt={credit.media.overlap?.alt ?? credit.media.main.alt}
+              src={credit.media.thumb?.src ?? credit.media.overlap?.src ?? credit.media.main.src}
+              alt={credit.media.thumb?.alt ?? credit.media.overlap?.alt ?? credit.media.main.alt}
               loading="lazy"
               decoding="async"
-              className="hidden sm:block w-24 md:w-32 aspect-[3/2] object-cover shrink-0"
+              className="hidden sm:block w-24 md:w-28 aspect-square object-cover shrink-0"
             />
 
             <div className="min-w-0 flex-1">
