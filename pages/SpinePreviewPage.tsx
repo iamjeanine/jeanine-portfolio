@@ -1,8 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Hero from '../components/Hero';
-import { ColorBridge, ChapterRail, MotionToggle, RailSection } from '../components/chapter';
-import { ProductionsChapter, PRODUCTIONS_FIRST_COLOR, PRODUCTIONS_LAST_COLOR } from './ProductionsPreviewPage';
+import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd } from '../components/chapter';
+import {
+  ProductionsChapter,
+  PRODUCTIONS_FIRST_COLOR,
+  PRODUCTIONS_LAST_COLOR,
+  SCAMFLUENCERS_FIELD,
+  SCAMFLUENCERS_INK,
+  SCAMFLUENCERS_INK_SOFT,
+  SCAMFLUENCERS_ACCENT,
+} from './ProductionsPreviewPage';
 import { LabsChapter, LAB } from './LabsPreviewPage';
 
 /**
@@ -134,6 +141,125 @@ const skipToSection = (id: string) => {
   el.focus({ preventScroll: true });
 };
 
+// Credential-line only, not Scamfluencers' own accent (the kicker and
+// Contents index below keep that, for continuity with the first spread
+// this cover opens directly into). Warm gold instead of the field's
+// loudest, coolest-temperature color: Jeanine flagged the shared
+// chartreuse as reading like caution tape at the size and weight a
+// credential line needs. Verified against all three field stops before
+// shipping: 3.37-4.40:1, clears 3:1 for bold text at this size.
+const COVER_CREDENTIAL_ACCENT = '#E9B94C';
+
+/**
+ * The Cover (REDESIGN-PLAN.md 4.3, restaged 2026-08-07 per an Impeccable
+ * critique run on three candidates at /preview/cover-options): typographic,
+ * set directly on Scamfluencers' own field, ink, and accent, the literal
+ * color the first Productions spread opens on, so cover and chapter read
+ * as one continuous gesture instead of three moods (the live site's
+ * AI-generated video hero, then a cream Contents page, then a
+ * burnt-orange first spread) before a reader arrives anywhere. The other
+ * candidate considered, a full-bleed still from The Last City, was
+ * rejected on measurement, not taste: it reopened the same "different
+ * mood at the seam" problem in the opposite direction (near-black into
+ * warm terra), and it would have spent the chapter's own most striking
+ * image before a reader ever reaches that spread.
+ *
+ * Carries the page's one h1. Replaces both the old video hero and the
+ * separate Contents section that used to sit below it: this is the
+ * "contents block in the magazine idiom" the plan called for, folded into
+ * the same viewport as the name rather than a second screen after it, so
+ * the rail and this list are never the same information shown twice.
+ */
+const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectChapter }) => (
+  <section
+    id="cover"
+    // justify-start below lg, not justify-between: on a min-h-screen flex
+    // column with two short blocks, justify-between distributes ALL
+    // leftover vertical space into the gap between them, measured at
+    // roughly a third of a 375px viewport, worse still at 768x1024
+    // portrait (the same md-band-reads-as-a-tall-phone issue the
+    // Productions layout review already found and fixed the same way).
+    // justify-start plus the fixed mt-20 below replaces that with a
+    // chosen amount at every width under 1024px; true desktop (>=1024px,
+    // checked at both 1024 and 1440) keeps the original space-between,
+    // unaffected.
+    className="relative min-h-screen flex flex-col justify-start lg:justify-between px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
+    style={{ background: SCAMFLUENCERS_FIELD }}
+  >
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 pointer-events-none mix-blend-overlay"
+      style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
+    />
+
+    <div className="relative">
+      <p className="chapter-label" style={{ color: SCAMFLUENCERS_ACCENT }}>
+        Selected work
+      </p>
+      <h1
+        className="mt-8 md:mt-10"
+        style={{
+          fontFamily: "'Bodoni Moda', serif",
+          fontSize: 'var(--display-xl)',
+          lineHeight: 0.88,
+          letterSpacing: '-0.02em',
+          color: SCAMFLUENCERS_INK,
+        }}
+      >
+        Jeanine Emilia
+        <br />
+        Cornillot
+      </h1>
+    </div>
+
+    <div className="relative mt-20 lg:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
+      <div style={{ maxWidth: '34ch' }}>
+        <p
+          className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
+          style={{ fontFamily: "'Uncut Sans', sans-serif", color: COVER_CREDENTIAL_ACCENT }}
+        >
+          Emmy and Ambie Award-winning showrunner.
+        </p>
+        <p
+          className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
+        >
+          Podcasts, television, and Ghost&nbsp;Mode&nbsp;Labs.
+        </p>
+      </div>
+
+      <nav aria-label="Contents" className="flex flex-col gap-3 md:items-end">
+        {CONTENTS.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => onSelectChapter(c.id)}
+            // The fixed ChapterRail's own inactive/focus colors (--terra,
+            // --ember) both measure under 3:1 against this field (1.24-1.62
+            // and 2.96-3.87 across its three stops), so neither existing
+            // rail focus-ring class is safe here. Scamfluencers' own accent
+            // already clears 5.57-7.27:1 against the same stops, so the
+            // focus ring borrows it directly rather than reusing an outline
+            // color that would be nearly invisible on this specific field.
+            className="chapter-rail-btn group flex items-baseline gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
+          >
+            <span className="chapter-label tabular-nums" style={{ color: SCAMFLUENCERS_ACCENT }}>
+              {c.index}
+            </span>
+            <span
+              className="text-[1.35rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
+              style={{ fontFamily: "'Bodoni Moda', serif", color: SCAMFLUENCERS_INK }}
+            >
+              {c.label}
+            </span>
+          </button>
+        ))}
+      </nav>
+    </div>
+  </section>
+);
+
 const SpinePreviewPage: React.FC = () => {
   const { chapter } = useParams<{ chapter?: string }>();
   const navigate = useNavigate();
@@ -235,63 +361,26 @@ const SpinePreviewPage: React.FC = () => {
 
       <ChapterRail
         sections={RAIL_SECTIONS}
-        hideWhileVisibleId="contents"
+        hideWhileVisibleId="cover"
         onNavigate={pushChapterUrl}
         onActiveChange={syncActiveChapterToUrl}
       />
       <MotionToggle />
 
-      {/*
-        The Cover proper (4.3, "cover restage"): the real hero, unchanged
-        from the live site, carrying the name as the page's single h1, its
-        video, the scroll-driven recession, and its own mute control. Earlier
-        phases stood in a text-only placeholder here and never came back for
-        this, which left the publication opening on words alone.
-      */}
-      <Hero />
-
-      {/*
-        Everything after the Cover rides over the sticky hero, the same
-        z-index handoff HomePage uses, so the hero recedes as the contents
-        page climbs over it.
-      */}
-      <div className="relative" style={{ zIndex: 2, backgroundColor: 'var(--bg-site)' }}>
-        {/* Contents page: the magazine beat straight after a cover. The name
-            is not repeated here, since the hero above already carries it as
-            the h1. */}
-        {/* id read by ChapterRail's hideWhileVisibleId: the rail fades out
-            while this section is on screen instead of showing the same
-            three chapters twice at once (Impeccable navigation critique,
-            P0). */}
-        <section id="contents" className="px-6 md:px-20 pt-20 pb-28 md:pt-28 md:pb-40">
-          <p className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
-            Contents
-          </p>
-          <nav aria-label="Contents" className="mt-10 md:mt-14 flex flex-col gap-5 md:gap-6">
-            {CONTENTS.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => goToChapter(c.id)}
-                className="chapter-rail-btn chapter-rail-btn-light group flex items-baseline gap-5 text-left w-fit"
-              >
-                <span className="chapter-label tabular-nums" style={{ color: 'var(--terra-text)' }}>
-                  {c.index}
-                </span>
-                <span
-                  className="text-[1.6rem] md:text-[2.2rem] transition-opacity duration-300 group-hover:opacity-70"
-                  style={{ fontFamily: "'Bodoni Moda', serif", color: 'var(--ink)' }}
-                >
-                  {c.label}
-                </span>
-              </button>
-            ))}
-          </nav>
-        </section>
+      <Cover onSelectChapter={goToChapter} />
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>
-        <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
+        {/* Cover and Scamfluencers share a field, but each element paints
+            that gradient across its own box height, so the Cover's bottom
+            edge and this spread's top edge land on different points along
+            it (a bottom-anchored 100%-position color meeting a top-anchored
+            0%-position one) without this bridge, the same hard-seam problem
+            every inter-spread bridge below already exists to prevent, just
+            one step earlier. from/to are computed the identical way those
+            bridges are: gradientEnd of what came before, gradientStart of
+            what's next, not "the fields already match so skip it." */}
+        <ColorBridge from={gradientEnd(SCAMFLUENCERS_FIELD)} to={PRODUCTIONS_FIRST_COLOR} />
         <ProductionsChapter />
         <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
 
@@ -410,7 +499,6 @@ const SpinePreviewPage: React.FC = () => {
           </a>
         </div>
       </footer>
-      </div>
     </div>
   );
 };

@@ -592,6 +592,16 @@ const CHAPTER_ORDER: SpreadData[] = [
 export const PRODUCTIONS_FIRST_COLOR = gradientStart(CHAPTER_ORDER[0].palette.field);
 export const PRODUCTIONS_LAST_COLOR = gradientEnd(CHAPTER_ORDER[CHAPTER_ORDER.length - 1].palette.field);
 
+// Scamfluencers' own field/ink/accent, exported so the Spine's Cover can
+// open in literally the same color world as the first spread (the whole
+// reason the cover options exercise picked this direction) by reading
+// from the same source of truth, not a hand-copied duplicate string that
+// could drift out of sync if this palette ever changes.
+export const SCAMFLUENCERS_FIELD = CHAPTER_ORDER[0].palette.field;
+export const SCAMFLUENCERS_INK = CHAPTER_ORDER[0].palette.ink;
+export const SCAMFLUENCERS_INK_SOFT = CHAPTER_ORDER[0].palette.inkSoft;
+export const SCAMFLUENCERS_ACCENT = CHAPTER_ORDER[0].palette.accent;
+
 /**
  * The chapter's own title card, its spreads, and their internal bridges.
  * No boundary bridges: the page or Spine composing this owns the
