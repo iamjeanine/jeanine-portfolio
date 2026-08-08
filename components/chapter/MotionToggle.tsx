@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { setMotionPaused, useMotionPaused } from './motionPreference';
+import { useElementVisible } from './useElementVisible';
 
 /**
  * The site's one motion control, satisfying WCAG 2.2.2 for the Labs
@@ -16,9 +17,17 @@ import { setMotionPaused, useMotionPaused } from './motionPreference';
  * mix-blend-mode so it stays legible over paper, the Labs ink-black, and
  * Productions' saturated fields alike.
  */
-export const MotionToggle: React.FC = () => {
+export const MotionToggle: React.FC<{ hideWhileVisibleId?: string }> = ({
+  hideWhileVisibleId,
+}) => {
   const paused = useMotionPaused();
   const [reduced, setReduced] = useState(false);
+  // Hidden while that element is on screen. Used for the Cover, which is
+  // typographic: every video on the site is further down, so there is
+  // genuinely nothing to pause there, and at 375px this fixed control was
+  // measured overlapping the Cover index's own text once that index made
+  // the Cover taller than the viewport.
+  const suppressed = useElementVisible(hideWhileVisibleId);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -28,7 +37,7 @@ export const MotionToggle: React.FC = () => {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  if (reduced) return null;
+  if (reduced || suppressed) return null;
 
   return (
     <button

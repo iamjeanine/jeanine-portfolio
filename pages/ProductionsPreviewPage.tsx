@@ -29,8 +29,32 @@ interface SpreadMedia {
 
 interface SpreadData {
   index: string;
+  /**
+   * Stable anchor slug, rendered as id="production-<slug>". Exists so the
+   * Cover's index can link straight to a single credit: before this, every
+   * jump control on the site targeted a chapter *start*, so reaching spread
+   * 6 meant scrolling past 1 through 5 (Impeccable recruiter-persona
+   * critique, P0). Deliberately human-meaningful rather than positional, so
+   * a link keeps working if the chapter order ever changes.
+   */
+  slug: string;
+  /**
+   * Plain-text title for the Cover index. Needed because `title` below is
+   * JSX for several spreads (zero-width spaces, bound &nbsp;) and cannot be
+   * rendered into a text link or read as a string.
+   */
+  name: string;
   eyebrow: string;
   title: React.ReactNode;
+  /**
+   * Awards to surface at skim speed, under the pull-stat. Only for spreads
+   * whose Impact expandable hides credentials the stat doesn't already
+   * state: the recruiter critique found the impatient persona never opens
+   * an expandable, so an Ambie win or a Peabody was invisible on a fast
+   * scroll. Omitted where the stat already carries the award (Born This
+   * Way, No Passport Required) rather than repeating it.
+   */
+  awards?: string[];
   role: string;
   description: string;
   stat?: { value: string; label: string };
@@ -55,6 +79,9 @@ interface SpreadData {
 const SPREADS: SpreadData[] = [
   {
     index: '01',
+    slug: 'scamfluencers',
+    name: 'Scamfluencers',
+    awards: ['2023 Ambie winner', 'Vogue’s Best Podcasts', 'Apple’s Creators We Love'],
     eyebrow: 'Wondery · Amazon · 2022–Present',
     // Zero-width space, not a soft hyphen: the title needs a break
     // opportunity to fit a 375px measure, but &shy; renders a visible
@@ -104,6 +131,9 @@ const SPREADS: SpreadData[] = [
   },
   {
     index: '02',
+    slug: 'dying-for-sex',
+    name: 'Dying for Sex',
+    awards: ['Apple Favorites of the Year', 'Peabody-winning FX series', '9 Primetime Emmy nominations'],
     eyebrow: 'Wondery · Amazon · 2019–2020',
     title: <>Dying for&nbsp;Sex</>,
     role: 'Producer',
@@ -146,6 +176,9 @@ const SPREADS: SpreadData[] = [
   },
   {
     index: '03',
+    slug: 'the-last-city',
+    name: 'The Last City',
+    awards: ['Ambie Best Fiction nominee', 'Audible Original'],
     eyebrow: 'Wondery · Amazon · 2023–2025',
     title: <>The Last&nbsp;City</>,
     role: 'Creator & Showrunner',
@@ -194,6 +227,8 @@ const SPREADS: SpreadData[] = [
 // the other two TV credits fold into its Impact line instead.
 const BORN_THIS_WAY: SpreadData = {
   index: '05',
+  slug: 'born-this-way',
+  name: 'Born This Way',
   eyebrow: 'A&E · 2015–2016',
   title: <>Born This&nbsp;Way</>,
   role: 'Supervising Producer',
@@ -236,6 +271,8 @@ const BORN_THIS_WAY: SpreadData = {
 // completely separate restaurant portrait) and a real credential to anchor it.
 const NO_PASSPORT_REQUIRED: SpreadData = {
   index: '06',
+  slug: 'no-passport-required',
+  name: 'No Passport Required',
   eyebrow: 'Vox Media · PBS · 2018–2019',
   title: 'No Passport Required',
   role: 'Supervising Producer',
@@ -285,6 +322,8 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
 // pretend otherwise: it just gives that reach a real, quiet page.
 const LIFE_OF_KYLIE: SpreadData = {
   index: '07',
+  slug: 'life-of-kylie',
+  name: 'Life of Kylie',
   eyebrow: 'E! · Bunim/Murray · 2017–2018',
   title: <>Life of&nbsp;Kylie</>,
   role: 'Senior Supervising Producer',
@@ -347,10 +386,17 @@ const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal:
 
   return (
     <SpreadShell
-      // Read by ChapterRail's progress observer only ("spread 3 of 7" on the
-      // rail label), not a skip-link target: those live on the chapter-level
-      // #productions/#labs/#about divs instead.
-      id={`productions-progress-${progressIndex}-${progressTotal}`}
+      // Stable, human-meaningful anchor so the Cover's index can link to
+      // this one credit. The progress markers ChapterRail reads moved to
+      // data-* attributes below, which frees `id` for exactly this and
+      // stops the two concerns fighting over one attribute.
+      id={`production-${data.slug}`}
+      tabIndex={-1}
+      dataAttributes={{
+        'data-progress-chapter': 'productions',
+        'data-progress-index': progressIndex,
+        'data-progress-total': progressTotal,
+      }}
       background={p.field}
       gutterClassName="px-6 md:px-20"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
@@ -499,6 +545,33 @@ const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal:
             </div>
           )}
 
+          {/* Award strip: the credentials that were only inside the Impact
+              expandable, hoisted so they read on a fast scroll. The
+              recruiter-persona critique found this persona never opens an
+              expandable, so a spread could pass at speed showing "53M
+              downloads" and never the Ambie win. Uses the accent for the
+              separators only, so the strip reads as one line of credential
+              rather than a list competing with the stat above it. */}
+          {data.awards && data.awards.length > 0 && (
+            <ul className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              {data.awards.map((award, i) => (
+                <li key={award} className="flex items-baseline gap-2">
+                  {i > 0 && (
+                    <span aria-hidden="true" className="text-[0.7rem]" style={{ color: p.accent }}>
+                      &middot;
+                    </span>
+                  )}
+                  <span
+                    className="text-[0.7rem] tracking-[0.14em] uppercase"
+                    style={{ color: p.inkBody }}
+                  >
+                    {award}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+
           {/* expandables, omitted for lighter spreads */}
           {data.expandables && data.expandables.length > 0 && (
             <div className="mt-12 md:mt-16">
@@ -529,6 +602,8 @@ const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal:
 // animated main image as a quiet point of distinction from the rest.
 const HOLLYWOOD_CRIME: SpreadData = {
   index: '04',
+  slug: 'hollywood-and-crime',
+  name: 'Hollywood & Crime',
   eyebrow: 'Wondery · Amazon · 2019–2024',
   title: <>Hollywood &amp;&nbsp;Crime</>,
   role: 'Senior Producer',
@@ -597,6 +672,18 @@ export const PRODUCTIONS_LAST_COLOR = gradientEnd(CHAPTER_ORDER[CHAPTER_ORDER.le
 // reason the cover options exercise picked this direction) by reading
 // from the same source of truth, not a hand-copied duplicate string that
 // could drift out of sync if this palette ever changes.
+/**
+ * Every credit by name and anchor, in chapter order, for the Cover's index.
+ * Derived from CHAPTER_ORDER rather than hand-listed so the index can never
+ * fall out of sync with what the chapter actually renders, or silently drop
+ * a spread if one is added.
+ */
+export const PRODUCTIONS_INDEX = CHAPTER_ORDER.map((s) => ({
+  anchor: `production-${s.slug}`,
+  name: s.name,
+  index: s.index,
+}));
+
 export const SCAMFLUENCERS_FIELD = CHAPTER_ORDER[0].palette.field;
 export const SCAMFLUENCERS_INK = CHAPTER_ORDER[0].palette.ink;
 export const SCAMFLUENCERS_INK_SOFT = CHAPTER_ORDER[0].palette.inkSoft;

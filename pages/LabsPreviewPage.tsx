@@ -49,9 +49,13 @@ type Tier = 'feature' | 'short' | 'in-development';
 
 interface LabEntry {
   id: string; // links to the existing /project/:id detail page
-  index: string;
   client: string;
-  title: React.ReactNode;
+  /**
+   * Plain string, not ReactNode: the Cover's index renders these as text
+   * links, and every Labs title happens to need no typographic binding
+   * (unlike the Productions spreads, several of which are JSX).
+   */
+  title: string;
   tagline: string;
   tier: Tier;
   description?: string;
@@ -64,15 +68,29 @@ interface LabEntry {
 
 /**
  * Order per 5.1: lead with proof, and never open the chapter on an unbuilt
- * project. Visual Audiobooks holds L-03 by Jeanine's call, graduating to a
- * full Feature in place when she ships it. AI Creator Lab is promoted from
- * the plan's default Short to a Feature: it carries the chapter's strongest
- * verified adoption number, which the Short tier has no slot for.
+ * project. Visual Audiobooks holds third position by Jeanine's call,
+ * graduating to a full Feature in place when she ships it. AI Creator Lab is
+ * promoted from the plan's default Short to a Feature: it carries the
+ * chapter's strongest verified adoption number, which the Short tier has no
+ * slot for.
+ *
+ * AI Creator Lab moved from seventh to fourth after the recruiter-persona
+ * critique measured this chapter's back half as the site's real fatigue
+ * zone: four consecutive same-template Feature entries, roughly eight
+ * viewport-heights of structural sameness, with the "4 to 50+" adoption
+ * stat, the single strongest employer-facing credential in the chapter,
+ * sitting behind all of it at 24 viewport-heights deep.
+ *
+ * The L-0N labels are derived from array position at render, not stored per
+ * entry, so a future reorder cannot leave them out of sequence. Left/right
+ * frame alternation for the Feature and in-development tiers is still
+ * per-entry (`flip`), so it does need re-checking on any reorder: the
+ * sequence should read right, left, right, left down the chapter, where a
+ * missing `flip` renders right.
  */
 const ENTRIES: LabEntry[] = [
   {
     id: 'static',
-    index: 'L-01',
     client: 'Ghost Mode Labs',
     title: 'Static',
     tagline: 'Scripted series built from online folklore',
@@ -101,7 +119,6 @@ const ENTRIES: LabEntry[] = [
   },
   {
     id: 'multiverse-quad',
-    index: 'L-02',
     client: 'Amazon AGI',
     title: 'Multiverse Quad',
     tagline: 'One story, four formats',
@@ -131,7 +148,6 @@ const ENTRIES: LabEntry[] = [
   },
   {
     id: 'visual-audiobooks',
-    index: 'L-03',
     client: 'Ghost Mode Labs',
     title: 'Visual Audiobooks',
     tagline: 'A new visual telling with every listen',
@@ -143,8 +159,39 @@ const ENTRIES: LabEntry[] = [
     },
   },
   {
+    id: 'ai-creator-lab',
+    client: 'Wondery',
+    title: 'AI Creator Lab',
+    tagline: 'Creative workflow lab',
+    tier: 'feature',
+    description:
+      'Wondery’s first AI Creator Lab: hands-on workshops, learning modules, and outside partners demonstrating new tools inside real production workflows. Three working tools came out of it.',
+    stat: { value: '4 to 50+', label: 'People across the company' },
+    expandables: [
+      {
+        label: 'Concept',
+        body: 'Founded Wondery’s first AI Creator Lab to explore how new tools could fit into real production workflows.',
+      },
+      {
+        label: 'Build',
+        body: 'Hands-on workshops, learning modules, and outside partners who were building these tools demonstrating how they worked. To support the lab I built an online hub where the curriculum lived: each module with a walkthrough, study guide, FAQs, and the original presentation. Tools included ElevenLabs, ChatGPT, Midjourney, and NotebookLM.',
+      },
+      {
+        label: 'Status',
+        body: 'The lab grew from four people to more than fifty across content, marketing, product, and ad sales. Three projects came out of it: StoryCraft, a research assistant, and a metadata tool.',
+      },
+    ],
+    video: {
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
+      poster: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
+      // Measured directly from the asset (1920x946).
+      aspectRatio: '1920 / 946',
+      alt: 'Preview reel for the AI Creator Lab, a creative workflow lab founded at Wondery',
+    },
+    flip: true,
+  },
+  {
     id: 'narrative-space',
-    index: 'L-04',
     client: 'Ghost Mode Labs',
     title: 'Narrative Space',
     tagline: 'Interactive world building',
@@ -171,11 +218,9 @@ const ENTRIES: LabEntry[] = [
       aspectRatio: '1850 / 1080',
       alt: 'Preview reel for Narrative Space, story worlds as nodes you can move through',
     },
-    flip: true,
   },
   {
     id: 'mythos',
-    index: 'L-05',
     client: 'Ghost Mode Labs',
     title: 'MythOS',
     tagline: 'Franchise intelligence',
@@ -213,10 +258,10 @@ const ENTRIES: LabEntry[] = [
       startAt: 4,
       alt: 'MythOS demo: an interactive globe tracking myths across cultures',
     },
+    flip: true,
   },
   {
     id: 'unstill',
-    index: 'L-06',
     client: 'Ghost Mode Labs',
     title: 'Unstill',
     tagline: 'Regenerative lives',
@@ -244,43 +289,9 @@ const ENTRIES: LabEntry[] = [
       aspectRatio: '480 / 320',
       alt: 'Preview reel for Unstill, 1920s Sydney archive portraits returning to color and motion',
     },
-    flip: true,
-  },
-  {
-    id: 'ai-creator-lab',
-    index: 'L-07',
-    client: 'Wondery',
-    title: 'AI Creator Lab',
-    tagline: 'Creative workflow lab',
-    tier: 'feature',
-    description:
-      'Wondery’s first AI Creator Lab: hands-on workshops, learning modules, and outside partners demonstrating new tools inside real production workflows. Three working tools came out of it.',
-    stat: { value: '4 to 50+', label: 'People across the company' },
-    expandables: [
-      {
-        label: 'Concept',
-        body: 'Founded Wondery’s first AI Creator Lab to explore how new tools could fit into real production workflows.',
-      },
-      {
-        label: 'Build',
-        body: 'Hands-on workshops, learning modules, and outside partners who were building these tools demonstrating how they worked. To support the lab I built an online hub where the curriculum lived: each module with a walkthrough, study guide, FAQs, and the original presentation. Tools included ElevenLabs, ChatGPT, Midjourney, and NotebookLM.',
-      },
-      {
-        label: 'Status',
-        body: 'The lab grew from four people to more than fifty across content, marketing, product, and ad sales. Three projects came out of it: StoryCraft, a research assistant, and a metadata tool.',
-      },
-    ],
-    video: {
-      src: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
-      poster: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
-      // Measured directly from the asset (1920x946).
-      aspectRatio: '1920 / 946',
-      alt: 'Preview reel for the AI Creator Lab, a creative workflow lab founded at Wondery',
-    },
   },
   {
     id: 'tender',
-    index: 'L-08',
     client: 'Ghost Mode Labs',
     title: 'Tender',
     tagline: 'Conversation with culture',
@@ -294,7 +305,6 @@ const ENTRIES: LabEntry[] = [
   },
   {
     id: 'in-world-social-campaign',
-    index: 'L-09',
     client: 'Wondery',
     title: 'In-World Social Campaign',
     tagline: 'In-world marketing',
@@ -394,11 +404,20 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
   position,
   total,
 }) => (
-  // id read by ChapterRail's progress observer only ("entry 4 of 9" on the
-  // rail label); not a skip-link target.
-  <article id={`labs-progress-${position}-${total}`} className="pb-40 md:pb-64">
+  <article
+    id={`lab-${data.id}`}
+    tabIndex={-1}
+    data-progress-chapter="labs"
+    data-progress-index={position}
+    data-progress-total={total}
+    /* Was pb-40 md:pb-64. The recruiter critique measured these Feature
+       entries at ~2 viewport-heights each, with roughly every other screen
+       carrying no title at flick speed, just frame or collapsed rows and
+       dead air. Tightened here and at the text block below. */
+    className="pb-24 md:pb-40"
+  >
     <Reveal>
-      <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-8 md:mt-12"
@@ -426,7 +445,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         </ProjectorLight>
       </div>
 
-      <div className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12">
+      <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12">
         <div className={data.flip ? 'md:col-span-6 md:col-start-7' : 'md:col-span-6 md:col-start-1'}>
           <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: LAB.accent }}>
             {data.tagline}
@@ -478,9 +497,16 @@ const ShortEntry: React.FC<{ data: LabEntry; position: number; total: number }> 
   position,
   total,
 }) => (
-  <article id={`labs-progress-${position}-${total}`} className="pb-24 md:pb-36">
+  <article
+    id={`lab-${data.id}`}
+    tabIndex={-1}
+    data-progress-chapter="labs"
+    data-progress-index={position}
+    data-progress-total={total}
+    className="pb-24 md:pb-36"
+  >
     <Reveal>
-      <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-6 md:mt-8"
@@ -539,9 +565,16 @@ const InDevelopmentEntry: React.FC<{ data: LabEntry; position: number; total: nu
   position,
   total,
 }) => (
-  <article id={`labs-progress-${position}-${total}`} className="pb-32 md:pb-48">
+  <article
+    id={`lab-${data.id}`}
+    tabIndex={-1}
+    data-progress-chapter="labs"
+    data-progress-index={position}
+    data-progress-total={total}
+    className="pb-24 md:pb-40"
+  >
     <Reveal>
-      <Eyebrow label={data.client} index={data.index} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-6 md:mt-8"
@@ -596,6 +629,17 @@ const Entry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
   if (data.tier === 'short') return <ShortEntry data={data} position={position} total={total} />;
   return <InDevelopmentEntry data={data} position={position} total={total} />;
 };
+
+/**
+ * Every Labs entry by name and anchor, in chapter order, for the Cover's
+ * index. Derived from ENTRIES rather than hand-listed, so it cannot fall out
+ * of sync with what the chapter renders or silently drop a new entry.
+ */
+export const LABS_INDEX = ENTRIES.map((e, i) => ({
+  anchor: `lab-${e.id}`,
+  name: e.title,
+  index: `L-0${i + 1}`,
+}));
 
 /** Quiet divider introducing the compact run at the chapter's end (5.2). */
 const ShortsDivider: React.FC = () => (

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useElementVisible } from './useElementVisible';
 
 export interface RailSection {
   id: string;
@@ -15,17 +16,19 @@ interface Progress {
 /**
  * Tracks "spread 3 of 7" / "entry 4 of 9" position inside whichever
  * chapter is currently in view (REDESIGN-PLAN.md navigation critique, P1:
- * a ~31-viewport-height document with zero sub-chapter feedback). Reads
- * ids of the form `<chapter>-progress-<position>-<total>`, set by
- * ProductionsPreviewPage's Spread and LabsPreviewPage's entry components;
- * those ids exist purely for this observer, not as skip-link targets.
+ * a ~31-viewport-height document with zero sub-chapter feedback).
+ *
+ * Reads data-progress-* attributes rather than parsing ids. It used to
+ * encode all three values into the id itself, which meant `id` could not
+ * also be the stable per-work anchor the Cover's index now links to, and
+ * required a regex to read back what the renderer already knew.
  */
 const useChapterProgress = (): Progress | null => {
   const [progress, setProgress] = useState<Progress | null>(null);
 
   useEffect(() => {
     const elements = Array.from(
-      document.querySelectorAll<HTMLElement>('[id^="productions-progress-"], [id^="labs-progress-"]')
+      document.querySelectorAll<HTMLElement>('[data-progress-chapter]')
     );
     if (elements.length === 0) return;
 
@@ -33,9 +36,12 @@ const useChapterProgress = (): Progress | null => {
       (entries) => {
         const visible = entries.filter((e) => e.isIntersecting);
         if (visible.length === 0) return;
-        const match = visible[0].target.id.match(/^(productions|labs)-progress-(\d+)-(\d+)$/);
-        if (!match) return;
-        setProgress({ chapter: match[1], position: Number(match[2]), total: Number(match[3]) });
+        const el = visible[0].target as HTMLElement;
+        const chapter = el.dataset.progressChapter;
+        const position = Number(el.dataset.progressIndex);
+        const total = Number(el.dataset.progressTotal);
+        if (!chapter || !position || !total) return;
+        setProgress({ chapter, position, total });
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
     );
@@ -150,25 +156,14 @@ export const ChapterRail: React.FC<{
     return () => window.clearTimeout(timeout);
   }, [rawActiveId]);
 
-  // The rail and the Contents block used to show the same three chapters at
-  // once (Impeccable navigation critique, P0): the fixed rail floated over
-  // the Contents section while it displayed the identical list at a larger
-  // size, with mismatched copy besides. Rather than pick a winner, the rail
-  // now steps aside for whichever element owns that job at the moment: it
-  // fades out while `hideWhileVisibleId` is on screen, and back in once the
-  // visitor has moved on to an actual chapter.
-  const [suppressed, setSuppressed] = useState(false);
-
-  useEffect(() => {
-    if (!hideWhileVisibleId) return;
-    const el = document.getElementById(hideWhileVisibleId);
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => setSuppressed(entry.isIntersecting), {
-      threshold: 0,
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [hideWhileVisibleId]);
+  // The rail and the Cover's index would otherwise show the same three
+  // chapters at once (Impeccable navigation critique, P0): the fixed rail
+  // floated over the Contents block while it displayed the identical list at
+  // a larger size, with mismatched copy besides. Rather than pick a winner,
+  // the rail steps aside for whichever element owns that job at the moment,
+  // fading out while `hideWhileVisibleId` is on screen and back in once the
+  // visitor reaches an actual chapter.
+  const suppressed = useElementVisible(hideWhileVisibleId);
 
   // Closing the mobile menu on every chapter change (rather than leaving it
   // open) keeps it from surviving into a chapter its contents no longer
