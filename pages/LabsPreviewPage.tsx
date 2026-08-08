@@ -388,7 +388,25 @@ export const ARCHIVED_ENTRIES: LabEntry[] = [
   },
 ];
 
-/** Soft fade-up on scroll into view; skipped under reduced motion. */
+/**
+ * Soft fade-up on scroll into view; skipped under reduced motion.
+ *
+ * Trigger geometry matches components/chapter/useRevealOnce, which carries
+ * the full reasoning. Same defect was live here: a bare 12% threshold with
+ * no rootMargin fires far too early for an element taller than the
+ * viewport, and these entries are the tallest on the site. MythOS measures
+ * 1782px against a 900px viewport, so 12% meant ~214px of entry, which put
+ * its title's top edge at 758px, 84% down the screen, with the 900ms fade
+ * then running while the title climbed into view. Worse here than in
+ * Productions in one sense: those spreads are 1.14 viewports, these are
+ * nearly two, so proportionally less of the entry has to arrive before the
+ * observer is satisfied.
+ *
+ * rootMargin pulls the root's bottom edge up 40% and threshold drops to 0,
+ * so an entry fires once it crosses into the top 60% of the viewport,
+ * putting its title near 68% with room left to animate on screen. Kept
+ * numerically identical to the shared hook so both chapters move alike.
+ */
 const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -407,7 +425,7 @@ const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           io.disconnect();
         }
       },
-      { threshold: 0.12 }
+      { rootMargin: '0px 0px -40% 0px', threshold: 0 }
     );
     io.observe(el);
     return () => io.disconnect();
