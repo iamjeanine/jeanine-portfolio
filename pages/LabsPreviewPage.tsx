@@ -497,11 +497,13 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
     data-progress-chapter="labs"
     data-progress-index={position}
     data-progress-total={total}
-    /* Was pb-40 md:pb-64. The recruiter critique measured these Feature
-       entries at ~2 viewport-heights each, with roughly every other screen
-       carrying no title at flick speed, just frame or collapsed rows and
-       dead air. Tightened here and at the text block below. */
-    className="pb-24 md:pb-40"
+    /* Was pb-40 md:pb-64, then pb-24 md:pb-40. The recruiter critique
+       measured these Feature entries at ~2 viewport-heights each, with
+       roughly every other screen carrying no title at flick speed, just
+       frame or collapsed rows and dead air. Trimmed again alongside the
+       two-column split below: at 160px this was the third-largest single
+       item in the entry, behind only the frame and the text row. */
+    className="pb-20 md:pb-28"
   >
     <Reveal>
       <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
@@ -519,7 +521,9 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         {data.title}
       </h3>
 
-      <div className={`mt-10 md:mt-16 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}>
+      {/* mt-12, was mt-16: part of the 167px of inter-beat gaps measured in
+          this entry, trimmed where it costs nothing to the rhythm. */}
+      <div className={`mt-10 md:mt-12 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}>
         <ProjectorLight>
           <LazyVideo
             src={data.video.src}
@@ -532,8 +536,28 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         </ProjectorLight>
       </div>
 
-      <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12">
-        <div className={data.flip ? 'md:col-span-6 md:col-start-7' : 'md:col-span-6 md:col-start-1'}>
+      {/*
+        Two columns, not one.
+
+        Measured on MythOS: this row was 651px tall while occupying exactly
+        50% of the available width, which made it nearly as tall as the 621px
+        video frame above it with the other half of the page empty. That was
+        the single largest piece of Labs' height problem, and the reason a
+        Labs Feature ran 1.99 viewport-heights against a Productions spread's
+        1.19: Productions runs media and text side by side, while this
+        stacked tagline, description, stat, expandables and link in one
+        half-width column straight down.
+
+        Splitting it puts the narrative material (tagline, description,
+        stat) beside the reference material (expandables, project link), so
+        the row's height becomes the taller of the two rather than their sum.
+        The wide frame above is deliberately untouched: it plus the projector
+        light is what makes this chapter a screening room rather than
+        Productions with the lights off, and narrowing it to buy height
+        would trade the chapter's identity for the wrong saving.
+      */}
+      <div className="mt-10 md:mt-10 grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-10">
+        <div className={data.flip ? 'md:col-span-5 md:col-start-8' : 'md:col-span-5 md:col-start-1'}>
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-4">
             <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: LAB.accent }}>
               {data.tagline}
@@ -559,9 +583,21 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
 
           {/* Verified stats only; a Feature without one simply omits the slot. */}
           {data.stat && <StatBlock stat={data.stat} />}
+        </div>
 
+        {/* Reference column: the rows a reader opens on purpose, plus the way
+            out to the full project. md:row-start-1 pins it beside the
+            narrative column rather than below it, which is the entire point;
+            without it grid's sparse packing drops it to row 2 on the
+            non-flipped entries and nothing is saved. On mobile it stacks
+            underneath, in DOM order, unchanged. */}
+        <div
+          className={`md:row-start-1 ${
+            data.flip ? 'md:col-span-5 md:col-start-1' : 'md:col-span-5 md:col-start-8'
+          }`}
+        >
           {data.expandables && data.expandables.length > 0 && (
-            <div className="mt-10 md:mt-14">
+            <div>
               {data.expandables.map((e) => (
                 <Expandable
                   key={e.label}
