@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd } from '../components/chapter';
 import {
   ProductionsChapter,
-  PRODUCTIONS_FIRST_COLOR,
   PRODUCTIONS_LAST_COLOR,
   SCAMFLUENCERS_FIELD,
   SCAMFLUENCERS_INK,
@@ -371,16 +370,21 @@ const SpinePreviewPage: React.FC = () => {
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>
-        {/* Cover and Scamfluencers share a field, but each element paints
-            that gradient across its own box height, so the Cover's bottom
-            edge and this spread's top edge land on different points along
-            it (a bottom-anchored 100%-position color meeting a top-anchored
-            0%-position one) without this bridge, the same hard-seam problem
-            every inter-spread bridge below already exists to prevent, just
-            one step earlier. from/to are computed the identical way those
-            bridges are: gradientEnd of what came before, gradientStart of
-            what's next, not "the fields already match so skip it." */}
-        <ColorBridge from={gradientEnd(SCAMFLUENCERS_FIELD)} to={PRODUCTIONS_FIRST_COLOR} />
+        {/* Bridges into ProductionsChapter's own title card (cream), not
+            into Scamfluencers' field directly: the card is the first thing
+            the chapter actually renders, and it sits between this bridge
+            and the spread regardless. An earlier version of this bridge
+            went straight to PRODUCTIONS_FIRST_COLOR (terra), which fixed
+            nothing, the card still sat there, cream, immediately after,
+            so the visible seam just moved from "Cover meets card" to
+            "bridge's terra excursion meets card" without closing either
+            gap. This is exactly why the flash was still visible after the
+            first version of this fix: it addressed the wrong pair of
+            edges. The chapter's own internal bridge (in
+            ProductionsPreviewPage.tsx, between the card and Scamfluencers)
+            handles the cream-to-terra half; this one only needs to get
+            the Cover's terra to the card's cream. */}
+        <ColorBridge from={gradientEnd(SCAMFLUENCERS_FIELD)} to="var(--bg-site)" />
         <ProductionsChapter />
         <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
 

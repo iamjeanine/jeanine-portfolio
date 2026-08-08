@@ -632,6 +632,20 @@ export const ProductionsChapter: React.FC = () => (
         </span>
       </div>
     </div>
+    {/* This is an internal bridge, not a boundary one: the title card above
+        is always cream and CHAPTER_ORDER[0] (Scamfluencers) is always the
+        chapter's own first color, regardless of what composes this
+        component, so it belongs here rather than with whatever page or
+        Spine section owns the transition into the chapter as a whole.
+        Missing before: the title card sat directly against Scamfluencers'
+        terra field with no bridge between them, a hard seam that stayed
+        easy to miss while whatever preceded the card was also cream (the
+        standalone page's own header) and a boundary bridge's brief terra
+        excursion partly masked it. Wiring the Spine's Cover onto
+        Scamfluencers' own field made the same pre-existing seam obvious:
+        terra Cover, cream card, terra spread, cream doing nothing but
+        interrupting two things that already match. */}
+    <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
     {CHAPTER_ORDER.map((spread, i) => (
       <React.Fragment key={spread.index}>
         <Spread data={spread} progressIndex={i + 1} progressTotal={CHAPTER_ORDER.length} />
@@ -668,7 +682,11 @@ const ProductionsPreviewPage: React.FC = () => {
         </div>
       </header>
 
-      <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
+      {/* No bridge here: the header above and ProductionsChapter's own
+          title card are both var(--bg-site), already seamless. The real
+          cream-to-terra transition is ProductionsChapter's own internal
+          bridge, between its title card and Scamfluencers' spread, not a
+          boundary concern of this page. */}
       <ProductionsChapter />
       <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
 
