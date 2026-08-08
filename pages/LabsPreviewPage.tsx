@@ -721,14 +721,10 @@ const LabsPreviewPage: React.FC = () => {
 
       <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[18vh] md:h-[26vh]" />
 
-      {/* Cream coda: the rhythm continues into About */}
-      <footer className="px-6 md:px-24 py-20 md:py-28 flex items-baseline justify-between">
-        <p
-          className="text-[1rem] italic leading-relaxed"
-          style={{ fontFamily: SERIF_BODY, color: 'var(--ink-mute)', maxWidth: '52ch' }}
-        >
-          About follows: the person behind both chapters.
-        </p>
+      {/* Cream coda: same fix as the Spine's own breather, the narration
+          line was an unnecessary stage direction; the real navigation
+          (the link below) stays. */}
+      <footer className="px-6 md:px-24 py-20 md:py-28 flex items-baseline justify-end">
         <Link
           to="/preview/productions"
           className="hidden md:block text-[0.7rem] tracking-[0.18em] uppercase"

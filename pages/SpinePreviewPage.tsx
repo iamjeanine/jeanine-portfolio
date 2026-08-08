@@ -389,20 +389,16 @@ const SpinePreviewPage: React.FC = () => {
         <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
 
         {/*
-          Cream breather: Kylie's field and the Labs ground are both
-          near-black, so a bridge straight between them has no visible
-          swing and the "lights down" moment disappears. Surfacing back
-          to paper first, however briefly, gives the real dip (below) a
-          light stop to fall from.
+          Cream breather, color only, no copy: Kylie's field and the Labs
+          ground are both near-black, so a bridge straight between them has
+          no visible swing and the "lights down" moment disappears.
+          Surfacing back to paper first, however briefly, gives the real
+          dip (below) a light stop to fall from. Used to carry a line of
+          editorial narration ("Ghost Mode Labs follows..."); Jeanine asked
+          for that removed as an unnecessary stage direction, so this is
+          now purely the pacing device it was already doing double duty as.
         */}
-        <div className="px-6 md:px-20 py-16 md:py-20" style={{ backgroundColor: 'var(--bg-site)' }}>
-          <p
-            className="text-[1rem] italic leading-relaxed"
-            style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
-          >
-            Ghost Mode Labs follows: the studio for what she is building next.
-          </p>
-        </div>
+        <div className="px-6 md:px-20 py-16 md:py-20" style={{ backgroundColor: 'var(--bg-site)' }} />
       </div>
 
       {/* The biggest lightness swing in the spine: paper diving into the

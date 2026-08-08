@@ -689,16 +689,6 @@ const ProductionsPreviewPage: React.FC = () => {
           boundary concern of this page. */}
       <ProductionsChapter />
       <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
-
-      {/* Cream coda: shows the rhythm continuing */}
-      <footer className="px-6 md:px-20 py-20 md:py-28">
-        <p
-          className="text-[1rem] italic leading-relaxed"
-          style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
-        >
-          Ghost Mode Labs follows: the studio for what she is building next.
-        </p>
-      </footer>
     </div>
   );
 };
