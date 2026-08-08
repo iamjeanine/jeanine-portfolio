@@ -46,6 +46,31 @@ export const LAB = {
   border: 'rgba(242,237,226,0.16)',
 };
 
+/**
+ * The chapter ground, plus a bloom. Both an outside reviewer and Jeanine
+ * separately raised the same worry about this chapter, in different words:
+ * her "this looks black, did we decide black was too cold" and the
+ * review's "the warmth is carried entirely by the ember kickers and cream
+ * serif sitting on top... the dead margins read #000." Correct on the
+ * numbers: LAB.ground (#120C08) is warm in hue, but at that luminance the
+ * hue is imperceptible, so any patch of it with no text or frame over it
+ * reads as plain black.
+ *
+ * The reviewer's own prescription, taken directly rather than reinvented:
+ * "a subtle warm vignette or a barely-there ember bloom... without lifting
+ * the base." So the base colour is untouched (LAB.ground is still what
+ * ColorBridge blends against, keeping the seams into and out of this
+ * chapter exact), and a very low-opacity radial glow sits above it,
+ * `background-attachment: fixed` so it holds roughly centred on the
+ * viewport as the page scrolls, rather than being pinned to one point in
+ * a chapter that runs many viewport-heights tall. --ember at 0.05 alpha:
+ * enough to lift the empty ground a little without reading as a coloured
+ * patch or competing with the projector light's own glow around each
+ * frame.
+ */
+const LAB_GROUND_WITH_BLOOM =
+  'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(232,166,114,0.05), transparent 70%) fixed, var(--ink-deep)';
+
 const SERIF_DISPLAY = "'Bodoni Moda', serif";
 const SERIF_BODY = "'Source Serif 4', Georgia, serif";
 
@@ -1037,7 +1062,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
           past the viewport and created horizontal scroll. */}
       <SpreadShell
         as="div"
-        background={LAB.ground}
+        background={LAB_GROUND_WITH_BLOOM}
         grainOpacity={0.04}
         gutterClassName="px-6 md:px-24"
       >
@@ -1122,11 +1147,15 @@ const LabsPreviewPage: React.FC = () => {
         </div>
       </header>
 
-      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[12vh] md:h-[16vh]" />
+      {/* via="var(--terra)": the plain cream/ink-deep mix measured as
+          #7b7274, 3.8% saturation, i.e. grey rather than warm. See
+          ColorBridge's own doc comment for the measurement and why terra,
+          not a different mixing function, is the fix. */}
+      <ColorBridge from="var(--bg-site)" to={LAB.ground} via="var(--terra)" heightClassName="h-[12vh] md:h-[16vh]" />
 
       <LabsChapter />
 
-      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[12vh] md:h-[16vh]" />
+      <ColorBridge from={LAB.ground} to="var(--bg-site)" via="var(--terra)" heightClassName="h-[12vh] md:h-[16vh]" />
 
       {/* Cream coda: same fix as the Spine's own breather, the narration
           line was an unnecessary stage direction; the real navigation

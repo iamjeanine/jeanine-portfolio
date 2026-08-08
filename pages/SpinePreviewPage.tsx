@@ -509,15 +509,23 @@ const SpinePreviewPage: React.FC = () => {
 
       {/* The biggest lightness swing in the spine: paper diving into the
           Labs ground. Kept outside both chapter ids since it belongs to
-          neither. */}
-      <ColorBridge from="var(--bg-site)" to={LAB.ground} heightClassName="h-[20vh] md:h-[24vh]" />
+          neither.
+
+          via="var(--terra)": the plain cream/ink-deep mix measured as
+          #7b7274, 3.8% saturation, i.e. grey rather than warm, confirmed by
+          sampling the actual composited pixel. See ColorBridge's own doc
+          comment for why terra, not a different mixing function, is the
+          fix: both endpoints are themselves near-neutral, so no
+          colour-accurate mix of them can land anywhere but near-neutral,
+          in any interpolation space. */}
+      <ColorBridge from="var(--bg-site)" to={LAB.ground} via="var(--terra)" heightClassName="h-[20vh] md:h-[24vh]" />
 
       {/* Chapter 02: Ghost Mode Labs */}
       <div id="labs" tabIndex={-1}>
         <LabsChapter onAbout={() => scrollToSection('about')} />
       </div>
 
-      <ColorBridge from={LAB.ground} to="var(--bg-site)" heightClassName="h-[20vh] md:h-[24vh]" />
+      <ColorBridge from={LAB.ground} to="var(--bg-site)" via="var(--terra)" heightClassName="h-[20vh] md:h-[24vh]" />
 
       {/* Colophon: About (REDESIGN-PLAN.md section 7). Editorial
           masthead form: bio narrative and structured lists side by side,

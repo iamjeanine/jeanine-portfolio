@@ -37,12 +37,30 @@ import { GRAIN_URI } from './constants';
  * asset. The wash itself stays: it is still the mechanism that keeps every
  * seam exact, and hard-cutting would reintroduce the flat-band seams the
  * Phase 5 critique caught. This is a shorter turn, not a cut.
+ *
+ * `via` overrides the midpoint's colour, for pairs where the plain mix of
+ * `from` and `to` is itself the problem. Measured on the paper-to-Labs
+ * crossing after Jeanine and an outside reviewer both independently read
+ * it as "grey" and "dirty" rather than warm: the computed mid-mix rendered
+ * as #7b7274, 3.8% saturation, confirmed by sampling the actual composited
+ * pixel, not eyeballed. That held across every interpolation space tried
+ * (oklch, oklab, lab, lch, srgb all landed within a point or two of each
+ * other), which rules out "wrong colour space" as the cause: both `from`
+ * (cream, ~31% saturation) and `to` (ink-deep, ~38%) are themselves close
+ * to neutral, so any colour-accurate mix of two near-neutrals is another
+ * near-neutral. No mixing function fixes that; only a real colour placed
+ * at the midpoint does. `--terra` measures L=46.5%, matching the computed
+ * mid-mix's own 46.5% almost exactly, so swapping it in keeps the
+ * gradient's light-to-dark rhythm identical and only changes chroma. Costs
+ * nothing on the other six bridges on the site: default is unset, which
+ * falls through to the original computed mix unchanged.
  */
 export const ColorBridge: React.FC<{
   from: string;
   to: string;
   heightClassName?: string;
-}> = ({ from, to, heightClassName = 'h-[10vh] md:h-[14vh]' }) => {
+  via?: string;
+}> = ({ from, to, heightClassName = 'h-[10vh] md:h-[14vh]', via }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -88,8 +106,9 @@ export const ColorBridge: React.FC<{
           // Midpoint sweeps 82% -> 18% as the bridge rises through the
           // viewport: early on most of the band still reads as the colour
           // being left, and by the time it exits, as the colour arriving.
-          background:
-            'linear-gradient(180deg, var(--from-c) 0%, color-mix(in oklch, var(--from-c), var(--to-c)) calc(82% - var(--t) * 64%), var(--to-c) 100%)',
+          background: `linear-gradient(180deg, var(--from-c) 0%, ${
+            via ?? 'color-mix(in oklch, var(--from-c), var(--to-c))'
+          } calc(82% - var(--t) * 64%), var(--to-c) 100%)`,
         } as React.CSSProperties
       }
     >
