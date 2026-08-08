@@ -655,23 +655,61 @@ const HOLLYWOOD_CRIME: SpreadData = {
   flip: true,
 };
 
-// Chapter render order. Bridge endpoints are derived from this array (see
-// ProductionsChapter below), so they can never desync from the palettes above.
-const CHAPTER_ORDER: SpreadData[] = [
-  SPREADS[0],
-  SPREADS[1],
-  SPREADS[2],
+/**
+ * Front of book: the three credits that get a full spread.
+ *
+ * Seven uniform spreads was the chapter's real pacing problem. An outside
+ * review put the drag precisely: spreads one through three held, and "by
+ * spread 5 I was pattern-matching the template and skimming to the next
+ * colour... the Productions chapter is not too long; it is too evenly
+ * paced." Jeanine's call was a few leading spreads with the rest
+ * compressed.
+ *
+ * These three pick themselves from the data rather than from taste. They
+ * are the only credits carrying both a stat and an awards strip, they are
+ * the most recent (2019-2025 against 2015-2019 for the television work),
+ * and two of the three are Creator & Showrunner, the highest-authorship
+ * role on the page. They are also the three podcasts Jeanine wants listen
+ * links on, so the front of book and the linkable work are the same set.
+ */
+const LEAD_SPREADS: SpreadData[] = [SPREADS[0], SPREADS[1], SPREADS[2]];
+
+/**
+ * Back of book: compressed to one screen by ProductionCredits below.
+ *
+ * Hollywood & Crime is a podcast like the three above but carries neither
+ * a stat nor an awards strip, so it compresses on the same evidence the
+ * leads were chosen on. The other three are television, older, and the
+ * work Jeanine already said she did not want to link.
+ *
+ * Each row keeps its key art and its stat, which is load-bearing and not
+ * decorative: Born This Way's "3 wins, 16 Primetime Emmy nominations" is
+ * where the Cover's own "Emmy and Ambie Award-winning" credential is
+ * evidenced, so compressing it must not mean burying it.
+ */
+const CREDIT_SPREADS: SpreadData[] = [
   HOLLYWOOD_CRIME,
   BORN_THIS_WAY,
   NO_PASSPORT_REQUIRED,
   LIFE_OF_KYLIE,
 ];
 
+// Full chapter order, both tiers. Bridge endpoints and PRODUCTIONS_INDEX are
+// derived from this, so they can never desync from the palettes above.
+const CHAPTER_ORDER: SpreadData[] = [...LEAD_SPREADS, ...CREDIT_SPREADS];
+
 // The chapter's own opening and closing colors, for whatever composes it
 // (the standalone page bridges to/from cream; the Spine bridges to/from
 // its neighbors instead) to derive its own boundary bridge from.
 export const PRODUCTIONS_FIRST_COLOR = gradientStart(CHAPTER_ORDER[0].palette.field);
-export const PRODUCTIONS_LAST_COLOR = gradientEnd(CHAPTER_ORDER[CHAPTER_ORDER.length - 1].palette.field);
+/**
+ * Cream, not a palette value: the chapter now closes on the paper-ground
+ * credits screen rather than on Life of Kylie's field, so it already ends
+ * at the color its neighbours bridge toward. Callers keep asking for this
+ * rather than hardcoding cream, so if a colored spread ever returns to the
+ * last position their bridges pick the change up on their own.
+ */
+export const PRODUCTIONS_LAST_COLOR = 'var(--bg-site)';
 
 // Scamfluencers' own field/ink/accent, exported so the Spine's Cover can
 // open in literally the same color world as the first spread (the whole
@@ -694,6 +732,153 @@ export const SCAMFLUENCERS_FIELD = CHAPTER_ORDER[0].palette.field;
 export const SCAMFLUENCERS_INK = CHAPTER_ORDER[0].palette.ink;
 export const SCAMFLUENCERS_INK_SOFT = CHAPTER_ORDER[0].palette.inkSoft;
 export const SCAMFLUENCERS_ACCENT = CHAPTER_ORDER[0].palette.accent;
+
+/**
+ * The back of book: four credits on one paper screen instead of eight
+ * viewport-heights of spread.
+ *
+ * Deliberately not a bare list. Each row keeps its key art as a thumbnail
+ * and its stat verbatim, because the compression is meant to change the
+ * pace, not to demote the credentials: the Emmy nominations and the James
+ * Beard award live in these stats, and an outside review specifically
+ * praised this chapter's art as its strongest asset, so throwing all four
+ * images away to save height would trade the wrong thing. A credits page
+ * with thumbnails is also the actual back-of-book convention this whole
+ * structure is borrowing from.
+ *
+ * Paper ground, not a color field: it is the register change that tells a
+ * reader the front of book has ended, it gives relief after three
+ * saturated spreads, and it bookends the chapter against its own cream
+ * title card. It also retires two now-redundant bridges, since the
+ * chapter's last color and its neighbours' target color became the same.
+ */
+const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number }> = ({
+  progressIndex,
+  progressTotal,
+}) => (
+  <SpreadShell
+    as="section"
+    id="production-credits"
+    tabIndex={-1}
+    dataAttributes={{
+      'data-progress-chapter': 'productions',
+      'data-progress-index': progressIndex,
+      'data-progress-total': progressTotal,
+    }}
+    background="var(--bg-site)"
+    gutterClassName="px-6 md:px-20"
+    paddingClassName="pt-16 md:pt-24 pb-20 md:pb-28"
+  >
+    {/* lg:pr-36 reserves the fixed ChapterRail's ~168px footprint, the same
+        clearance the flipped spreads carry and for the same reason. This
+        screen needed it worse than they did: the stat column is deliberately
+        right-aligned to the container edge, which is exactly where the rail
+        floats, and it landed directly on Born This Way's Emmy line. Applied
+        to the whole block, not just the stats, so the header rule, the row
+        rules and the stat column all keep one shared right edge. */}
+    <div className="lg:pr-36">
+    <div className="flex items-baseline gap-6">
+      <h3 className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
+        Also produced
+      </h3>
+      <span aria-hidden="true" className="flex-1" style={{ borderTop: '1px solid rgba(21,14,10,0.18)' }} />
+    </div>
+
+    <ul className="mt-10 md:mt-14">
+      {CREDIT_SPREADS.map((credit) => (
+        <li
+          key={credit.slug}
+          id={`production-${credit.slug}`}
+          tabIndex={-1}
+          className="py-7 md:py-9"
+          style={{ borderBottom: '1px solid rgba(21,14,10,0.18)' }}
+        >
+          <div className="flex items-start gap-5 md:gap-10">
+            {/* --terra-text, not --terra: index.css records raw --terra at
+                4.43:1 on paper, a near miss, and carries this darkened
+                variant for exactly this case. */}
+            <span
+              className="chapter-label tabular-nums pt-1 shrink-0"
+              style={{ color: 'var(--terra-text)' }}
+            >
+              {credit.index}
+            </span>
+
+            {/* Fixed 3:2 crop so four differently-shaped source files read as
+                one column of thumbnails rather than a ragged stack. Video
+                credits (Hollywood & Crime's motion piece) fall back to their
+                own poster-equivalent still, which is the overlap image. */}
+            <img
+              src={credit.media.overlap?.src ?? credit.media.main.src}
+              alt={credit.media.overlap?.alt ?? credit.media.main.alt}
+              loading="lazy"
+              decoding="async"
+              className="hidden sm:block w-24 md:w-32 aspect-[3/2] object-cover shrink-0"
+            />
+
+            <div className="min-w-0 flex-1">
+              <h4
+                className="text-[1.5rem] md:text-[1.9rem] leading-tight"
+                style={{ fontFamily: DISPLAY_FAMILY, color: 'var(--ink)' }}
+              >
+                {credit.name}
+              </h4>
+              <p className="mt-1.5 chapter-label" style={{ color: 'var(--ink-mute)' }}>
+                {credit.role}
+              </p>
+              <p
+                className="mt-2 text-[0.8rem] italic"
+                style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-faint)' }}
+              >
+                {credit.eyebrow}
+              </p>
+            </div>
+
+            {/* Right-aligned on desktop so the four stats form their own
+                scannable column: this is the credential a fast reader is
+                here for, and it should not be the last thing in a paragraph.
+                Credits without a verified stat simply leave it empty rather
+                than inventing one. */}
+            {credit.stat && (
+              <div className="hidden md:block shrink-0 text-right" style={{ maxWidth: '16ch' }}>
+                <p
+                  className="italic leading-tight"
+                  style={{
+                    fontFamily: DISPLAY_FAMILY,
+                    fontSize: credit.stat.value.length > 6 ? '1.5rem' : '2.1rem',
+                    color: 'var(--ink)',
+                  }}
+                >
+                  {credit.stat.value}
+                </p>
+                <p className="mt-1.5 chapter-label" style={{ color: 'var(--ink-mute)' }}>
+                  {credit.stat.label}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Same stat, stacked, below md: the desktop right-hand column
+              would otherwise crush to a few characters per line. */}
+          {credit.stat && (
+            <div className="md:hidden mt-4 flex items-baseline gap-3">
+              <p
+                className="italic leading-tight text-[1.35rem]"
+                style={{ fontFamily: DISPLAY_FAMILY, color: 'var(--ink)' }}
+              >
+                {credit.stat.value}
+              </p>
+              <p className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
+                {credit.stat.label}
+              </p>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+    </div>
+  </SpreadShell>
+);
 
 /**
  * The chapter's own title card, its spreads, and their internal bridges.
@@ -739,17 +924,28 @@ export const ProductionsChapter: React.FC = () => (
         terra Cover, cream card, terra spread, cream doing nothing but
         interrupting two things that already match. */}
     <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
-    {CHAPTER_ORDER.map((spread, i) => (
+    {/* Progress counts the credits screen as the chapter's final unit, so
+        the rail reads "2/4" rather than claiming seven stops when four of
+        them now share one screen. */}
+    {LEAD_SPREADS.map((spread, i) => (
       <React.Fragment key={spread.index}>
-        <Spread data={spread} progressIndex={i + 1} progressTotal={CHAPTER_ORDER.length} />
-        {i + 1 < CHAPTER_ORDER.length && (
-          <ColorBridge
-            from={gradientEnd(spread.palette.field)}
-            to={gradientStart(CHAPTER_ORDER[i + 1].palette.field)}
-          />
-        )}
+        <Spread data={spread} progressIndex={i + 1} progressTotal={LEAD_SPREADS.length + 1} />
+        <ColorBridge
+          from={gradientEnd(spread.palette.field)}
+          // The last lead bridges into the credits screen's paper rather
+          // than into another field.
+          to={
+            i + 1 < LEAD_SPREADS.length
+              ? gradientStart(LEAD_SPREADS[i + 1].palette.field)
+              : 'var(--bg-site)'
+          }
+        />
       </React.Fragment>
     ))}
+    <ProductionCredits
+      progressIndex={LEAD_SPREADS.length + 1}
+      progressTotal={LEAD_SPREADS.length + 1}
+    />
   </>
 );
 
@@ -781,7 +977,10 @@ const ProductionsPreviewPage: React.FC = () => {
           bridge, between its title card and Scamfluencers' spread, not a
           boundary concern of this page. */}
       <ProductionsChapter />
-      <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
+      {/* No closing bridge either, for the same reason as the opening one:
+          the chapter now ends on its own paper-ground credits screen, so
+          PRODUCTIONS_LAST_COLOR and this page's cream are the same value
+          and the bridge had nothing left to cross. */}
     </div>
   );
 };

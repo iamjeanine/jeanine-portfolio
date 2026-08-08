@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd } from '../components/chapter';
 import {
   ProductionsChapter,
-  PRODUCTIONS_LAST_COLOR,
   SCAMFLUENCERS_FIELD,
   SCAMFLUENCERS_INK,
   SCAMFLUENCERS_INK_SOFT,
@@ -492,26 +491,17 @@ const SpinePreviewPage: React.FC = () => {
             the Cover's terra to the card's cream. */}
         <ColorBridge from={gradientEnd(SCAMFLUENCERS_FIELD)} to="var(--bg-site)" />
         <ProductionsChapter />
-        <ColorBridge from={PRODUCTIONS_LAST_COLOR} to="var(--bg-site)" />
-
         {/*
-          Cream breather, color only, no copy: Kylie's field and the Labs
-          ground are both near-black, so a bridge straight between them has
-          no visible swing and the "lights down" moment disappears.
-          Surfacing back to paper first, however briefly, gives the real
-          dip (below) a light stop to fall from. Used to carry a line of
-          editorial narration ("Ghost Mode Labs follows..."); Jeanine asked
-          for that removed as an unnecessary stage direction, so this is
-          now purely the pacing device it was already doing double duty as.
-
-          Halved from py-16/py-20 in the same pass that shortened the
-          bridges. It stacks directly between two of them, so the three
-          together read as one continuous empty stretch: that combination,
-          not the bridge alone, is what an outside review saw as "an entire
-          viewport of literally empty fog" at this seam. Its job only needs
-          enough cream to register as a light stop, which it still does.
+          Both the closing bridge and the cream breather that used to sit
+          here are gone, retired by the front-of-book/back-of-book split.
+          They existed because the chapter ended on Life of Kylie's
+          near-black field, which needed a wash out to paper and then a
+          light stop before the Labs ground (also near-black) so the
+          "lights down" dip had somewhere to fall from. The chapter now
+          ends on its own paper-ground credits screen, which already is
+          that light stop and is real content rather than empty color, so
+          the dip below falls from it directly.
         */}
-        <div className="px-6 md:px-20 py-8 md:py-10" style={{ backgroundColor: 'var(--bg-site)' }} />
       </div>
 
       {/* The biggest lightness swing in the spine: paper diving into the
