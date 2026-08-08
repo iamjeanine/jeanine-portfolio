@@ -92,7 +92,22 @@ const VariantTag: React.FC<{ letter: string; title: string; note: string }> = ({
  */
 const OptionA: React.FC = () => (
   <section
-    className="relative min-h-screen flex flex-col justify-between px-6 md:px-20 pt-20 pb-12 md:pt-28 md:pb-16"
+    // justify-start below lg, not justify-between: with two short blocks in
+    // a min-h-screen flex column, justify-between lets flex distribute ALL
+    // leftover vertical space into the gap between them. Checked at 375px
+    // per the Impeccable critique screenshot (roughly a third of the
+    // viewport, confirmed) and again at 768x1024 while verifying this fix,
+    // where it turned out even worse, the same problem just amplified by a
+    // taller viewport. This is the same md-band-is-actually-portrait-shaped
+    // issue the Productions layout review already found (768-1023px reads
+    // more like a tall phone than a laptop), so it gets the same fix: the
+    // breakpoint moves to lg instead of md. justify-start plus the
+    // deliberate lg:mt-0 below (mt-20 is a real fixed gap, not "whatever
+    // space happens to be left") replaces the distributed gap with a chosen
+    // amount at every width below 1024px; any true leftover now falls below
+    // Contents as ordinary section padding. True desktop (>=1024px,
+    // confirmed at both 1024 and 1440) was never flagged and is unchanged.
+    className="relative min-h-screen flex flex-col justify-start lg:justify-between px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
     style={{ background: TERRA_FIELD }}
   >
     <Grain />
@@ -116,7 +131,7 @@ const OptionA: React.FC = () => (
       </h2>
     </div>
 
-    <div className="relative mt-16 md:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
+    <div className="relative mt-20 lg:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
       <div style={{ maxWidth: '34ch' }}>
         {/* Impeccable critique (2026-08-07): this line and the tagline below
             it were computed as typographically identical, same font, size,
