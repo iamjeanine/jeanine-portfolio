@@ -409,6 +409,15 @@ const Spread: React.FC<{
    * gesture, while this fires four times and has to stay out of the way of
    * a reader who is already moving. Keeping the blur exclusive to the
    * Cover is what stops it becoming a mannerism.
+   *
+   * Gaps widened from 120/260ms to 200/420ms after Jeanine reported seeing
+   * no difference at all while scrolling. The trigger point was the main
+   * culprit and is fixed in useRevealOnce, but these were a genuine second
+   * defect: against a 700ms duration, a 120ms offset meant beat two began
+   * while beat one was already 69% arrived, measured, so three beats
+   * blurred into one soft fade. Travel raised for the same reason, the
+   * title most of all, since 28px under a word set at var(--display-xl) is
+   * proportionally almost nothing.
    */
   const { shown, reduced } = useRevealOnce(`production-${data.slug}`);
   const beat = (delay: number, rise: number): React.CSSProperties =>
@@ -462,7 +471,7 @@ const Spread: React.FC<{
         index={label}
         labelColor={p.inkSoft}
         indexColor={p.accent}
-        style={beat(0, 8)}
+        style={beat(0, 10)}
       />
 
       {/* oversized title, overlapping the media cluster */}
@@ -483,11 +492,11 @@ const Spread: React.FC<{
           // fix it but visibly slackens all seven titles to prevent a bug that
           // does not yet occur, so this stays as the plan specifies.
           textWrap: 'balance',
-          // Beat 2: the title rises further than the other two (28px against
-          // 8 and 20) because it is the element the entrance is actually
+          // Beat 2: the title rises further than the other two (44px against
+          // 10 and 26) because it is the element the entrance is actually
           // about, and a large word needs more travel than a small one to
           // read as movement at all.
-          ...beat(120, 28),
+          ...beat(200, 44),
         }}
       >
         {data.title}
@@ -515,7 +524,7 @@ const Spread: React.FC<{
           SpreadShell's overflow-hidden has nothing to clip mid-animation. */}
       <div
         className="mt-10 lg:mt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8"
-        style={beat(260, 20)}
+        style={beat(420, 26)}
       >
         {/* media cluster, asymmetric; mirrors when flipped. self-start so the
             column shrink-wraps the artwork: as a stretched grid item its
