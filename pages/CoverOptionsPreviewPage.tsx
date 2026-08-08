@@ -30,6 +30,14 @@ const TERRA_FIELD = 'linear-gradient(160deg, #9F481C 0%, #933D14 55%, #893710 10
 const TERRA_INK = '#FCF5EC';
 const TERRA_INK_SOFT = 'rgba(252,245,236,0.85)';
 const TERRA_ACCENT = '#F0FF29';
+// Credential-line only, not a replacement for TERRA_ACCENT: the kicker and
+// Contents index keep the chartreuse above because it's Scamfluencers' own
+// accent, deliberately reused for continuity. The credential line has no
+// equivalent obligation, Scamfluencers' own spread doesn't have one, so it
+// gets a warmer, less saturated gold instead of the field's loudest,
+// coolest-temperature color. Verified against all three field stops:
+// 3.37-4.40:1, clears the 3:1 floor for bold text at this size.
+const TERRA_CREDENTIAL = '#E9B94C';
 
 const NAME_1 = 'Jeanine Emilia';
 const NAME_2 = 'Cornillot';
@@ -116,13 +124,16 @@ const OptionA: React.FC = () => (
             Emmy and Ambie are the single highest-value credibility claim on
             the page; they were dressed as filler copy next to a sentence
             with no informational weight. Given its own tier here: larger,
-            the accent already used for the kicker and Contents index
-            instead of the tagline's ink-soft, and Uncut Sans bold against
-            the display serif name for a masthead-style contrast, not
-            Source Serif 4 matching the prose below it. */}
+            Uncut Sans bold against the display serif name for a
+            masthead-style contrast, not Source Serif 4 matching the prose
+            below it. Colored with TERRA_CREDENTIAL, not the shared
+            TERRA_ACCENT the kicker and Contents index use: Jeanine flagged
+            the chartreuse as reading like caution tape at this size and
+            weight, and this line has no obligation to match Scamfluencers'
+            own accent the way the kicker deliberately does. */}
         <p
           className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
-          style={{ fontFamily: "'Uncut Sans', sans-serif", color: TERRA_ACCENT }}
+          style={{ fontFamily: "'Uncut Sans', sans-serif", color: TERRA_CREDENTIAL }}
         >
           {LINE_1}
         </p>
