@@ -8,6 +8,7 @@ import {
   MotionToggle,
   ProjectorLight,
   SpreadShell,
+  useRevealOnce,
 } from '../components/chapter';
 
 /**
@@ -505,7 +506,43 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
   data,
   position,
   total,
-}) => (
+}) => {
+  /*
+   * Three-beat choreography, Labs' own version of the Productions spread
+   * entrance built earlier: title (eyebrow travels with it, one beat, not
+   * two), then the frame, then the text row. Same 700ms duration and
+   * cubic-bezier as Productions so the two chapters read as siblings; same
+   * 0/200/420ms stagger and 10/44/26px travel too, mapped onto Labs' own
+   * three beats rather than Productions' eyebrow/title/artwork three.
+   *
+   * The frame beat is deliberately the one with the most travel (44px,
+   * matching the weight Productions gives its title): this chapter's
+   * identity is the screening room, so the entrance should be about the
+   * frame arriving, not the words above it. ProjectorLight's own glow is
+   * untouched and keeps its independent scroll-coupled brighten-and-hold;
+   * wrapping its container in this beat does not gate that effect, only the
+   * frame's own opacity and position, so the two compound: the frame rises
+   * into place while the light is already warming up behind it.
+   *
+   * useRevealOnce observes `lab-${data.id}`, the same id this article
+   * already carries for the Cover's index and the rail's progress tracking,
+   * so no second id or ref is introduced. Geometrically equivalent to the
+   * local Reveal component this replaces for Features: that component's own
+   * ref sat flush with this article's top padding edge, so switching to
+   * id-based observation of the article moves the trigger by nothing
+   * measurable.
+   */
+  const { shown, reduced } = useRevealOnce(`lab-${data.id}`);
+  const beat = (delay: number, rise: number): React.CSSProperties =>
+    reduced
+      ? {}
+      : {
+          opacity: shown ? 1 : 0,
+          transform: shown ? 'none' : `translateY(${rise}px)`,
+          transition: `opacity 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
+        };
+
+  return (
   <article
     id={`lab-${data.id}`}
     tabIndex={-1}
@@ -520,7 +557,9 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
        item in the entry, behind only the frame and the text row. */
     className="pb-20 md:pb-28"
   >
-    <Reveal>
+    {/* Beat 1: eyebrow + title together, since the choreography is three
+        beats (title, frame, text), not four. */}
+    <div style={beat(0, 10)}>
       <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
@@ -535,10 +574,15 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
       >
         {data.title}
       </h3>
+    </div>
 
-      {/* mt-12, was mt-16: part of the 167px of inter-beat gaps measured in
-          this entry, trimmed where it costs nothing to the rhythm. */}
-      <div className={`mt-10 md:mt-12 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}>
+      {/* Beat 2: the frame. mt-12, was mt-16: part of the 167px of
+          inter-beat gaps measured in this entry, trimmed where it costs
+          nothing to the rhythm. */}
+      <div
+        className={`mt-10 md:mt-12 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}
+        style={beat(200, 44)}
+      >
         <ProjectorLight>
           <LazyVideo
             src={data.video.src}
@@ -570,8 +614,15 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         light is what makes this chapter a screening room rather than
         Productions with the lights off, and narrowing it to buy height
         would trade the chapter's identity for the wrong saving.
+
+        Beat 3 lives on this same div: the two-column split above is a
+        layout concern, the entrance below is a motion concern, and this
+        div already exists as the natural boundary between them.
       */}
-      <div className="mt-10 md:mt-10 grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-10">
+      <div
+        className="mt-10 md:mt-10 grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-10"
+        style={beat(420, 26)}
+      >
         {/* Whichever of these two columns lands at col-start-8 is the one at
             the container's right edge, so the rail clearance follows `flip`
             rather than being pinned to one column's role. */}
@@ -645,9 +696,9 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           {data.hasProjectPage !== false && <OpenProjectLink id={data.id} />}
         </div>
       </div>
-    </Reveal>
   </article>
-);
+  );
+};
 
 /**
  * Compact: smaller title, narrower frame, one paragraph, no stat slot and no
