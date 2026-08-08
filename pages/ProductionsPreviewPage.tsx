@@ -507,10 +507,16 @@ const Spread: React.FC<{ data: SpreadData; progressIndex: number; progressTotal:
           )}
         </div>
 
-        {/* text column */}
+        {/* text column. lg:pr-36 only when flip (text seated at col-start-9,
+            flush with the container's right edge): the fixed ChapterRail
+            sits at right-6 with a ~168px label footprint, which measured
+            112px into that column at every width from lg up (both edges are
+            "viewport width minus a constant," so the overlap doesn't shrink
+            on narrower desktop widths). The non-flip column (col-start-1)
+            is nowhere near the rail and is left untouched. */}
         <div
           className={`lg:row-start-1 lg:col-span-4 lg:pt-16 ${
-            flip ? 'lg:col-start-9' : 'lg:col-start-1'
+            flip ? 'lg:col-start-9 lg:pr-36' : 'lg:col-start-1'
           }`}
         >
           <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
