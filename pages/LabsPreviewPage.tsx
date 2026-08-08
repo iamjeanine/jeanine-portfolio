@@ -20,7 +20,7 @@ import {
  * only, never temperature.
  *
  * Two tiers carry the hierarchy (5.2) so the chapter does not read as one
- * infinite feed: five Features get the full treatment, and the rest share a
+ * infinite feed: four Features get the full treatment, and the rest share a
  * single credits screen, matching the front-of-book/back-of-book split
  * Productions uses. ShortEntry and InDevelopmentEntry are kept as live
  * templates on the Entry dispatcher, reachable by setting a tier, but no
@@ -106,10 +106,12 @@ interface LabEntry {
  * per-entry (`flip`), so it does need re-checking on any reorder: the
  * sequence should read right, left, right, left down the chapter, where a
  * missing `flip` renders right. This ENTRIES array is now the Feature run
- * only: five entries (Static, Multiverse Quad, Visual Audiobooks, AI
- * Creator Lab, MythOS) running right/left/right/left/right. The two
- * demoted entries live in CREDIT_ENTRIES below and are rendered as one
- * credits screen, where `flip` is not read at all.
+ * only: four entries (Static, Multiverse Quad, Visual Audiobooks, AI
+ * Creator Lab) running right/left/right/left. MythOS leaving the run needed
+ * no flip changes, since it sat fifth with no flip and its removal leaves
+ * the alternation already correct. The three demoted entries live in
+ * CREDIT_ENTRIES below and render as one credits screen, where `flip` is
+ * not read at all.
  */
 const ENTRIES: LabEntry[] = [
   {
@@ -230,6 +232,34 @@ const ENTRIES: LabEntry[] = [
     },
     flip: true,
   },
+];
+
+/**
+ * Back of book, three entries on one screen.
+ *
+ * The Feature run is now four: Static, Multiverse Quad, Visual Audiobooks,
+ * AI Creator Lab. Two carry a company's own validation (Amazon AGI, Wondery)
+ * and two are self-initiated, which is the balance the chapter wants, since
+ * Productions already carries the institutional load at scale and Labs
+ * exists to show what she builds when nobody assigns it.
+ *
+ * MythOS demoted on Jeanine's call. Worth recording that her own earlier
+ * argument for keeping it was a good one ("speaks an entertainment
+ * employer's language more directly than anything else in the chapter"),
+ * so the honest reason for the demotion is not that it is weak: it is that
+ * it overlaps Static, which already occupies "self-initiated prototype,
+ * built its own tool, has a number to show for it," and does so with an
+ * outside proposal (iHeart) attached. Four entries answering four different
+ * questions beats five where two answer the same one.
+ *
+ * Narrative Space and Unstill sit below it, in that order, weakest last.
+ *
+ * Every demoted entry keeps its full Concept/Build/Status content in the
+ * data even though the credits rows do not render it, so promoting any of
+ * them back is a one-word tier change plus a `flip` re-check, not a
+ * rewrite. Same reversibility as ARCHIVED_ENTRIES below.
+ */
+const CREDIT_ENTRIES: LabEntry[] = [
   {
     id: 'mythos',
     client: 'Ghost Mode Labs',
@@ -253,49 +283,19 @@ const ENTRIES: LabEntry[] = [
         body: 'A working prototype with 494 source stories in it. Works with any mythology, folklore tradition, or public domain IP. Built for studio development and franchise teams.',
       },
     ],
-    // Cover swap per 5.4: the original cover carries a baked-in MythOS
-    // wordmark that duplicates the page title, so this uses the project's
-    // own demo footage (mainVideos[0] in constants.ts) instead. That demo
-    // clip *also* opens on its own gold "MythOS / Original Signal" title
-    // card for its first ~3.5s (confirmed by frame-capture during Phase 2
-    // review), so this plays "a clean segment" per 5.4 by starting at t=4,
-    // past the card, into the actual globe demo. No media file was cropped
-    // or re-edited; startAt is playback-only.
+    // Kept for a possible promotion back, and unread by the credits rows:
+    // the original cover carries a baked-in MythOS wordmark that duplicates
+    // the page title, so this uses the project's own demo footage instead,
+    // starting at t=4 to clear that clip's own gold title card (confirmed by
+    // frame-capture during Phase 2 review). No media file was re-edited;
+    // startAt is playback-only.
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
-      // Measured directly from the asset (2664x1440): pinning it up front
-      // avoids the small reflow while metadata loads.
       aspectRatio: '2664 / 1440',
       startAt: 4,
       alt: 'MythOS demo: an interactive globe tracking myths across cultures',
     },
-    // No flip: fifth Feature now that Narrative Space and Unstill moved to
-    // Shorts, so this continues the right/left/right/left/right run in
-    // place of the sixth-position left it held before.
   },
-];
-
-/**
- * Back of book. Demoted from Feature on Jeanine's call: her "strong four"
- * for Ghost Mode Labs are Static, Multiverse Quad, AI Creator Lab, and
- * MythOS, each argued as proof of a different capability (originates IP and
- * builds the tool to find it; a frontier AI company's own validation; can
- * bring AI into a real organization and make it stick; speaks a studio's
- * language directly). Visual Audiobooks holds its position by the same
- * call, ahead of its own launch. Narrative Space and Unstill are real,
- * working prototypes, just not part of that top tier.
- *
- * Rendered by LabCredits as one screen, not by ShortEntry as two mini
- * features. The Short tier was still costing 0.79 and 0.85 viewport-heights
- * for the run that exists to be quick, and it was a third back-of-book
- * pattern on a site that had just settled on one in Productions.
- *
- * Their full Concept/Build/Status content stays in the data even though the
- * credits rows do not render it, so promoting either back to a Feature
- * remains a one-word tier change rather than a rewrite. Same reversibility
- * as ARCHIVED_ENTRIES below.
- */
-const CREDIT_ENTRIES: LabEntry[] = [
   {
     id: 'narrative-space',
     client: 'Ghost Mode Labs',
@@ -629,7 +629,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         <div
           className={
             data.flip
-              ? 'md:col-span-5 md:col-start-8 lg:pr-44'
+              ? 'md:col-span-5 md:col-start-8 xl:pr-44'
               : 'md:col-span-5 md:col-start-1'
           }
         >
@@ -666,14 +666,14 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
             without it grid's sparse packing drops it to row 2 on the
             non-flipped entries and nothing is saved. On mobile it stacks
             underneath, in DOM order, unchanged. */}
-        {/* lg:pr-44 only when this column sits at the right edge, reserving
+        {/* xl:pr-44 only when this column sits at the right edge, reserving
             the rail's footprint at 1024 and up where the rail exists. Same
             clearance the Productions spreads and credits screen carry. */}
         <div
           className={`md:row-start-1 ${
             data.flip
               ? 'md:col-span-5 md:col-start-1'
-              : 'md:col-span-5 md:col-start-8 lg:pr-44'
+              : 'md:col-span-5 md:col-start-8 xl:pr-44'
           }`}
         >
           {data.expandables && data.expandables.length > 0 && (
@@ -925,7 +925,7 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
                 </div>
               </div>
 
-              <div className="md:col-span-6 md:col-start-7 lg:pr-44">
+              <div className="md:col-span-6 md:col-start-7 xl:pr-44">
                 {entry.description && (
                   <p
                     className="text-[1rem] leading-relaxed"

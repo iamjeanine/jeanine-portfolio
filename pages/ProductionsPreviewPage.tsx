@@ -463,7 +463,7 @@ const Spread: React.FC<{
         'data-progress-total': progressTotal,
       }}
       background={p.field}
-      gutterClassName="px-6 md:px-20"
+      gutterClassName="px-6 md:px-20 xl:pr-64"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
     >
       <Eyebrow
@@ -592,16 +592,23 @@ const Spread: React.FC<{
           )}
         </div>
 
-        {/* text column. lg:pr-44 only when flip (text seated at col-start-9,
-            flush with the container's right edge): the fixed ChapterRail
-            sits at right-6 with a ~168px label footprint, which measured
-            112px into that column at every width from lg up (both edges are
-            "viewport width minus a constant," so the overlap doesn't shrink
-            on narrower desktop widths). The non-flip column (col-start-1)
-            is nowhere near the rail and is left untouched. */}
+        {/* Text column stays at four of twelve, starting at col 9 when
+            flipped. Widening it to five (col-start-8) was tried and
+            reverted: the flipped media's overlap inset is positioned at
+            -right-[8%], so it pushes past column 7 into column 8, and the
+            wider column put the description, pull-stat and awards strip
+            underneath the Peabody inset on Dying for Sex. Column 9 is where
+            this text has to begin.
+
+            The rail reservation therefore moved to the container gutter
+            instead of living here; see SpreadShell's gutterClassName below.
+            Taking 176px out of a four-column measure left 197px at 1280,
+            a 20-character ribbon; taking it out of the container scales
+            every column down proportionally instead, which costs the media
+            some width and the text almost none. */}
         <div
           className={`lg:row-start-1 lg:col-span-4 lg:pt-16 ${
-            flip ? 'lg:col-start-9 lg:pr-44' : 'lg:col-start-1'
+            flip ? 'lg:col-start-9' : 'lg:col-start-1'
           }`}
         >
           <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
@@ -879,17 +886,15 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
       'data-progress-total': progressTotal,
     }}
     background="var(--bg-site)"
-    gutterClassName="px-6 md:px-20"
+    gutterClassName="px-6 md:px-20 xl:pr-64"
     paddingClassName="pt-16 md:pt-24 pb-20 md:pb-28"
   >
-    {/* lg:pr-44 reserves the fixed ChapterRail's ~168px footprint, the same
-        clearance the flipped spreads carry and for the same reason. This
-        screen needed it worse than they did: the stat column is deliberately
-        right-aligned to the container edge, which is exactly where the rail
-        floats, and it landed directly on Born This Way's Emmy line. Applied
-        to the whole block, not just the stats, so the header rule, the row
-        rules and the stat column all keep one shared right edge. */}
-    <div className="lg:pr-44">
+    {/* The rail clearance this screen needs lives on the gutter above now,
+        not on a wrapper here, so the header rule, the row rules and the
+        right-aligned stat column all share one right edge with the spreads.
+        It matters here specifically because that stat column is deliberately
+        flush to the container edge, which is exactly where the rail floats,
+        and it once landed on Born This Way's Emmy line. */}
     <div className="flex items-baseline gap-6">
       <h3 className="chapter-label" style={{ color: 'var(--ink-mute)' }}>
         Also produced
@@ -999,7 +1004,6 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
         </li>
       ))}
     </ul>
-    </div>
   </SpreadShell>
 );
 

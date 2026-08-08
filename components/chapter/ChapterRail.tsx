@@ -223,13 +223,22 @@ export const ChapterRail: React.FC<{
         here once rather than by padding six layouts, which at 768 would
         have spent 144px of a 576px measure.
 
-        The compact chip below now covers 768-1023 instead, which is the
-        right control at that width anyway. The lg:pr-36 clearances in
-        Productions and Labs remain necessary and correct for 1024 and up,
-        where the rail does appear.
+        lg was still too generous, found on the next pass. Reserving the
+        rail's footprint inside a four-of-twelve column at 1024 left the
+        flipped Productions spreads a 267px column carrying 176px of
+        padding, so the description rendered in a 91px ribbon, about ten
+        characters a line. Overlap was fixed and readability was quietly
+        spent paying for it, which the overlap sweep could not see because
+        it only ever measured collisions.
+
+        So the rail is xl and up, where the reservation costs a proportion
+        of the width rather than most of it, and the compact chip covers
+        everything below 1280. The xl:pr-44 clearances in Productions and
+        Labs are scoped to match: at 1024 those columns carry no
+        reservation at all, because there is no rail there to clear.
       */}
       <nav
-        className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
+        className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
         style={{ opacity: suppressed ? 0 : 1, pointerEvents: suppressed ? 'none' : 'auto' }}
         aria-hidden={suppressed || undefined}
         aria-label="Chapter navigation"
@@ -267,7 +276,7 @@ export const ChapterRail: React.FC<{
           element mobile had was non-functional for its actual job. */}
       {active && (
         <div
-          className="lg:hidden fixed top-3 right-3 z-40 flex flex-col items-end gap-2 chapter-rail-invert"
+          className="xl:hidden fixed top-3 right-3 z-40 flex flex-col items-end gap-2 chapter-rail-invert"
         >
           <button
             type="button"
