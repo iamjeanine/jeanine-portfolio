@@ -62,7 +62,22 @@ interface LabEntry {
   stat?: { value: string; label: string };
   expandables?: { label: string; body: string }[];
   video: { src: string; poster?: string; alt: string; aspectRatio?: string; startAt?: number };
+  /**
+   * Was shown only on the in-development tier ("Coming soon"). Now also
+   * rendered by FeatureEntry, for Visual Audiobooks: promoted to a full
+   * Feature on real content, but genuinely still building, so it needs an
+   * honest status signal visible without opening an expandable, not just
+   * an in-development template's smaller frame.
+   */
   note?: string;
+  /**
+   * Defaults true. Set false to suppress "Open project →" for a Feature
+   * whose real detail page has no content yet (constants.ts currently has
+   * description: '' and mainVideos: [] for Visual Audiobooks). Showing
+   * that link before the page behind it exists would be the same
+   * scaffolding problem as the About colophon's empty Teaching block.
+   */
+  hasProjectPage?: boolean;
   flip?: boolean;
 }
 
@@ -150,9 +165,26 @@ const ENTRIES: LabEntry[] = [
     id: 'visual-audiobooks',
     client: 'Ghost Mode Labs',
     title: 'Visual Audiobooks',
-    tagline: 'A new visual telling with every listen',
-    tier: 'in-development',
-    note: 'Coming soon',
+    tagline: 'Original kids’ stories that draw themselves differently every time a child returns',
+    tier: 'feature',
+    note: 'Launching soon',
+    description:
+      'Kids play a favorite story a hundred times. Built a player where the pictures redraw themselves every time, so the hundredth listen doesn’t look like the first.',
+    expandables: [
+      {
+        label: 'Concept',
+        body: 'The first story built for it: The Kids’ Guidebook to the Rock, an original story. Every Sunday, a girl visits her father in a Florida prison. Before they moved him to the Rock, he escaped from a work camp and was gone a month. She tells you how he did it, step by step, like she could do it herself. Every time you listen, the escape gets redrawn, because that’s what she’s actually doing in that yard on those long Sundays: imagining it differently, over and over, while she waits.',
+      },
+      {
+        label: 'Build',
+        body: 'Charcoal one listen. A flashlight on a quilt the next. Mixed media built from real archival footage after that. Some tellings are drawn by code. Others come from illustrators who pitch their own version and join the book.',
+      },
+      {
+        label: 'Status',
+        body: 'Narrated today. You can record it in a parent’s voice, a grandparent’s, or your own, next. Still in build, launching soon.',
+      },
+    ],
+    hasProjectPage: false,
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/visual-audiobook-cover.mp4',
       alt: 'Preview reel for Visual Audiobooks, a new visual telling with every listen',
@@ -447,9 +479,19 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
 
       <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12">
         <div className={data.flip ? 'md:col-span-6 md:col-start-7' : 'md:col-span-6 md:col-start-1'}>
-          <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: LAB.accent }}>
-            {data.tagline}
-          </p>
+          <div className="flex flex-wrap items-baseline gap-x-6 gap-y-4">
+            <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: LAB.accent }}>
+              {data.tagline}
+            </p>
+            {data.note && (
+              <p
+                className="inline-block chapter-label px-3 py-1.5"
+                style={{ color: LAB.accent, border: `1px solid ${LAB.border}` }}
+              >
+                {data.note}
+              </p>
+            )}
+          </div>
 
           {data.description && (
             <p
@@ -480,7 +522,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
             </div>
           )}
 
-          <OpenProjectLink id={data.id} />
+          {data.hasProjectPage !== false && <OpenProjectLink id={data.id} />}
         </div>
       </div>
     </Reveal>
