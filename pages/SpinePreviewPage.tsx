@@ -469,7 +469,10 @@ const SpinePreviewPage: React.FC = () => {
         onNavigate={pushChapterUrl}
         onActiveChange={syncActiveChapterToUrl}
       />
-      <MotionToggle hideWhileVisibleId="cover" />
+      {/* Labs only. The cover gate this used to carry is now redundant: the
+          Cover is not inside #labs, so the show-gate already excludes it,
+          along with all of Productions and About. */}
+      <MotionToggle showWhileVisibleId="labs" />
 
       <Cover onSelectChapter={goToChapter} />
 

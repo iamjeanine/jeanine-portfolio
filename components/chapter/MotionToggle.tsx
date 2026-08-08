@@ -17,9 +17,28 @@ import { useElementVisible } from './useElementVisible';
  * mix-blend-mode so it stays legible over paper, the Labs ink-black, and
  * Productions' saturated fields alike.
  */
-export const MotionToggle: React.FC<{ hideWhileVisibleId?: string }> = ({
-  hideWhileVisibleId,
-}) => {
+export const MotionToggle: React.FC<{
+  hideWhileVisibleId?: string;
+  /**
+   * Inverse gate: when set, the control renders *only* while that element is
+   * on screen. The Spine passes the Labs chapter, because that is the only
+   * place the looping autoplay this pauses actually exists. Jeanine asked
+   * for the control removed as unnecessary, and she was right about most of
+   * the site: it was showing across roughly 21 of 22 viewport-heights while
+   * the videos it governs live in about 9 of them, so for the whole of
+   * Productions and About it was fixed chrome doing nothing.
+   *
+   * Scoped rather than deleted, because it is not decorative. It is the
+   * site's only in-page mechanism to stop seven indefinitely-looping
+   * autoplaying videos presented alongside body copy, which is WCAG 2.2.2
+   * at Level A. LazyVideo already honours prefers-reduced-motion, but an
+   * OS-level preference is not accepted as satisfying 2.2.2: the normative
+   * requirement is a mechanism in the content. Deleting it outright would
+   * have been a real conformance regression rather than a tidy-up, so the
+   * clutter complaint is answered by narrowing where it appears.
+   */
+  showWhileVisibleId?: string;
+}> = ({ hideWhileVisibleId, showWhileVisibleId }) => {
   const paused = useMotionPaused();
   const [reduced, setReduced] = useState(false);
   // Hidden while that element is on screen. Used for the Cover, which is
@@ -28,6 +47,8 @@ export const MotionToggle: React.FC<{ hideWhileVisibleId?: string }> = ({
   // measured overlapping the Cover index's own text once that index made
   // the Cover taller than the viewport.
   const suppressed = useElementVisible(hideWhileVisibleId);
+  const gateVisible = useElementVisible(showWhileVisibleId);
+  const gatedOut = showWhileVisibleId !== undefined && !gateVisible;
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -37,7 +58,7 @@ export const MotionToggle: React.FC<{ hideWhileVisibleId?: string }> = ({
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  if (reduced || suppressed) return null;
+  if (reduced || suppressed || gatedOut) return null;
 
   return (
     <button
