@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd } from '../components/chapter';
 import {
@@ -172,7 +172,46 @@ const COVER_CREDENTIAL_ACCENT = '#E9B94C';
  * on the page, ~30 viewport-heights deep, so any earlier bail lost it.
  * Mastheads print contact information.
  */
-const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectChapter }) => (
+const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectChapter }) => {
+  // Entrance, once, on mount. Ported from the video hero this Cover
+  // replaced (components/Hero.tsx): the swap took the hero's staggered
+  // blur-to-sharp settle and its scroll-driven zoom and left nothing in
+  // their place, so the first thing a visitor does, scroll, got no
+  // response from the page at all. Both an outside review and the
+  // recruiter-persona pass landed on the same reading of that, one calling
+  // it "nothing moves and nothing invites."
+  //
+  // Same curve, durations and stagger as the original hero, so this reads
+  // as the site's own gesture rather than a new one: 1200ms on
+  // cubic-bezier(0.2,0.8,0.2,1), lines at 300ms and 550ms, supporting copy
+  // at 900ms and 1050ms, with the kicker added at 150ms since the Cover has
+  // one and the hero did not. The letter-spacing settle (0.08em to the
+  // Cover's own -0.02em) is the part that carries the "type setting
+  // itself" quality; it is not decoration on top of a fade.
+  //
+  // Reduced motion is read synchronously in the initial state, not in an
+  // effect, so `shown` starts true and no transition property is ever
+  // applied. Deferring that to an effect would paint one frame of an
+  // invisible cover first, which is cheap to avoid and least acceptable
+  // here of anywhere on the site.
+  const [reduced] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+  const [shown, setShown] = useState(reduced);
+
+  useEffect(() => {
+    if (reduced) return;
+    // One frame of the pre-entrance state has to actually paint for the
+    // transition to run at all; setting state directly in the effect would
+    // batch into the same commit and jump straight to the end.
+    const raf = requestAnimationFrame(() => setShown(true));
+    return () => cancelAnimationFrame(raf);
+  }, [reduced]);
+
+  const entrance = (delay: number): React.CSSProperties =>
+    reduced ? {} : { transition: `all 1200ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms` };
+
+  return (
   <section
     id="cover"
     // justify-start below lg, not justify-between: on a min-h-screen flex
@@ -192,27 +231,64 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
     />
 
     <div className="relative">
-      <p className="chapter-label" style={{ color: SCAMFLUENCERS_ACCENT }}>
+      <p
+        className="chapter-label"
+        style={{
+          color: SCAMFLUENCERS_ACCENT,
+          opacity: shown ? 1 : 0,
+          transform: shown ? 'none' : 'translateY(8px)',
+          ...entrance(150),
+        }}
+      >
         Selected work
       </p>
+      {/* Two spans rather than a <br />: each line settles on its own beat,
+          which is what made the original hero's two-line name read as type
+          arriving rather than a block fading in. letterSpacing lives on the
+          spans, not the h1, because it is the animated property here. */}
       <h1
         className="mt-8 md:mt-10"
         style={{
           fontFamily: "'Bodoni Moda', serif",
           fontSize: 'var(--display-xl)',
           lineHeight: 0.88,
-          letterSpacing: '-0.02em',
           color: SCAMFLUENCERS_INK,
         }}
       >
-        Jeanine Emilia
-        <br />
-        Cornillot
+        {[
+          { text: 'Jeanine Emilia', delay: 300 },
+          { text: 'Cornillot', delay: 550 },
+        ].map((line) => (
+          <span
+            key={line.text}
+            className="block"
+            style={{
+              letterSpacing: shown ? '-0.02em' : '0.08em',
+              opacity: shown ? 1 : 0,
+              transform: shown ? 'none' : 'translateY(16px)',
+              filter: shown ? 'blur(0px)' : 'blur(12px)',
+              ...entrance(line.delay),
+            }}
+          >
+            {line.text}
+          </span>
+        ))}
       </h1>
     </div>
 
     <div className="relative mt-20 lg:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
-      <div style={{ maxWidth: '34ch' }}>
+      {/* Credential, tagline and contact animate as one beat, not five:
+          the pitch was the name settling and then the supporting material
+          following, and staggering every line inside this block would turn
+          a two-second first impression into a queue. */}
+      <div
+        style={{
+          maxWidth: '34ch',
+          opacity: shown ? 1 : 0,
+          transform: shown ? 'none' : 'translateY(12px)',
+          ...entrance(900),
+        }}
+      >
         <p
           className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
           style={{ fontFamily: "'Uncut Sans', sans-serif", color: COVER_CREDENTIAL_ACCENT }}
@@ -245,7 +321,15 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
         </div>
       </div>
 
-      <nav aria-label="Contents" className="flex flex-col gap-3 md:items-end">
+      <nav
+        aria-label="Contents"
+        className="flex flex-col gap-3 md:items-end"
+        style={{
+          opacity: shown ? 1 : 0,
+          transform: shown ? 'none' : 'translateY(12px)',
+          ...entrance(1050),
+        }}
+      >
         {[
           { id: 'productions', index: '01', label: 'Productions' },
           { id: 'labs', index: '02', label: 'Ghost Mode Labs' },
@@ -278,7 +362,8 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       </nav>
     </div>
   </section>
-);
+  );
+};
 
 const SpinePreviewPage: React.FC = () => {
   const { chapter } = useParams<{ chapter?: string }>();
