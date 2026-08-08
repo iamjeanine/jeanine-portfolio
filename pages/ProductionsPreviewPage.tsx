@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ColorBridge, Eyebrow, Expandable, SpreadShell, gradientStart, gradientEnd } from '../components/chapter';
+import {
+  ColorBridge,
+  Eyebrow,
+  Expandable,
+  SpreadShell,
+  gradientStart,
+  gradientEnd,
+  useRevealOnce,
+} from '../components/chapter';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -383,6 +391,35 @@ const Spread: React.FC<{
 }> = ({ data, label, progressIndex, progressTotal }) => {
   const { palette: p, flip } = data;
 
+  /*
+   * Spread choreography: the credits were the most static screens on the
+   * site, which both the recruiter-persona pass and an outside review
+   * flagged independently ("the strongest credits and the cover are the
+   * most static screens"). Three beats as the spread arrives: the eyebrow
+   * identifies the page, the title rises and settles, then the work
+   * appears.
+   *
+   * Three, not four. The text column rides with the artwork rather than
+   * taking its own beat, because a fourth stop turns an entrance into a
+   * queue, and the supporting copy is not what a reader is waiting for.
+   *
+   * 700ms against the Cover's 1200ms, and rise-plus-fade with no
+   * blur-to-sharp. Both are deliberate hierarchy, not thrift: the Cover
+   * fires once per visit and can afford to be the site's signature
+   * gesture, while this fires four times and has to stay out of the way of
+   * a reader who is already moving. Keeping the blur exclusive to the
+   * Cover is what stops it becoming a mannerism.
+   */
+  const { shown, reduced } = useRevealOnce(`production-${data.slug}`);
+  const beat = (delay: number, rise: number): React.CSSProperties =>
+    reduced
+      ? {}
+      : {
+          opacity: shown ? 1 : 0,
+          transform: shown ? 'none' : `translateY(${rise}px)`,
+          transition: `opacity 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
+        };
+
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
   // Plays once when a video main-image scrolls into view, then rests on its final frame.
@@ -420,7 +457,13 @@ const Spread: React.FC<{
       gutterClassName="px-6 md:px-20"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
     >
-      <Eyebrow label={data.eyebrow} index={label} labelColor={p.inkSoft} indexColor={p.accent} />
+      <Eyebrow
+        label={data.eyebrow}
+        index={label}
+        labelColor={p.inkSoft}
+        indexColor={p.accent}
+        style={beat(0, 8)}
+      />
 
       {/* oversized title, overlapping the media cluster */}
       <h3
@@ -440,6 +483,11 @@ const Spread: React.FC<{
           // fix it but visibly slackens all seven titles to prevent a bug that
           // does not yet occur, so this stays as the plan specifies.
           textWrap: 'balance',
+          // Beat 2: the title rises further than the other two (28px against
+          // 8 and 20) because it is the element the entrance is actually
+          // about, and a large word needs more travel than a small one to
+          // read as movement at all.
+          ...beat(120, 28),
         }}
       >
         {data.title}
@@ -459,7 +507,16 @@ const Spread: React.FC<{
         col-start does the desktop placement, so source order can match
         visual order instead of contradicting it on all seven spreads.
       */}
-      <div className="mt-10 lg:mt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
+      {/* Beat 3. Applied to the grid container so artwork and text arrive
+          together as one gesture. Safe against two things worth naming: the
+          overlap inset is positioned against the media column, not this
+          grid, so a transform here cannot shift it out of interlock; and
+          the 20px of travel is absorbed by the spread's own pb-24/pb-36, so
+          SpreadShell's overflow-hidden has nothing to clip mid-animation. */}
+      <div
+        className="mt-10 lg:mt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8"
+        style={beat(260, 20)}
+      >
         {/* media cluster, asymmetric; mirrors when flipped. self-start so the
             column shrink-wraps the artwork: as a stretched grid item its
             height was set by the *text* column, which is why the inset's
