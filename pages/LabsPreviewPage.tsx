@@ -322,6 +322,18 @@ const ENTRIES: LabEntry[] = [
       alt: 'Preview reel for Unstill, 1920s Sydney archive portraits returning to color and motion',
     },
   },
+];
+
+/**
+ * Cut from the chapter on Jeanine's call: nine entries read as too much
+ * under Ghost Mode, and these two weren't necessarily the four she'd
+ * choose to highlight. Kept intact and in the exact shape ENTRIES expects,
+ * not deleted, so restoring either one is just moving its object back into
+ * ENTRIES (and re-checking its `flip` against whatever now sits on either
+ * side, per the alternation note above). Excluded from LABS_INDEX and the
+ * rendered chapter automatically, since both are derived from ENTRIES only.
+ */
+export const ARCHIVED_ENTRIES: LabEntry[] = [
   {
     id: 'tender',
     client: 'Ghost Mode Labs',
