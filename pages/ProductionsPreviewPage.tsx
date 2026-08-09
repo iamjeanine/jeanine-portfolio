@@ -130,10 +130,18 @@ const SPREADS: SpreadData[] = [
     ],
     media: {
       main: {
-        src: '/proto/scamfluencers-hosts.jpg',
+        // Both stills below moved off /proto/ (a gitignored local folder
+        // that never made it into any deployed build) onto the Cloud
+        // bucket, in the "Broader Portfolio references" folder Jeanine
+        // uploaded. Content verified against the old alt text before
+        // wiring in, not matched by filename alone.
+        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Scamfluencers/Podcasts.jpeg',
         alt: 'Scamfluencers hosts Scaachi Koul and Sarah Hagi, featured by Apple Podcasts',
       },
-      overlap: { src: '/proto/scamfluencers-keyart.jpg', alt: 'Scamfluencers key art' },
+      overlap: {
+        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Scamfluencers/Scamfluencers%20Keyart.jpg',
+        alt: 'Scamfluencers key art',
+      },
     },
     // Contrast repair (REDESIGN-PLAN.md 6.1, computed via WCAG relative
     // luminance, not eyeballed): the original field's light stops failed
@@ -177,11 +185,11 @@ const SPREADS: SpreadData[] = [
     ],
     media: {
       main: {
-        src: '/proto/dfs-emmy.jpg',
+        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Dying%20for%20Sex/9.jpg',
         alt: 'Dying for Sex podcast and FX series artwork with 9 Emmy nominations laurel',
       },
       overlap: {
-        src: '/proto/dfs-peabody.jpg',
+        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Dying%20for%20Sex/THE%20PEABODY%20AWARDS.jpg',
         alt: 'Dying for Sex FX series Peabody Awards winner poster',
       },
     },
@@ -221,12 +229,12 @@ const SPREADS: SpreadData[] = [
     ],
     media: {
       main: {
-        src: '/proto/tlc-notext.png',
+        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/The%20Last%20City/No%20text%20Key%20Art.png',
         alt: 'The Last City key art: a woman looking back at a smoking domed city at golden hour',
         className: 'w-full lg:w-[76%] block lg:ml-auto',
       },
       overlap: {
-        src: '/proto/tlc-s1.jpg',
+        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/The%20Last%20City/TLC%20S1.jpg',
         alt: 'The Last City season one poster: a silhouette holding a domed city at golden hour',
         className: 'hidden lg:block absolute w-[34%] aspect-[4/5] object-cover -bottom-10 left-[2%]',
       },
@@ -270,11 +278,11 @@ const BORN_THIS_WAY: SpreadData = {
   ],
   media: {
     main: {
-      src: '/proto/tv-born-this-way-full.jpg',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Born%20This%20way/Born-This-Way-cast.jpg',
       alt: 'The cast of Born This Way posing together in a studio portrait',
     },
     overlap: {
-      src: '/proto/bornthisway-keyart.jpg',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Born%20This%20way/Keyart.jpg',
       alt: 'Born This Way key art: individual cast headshots against a brick wall',
     },
   },
@@ -317,11 +325,11 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
   ],
   media: {
     main: {
-      src: '/proto/npr-hero.jpg',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20No%20Passport%20Necessary/NPR_s2_HeroImage_3_2.jpg',
       alt: 'Marcus Samuelsson holding a crab in a kitchen, from No Passport Required',
     },
     overlap: {
-      src: '/proto/npr-redrooster.webp',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20No%20Passport%20Necessary/vox-media-easter-marcus-samuelsson-no-passport-required.webp',
       alt: 'Marcus Samuelsson standing outside his restaurant, Red Rooster',
     },
   },
@@ -366,7 +374,7 @@ const LIFE_OF_KYLIE: SpreadData = {
   ],
   media: {
     main: {
-      src: '/proto/kylie-notext.png',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Life%20of%20Kylie/No%20text%20keyart.png',
       alt: 'Life of Kylie key art: a portrait of Kylie Jenner with a neon crown graphic',
       className: 'w-full lg:w-[58%] block lg:ml-auto',
     },
@@ -750,20 +758,28 @@ const HOLLYWOOD_CRIME: SpreadData = {
     },
   ],
   media: {
+    // Still broken, not fixed in this pass: Jeanine's upload was images
+    // only. She did add a new "Screen Recording 2026-08-05.mov" in the
+    // same Cloud folder, which by name may be a replacement for this clip,
+    // but a .mov needs a codec/format check before it goes anywhere near
+    // production, and that wasn't confirmed as its intended purpose. Left
+    // broken and flagged rather than guessed at.
     main: {
       src: '/proto/hc-bonny-motion.mp4',
       alt: 'The Execution of Bonny Lee Bakley animated cover art',
       isVideo: true,
     },
     overlap: {
-      src: '/proto/hc-bbc.jpg',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Hollywood%20and%20Crime/Billionaire%20Boys%20Club.jpg',
       alt: 'Billionaire Boys Club cover art',
     },
     // Still frame of the same Bakley cover the spread's video leads on, so
     // the compressed row shows the season this credit is known for rather
-    // than the inset from season 6.
+    // than the inset from season 6. Filed in the Cloud folder as
+    // "WONDERY.jpg", not obviously this by name; opened and confirmed by
+    // content before wiring in, not matched on the filename.
     thumb: {
-      src: '/proto/hc-bonny-lee.jpg',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Hollywood%20and%20Crime/WONDERY.jpg',
       alt: 'The Execution of Bonny Lee Bakley cover art',
     },
   },
