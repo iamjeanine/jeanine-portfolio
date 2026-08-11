@@ -347,10 +347,10 @@ const ENTRIES: LabEntry[] = [
     client: 'Wondery',
     year: '2025',
     title: 'AI Creator Lab',
-    tagline: 'Creative workflow lab',
+    tagline: 'Creative Innovation Lab',
     tier: 'feature',
     description:
-      'I founded Wondery’s first AI Creator Lab. I created the curriculum, built the learning modules and the site they lived on, and brought in outside partners to demo their tools inside production work. Three projects were greenlit out of it.',
+      'I founded Wondery’s first AI Creator Lab. I built the curriculum, internal hub, and partnerships that brought AI into production. Three projects were greenlit from the lab.',
     stat: { value: '4 to 50+', label: 'People across the company' },
     expandables: [
       {
