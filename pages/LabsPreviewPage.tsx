@@ -1267,7 +1267,13 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         <LabCredits position={ENTRIES.length + 1} total={ENTRIES.length + 1} />
 
         {/* Chapter coda: a real link into the About colophon when the
-            composing page has one to point at (5.5). */}
+            composing page has one to point at (5.5). Plain label, no
+            narration: "About follows: the person behind both chapters"
+            was the same editorial stage-direction voice already cut once
+            from the Productions/Labs transition ("Ghost Mode Labs
+            follows..."), just a sibling line that survived that sweep.
+            Matches OpenProjectLink's own convention elsewhere in this
+            chapter: name the destination, let the arrow do the rest. */}
         {onAbout && (
           <div className="pb-24 md:pb-32">
             <button
@@ -1276,7 +1282,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
               className="lab-open inline-flex items-baseline gap-2 text-[0.75rem] tracking-[0.18em] uppercase"
               style={{ color: LAB.ink, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
             >
-              About follows: the person behind both chapters
+              About
               <span aria-hidden="true" style={{ color: LAB.accent }}>
                 &rarr;
               </span>
