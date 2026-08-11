@@ -232,7 +232,7 @@ const SPREADS: SpreadData[] = [
     role: 'Creator & Showrunner',
     description:
       'The Last City is an immersive, 12-part sci-fi audio thriller, starring Rhea Seehorn, that explores the dark truths behind a utopian society surviving the climate crisis.',
-    stat: { value: '#1', label: 'Apple Fiction · 20 countries' },
+    stat: { value: '#1 Apple Fiction', label: 'in 20 countries' },
     expandables: [
       {
         label: 'Role',
@@ -291,7 +291,12 @@ const BORN_THIS_WAY: SpreadData = {
   role: 'Supervising Producer',
   description:
     'Seven young adults with Down syndrome build careers, independence, and love, on camera and on their own terms.',
-  stat: { value: '3', label: 'Wins · 16 Primetime Emmy Nominations' },
+  // Non-breaking space binds "16 nominations": the value wraps to two
+  // lines in this column at every width, and the natural break fell
+  // between "16" and "nominations", stranding the number from the
+  // noun it counts. Breaking after the middot instead leaves each
+  // line a whole unit.
+  stat: { value: '3 wins · 16 nominations', label: 'Primetime Emmys' },
   expandables: [
     {
       label: 'Role',
