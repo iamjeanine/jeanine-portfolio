@@ -291,12 +291,21 @@ const BORN_THIS_WAY: SpreadData = {
   role: 'Supervising Producer',
   description:
     'Seven young adults with Down syndrome build careers, independence, and love, on camera and on their own terms.',
-  // Non-breaking space binds "16 nominations": the value wraps to two
-  // lines in this column at every width, and the natural break fell
-  // between "16" and "nominations", stranding the number from the
-  // noun it counts. Breaking after the middot instead leaves each
-  // line a whole unit.
-  stat: { value: '3 wins · 16 nominations', label: 'Primetime Emmys' },
+  // One figure in the display line, not two. This was the only lead
+  // spread bolding a pair of numbers, which made the eye do arithmetic
+  // where the other three state a single unit (53M, Podcast of the
+  // Year, #1 Apple Fiction). The nominations keep their weight in the
+  // label: 16 alongside 3 reads as recognition sustained across the run.
+  //
+  // The label says only "16 nominations" because the display line above
+  // already establishes Emmy, so repeating it put the same word on two
+  // adjacent lines. "Primetime" is dropped here rather than lost: the
+  // About colophon carries the exact record ("3 wins, 16 Primetime Emmy
+  // nominations"), and this line has to survive a skim. Putting the
+  // qualifier in the display line was measured instead of assumed: "3
+  // Primetime Emmy wins" wraps to three lines at both 1440 and 390,
+  // which is the fragmentation this whole pass existed to remove.
+  stat: { value: '3 Emmy wins', label: '16 nominations' },
   expandables: [
     {
       label: 'Role',
