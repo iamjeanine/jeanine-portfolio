@@ -84,6 +84,16 @@ const LAB_GROUND_WITH_BLOOM =
 const SERIF_DISPLAY = "'Bodoni Moda', serif";
 const SERIF_BODY = "'Source Serif 4', Georgia, serif";
 
+/**
+ * The chapter's index label for a 1-based position. Zero-pads to two digits
+ * rather than prefixing a literal "0", which is what four separate call
+ * sites used to do: correct through L-09, then "L-010" on the tenth entry.
+ * The chapter is at seven, so the trap was real but not yet visible. Pads
+ * rather than truncates past 99, on the principle that a wrong-looking
+ * number beats a silently wrong one.
+ */
+const labIndex = (position: number) => `L-${String(position).padStart(2, '0')}`;
+
 type Tier = 'feature' | 'short' | 'in-development';
 
 interface LabEntry {
@@ -732,7 +742,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
     {/* Beat 1: eyebrow + title together, since the choreography is three
         beats (title, frame, text), not four. */}
     <div style={beat(0, 10)}>
-      <Eyebrow label={clientLine(data)} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={clientLine(data)} index={labIndex(position)} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-8 md:mt-12"
@@ -893,7 +903,7 @@ const ShortEntry: React.FC<{ data: LabEntry; position: number; total: number }> 
     className="pb-24 md:pb-36"
   >
     <Reveal>
-      <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={data.client} index={labIndex(position)} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-6 md:mt-8"
@@ -961,7 +971,7 @@ const InDevelopmentEntry: React.FC<{ data: LabEntry; position: number; total: nu
     className="pb-24 md:pb-40"
   >
     <Reveal>
-      <Eyebrow label={data.client} index={`L-0${position}`} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
+      <Eyebrow label={data.client} index={labIndex(position)} labelColor={LAB.inkSoft} indexColor={LAB.accent} />
 
       <h3
         className="mt-6 md:mt-8"
@@ -1024,7 +1034,7 @@ const Entry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
 export const LABS_INDEX = [...ENTRIES, ...CREDIT_ENTRIES].map((e, i) => ({
   anchor: `lab-${e.id}`,
   name: e.title,
-  index: `L-0${i + 1}`,
+  index: labIndex(i + 1),
   meta: e.tagline,
 }));
 
@@ -1082,7 +1092,7 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
                   className="chapter-label tabular-nums shrink-0 pt-1"
                   style={{ color: LAB.accent }}
                 >
-                  {`L-0${ENTRIES.length + i + 1}`}
+                  {labIndex(ENTRIES.length + i + 1)}
                 </span>
 
                 {/* Video, not a still, unlike ProductionCredits' thumbnails.
