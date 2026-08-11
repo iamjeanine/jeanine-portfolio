@@ -195,14 +195,17 @@ const ENTRIES: LabEntry[] = [
     description: (
       <>
         <p>
-          Thirteen Reddit communities spent a decade building folklore
-          around disappearances in the American wilderness.
+          For more than a decade, thirteen Reddit communities built a
+          shared folklore around disappearances in the American
+          wilderness.
         </p>
         <p className="mt-3">
           Last Active, a research tool I built to trace story patterns
           across public archives, found 582 recurring overlaps across
-          6,884 accounts. Static is the first scripted story to emerge
-          from that research.
+          6,884 accounts.
+        </p>
+        <p className="mt-3">
+          Static is the first scripted series built from that research.
         </p>
       </>
     ),

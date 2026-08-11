@@ -131,7 +131,7 @@ const SPREADS: SpreadData[] = [
     expandables: [
       {
         label: 'Role',
-        body: 'Scamfluencers is original IP I created at Wondery. I took it from concept through greenlight and ran it as showrunner, building the format, casting the hosts, setting the editorial voice, and overseeing weekly production across the run.',
+        body: 'Scamfluencers is original IP I created at Wondery. I led it from development through production as showrunner, building the format, casting the hosts, shaping the editorial voice, and overseeing the series throughout its run.',
       },
       {
         label: 'Impact',
