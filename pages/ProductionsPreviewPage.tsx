@@ -713,49 +713,49 @@ const Spread: React.FC<{
             </div>
           )}
 
-          {/* Award strip: the credentials that were only inside the Impact
-              expandable, hoisted so they read on a fast scroll. The
-              recruiter-persona critique found this persona never opens an
-              expandable, so a spread could pass at speed showing "53M
-              downloads" and never the Ambie win.
+          {/* Recognition block. This list kept getting adjusted (dot
+              separators to stacking, 0.7rem to 0.78rem, a fixed gap to one
+              conditional on count) and kept reading, in Jeanine's words, as
+              "hanging out there." Every one of those passes treated it as a
+              size and spacing problem. It was not.
 
-              Stacked one per line, not inline with middle-dot separators:
-              the dot version broke as soon as a spread carried four awards
-              (Scamfluencers) instead of two or three — flex-wrap sends the
-              dot to whichever line its item lands on, so a wrapped line
-              starts with an orphaned "· VOGUE'S BEST PODCASTS", which reads
-              as a stray bullet rather than a continuous credential line.
-              Stacking removes the failure mode outright regardless of how
-              many awards a spread ever carries, at the cost of a few more
-              vertical pixels than a single dense line. Bumped a notch off
-              the shared 0.7rem label size too, since a hiring-audience
-              credential (an Ambie, a Peabody) reading at 11px next to a
-              72px stat was the "almost invisible" half of the complaint,
-              not just the dot bug.
+              Two things were actually wrong. First, the items were set in
+              the same tracked uppercase micro-caps as the pull-stat's own
+              label directly above them, so on a spread like Dying for Sex
+              the eye saw two identical lines and read the award as a second
+              label continuing off the stat rather than as its own content.
+              Second, the block had no header at all, so nothing announced
+              it as a deliberate section.
 
-              Gap scales with award count, not a fixed mt-8 everywhere.
-              mt-8 was tried as one value for every spread, to stop a
-              single award (Dying for Sex) from reading as the stat's own
-              label continuing onto a mismatched second line. It fixed
-              that, but overcorrected: the same 32px gap that reads as
-              "clearly a separate group" ahead of four stacked lines
-              (Scamfluencers) reads as "floating, disconnected" ahead of
-              just one (Jeanine's direct call, live) — a fixed gap over a
-              near-empty list is mostly gap. Fewer lines now get less
-              space above them: still enough to avoid the mismatch this
-              was built to fix, not so much the one line looks orphaned. */}
+              So the items now sit in the body serif at a readable size,
+              which is content styling rather than caption styling, under an
+              accent label that matches the role eyebrow above and the
+              colophon's own list headers. That header also supplies the
+              separation the old conditional margin was faking, so the gap
+              is one value again regardless of how many items there are.
+
+              "Recognition", not "Awards": Scamfluencers carries Vogue's
+              Best Podcasts and Apple's Creators We Love, which are
+              editorial selections rather than prizes, and on the spreads
+              whose pull-stat is itself an award, an "Awards" header
+              underneath it implies the big line above is not one. */}
           {data.awards && data.awards.length > 0 && (
-            <ul className={`${data.awards.length > 1 ? 'mt-8' : 'mt-5'} space-y-1.5`}>
-              {data.awards.map((award) => (
-                <li
-                  key={award}
-                  className="text-[0.78rem] tracking-[0.12em] uppercase"
-                  style={{ color: p.inkBody }}
-                >
-                  {award}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-10">
+              <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
+                Recognition
+              </p>
+              <ul className="mt-3.5 space-y-1.5">
+                {data.awards.map((award) => (
+                  <li
+                    key={award}
+                    className="text-[0.95rem] leading-snug"
+                    style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '34ch' }}
+                  >
+                    {award}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
 
           {/* expandables, omitted for lighter spreads */}
