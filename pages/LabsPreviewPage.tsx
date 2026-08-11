@@ -278,7 +278,7 @@ const ENTRIES: LabEntry[] = [
     expandables: [
       {
         label: 'Concept',
-        body: 'Most stories start in one format and get adapted later. Multiverse Quad explores how the same story can be reimagined across four formats from the start.',
+        body: 'Most stories start in one format and get adapted later. Multiverse Quad develops a story across four formats from the start.',
       },
     ],
     video: {
