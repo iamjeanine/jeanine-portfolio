@@ -9,6 +9,8 @@ export { LazyVideo } from './LazyVideo';
 export { ProjectorLight } from './ProjectorLight';
 export { ChapterRail } from './ChapterRail';
 export type { RailSection } from './ChapterRail';
+export { ChapterContents } from './ChapterContents';
+export type { ChapterContentsItem } from './ChapterContents';
 export { MotionToggle } from './MotionToggle';
 export { useMotionPaused, setMotionPaused, isMotionPaused } from './motionPreference';
 export { useElementVisible } from './useElementVisible';

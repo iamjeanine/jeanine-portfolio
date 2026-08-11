@@ -50,7 +50,9 @@ export const SpreadShell: React.FC<{
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
         style={{ backgroundImage: GRAIN_URI, opacity: grainOpacity }}
       />
-      <div className={`relative ${gutterClassName} ${paddingClassName}`}>{children}</div>
+      <div className={`relative max-w-[1600px] mx-auto ${gutterClassName} ${paddingClassName}`}>
+        {children}
+      </div>
     </Tag>
   );
 };

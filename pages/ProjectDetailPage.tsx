@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { PROJECTS, getVisibleProjects } from '../constants';
 import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
@@ -141,6 +141,7 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
 const ProjectDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const vtNavigate = useViewTransitionNavigate();
   const [project, setProject] = useState<Project | null>(null);
   const [projectIndex, setProjectIndex] = useState(-1);
@@ -163,14 +164,24 @@ const ProjectDetailPage = () => {
 
     
 
+  // location.key is 'default' only for the very first entry in this tab's
+  // history (a direct link, bookmark, or refresh landed here with nothing
+  // in-app before it) — react-router's own signal for "there is no real
+  // back destination." Any in-app navigation before this page replaces it
+  // with a unique key, so navigate(-1) is safe: it returns to wherever the
+  // visitor actually came from (Labs, Productions, or the old homepage),
+  // rather than always dropping them on '/' regardless of entry point.
+  const hasInAppHistory = location.key !== 'default';
+
   const handleClose = () => {
+    const destination = hasInAppHistory ? -1 : '/';
     if (!(document as any).startViewTransition) {
       // Fallback for browsers without View Transitions API
       setIsClosing(true);
-      setTimeout(() => navigate('/'), 300);
+      setTimeout(() => navigate(destination as any), 300);
       return;
     }
-    vtNavigate('/');
+    vtNavigate(destination);
   };
   
   if (!project) {

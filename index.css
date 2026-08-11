@@ -29,11 +29,29 @@
   --cream-ink: #F2EDE2;
   --ember: #E8A672;
 
-  /* Typographic scale (REDESIGN-PLAN.md 3.2). */
-  --display-xl: clamp(3.2rem, 12.5vw, 12.5rem);
+  /* Typographic scale (REDESIGN-PLAN.md 3.2). --display-xl is reserved for
+     the Cover's name, the one thing on the site that should read as the
+     loudest word on the page. Project titles (Productions spreads, Labs
+     entries) use --display-lg instead: still large and cinematic, but a
+     full step down so they stop competing with the name they follow. Split
+     out after an outside design review flagged that every title on the
+     page sharing one token made the whole scroll read as one relentless
+     size rather than a hierarchy. */
+  /* Cap cut again, from 11rem: at a laptop's ~1440-1512px width, 12.5vw
+     already exceeds even that cap, so the name sits flat at the ceiling
+     rather than scaling with viewport, which is most people's actual
+     screen. A cap trim only registers if it lands below that flat line;
+     11rem didn't (176px, an ~12% change from the original 12.5rem too
+     small to read as different), 9.5rem does (152px). */
+  --display-xl: clamp(3.2rem, 12.5vw, 9.5rem);
+  --display-lg: clamp(2.8rem, 8vw, 8rem);
   /* Pull-stat display size. The long-value step-down (used when a stat
-     reads as a phrase rather than a number) is --stat-long. */
-  --stat: clamp(3rem, 5.5vw, 5rem);
+     reads as a phrase rather than a number) is --stat-long. Trimmed
+     alongside the --display-lg split above: at the old 5rem cap a short
+     stat like "53M" sat within 1.46:1 of the new, smaller title, close
+     enough to compete with it. --stat-long already read fine against the
+     new title (2.67:1) and was left alone; only this token needed the cut. */
+  --stat: clamp(2.5rem, 4vw, 3.5rem);
   --stat-long: clamp(2rem, 3vw, 3rem);
   --body: 1.02rem;
   /* Chapter header scale (REDESIGN-PLAN.md 3.2): the Cover's name, and
@@ -100,6 +118,39 @@
 }
 .chapter-expandable[open] .chapter-expandable-marker {
   transform: rotate(45deg);
+}
+
+/* Chapter indexes stay out of the opening composition until requested. */
+.chapter-contents > summary::-webkit-details-marker {
+  display: none;
+}
+
+.chapter-contents-summary {
+  outline: none;
+}
+
+.chapter-contents-summary:focus-visible {
+  outline: 2px solid var(--contents-accent);
+  outline-offset: 4px;
+}
+
+.chapter-contents-marker {
+  transform: rotate(0deg);
+  transition: transform 300ms ease;
+}
+
+.chapter-contents[open] .chapter-contents-marker {
+  transform: rotate(45deg);
+}
+
+.chapter-contents-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease;
+}
+
+.chapter-contents[open] .chapter-contents-body {
+  grid-template-rows: 1fr;
 }
 .chapter-expandable-body {
   display: grid;

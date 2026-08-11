@@ -184,6 +184,30 @@ export const ChapterRail: React.FC<{
   // No fallback to sections[0]: undefined means "not in a chapter yet", and
   // the mobile chip stays hidden rather than mislabeling the Cover.
   const active = sections.find((s) => s.id === activeId);
+  const activeProgress =
+    active && progress && progress.chapter === active.id
+      ? `${progress.position}/${progress.total}`
+      : undefined;
+  // The compact control is an actual fore-edge tab now, rather than long
+  // difference-blended text floating over faces, titles and body copy. Labs
+  // gets the chapter's ink-black stock; every paper/colour-field chapter
+  // gets the site's cream stock. The tab therefore stays legible without
+  // borrowing a rectangular hole from whatever happens to pass behind it.
+  const mobileRailColors = active?.id === 'labs'
+    ? {
+        surface: 'rgba(18,12,8,0.96)',
+        ink: 'var(--cream-ink)',
+        muted: 'rgba(242,237,226,0.67)',
+        border: 'rgba(242,237,226,0.22)',
+        accent: 'var(--ember)',
+      }
+    : {
+        surface: 'rgba(245,242,236,0.97)',
+        ink: 'var(--ink)',
+        muted: 'var(--ink-mute)',
+        border: 'rgba(21,14,10,0.22)',
+        accent: 'var(--terra-text)',
+      };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -269,54 +293,92 @@ export const ChapterRail: React.FC<{
         })}
       </nav>
 
-      {/* Mobile: a single current-position chip that expands into the same
-          3-item list on tap. It used to only ever jump back to the top of
-          the chapter already in view, no path existed to reach a different
-          one (Impeccable navigation critique, P0): the one persistent nav
-          element mobile had was non-functional for its actual job. */}
+      {/* Mobile and tablet: a compact fore-edge tab that expands into the
+          same 3-item chapter list. The visible state is deliberately only
+          "01 · 2/5"; the chapter's full name remains in the accessible
+          label. The old long label regularly sat across titles and body
+          copy, so shortening it protects the content without hiding status.
+
+          !suppressed added here (P1 fix): activeId is deliberately sticky
+          (see its own comment above) so the rail's label doesn't flicker
+          blank crossing an inter-chapter bridge, but that same stickiness
+          means it never clears back to undefined when a visitor scrolls
+          back up to the Cover after having entered a chapter. The desktop
+          nav already handles this correctly, by fading on `suppressed`
+          rather than keying its visibility off activeId at all; this
+          chip was the one place that check was missing, so it could sit
+          on top of the Cover's own title and credential block showing a
+          stale "Ghost Mode Labs · 1/5". Mirrors desktop's exact
+          treatment (opacity, pointer-events, aria-hidden) rather than
+          unmounting outright, so it fades instead of popping. */}
       {active && (
         <div
-          className="xl:hidden fixed top-3 right-3 z-40 flex flex-col items-end gap-2 chapter-rail-invert"
+          className="xl:hidden fixed top-0 right-0 z-40 flex flex-col items-stretch transition-opacity duration-500"
+          style={{
+            opacity: suppressed ? 0 : 1,
+            pointerEvents: suppressed ? 'none' : 'auto',
+            color: mobileRailColors.ink,
+            backgroundColor: mobileRailColors.surface,
+            borderColor: mobileRailColors.border,
+            borderLeftWidth: '1px',
+            borderBottomWidth: '1px',
+          }}
+          aria-hidden={suppressed || undefined}
         >
           <button
             type="button"
+            tabIndex={suppressed ? -1 : undefined}
             onClick={() => setMobileOpen((open) => !open)}
-            className="chapter-label chapter-rail-btn chapter-rail-hit"
+            className="chapter-label chapter-rail-btn min-h-11 px-3 py-2 text-right active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px]"
+            style={{
+              color: mobileRailColors.ink,
+              outlineColor: mobileRailColors.accent,
+              minWidth: '2.75rem',
+              padding: '0.5rem 0.75rem',
+            }}
             aria-expanded={mobileOpen}
             aria-label={
               mobileOpen
                 ? 'Close chapter list'
                 : `Currently in ${active.label}${
-                    progress && progress.chapter === active.id
-                      ? `, ${progress.position} of ${progress.total}`
+                    activeProgress
+                      ? `, ${activeProgress.replace('/', ' of ')}`
                       : ''
                   }. Open chapter list.`
             }
           >
-            {active.index} &middot; {labelFor(active)}
+            {active.index}{activeProgress ? ` · ${activeProgress}` : ''}
           </button>
           {mobileOpen && (
-            <div className="flex flex-col items-end gap-2" role="menu">
+            <nav aria-label="Chapter list" className="w-64 px-3 pb-3">
               {sections.map((s) => {
                 const isActive = s.id === activeId;
                 return (
                   <button
                     key={s.id}
                     type="button"
-                    role="menuitem"
                     onClick={() => {
                       scrollToSection(s.id);
                       setMobileOpen(false);
                     }}
-                    className="chapter-label chapter-rail-btn chapter-rail-hit"
-                    style={{ opacity: isActive ? 1 : 0.66, fontWeight: isActive ? 700 : 400 }}
+                    className="chapter-label chapter-rail-btn flex min-h-11 w-full items-center justify-between gap-4 py-2 text-left active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    style={{
+                      color: isActive ? mobileRailColors.ink : mobileRailColors.muted,
+                      fontWeight: isActive ? 700 : 400,
+                      outlineColor: mobileRailColors.accent,
+                      borderTop: `1px solid ${mobileRailColors.border}`,
+                      padding: '0.5rem 0',
+                    }}
                     aria-current={isActive ? 'true' : undefined}
                   >
-                    {s.index} {labelFor(s)}
+                    <span>{s.label}</span>
+                    <span className="tabular-nums" style={{ color: mobileRailColors.accent }}>
+                      {s.index}
+                    </span>
                   </button>
                 );
               })}
-            </div>
+            </nav>
           )}
         </div>
       )}

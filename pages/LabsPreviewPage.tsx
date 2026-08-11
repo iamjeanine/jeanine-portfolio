@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  ChapterContents,
   ColorBridge,
   Eyebrow,
   Expandable,
@@ -38,7 +39,16 @@ export const LAB = {
   // as terra. Labs is the site with the lights down, not a different site.
   ground: 'var(--ink-deep)',
   ink: 'var(--cream-ink)',
-  inkSoft: 'rgba(242,237,226,0.55)',
+  // Bumped from 0.55: Labs was the one chapter whose secondary label
+  // color didn't scale with anything — a fixed value regardless of
+  // ground, while every Productions palette's own inkSoft runs
+  // 0.62-0.85 depending on the credit. Labs' single dark ground read
+  // measurably dimmer than every one of them (Jeanine caught this
+  // directly), even though it clears contrast (5.5:1). 0.67 lands
+  // inside Productions' own range rather than at either end of it —
+  // still clearly secondary to the ink/inkBody tiers above it, just no
+  // longer the one label on the page that's easy to miss.
+  inkSoft: 'rgba(242,237,226,0.67)',
   inkBody: 'rgba(242,237,226,0.82)',
   // Terra tuned for dark ground: same hue as the site accent, lightness
   // raised for legibility (9.4:1 on the ground; raw terra reads 3.9:1).
@@ -102,9 +112,15 @@ interface LabEntry {
   title: string;
   tagline: string;
   tier: Tier;
-  description?: string;
+  // Usually a plain paragraph; widened to ReactNode for the rare entry
+  // dense enough to need a break (Static, once Last Active's own sentence
+  // needed separating from the setup before it).
+  description?: React.ReactNode;
   stat?: { value: string; label: string };
-  expandables?: { label: string; body: string }[];
+  // body is usually a plain paragraph; AI Creator Lab's Impact needs a real
+  // list (three distinct projects), which reads as a wall of text run
+  // together as prose in a 38ch column, so ReactNode is allowed here too.
+  expandables?: { label: string; body: React.ReactNode }[];
   video: { src: string; poster?: string; alt: string; aspectRatio?: string; startAt?: number };
   /**
    * Was shown only on the in-development tier ("Coming soon"). Now also
@@ -122,6 +138,11 @@ interface LabEntry {
    * scaffolding problem as the About colophon's empty Teaching block.
    */
   hasProjectPage?: boolean;
+  /** Overrides OpenProjectLink's default "Open project" label. Static uses
+   *  this: its detail page is itself framed as a pitch, so "Open the
+   *  original pitch" names what a visitor actually gets, the same way the
+   *  detail page's own CTA box already does. */
+  openProjectLabel?: string;
   flip?: boolean;
 }
 
@@ -159,28 +180,63 @@ const ENTRIES: LabEntry[] = [
     client: 'Ghost Mode Labs',
     year: '2026',
     title: 'Static',
-    tagline: 'Scripted series built from online folklore',
+    tagline: 'Scripted supernatural series built from online folklore',
     tier: 'feature',
-    description:
-      'Thousands of people vanish in the American wilderness every year, and thirteen Reddit communities have spent a decade building folklore around them. Last Active, a research tool built for this, found 582 recurring overlaps across 6,884 accounts. Static is the first story to come out of it.',
+    description: (
+      <>
+        <p>
+          Thirteen Reddit communities spent a decade building folklore
+          around disappearances in the American wilderness.
+        </p>
+        <p className="mt-3">
+          Last Active, a research tool I built to trace story patterns
+          across public archives, found 582 recurring overlaps across
+          6,884 accounts. Static is the first scripted story to emerge
+          from that research.
+        </p>
+      </>
+    ),
     stat: { value: '7,000 voices', label: 'One American haunting' },
+    // Detail page is itself framed as a pitch (the CTA there already reads
+    // "See the original pitch"), so this names what the click leads to
+    // instead of the generic default every other Feature entry uses.
+    openProjectLabel: 'Open the original pitch',
+    // Left column (description) = what happened and what she made. Concept
+    // = what she saw in the material. Build = what the tool actually did.
+    // Status = where the project went. Each expandable advances past the
+    // description instead of restating it — round two of the same
+    // redundancy trim, this time on Jeanine's own wording rather than a
+    // mechanical cut.
     expandables: [
       {
         label: 'Concept',
-        body: 'Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening. Over the last decade, thirteen Reddit communities have built a body of folklore around these disappearances, ten million subscribers deep, and nobody had connected what they were writing.',
+        body: (
+          <>
+            <p>
+              Across thousands of posts, the same creatures, phenomena,
+              warnings, and rules kept resurfacing. Taken together, they
+              began to read less like isolated stories and more like one
+              shared mythology.
+            </p>
+            <p className="mt-3">
+              Static turns that mythology into one American haunting.
+            </p>
+          </>
+        ),
       },
       {
         label: 'Build',
-        body: 'I built a research tool called Last Active. You point it at a public archive and it finds story patterns, under-reported stories, and hidden gems. Pointed at those thirteen communities, it found 582 recurring overlaps across 6,884 accounts: creatures, phenomena, rules.',
+        body: 'Last Active searches large public archives for recurring story patterns, under-reported stories, and hidden connections. For Static, it mapped a decade of scattered folklore into source material for a scripted series.',
       },
       {
         label: 'Status',
-        body: 'Static is the first story to come out of the tool. Built as a proposal for iHeart.',
+        body: 'Developed as a proposal for iHeart.',
       },
     ],
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Static.mp4',
-      alt: 'Preview reel for Static, a scripted series built from online folklore',
+      poster: '/static-poster.jpg',
+      alt: 'Preview reel for Static, a scripted supernatural series built from online folklore',
     },
   },
   {
@@ -190,25 +246,30 @@ const ENTRIES: LabEntry[] = [
     title: 'Multiverse Quad',
     tagline: 'One story, four formats',
     tier: 'feature',
-    description:
-      'A single narrative adapted into an animated short film, a graphic novel, a visual audiobook, and a podcast, unfolding at the same time. Pitched to Amazon’s AGI team and built into a working demo with engineers, scientists, and product leadership.',
-    stat: { value: 'AWS re:Invent', label: 'Shortlisted for the keynote' },
+    description: (
+      <>
+        <p>
+          One scene from The Last City, the sci-fi series I created at
+          Wondery, plays simultaneously as an animated short film, a
+          graphic novel, a visual audiobook, and a podcast.
+        </p>
+        <p className="mt-3">
+          I pitched the concept to Amazon&rsquo;s AGI team and built it
+          into a working demo with their engineers, scientists, and
+          product leadership.
+        </p>
+      </>
+    ),
+    stat: { value: 'AWS re:Invent', label: 'Shortlisted for Andy Jassy’s keynote' },
     expandables: [
       {
         label: 'Concept',
-        body: 'Most stories live in a single format. A podcast stays a podcast, a film stays a film. Multiverse Quad explores what happens when a story launches across several formats at once, using the sci-fi series The Last City as its starting point.',
-      },
-      {
-        label: 'Build',
-        body: 'Pitched to Amazon’s AGI team, then built into a working demo with engineers, scientists, product leadership, and Go To Market teams. Four formats unfold at the same time: an animated short film, a graphic novel, a visual audiobook, and a podcast.',
-      },
-      {
-        label: 'Status',
-        body: 'A working demo, shortlisted for Andy Jassy’s AWS re:Invent keynote.',
+        body: 'Most stories start in one format and get adapted later. Multiverse Quad explores how the same story can be reimagined across four formats from the start.',
       },
     ],
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/CoverLCaudio2.mp4',
+      poster: '/multiverse-quad-poster.jpg',
       alt: 'Preview reel for Multiverse Quad, one story told across four formats at once',
     },
     flip: true,
@@ -218,23 +279,42 @@ const ENTRIES: LabEntry[] = [
     client: 'Ghost Mode Labs',
     year: '2026',
     title: 'Visual Audiobooks',
-    tagline: 'Original kids’ stories that draw themselves differently every time a child returns',
+    tagline: 'Original children’s stories that can change each time you return',
     tier: 'feature',
     note: 'Launching soon',
-    description:
-      'Kids play a favorite story a hundred times. Built a player where the pictures redraw themselves every time, so the hundredth listen doesn’t look like the first.',
+    // Broken into three beats, not one dense block: Jeanine's call after
+    // seeing it rendered — same words, but pacing on the page, not a
+    // rewrite. Left side = the experience; Concept and Build pick up from
+    // there without restating it.
+    description: (
+      <>
+        <p>
+          Children return to the same stories again and again. What if the
+          book could redraw itself every time they came back?
+        </p>
+        <p className="mt-3">
+          Each reading can unfold in a different visual language. One
+          version might come from an illustrator. Another might be drawn
+          in real time by code, responding to the story as it unfolds and
+          producing a new interpretation each time.
+        </p>
+        <p className="mt-3">
+          The voice can be personal too, with narration recorded by a
+          parent, grandparent, or even the child.
+        </p>
+      </>
+    ),
     expandables: [
       {
         label: 'Concept',
-        body: 'The first story built for it: The Kids’ Guidebook to the Rock, an original story. Every Sunday, a girl visits her father in a Florida prison. Before they moved him to the Rock, he escaped from a work camp and was gone a month. She tells you how he did it, step by step, like she could do it herself. Every time you listen, the escape gets redrawn, because that’s what she’s actually doing in that yard on those long Sundays: imagining it differently, over and over, while she waits.',
+        body: 'The first prototype uses an excerpt from The Kids’ Guidebook to the Rock, an original story about a girl visiting her father in a Florida prison and telling the story of how he once escaped.',
       },
       {
+        // Description already covers illustrator-vs-code editions; Build
+        // doesn't restate that, it goes one layer deeper into what the
+        // prototype is actually testing.
         label: 'Build',
-        body: 'Charcoal one listen. A flashlight on a quilt the next. Mixed media built from real archival footage after that. Some tellings are drawn by code. Others come from illustrators who pitch their own version and join the book.',
-      },
-      {
-        label: 'Status',
-        body: 'Narrated today. You can record it in a parent’s voice, a grandparent’s, or your own, next. Still in build, launching soon.',
+        body: 'What happens when code doesn’t simply illustrate a story, but interprets it? That question sits at the center of the prototype. Each reading unfolds differently.',
       },
     ],
     hasProjectPage: false,
@@ -251,27 +331,57 @@ const ENTRIES: LabEntry[] = [
     tagline: 'Creative workflow lab',
     tier: 'feature',
     description:
-      'Wondery’s first AI Creator Lab: hands-on workshops, learning modules, and outside partners demonstrating new tools inside real production workflows. Three working tools came out of it.',
+      'I founded Wondery’s first AI Creator Lab. I created the curriculum, built the learning modules and the site they lived on, and brought in outside partners to demo their tools inside production work. Three projects were greenlit out of it.',
     stat: { value: '4 to 50+', label: 'People across the company' },
     expandables: [
       {
-        label: 'Concept',
-        body: 'Founded Wondery’s first AI Creator Lab to explore how new tools could fit into real production workflows.',
-      },
-      {
-        label: 'Build',
-        body: 'Hands-on workshops, learning modules, and outside partners who were building these tools demonstrating how they worked. To support the lab I built an online hub where the curriculum lived: each module with a walkthrough, study guide, FAQs, and the original presentation. Tools included ElevenLabs, ChatGPT, Midjourney, and NotebookLM.',
-      },
-      {
-        label: 'Status',
-        body: 'The lab grew from four people to more than fifty across content, marketing, product, and ad sales. Three projects came out of it: StoryCraft, a research assistant, and a metadata tool.',
+        label: 'Impact',
+        body: (
+          <>
+            The lab grew from four people to more than fifty across content,
+            marketing, product, and ad sales.
+            {/* Project names carry accent color, not just italic: italic
+                alone at the same size and weight as the surrounding prose
+                was too weak a signal to read as a label, the "almost
+                invisible" half of the complaint that also hit the awards
+                strip. Color is the same cue the rest of the site already
+                uses for labels (chapter-label, index numbers), so this
+                stays inside the established system rather than inventing a
+                new emphasis style. */}
+            <ul className="mt-3 space-y-3 list-none pl-0">
+              <li>
+                <em style={{ color: LAB.accent, fontStyle: 'normal' }}>StoryCraft</em>
+                {' '}&mdash; a tool that helped writers turn adult narrative
+                podcasts into kids&rsquo; and family adventures. Greenlit for
+                the Kids and Family division.
+              </li>
+              <li>
+                <em style={{ color: LAB.accent, fontStyle: 'normal' }}>In-world social campaign</em>
+                {' '}&mdash; a dozen in-world prototypes for The Last City.
+                Two moved into production, one beat its engagement
+                benchmarks.
+              </li>
+              <li>
+                <em style={{ color: LAB.accent, fontStyle: 'normal' }}>Production tools</em>
+                {' '}&mdash; built research and metadata tools that cut
+                show-prep time by about 90% and helped tailor metadata for
+                platforms including Spotify, YouTube, and Apple.
+              </li>
+            </ul>
+          </>
+        ),
       },
     ],
+    // Swapped from the record-player clip (AI Creator Lab 2 - New Cover):
+    // Jeanine's call, reads "too much of a Canva template." Reused instead
+    // is the moody close-up piece from the old site's own video hero
+    // (components/Hero.tsx's HERO_VIDEOS) — same asset, same poster, now
+    // repurposed here instead of retired outright.
     video: {
-      src: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
-      poster: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
-      // Measured directly from the asset (1920x946).
-      aspectRatio: '1920 / 946',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Heroshotmusic2.mp4',
+      poster: '/hero-poster.jpg',
+      // Measured directly from the asset (3840x2160).
+      aspectRatio: '16 / 9',
       alt: 'Preview reel for the AI Creator Lab, a creative workflow lab founded at Wondery',
     },
     flip: true,
@@ -312,7 +422,7 @@ const CREDIT_ENTRIES: LabEntry[] = [
     tagline: 'Franchise intelligence',
     tier: 'feature',
     description:
-      'An interactive globe that tracks how myths travel across cultures and centuries. Click Circe and it lights up with every culture that told her story, 46 of them across 3,500 years. Built for studio development and franchise teams.',
+      'Studios return to the same handful of myths while thousands more remain largely unused. MythOS maps how stories move across cultures and centuries. Start with Circe and trace her across 46 cultures and 3,500 years.',
     stat: { value: '494', label: 'Source stories in the prototype' },
     expandables: [
       {
@@ -346,10 +456,10 @@ const CREDIT_ENTRIES: LabEntry[] = [
     client: 'Ghost Mode Labs',
     year: '2026',
     title: 'Narrative Space',
-    tagline: 'Interactive world building',
+    tagline: 'Interactive worldbuilding',
     tier: 'short',
     description:
-      'Story worlds usually begin as documents. Narrative Space turns that material into something you can explore: characters, locations, and themes as nodes in a living space you can move through, question, and build in.',
+      'Story worlds usually live across scattered documents, character notes, locations, and timelines. Narrative Space turns them into an interactive space where characters, places, and themes become connected nodes you can explore and build on.',
     expandables: [
       {
         label: 'Concept',
@@ -378,8 +488,18 @@ const CREDIT_ENTRIES: LabEntry[] = [
     title: 'Unstill',
     tagline: 'Regenerative lives',
     tier: 'short',
-    description:
-      '1920s Sydney, through what survives in the archive: a name, a date, a charge. Hover and color returns to the photograph. Click and the portrait begins to breathe. Built as a proposal for Museums of History NSW.',
+    description: (
+      <>
+        <p>
+          Unstill begins with people preserved in 1920s Sydney police
+          archives, often as little more than a name, date, photograph,
+          and charge. Their portraits gradually come back to life through
+          color, motion, archival material, and fragments of story that
+          change over time.
+        </p>
+        <p className="mt-3">Built as a proposal for Museums of History NSW.</p>
+      </>
+    ),
     expandables: [
       {
         label: 'Concept',
@@ -513,13 +633,13 @@ const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-const OpenProjectLink: React.FC<{ id: string }> = ({ id }) => (
+const OpenProjectLink: React.FC<{ id: string; label?: string }> = ({ id, label = 'Open project' }) => (
   <Link
     to={`/project/${id}`}
     className="lab-open mt-10 inline-flex items-baseline gap-2 text-[0.75rem] tracking-[0.18em] uppercase"
     style={{ color: LAB.ink }}
   >
-    Open project
+    {label}
     <span aria-hidden="true" style={{ color: LAB.accent }}>
       &rarr;
     </span>
@@ -562,9 +682,9 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
   /*
    * Three-beat choreography, Labs' own version of the Productions spread
    * entrance built earlier: title (eyebrow travels with it, one beat, not
-   * two), then the frame, then the text row. Same 700ms duration and
+   * two), then the frame, then the text row. Same 560ms duration and
    * cubic-bezier as Productions so the two chapters read as siblings; same
-   * 0/200/420ms stagger and 10/44/26px travel too, mapped onto Labs' own
+   * 0/140/280ms stagger and 10/44/26px travel too, mapped onto Labs' own
    * three beats rather than Productions' eyebrow/title/artwork three.
    *
    * The frame beat is deliberately the one with the most travel (44px,
@@ -591,7 +711,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
       : {
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : `translateY(${rise}px)`,
-          transition: `opacity 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
+          transition: `opacity 560ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 560ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
         };
 
   return (
@@ -618,7 +738,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         className="mt-8 md:mt-12"
         style={{
           fontFamily: SERIF_DISPLAY,
-          fontSize: 'var(--display-xl)',
+          fontSize: 'var(--display-lg)',
           lineHeight: 0.92,
           letterSpacing: '-0.015em',
           color: LAB.ink,
@@ -633,7 +753,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           nothing to the rhythm. */}
       <div
         className={`mt-10 md:mt-12 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}
-        style={beat(200, 44)}
+        style={beat(140, 44)}
       >
         <ProjectorLight>
           <LazyVideo
@@ -673,7 +793,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
       */}
       <div
         className="mt-10 md:mt-10 grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-10"
-        style={beat(420, 26)}
+        style={beat(280, 26)}
       >
         {/* Whichever of these two columns lands at col-start-8 is the one at
             the container's right edge, so the rail clearance follows `flip`
@@ -700,12 +820,12 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           </div>
 
           {data.description && (
-            <p
+            <div
               className="mt-5 text-[length:var(--body)] leading-relaxed"
               style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '40ch' }}
             >
               {data.description}
-            </p>
+            </div>
           )}
 
           {/* Verified stats only; a Feature without one simply omits the slot. */}
@@ -745,7 +865,9 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
             </div>
           )}
 
-          {data.hasProjectPage !== false && <OpenProjectLink id={data.id} />}
+          {data.hasProjectPage !== false && (
+            <OpenProjectLink id={data.id} label={data.openProjectLabel} />
+          )}
         </div>
       </div>
   </article>
@@ -903,6 +1025,7 @@ export const LABS_INDEX = [...ENTRIES, ...CREDIT_ENTRIES].map((e, i) => ({
   anchor: `lab-${e.id}`,
   name: e.title,
   index: `L-0${i + 1}`,
+  meta: e.tagline,
 }));
 
 /**
@@ -1022,12 +1145,12 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
 
               <div className="md:col-span-6 md:col-start-7 xl:pr-44">
                 {entry.description && (
-                  <p
+                  <div
                     className="text-[1rem] leading-relaxed"
                     style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '44ch' }}
                   >
                     {entry.description}
-                  </p>
+                  </div>
                 )}
                 {entry.hasProjectPage !== false && <OpenProjectLink id={entry.id} />}
               </div>
@@ -1051,7 +1174,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         /* Vertical padding brings the tap target close to the 44px
            guideline (measured at ~25px before this); the visible
            underline still sits tight under the text via border-bottom. */
-        .lab-open { border-bottom: 1px solid ${LAB.border}; padding: 0.65rem 0; transition: border-color 0.3s ease; }
+        .lab-open { min-height: 2.75rem; align-items: center; border-bottom: 1px solid ${LAB.border}; padding: 0.8rem 0; transition: border-color 0.3s ease, opacity 0.3s ease; }
         .lab-open:hover { border-color: ${LAB.accent}; }
         .lab-open:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
       `}</style>
@@ -1067,28 +1190,32 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         gutterClassName="px-6 md:px-24"
       >
         {/* chapter header */}
-        <div className="pt-24 md:pt-40 pb-24 md:pb-40">
-          <div className="flex items-end justify-between">
-            <h2
-              className="text-[2.4rem] md:text-[3.5rem] leading-none"
-              style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
-            >
-              Ghost Mode Labs
-            </h2>
-            <span
-              className="hidden md:block text-[0.8rem] italic"
-              style={{ fontFamily: SERIF_BODY, color: LAB.inkSoft }}
-            >
-              story systems &middot; production tools &middot; cultural experiments
-            </span>
-          </div>
+        <div id="labs-chapter-header" className="pt-24 md:pt-40 pb-24 md:pb-40">
+          <h2
+            className="text-[2.4rem] md:text-[3.5rem] leading-none"
+            style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
+          >
+            Ghost Mode Labs
+          </h2>
           <p
             className="mt-10 md:mt-14 text-[1.1rem] md:text-[1.25rem] leading-relaxed"
             style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '46ch' }}
           >
-            The studio for what she is building next: stories and the systems
-            that make them, built hands-on with&nbsp;AI.
+            At Ghost Mode Labs, I develop original IP and prototype new ways
+            to research, develop, and extend stories across scripted,
+            nonfiction, and interactive formats.
           </p>
+          <ChapterContents
+            ariaLabel="Ghost Mode Labs project index"
+            label="Projects in this chapter"
+            items={LABS_INDEX}
+            colors={{
+              accent: LAB.accent,
+              border: LAB.border,
+              ink: LAB.ink,
+              muted: LAB.inkSoft,
+            }}
+          />
         </div>
 
         {/* Progress counts the credits screen as the chapter's final unit,
@@ -1129,7 +1256,7 @@ const LabsPreviewPage: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
-      <MotionToggle />
+      <MotionToggle hideWhileVisibleId="labs-chapter-header" />
 
       {/* Cream strip: where the Productions coda hands off */}
       <header className="px-6 md:px-24 pt-12 pb-10 md:pt-16 md:pb-14">

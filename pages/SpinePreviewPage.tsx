@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd } from '../components/chapter';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd, gradientStart } from '../components/chapter';
 import {
   ProductionsChapter,
   SCAMFLUENCERS_FIELD,
@@ -19,10 +19,11 @@ import { LabsChapter, LAB } from './LabsPreviewPage';
  * connective tissue (bridges, rail, cover, colophon) is built here.
  *
  * The About colophon (below) is Phase 4's full build per section 7: bio
- * narrative plus structured Awards/Teaching/Publications lists. Teaching
- * has no source content anywhere in constants.ts or Appendix A, so per
- * 8.3 it renders as an honest pending marker rather than invented copy,
- * the same pattern Visual Audiobooks uses in the Labs chapter.
+ * narrative plus structured Awards/Publications lists. Teaching was
+ * dropped rather than shipped as a pending placeholder (Jeanine's call):
+ * there's no real content for it yet, and "Details to come" read as
+ * unfinished on a page meant to ship. Add it back once there's something
+ * real to say.
  */
 
 // Colophon data (REDESIGN-PLAN.md section 7). Every entry is drawn from
@@ -60,7 +61,11 @@ const AWARDS: { title: string; detail: string }[] = [
 ];
 
 const PUBLICATIONS: { title: string; detail: string }[] = [
-  { title: 'Family Sentence', detail: 'Beacon Press' },
+  {
+    title: 'Family Sentence',
+    detail:
+      'Author · Beacon Press · Kirkus Reviews · Publishers Weekly “Top 20” Fall Book Selection',
+  },
 ];
 
 const ColophonList: React.FC<{
@@ -133,15 +138,6 @@ const skipToSection = (id: string) => {
   el.focus({ preventScroll: true });
 };
 
-// Credential-line only, not Scamfluencers' own accent (the kicker and
-// Contents index below keep that, for continuity with the first spread
-// this cover opens directly into). Warm gold instead of the field's
-// loudest, coolest-temperature color: Jeanine flagged the shared
-// chartreuse as reading like caution tape at the size and weight a
-// credential line needs. Verified against all three field stops before
-// shipping: 3.37-4.40:1, clears 3:1 for bold text at this size.
-const COVER_CREDENTIAL_ACCENT = '#E9B94C';
-
 /**
  * The Cover (REDESIGN-PLAN.md 4.3, restaged 2026-08-07 per an Impeccable
  * critique run on three candidates at /preview/cover-options): typographic,
@@ -213,14 +209,19 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
   return (
   <section
     id="cover"
-    // justify-start below lg, not justify-between: on a min-h-screen flex
-    // column with two short blocks, justify-between distributes ALL
-    // leftover vertical space into the gap between them, measured at
-    // roughly a third of a 375px viewport, worse still at 768x1024
-    // portrait. justify-start plus the fixed mt-20 below replaces that
-    // with a chosen amount at every width under 1024px; true desktop
-    // (>=1024px) keeps the original space-between.
-    className="relative min-h-screen flex flex-col justify-start lg:justify-between px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
+    // justify-start at every width, not justify-between above lg: on a
+    // min-h-screen flex column with two short blocks, justify-between
+    // distributes ALL leftover vertical space into the gap between them.
+    // Originally fixed only below 1024px (measured at roughly a third of a
+    // 375px viewport, worse at 768x1024 portrait); desktop kept the
+    // original space-between and the same defect just reappears there,
+    // worse the taller the monitor (measured 215px at a 900px-tall
+    // viewport, 515px at 1200px) since it scales with viewport height, not
+    // content. justify-start plus the fixed lg:mt-28 below replaces that
+    // with a chosen amount at every width; leftover height now collects
+    // as trailing space below the credential block instead of a void
+    // between it and the name.
+    className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
     style={{ background: SCAMFLUENCERS_FIELD }}
   >
     <div
@@ -275,7 +276,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       </h1>
     </div>
 
-    <div className="relative mt-20 lg:mt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
+    <div className="relative mt-20 lg:mt-28 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
       {/* Credential, tagline and contact animate as one beat, not five:
           the pitch was the name settling and then the supporting material
           following, and staggering every line inside this block would turn
@@ -289,22 +290,29 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
         }}
       >
         <p
-          className="text-[1.3rem] md:text-[1.5rem] font-bold leading-snug"
-          style={{ fontFamily: "'Uncut Sans', sans-serif", color: COVER_CREDENTIAL_ACCENT }}
+          className="text-[1.3rem] md:text-[1.5rem] italic leading-snug"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK }}
         >
-          Emmy and Ambie Award-winning showrunner.
+          Emmy and Ambie Award-winning showrunner and executive producer.
         </p>
         <p
           className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
           style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
         >
-          Podcasts, television, and Ghost&nbsp;Mode&nbsp;Labs.
+          Scripted and nonfiction series across podcasts and television. New
+          storytelling tools at Ghost Mode Labs.
         </p>
+        {/* Sized up from the shared chapter-label default (0.7rem, an
+            11.2px byline the recruiter critique flagged as unreadable for
+            the only contact info on the Cover) while keeping its tracking
+            and uppercase treatment, so this still reads as a masthead
+            label, just a legible one. No underline, no arrow: both read as
+            too corporate on a first pass. */}
         <div className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-2">
           <a
             href="mailto:iamjeanine@me.com"
-            className="chapter-label inline-block transition-opacity duration-300 hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
+            className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ fontSize: '0.95rem', color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
           >
             iamjeanine@me.com
           </a>
@@ -312,8 +320,8 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
             href="https://www.linkedin.com/in/jcornillot"
             target="_blank"
             rel="noopener noreferrer"
-            className="chapter-label inline-block transition-opacity duration-300 hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
+            className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ fontSize: '0.95rem', color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
           >
             LinkedIn
           </a>
@@ -344,7 +352,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
             // rail focus-ring class is safe here. Scamfluencers' own accent
             // clears 5.57-7.27:1 on the same stops, so the focus ring
             // borrows it directly.
-            className="chapter-rail-btn group flex items-baseline gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="chapter-rail-btn group flex min-h-11 items-center gap-4 py-1 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
           >
             <span className="chapter-label tabular-nums" style={{ color: SCAMFLUENCERS_ACCENT }}>
@@ -367,6 +375,15 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
 const SpinePreviewPage: React.FC = () => {
   const { chapter } = useParams<{ chapter?: string }>();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  // This page is mounted at two paths: the live site root and the original
+  // /preview/spine prototype route, which is kept so existing links to it
+  // still work. Chapter URLs are built off whichever one the visitor is
+  // actually on, so the root serves clean /labs links while the preview
+  // route stays self-consistent instead of bouncing visitors to the root.
+  const chapterBase = pathname.startsWith('/preview/spine') ? '/preview/spine' : '';
+  const chapterPath = (id?: string) => (id ? `${chapterBase}/${id}` : chapterBase || '/');
 
   // Tracks the last chapter *this component* wrote into the URL, whether
   // via a deliberate click or a passive-scroll sync below. When `chapter`
@@ -407,7 +424,7 @@ const SpinePreviewPage: React.FC = () => {
   // moved the viewport before this runs).
   const goToChapter = (id: string) => {
     lastSyncedChapter.current = id;
-    navigate(`/preview/spine/${id}`);
+    navigate(chapterPath(id));
     scrollToSection(id);
   };
 
@@ -416,18 +433,18 @@ const SpinePreviewPage: React.FC = () => {
   // history entry, not scroll again.
   const pushChapterUrl = (id: string) => {
     lastSyncedChapter.current = id;
-    navigate(`/preview/spine/${id}`);
+    navigate(chapterPath(id));
   };
 
   const goToChapterViaSkipLink = (id: string) => {
     lastSyncedChapter.current = id;
-    navigate(`/preview/spine/${id}`);
+    navigate(chapterPath(id));
     skipToSection(id);
   };
 
   const goToCover = () => {
     lastSyncedChapter.current = undefined;
-    navigate('/preview/spine');
+    navigate(chapterPath());
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -439,7 +456,7 @@ const SpinePreviewPage: React.FC = () => {
   // to whichever chapter they last passed through.
   const syncActiveChapterToUrl = (id: string | undefined) => {
     lastSyncedChapter.current = id;
-    navigate(id ? `/preview/spine/${id}` : '/preview/spine', { replace: true });
+    navigate(chapterPath(id), { replace: true });
   };
 
   return (
@@ -472,7 +489,10 @@ const SpinePreviewPage: React.FC = () => {
       {/* Labs only. The cover gate this used to carry is now redundant: the
           Cover is not inside #labs, so the show-gate already excludes it,
           along with all of Productions and About. */}
-      <MotionToggle showWhileVisibleId="labs" />
+      <MotionToggle
+        showWhileVisibleId="labs"
+        hideWhileVisibleId="labs-chapter-header"
+      />
 
       <Cover onSelectChapter={goToChapter} />
 
@@ -555,23 +575,21 @@ const SpinePreviewPage: React.FC = () => {
           >
             <p>
               Emmy and Ambie Award-winning executive producer and showrunner.
-              300+ episodes across podcasts, television, and digital.
+              More than 300 episodes across podcasts, television, and
+              digital.
             </p>
             <p>
-              Created Scamfluencers, produced Dying for Sex, and created The
-              Last City for Wondery and Amazon.
+              Created Scamfluencers and The Last City and produced Dying for
+              Sex, all for Wondery and Amazon.
             </p>
             <p>
-              Founded Wondery&rsquo;s first AI Creator Lab, growing it from four
-              people to more than fifty across the company.
+              Founded Wondery&rsquo;s first AI Creator Lab and grew it from
+              four people to more than fifty across the company.
             </p>
             <p>
-              At Ghost Mode Labs, she develops original IP and prototypes new
+              At Ghost Mode Labs, I develop original IP and prototype new
               ways to research, develop, and extend stories across scripted,
               nonfiction, and interactive formats.
-            </p>
-            <p>
-              She is the author of <em>Family Sentence</em> (Beacon Press).
             </p>
           </div>
 
@@ -580,37 +598,90 @@ const SpinePreviewPage: React.FC = () => {
               bio and the lists that broke the masthead read. */}
           <div className="lg:col-span-6 lg:col-start-7 flex flex-col gap-10">
             <ColophonList label="Awards" items={AWARDS} />
-            <ColophonList label="Teaching" pending="Details to come" />
             <ColophonList label="Publications" items={PUBLICATIONS} />
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 md:px-20 py-16 md:py-20 flex flex-col md:flex-row items-baseline justify-between gap-6">
-        <button
-          type="button"
-          onClick={goToCover}
-          className="chapter-rail-btn chapter-rail-btn-light chapter-label"
-          style={{ color: 'var(--ink-mute)' }}
-        >
-          Back to cover
-        </button>
-        <div className="flex items-center gap-6 chapter-label" style={{ color: 'var(--ink-mute)' }}>
-          <a
-            href="https://www.linkedin.com/in/jcornillot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="chapter-rail-btn-light hover:opacity-70 transition-opacity"
+      {/* Back cover (10/10 pass, per an outside design review: the site
+          opened on the Cover's own terra field and a name, then just
+          stopped at a cream utility footer after About, no closing beat.
+          This bookends it: same field as the Cover, one closing line and
+          one unmissable ask, replacing the old footer rather than sitting
+          below it, so there's a single last impression, not a headline
+          moment followed by a smaller administrative one. Functional links
+          (LinkedIn, back to cover) move in here as the small print under
+          the beat, the same relationship the Cover's own contact line has
+          to its name. */}
+      <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} via="var(--terra)" heightClassName="h-[20vh] md:h-[24vh]" />
+      <footer
+        className="relative overflow-hidden px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
+        style={{ background: SCAMFLUENCERS_FIELD }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none mix-blend-overlay"
+          style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
+        />
+        <div className="relative">
+          {/* "Get in touch" is the headline itself now, not an eyebrow over
+              a separate statement line: the statement ("Building the next
+              thing now") read as a try-hard non-sequitur and, worse, sized
+              email like a hero line while LinkedIn sat in tiny caps in a
+              corner, so the two actual ways to reach her had no shared
+              hierarchy. Email and LinkedIn are equal-weight, underlined
+              links now, sized to read as a contact block, not a mismatched
+              headline-plus-footnote. */}
+          <h2
+            style={{
+              fontFamily: "'Bodoni Moda', serif",
+              fontSize: 'var(--display-md)',
+              lineHeight: 1.05,
+              color: SCAMFLUENCERS_INK,
+            }}
           >
-            LinkedIn
-          </a>
-          <a
-            href="mailto:iamjeanine@me.com"
-            className="chapter-rail-btn-light hover:opacity-70 transition-opacity"
-          >
-            Email
-          </a>
+            Get in touch
+          </h2>
+
+          <div className="mt-8 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10">
+            <a
+              href="mailto:iamjeanine@me.com"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-1 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
+                color: SCAMFLUENCERS_INK,
+                outlineColor: SCAMFLUENCERS_ACCENT,
+              }}
+            >
+              iamjeanine@me.com
+            </a>
+            <a
+              href="https://www.linkedin.com/in/jcornillot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-1 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
+                color: SCAMFLUENCERS_INK,
+                outlineColor: SCAMFLUENCERS_ACCENT,
+              }}
+            >
+              LinkedIn
+            </a>
+          </div>
+
+          <div className="mt-16 md:mt-20">
+            <button
+              type="button"
+              onClick={goToCover}
+              className="chapter-rail-btn chapter-label inline-flex min-h-11 items-center py-3 hover:opacity-70 active:translate-y-px transition-opacity"
+              style={{ color: SCAMFLUENCERS_INK_SOFT }}
+            >
+              Back to cover
+            </button>
+          </div>
         </div>
       </footer>
     </div>

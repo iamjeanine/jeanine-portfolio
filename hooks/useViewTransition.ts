@@ -4,15 +4,15 @@ import { flushSync } from 'react-dom';
 export function useViewTransitionNavigate() {
   const navigate = useNavigate();
 
-  return (to: string) => {
+  return (to: string | number) => {
     if (!(document as any).startViewTransition) {
-      navigate(to);
+      navigate(to as any);
       return;
     }
 
     (document as any).startViewTransition(() => {
       flushSync(() => {
-        navigate(to);
+        navigate(to as any);
       });
     });
   };

@@ -125,6 +125,7 @@ export const LazyVideo: React.FC<{
           autoPlay={shouldPlay}
           preload="metadata"
           className="w-full h-full object-cover"
+          style={{ backgroundColor: fallbackBackground }}
           onLoadedMetadata={(e) => {
             const v = e.currentTarget;
             if (!compact && v.videoWidth && v.videoHeight) {

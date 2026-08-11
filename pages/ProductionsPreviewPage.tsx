@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  ChapterContents,
   ColorBridge,
   Eyebrow,
   Expandable,
@@ -75,7 +76,16 @@ interface SpreadData {
   role: string;
   description: string;
   stat?: { value: string; label: string };
-  expandables?: { label: string; body: string }[];
+  // body is usually one paragraph; widened to ReactNode for the rare
+  // expandable dense enough to need a break (The Last City's Role, once it
+  // absorbed the Multiverse Quad connection on top of the casting detail).
+  expandables?: { label: string; body: React.ReactNode }[];
+  /** Optional outbound listen/read link, for credits with a public
+   *  adaptation a reader can actually go hear (the Dying for Sex podcast,
+   *  The Last City audiobook). Rendered the same small tracked-caps-plus-
+   *  arrow way Labs' "Open project" link is, so the site has one link
+   *  language rather than two. */
+  link?: { label: string; url: string };
   /**
    * `thumb` is only read by the compressed credits screen, and only when the
    * spread's own art is the wrong choice at thumbnail scale. Hollywood &
@@ -107,7 +117,7 @@ const SPREADS: SpreadData[] = [
   {
     slug: 'scamfluencers',
     name: 'Scamfluencers',
-    awards: ['2023 Ambie winner', 'Vogue’s Best Podcasts', 'Apple’s Creators We Love'],
+    awards: ['2023 Ambie winner', '2025 Ambie nominee', 'Vogue’s Best Podcasts', 'Apple’s Creators We Love'],
     eyebrow: 'Wondery · Amazon · 2022–Present',
     // Zero-width space, not a soft hyphen: the title needs a break
     // opportunity to fit a 375px measure, but &shy; renders a visible
@@ -116,18 +126,19 @@ const SPREADS: SpreadData[] = [
     title: <>Scam&#8203;fluencers</>,
     role: 'Creator & Showrunner',
     description:
-      'A weekly true-crime pop series unpacking the internet’s most audacious scammers, hosted by Scaachi Koul and Sarah Hagi.',
+      'A weekly true-crime series about the internet’s biggest scammers and the people who fell for them. Hosted by Scaachi Koul and Sarah Hagi.',
     stat: { value: '53M', label: 'downloads' },
     expandables: [
       {
         label: 'Role',
-        body: 'Created the original IP and pitched it to Wondery, then ran the series as showrunner: format, hosting, editorial voice, and weekly production across its run.',
+        body: 'Scamfluencers is original IP I created at Wondery. I took it from concept through greenlight and ran it as showrunner, building the format, casting the hosts, setting the editorial voice, and overseeing weekly production across the run.',
       },
       {
         label: 'Impact',
-        body: 'Winner, 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025. Selected for Vogue’s Best Podcasts of the Year. Named among Apple’s Creators We Love. Adapted internationally, including Mexico and Brazil.',
+        body: 'Adapted into local versions abroad, including Mexico and Brazil.',
       },
     ],
+    link: { label: 'Listen to the podcast', url: 'https://www.audible.com/podcast/Scamfluencers/B0G4FFWFFM?srsltid=AfmBOorlPCWRrHWhwc7NDKup6hIIokgk9X_Ixo6nIGNFNuc_DfaJxCTr' },
     media: {
       main: {
         // Both stills below moved off /proto/ (a gitignored local folder
@@ -141,6 +152,14 @@ const SPREADS: SpreadData[] = [
       overlap: {
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Scamfluencers/Scamfluencers%20Keyart.jpg',
         alt: 'Scamfluencers key art',
+        // Custom override, default shared position: the shared default
+        // (w-[36%], -bottom-14, -left-[8%]) is tuned for spreads whose main
+        // image has no text near the bottom-left third. Scamfluencers' main
+        // image has "Scaachi & Sarah" captioned there, and the default
+        // inset's top-right corner cut directly through it (Jeanine caught
+        // this live). Smaller and lower clears the caption instead of
+        // covering it.
+        className: 'hidden lg:block absolute w-[30%] aspect-[4/5] object-cover -bottom-24 -left-[6%]',
       },
     },
     // Contrast repair (REDESIGN-PLAN.md 6.1, computed via WCAG relative
@@ -166,23 +185,20 @@ const SPREADS: SpreadData[] = [
   {
     slug: 'dying-for-sex',
     name: 'Dying for Sex',
-    awards: ['Apple Favorites of the Year', 'Peabody-winning FX series', '9 Primetime Emmy nominations'],
+    awards: ['Apple Podcasts Favorites of the Year'],
     eyebrow: 'Wondery · Amazon · 2019–2020',
     title: <>Dying for&nbsp;Sex</>,
-    role: 'Producer',
+    role: 'Co-developer & Producer',
     description:
-      'Molly is dying of breast cancer. So she leaves her marriage and sets out to feel everything she still can, telling it all to her best friend, Nikki Boyer.',
+      'Molly is dying of breast cancer. She leaves her marriage to feel everything she still can while there’s time, and tells all of it to her best friend, Nikki Boyer. Adapted into a Peabody-winning FX limited series starring Michelle Williams and Jenny Slate, with nine Primetime Emmy nominations.',
     stat: { value: 'Podcast of the Year', label: 'Ambie Award winner · 2021' },
     expandables: [
       {
         label: 'Role',
-        body: 'Producer on the original Wondery podcast, from development through editorial.',
-      },
-      {
-        label: 'Impact',
-        body: 'Winner, Ambie Podcast of the Year. Named to Apple Podcasts’ Favorites of the Year. Adapted as a Peabody-winning FX limited series starring Michelle Williams, with 9 Primetime Emmy nominations.',
+        body: 'I co-developed and produced the original Wondery podcast.',
       },
     ],
+    link: { label: 'Listen to the podcast', url: 'https://www.audible.com/podcast/Dying-For-Sex-Ad-free/B08D6T2D9C?srsltid=AfmBOorNZWWnmgZXNS8CkriLissNPrXrGQGgKmmI7u-cjrUgfsx2Xhtc' },
     media: {
       main: {
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Dying%20for%20Sex/9.jpg',
@@ -210,23 +226,33 @@ const SPREADS: SpreadData[] = [
   {
     slug: 'the-last-city',
     name: 'The Last City',
-    awards: ['Ambie Best Fiction nominee', 'Audible Original'],
+    awards: ['Ambie Best Fiction nominee'],
     eyebrow: 'Wondery · Amazon · 2023–2025',
     title: <>The Last&nbsp;City</>,
     role: 'Creator & Showrunner',
     description:
-      'A serialized climate thriller starring Rhea Seehorn. Scripted fiction set inside the last domed city on a changed Earth.',
+      'The Last City is an immersive, 12-part sci-fi audio thriller, starring Rhea Seehorn, that explores the dark truths behind a utopian society surviving the climate crisis.',
     stat: { value: '#1', label: 'Apple Fiction · 20 countries' },
     expandables: [
       {
         label: 'Role',
-        body: 'Created the original IP and pitched it to Wondery, then ran the series as showrunner across two seasons, from development through serialized production.',
-      },
-      {
-        label: 'Impact',
-        body: '#1 Apple Fiction in 20 countries. Ambie Best Fiction nominee. Adapted as an Audible Original. Its world became the raw material for Multiverse Quad, built with Amazon’s AGI team.',
+        body: (
+          <>
+            <p>
+              Original IP I created at Wondery. I developed the world and
+              its characters, hired the head writer and writers. Cast more
+              than forty roles and oversaw production across two seasons.
+            </p>
+            <p className="mt-3">
+              It was adapted into an Audible Original audiobook. Its world
+              later became the basis for Multiverse Quad, which I built
+              with Amazon&rsquo;s AGI team.
+            </p>
+          </>
+        ),
       },
     ],
+    link: { label: 'Listen to the audiobook', url: 'https://www.audible.com/pd/The-Last-City-Audiobook/B0F44KWN5D?srsltid=AfmBOopjoEwnj_0Sm99UwpGxQotk0fA41r6p3zHw2NMEJ_CVMn0_FXhp' },
     media: {
       main: {
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/The%20Last%20City/No%20text%20Key%20Art.png',
@@ -260,7 +286,7 @@ const SPREADS: SpreadData[] = [
 const BORN_THIS_WAY: SpreadData = {
   slug: 'born-this-way',
   name: 'Born This Way',
-  eyebrow: 'A&E · 2015–2016',
+  eyebrow: 'A&E · Bunim/Murray · 2015–2016',
   title: <>Born This&nbsp;Way</>,
   role: 'Supervising Producer',
   description:
@@ -269,11 +295,7 @@ const BORN_THIS_WAY: SpreadData = {
   expandables: [
     {
       label: 'Role',
-      body: 'Supervising producer across the series, shaping story at A&E through its Emmy-winning run.',
-    },
-    {
-      label: 'Impact',
-      body: '3 wins, 16 Primetime Emmy nominations.',
+      body: 'As supervising producer, I led the story department across the A&E series.',
     },
   ],
   media: {
@@ -316,11 +338,7 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
   expandables: [
     {
       label: 'Role',
-      body: 'Supervising producer on the series for Vox Media and PBS, shaping story across its run.',
-    },
-    {
-      label: 'Impact',
-      body: 'Winner, James Beard Media Award.',
+      body: 'Supervising producer on the series for Vox Media and PBS, shaping story across its run. Oversaw story across six cities, working closely with producers and editors.',
     },
   ],
   media: {
@@ -365,7 +383,7 @@ const LIFE_OF_KYLIE: SpreadData = {
   expandables: [
     {
       label: 'Role',
-      body: 'Senior supervising producer on the series for E! and Bunim/Murray, overseeing production during the height of media attention around the family.',
+      body: 'Senior supervising producer on the series for E! and Bunim/Murray, overseeing post production during the height of media attention around the family.',
     },
     {
       label: 'Impact',
@@ -412,21 +430,17 @@ const Spread: React.FC<{
    * taking its own beat, because a fourth stop turns an entrance into a
    * queue, and the supporting copy is not what a reader is waiting for.
    *
-   * 700ms against the Cover's 1200ms, and rise-plus-fade with no
+   * 560ms against the Cover's 1200ms, and rise-plus-fade with no
    * blur-to-sharp. Both are deliberate hierarchy, not thrift: the Cover
    * fires once per visit and can afford to be the site's signature
    * gesture, while this fires four times and has to stay out of the way of
    * a reader who is already moving. Keeping the blur exclusive to the
    * Cover is what stops it becoming a mannerism.
    *
-   * Gaps widened from 120/260ms to 200/420ms after Jeanine reported seeing
-   * no difference at all while scrolling. The trigger point was the main
-   * culprit and is fixed in useRevealOnce, but these were a genuine second
-   * defect: against a 700ms duration, a 120ms offset meant beat two began
-   * while beat one was already 69% arrived, measured, so three beats
-   * blurred into one soft fade. Travel raised for the same reason, the
-   * title most of all, since 28px under a word set at var(--display-xl) is
-   * proportionally almost nothing.
+   * The settled timing is 0/140/280ms. It keeps three perceptible beats but
+   * finishes in 840ms rather than leaving a fast-scrolling reader looking at
+   * an empty field for more than a second. Travel, not delay, now carries
+   * most of the choreography.
    */
   const { shown, reduced } = useRevealOnce(`production-${data.slug}`);
   const beat = (delay: number, rise: number): React.CSSProperties =>
@@ -435,7 +449,7 @@ const Spread: React.FC<{
       : {
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : `translateY(${rise}px)`,
-          transition: `opacity 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
+          transition: `opacity 560ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 560ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
         };
 
   /*
@@ -514,7 +528,7 @@ const Spread: React.FC<{
         className="relative z-10 mt-10 md:mt-16"
         style={{
           fontFamily: DISPLAY_FAMILY,
-          fontSize: 'var(--display-xl)',
+          fontSize: 'var(--display-lg)',
           lineHeight: 0.92,
           letterSpacing: '-0.015em',
           color: p.ink,
@@ -531,7 +545,7 @@ const Spread: React.FC<{
           // 10 and 26) because it is the element the entrance is actually
           // about, and a large word needs more travel than a small one to
           // read as movement at all.
-          ...beat(200, 44),
+          ...beat(140, 44),
         }}
       >
         {data.title}
@@ -559,7 +573,7 @@ const Spread: React.FC<{
           SpreadShell's overflow-hidden has nothing to clip mid-animation. */}
       <div
         className="mt-10 lg:mt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8"
-        style={beat(420, 26)}
+        style={beat(280, 26)}
       >
         {/* media cluster, asymmetric; mirrors when flipped. self-start so the
             column shrink-wraps the artwork: as a stretched grid item its
@@ -684,24 +698,42 @@ const Spread: React.FC<{
               expandable, hoisted so they read on a fast scroll. The
               recruiter-persona critique found this persona never opens an
               expandable, so a spread could pass at speed showing "53M
-              downloads" and never the Ambie win. Uses the accent for the
-              separators only, so the strip reads as one line of credential
-              rather than a list competing with the stat above it. */}
+              downloads" and never the Ambie win.
+
+              Stacked one per line, not inline with middle-dot separators:
+              the dot version broke as soon as a spread carried four awards
+              (Scamfluencers) instead of two or three — flex-wrap sends the
+              dot to whichever line its item lands on, so a wrapped line
+              starts with an orphaned "· VOGUE'S BEST PODCASTS", which reads
+              as a stray bullet rather than a continuous credential line.
+              Stacking removes the failure mode outright regardless of how
+              many awards a spread ever carries, at the cost of a few more
+              vertical pixels than a single dense line. Bumped a notch off
+              the shared 0.7rem label size too, since a hiring-audience
+              credential (an Ambie, a Peabody) reading at 11px next to a
+              72px stat was the "almost invisible" half of the complaint,
+              not just the dot bug.
+
+              Gap scales with award count, not a fixed mt-8 everywhere.
+              mt-8 was tried as one value for every spread, to stop a
+              single award (Dying for Sex) from reading as the stat's own
+              label continuing onto a mismatched second line. It fixed
+              that, but overcorrected: the same 32px gap that reads as
+              "clearly a separate group" ahead of four stacked lines
+              (Scamfluencers) reads as "floating, disconnected" ahead of
+              just one (Jeanine's direct call, live) — a fixed gap over a
+              near-empty list is mostly gap. Fewer lines now get less
+              space above them: still enough to avoid the mismatch this
+              was built to fix, not so much the one line looks orphaned. */}
           {data.awards && data.awards.length > 0 && (
-            <ul className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-              {data.awards.map((award, i) => (
-                <li key={award} className="flex items-baseline gap-2">
-                  {i > 0 && (
-                    <span aria-hidden="true" className="text-[0.7rem]" style={{ color: p.accent }}>
-                      &middot;
-                    </span>
-                  )}
-                  <span
-                    className="text-[0.7rem] tracking-[0.14em] uppercase"
-                    style={{ color: p.inkBody }}
-                  >
-                    {award}
-                  </span>
+            <ul className={`${data.awards.length > 1 ? 'mt-8' : 'mt-5'} space-y-1.5`}>
+              {data.awards.map((award) => (
+                <li
+                  key={award}
+                  className="text-[0.78rem] tracking-[0.12em] uppercase"
+                  style={{ color: p.inkBody }}
+                >
+                  {award}
                 </li>
               ))}
             </ul>
@@ -724,6 +756,21 @@ const Spread: React.FC<{
               ))}
             </div>
           )}
+
+          {data.link && (
+            <a
+              href={data.link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex min-h-11 items-center gap-2 py-3 text-[0.75rem] tracking-[0.18em] uppercase transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              style={{ color: p.ink, outlineColor: p.accent }}
+            >
+              {data.link.label}
+              <span aria-hidden="true" style={{ color: p.accent }}>
+                &rarr;
+              </span>
+            </a>
+          )}
         </div>
 
       </div>
@@ -742,7 +789,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
   title: <>Hollywood &amp;&nbsp;Crime</>,
   role: 'Senior Producer',
   description:
-    'Two seasons inside Wondery’s Hollywood true-crime anthology, produced alongside her work on Scamfluencers and Dying for Sex.',
+    'Two seasons inside Wondery’s Hollywood true-crime anthology.',
   expandables: [
     {
       label: 'Role',
@@ -750,11 +797,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
     },
     {
       label: 'Series',
-      body: 'Billionaire Boys Club (Season 6): co-hosted with Tracy Pattin and Timothy Olyphant, critically praised. The Execution of Bonny Lee Bakley (Season 7): co-hosted with Tracy Pattin and Josh Lucas, a chart-topping true-crime hit.',
-    },
-    {
-      label: 'Impact',
-      body: 'Part of the same true-crime slate that produced Scamfluencers and Dying for Sex.',
+      body: 'Billionaire Boys Club (Season 6): co-hosted with Tracy Pattin and actor Timothy Olyphant, critically praised. The Execution of Bonny Lee Bakley (Season 7): co-hosted with Tracy Pattin and actor Josh Lucas, a chart-topping true-crime hit.',
     },
   ],
   media: {
@@ -842,8 +885,11 @@ const LEAD_SPREADS: SpreadData[] = [SPREADS[0], SPREADS[1], SPREADS[2], BORN_THI
  * demote what a credit is known for.
  */
 const CREDIT_SPREADS: SpreadData[] = [
-  HOLLYWOOD_CRIME,
+  // No Passport Required first, not Hollywood & Crime: it carries a stat
+  // (James Beard), and sitting it between two award-less rows read odd —
+  // Jeanine's own note, live. Order otherwise unchanged.
   NO_PASSPORT_REQUIRED,
+  HOLLYWOOD_CRIME,
   LIFE_OF_KYLIE,
 ];
 
@@ -891,6 +937,7 @@ export const PRODUCTIONS_INDEX = CHAPTER_ORDER.map((s) => ({
   anchor: `production-${s.slug}`,
   name: s.name,
   index: displayIndex(s),
+  meta: s.role,
 }));
 
 export const SCAMFLUENCERS_FIELD = CHAPTER_ORDER[0].palette.field;
@@ -1068,8 +1115,16 @@ export const ProductionsChapter: React.FC = () => (
       style={{ backgroundColor: 'var(--bg-site)' }}
     >
       <div className="flex items-end justify-between">
+        {/* 2.4/3.5rem, not the original 2/2.75rem: the four chapter-tier
+            headings (Productions, Ghost Mode Labs, About, Get in touch)
+            are the same outline level doing the same job, and three of
+            them render at 56px while this one sat at 44px — the only
+            same-role type inconsistency the full-sweep polish pass found.
+            Matches Labs' explicit step rather than var(--display-md) so
+            the two chapter headers stay identical at every width, not
+            just at the clamp's cap. */}
         <h2
-          className="text-[2rem] md:text-[2.75rem] leading-none"
+          className="text-[2.4rem] md:text-[3.5rem] leading-none"
           style={{ fontFamily: DISPLAY_FAMILY, color: 'var(--ink)' }}
         >
           Productions
@@ -1081,6 +1136,17 @@ export const ProductionsChapter: React.FC = () => (
           2015–Present &middot; podcasts &amp; television
         </span>
       </div>
+      <ChapterContents
+        ariaLabel="Productions project index"
+        label="Selected productions"
+        items={PRODUCTIONS_INDEX}
+        colors={{
+          accent: 'var(--terra-text)',
+          border: 'rgba(21,14,10,0.18)',
+          ink: 'var(--ink)',
+          muted: 'var(--ink-mute)',
+        }}
+      />
     </div>
     {/* This is an internal bridge, not a boundary one: the title card above
         is always cream and CHAPTER_ORDER[0] (Scamfluencers) is always the
