@@ -326,8 +326,14 @@ const ENTRIES: LabEntry[] = [
         // Description says what a reader gets (two kinds of edition);
         // Build says what the prototype is testing. The split Jeanine
         // settled on after trying the mechanic in each slot on its own.
+        //
+        // One sentence, not two. The cut line ("Every reading becomes a
+        // new visual interpretation of the same story") restated the
+        // description's own "Each reading can reveal a different visual
+        // interpretation" almost word for word, on the same screen. The
+        // question is the part nothing else on the entry says.
         label: 'Build',
-        body: 'The prototype asks what happens when code interprets a story instead of simply illustrating it. Every reading becomes a new visual interpretation of the same story.',
+        body: 'The prototype asks what happens when code interprets a story instead of simply illustrating it.',
       },
     ],
     hasProjectPage: false,
