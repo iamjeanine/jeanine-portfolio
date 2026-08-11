@@ -13,7 +13,7 @@ export const PROJECTS: Project[] = [
     id: 'visual-audiobooks',
     title: 'Visual Audiobooks',
     coverTitle: 'Visual Audio Book',
-    subtitle: 'A new visual telling with every listen.',
+    subtitle: "Original children’s stories that can change each time you return",
     client: 'Ghost Mode Labs',
     category: 'Experiments',
     filterCategories: ['story-system'],
@@ -21,14 +21,14 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/visual-audiobook-cover.mp4',
     previewAutoplay: true,
     mainVideos: [],
-    descriptor: 'A new visual telling with every listen.',
+    descriptor: "Original children’s stories that can change each time you return",
     description: '',
     tools: '',
   },
   {
     id: 'static',
     title: 'Static',
-    subtitle: 'Scripted series built from online folklore',
+    subtitle: "Scripted supernatural series built from online folklore",
     client: 'Ghost Mode Labs',
     category: 'Experiments',
     filterCategories: ['production-tool'],
@@ -47,7 +47,7 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Scripted series built from online folklore',
+    descriptor: "Scripted supernatural series built from online folklore",
     description: "Every year, thousands of people vanish in the American wilderness. Their families post online because no one else is listening.\n\nOver the last decade, thirteen Reddit communities have built a body of folklore around these disappearances. Ten million subscribers. Nobody had connected what they were writing.\n\nI built a research tool called Last Active. You point it at a public archive and it finds story patterns, under-reported stories, and hidden gems. Pointed at those thirteen communities, it found 582 recurring overlaps across 6,884 accounts. Creatures, phenomena, rules. Static is the first story to come out of it.\n\n7,000 voices. One American haunting.",
     liveUrl: 'https://static-show.vercel.app/',
     liveUrlLabel: 'See the original pitch',
@@ -80,7 +80,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'ai-creator-lab',
     title: 'AI Creator Lab',
-    subtitle: 'Wondery creator lab',
+    subtitle: "Creative innovation",
     client: 'Ghost Mode Labs',
     category: 'Selected',
     filterCategories: ['production-tool'],
@@ -143,7 +143,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'narrative-space',
     title: 'Narrative Space',
-    subtitle: 'Interactive world building',
+    subtitle: "Interactive worldbuilding",
     client: 'Ghost Mode Labs',
     category: 'Selected',
     filterCategories: ['story-system'],
@@ -162,7 +162,7 @@ export const PROJECTS: Project[] = [
         startMuted: false
       }
     ],
-    descriptor: 'Interactive Story Bible',
+    descriptor: "Interactive worldbuilding",
     description: "Story worlds usually begin as documents. Notes about characters, places, timelines, and relationships.\n\nNarrative Space turns that material into something you can explore.\n\nYou can upload an existing story bible and watch the world assemble itself. Or start from scratch. The tool asks questions that help shape the structure of the story as you go.\n\nCharacters, locations, and themes appear as nodes in a shared space. You can move through the world in three dimensions, or switch to more familiar views that organize everything into categories and cards.\n\nSeeing the material from different angles helps new connections emerge. Relationships between characters, places, and events start to reveal themselves as part of a living world rather than a stack of notes.\n\nYou can also talk with the world as you build it. Ask questions about characters, conflicts, or story logic. It can clarify relationships, suggest additions, or point out conflicts in the story.\n\nThe process stays human-led. Writers decide what belongs in the world. If you want to add a beat, you can simply say where it should go and it places it on the story grid.\n\nA space for thinking through a story.",
     tools: 'Tools: React, Three.js, Claude API, vector embeddings. Built with AI Studio Build and Claude Code.',
     liveUrl: 'https://narrative-space.vercel.app/',
