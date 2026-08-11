@@ -110,7 +110,7 @@ export const PROJECTS: Project[] = [
           caption: 'AI Lab Archive\n\nTo support the lab, I built an online hub where the curriculum could live.\n\nEach module included a NotebookLM podcast walkthrough, study guide, FAQs, and the original presentation. Some modules also included recorded sessions with industry partners demonstrating the tools in practice.\n\nThe archive allowed teams across the company to learn at their own pace or revisit sessions as the tools evolved.'
         }
     ],
-    descriptor: "Creative workflow lab",
+    descriptor: "Creative innovation",
     description: "I founded Wondery\u2019s first AI Creator Lab to explore how new tools could fit into production workflows.\n\nThe lab grew from four people to more than fifty across content, marketing, product, and ad sales. I ran hands-on workshops, built learning modules, and brought in outside partners who were building these tools to demonstrate how they worked and how our teams could use them.\n\nThree projects came out of the lab.\n\nStoryCraft, a tool for adapting narrative series for kids and family audiences.\n\nA research assistant that helped teams gather background material and media pulls for new stories.\n\nAnd a metadata tool that generated titles, descriptions, and tags for publishing across platforms.",
     tools: 'Tools: ElevenLabs, ChatGPT, Midjourney, NotebookLM. Plus Runway, Riverside, Descript, Luma, PartyRock, Nova.'
   },
