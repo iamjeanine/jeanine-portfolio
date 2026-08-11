@@ -262,9 +262,10 @@ const ENTRIES: LabEntry[] = [
     description: (
       <>
         <p>
-          One scene from The Last City, the sci-fi series I created at
-          Wondery, plays simultaneously as an animated short film, a
-          graphic novel, a visual audiobook, and a podcast.
+          A scene from The Last City became the foundation for a
+          four-format storytelling prototype. The same story was
+          developed as an animated short, graphic novel, visual
+          audiobook, and podcast.
         </p>
         <p className="mt-3">
           I pitched the concept to Amazon&rsquo;s AGI team and built it
