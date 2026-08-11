@@ -348,7 +348,12 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
   role: 'Supervising Producer',
   description:
     'Chef Marcus Samuelsson travels the country to find the immigrant communities quietly redefining American food.',
-  stat: { value: 'James Beard', label: 'Media Award' },
+  // The whole award name carries the display line. Bolding only "James
+  // Beard" left the credential split across two type weights, and in
+  // this row it sits beside a photograph of a chef, so the bold line
+  // read as a person's name rather than a prize. The label states the
+  // outcome instead, which the award's name alone does not.
+  stat: { value: 'James Beard Media Award', label: 'winner' },
   expandables: [
     {
       label: 'Role',
