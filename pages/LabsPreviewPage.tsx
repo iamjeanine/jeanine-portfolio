@@ -347,7 +347,13 @@ const ENTRIES: LabEntry[] = [
     client: 'Wondery',
     year: '2025',
     title: 'AI Creator Lab',
-    tagline: 'Creative Innovation Lab',
+    // Sentence case, and no second "lab": taglines render as typed in
+    // the chapter index, where every sibling is sentence case, and the
+    // title directly above this one already ends in Lab. "AI Creator
+    // Lab" is the real program name, so this line is a descriptor and
+    // can drop the noun it would otherwise repeat, matching the shape
+    // of Franchise intelligence and Interactive worldbuilding.
+    tagline: 'Creative innovation',
     tier: 'feature',
     description:
       'I founded Wondery’s first AI Creator Lab. I built the curriculum, internal hub, and partnerships that brought AI into production. Three projects were greenlit from the lab.',
