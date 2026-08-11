@@ -6,7 +6,11 @@ export const HERO_VIDEOS = {
   posterUrl: '/hero-poster.jpg',
 };
 
-export const getVisibleProjects = () => PROJECTS.filter(p => p.category === 'Selected' || p.category === 'Experiments');
+// The category check no longer excludes anything by itself: every current
+// project is 'Selected' or 'Experiments'. !archived is what actually keeps
+// Tender and the In-World Social Campaign, cut from the live Labs chapter,
+// out of the detail page's own Previous/Next carousel.
+export const getVisibleProjects = () => PROJECTS.filter(p => (p.category === 'Selected' || p.category === 'Experiments') && !p.archived);
 
 export const PROJECTS: Project[] = [
   {
@@ -194,6 +198,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'tender',
+    archived: true,
     title: 'Tender',
     subtitle: 'Conversation with culture',
     client: 'Ghost Mode Labs',
@@ -222,6 +227,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'in-world-social-campaign',
+    archived: true,
     title: 'In-World Social Campaign',
     coverTitle: 'Social Campaign',
     subtitle: 'In-world marketing',

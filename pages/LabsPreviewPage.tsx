@@ -381,7 +381,15 @@ const ENTRIES: LabEntry[] = [
                 the Kids and Family division.
               </li>
               <li>
-                <em style={{ color: LAB.accent, fontStyle: 'normal' }}>In-world social campaign</em>
+                {/* The only one of the three that has a page behind it:
+                    StoryCraft and Production tools have no detail page to
+                    send a click to. Reconnects a page that still exists
+                    (three videos, a full write-up) but had nothing linking
+                    to it since the campaign folded into this entry and its
+                    own chapter listing was cut. */}
+                <Link to="/project/in-world-social-campaign" className="lab-inline-link">
+                  <em style={{ color: LAB.accent, fontStyle: 'normal' }}>In-world social campaign</em>
+                </Link>
                 {' '}&mdash; a dozen in-world prototypes for The Last City.
                 Two moved into production, one beat its engagement
                 benchmarks.
@@ -1202,6 +1210,12 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         .lab-open { min-height: 2.75rem; align-items: center; border-bottom: 1px solid ${LAB.border}; padding: 0.8rem 0; transition: border-color 0.3s ease, opacity 0.3s ease; }
         .lab-open:hover { border-color: ${LAB.accent}; }
         .lab-open:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+        /* Same convention as .lab-open (dim static underline, brightens on
+           interaction) so this reads as a link rather than just another
+           bold term, since it sits beside two others that are not links. */
+        .lab-inline-link { border-bottom: 1px solid ${LAB.border}; transition: border-color 0.3s ease; }
+        .lab-inline-link:hover { border-color: ${LAB.accent}; }
+        .lab-inline-link:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; border-radius: 1px; }
       `}</style>
       {/* overflow-hidden (the SpreadShell default) contains the projector
           light, which is deliberately wider than its frame. Its gradient

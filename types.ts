@@ -38,6 +38,13 @@ export interface Project {
   subtitle?: string;
   tools?: string;
   coverTitle?: string;
+  /**
+   * Cut from the Labs chapter but the detail page is kept (Tender, the
+   * In-World Social Campaign). Excluded from getVisibleProjects so the
+   * detail page's own Previous/Next carousel cannot surface a project
+   * nothing else on the site links to.
+   */
+  archived?: boolean;
   formats?: string[];
   interactivePitch?: {
     url: string;
