@@ -320,7 +320,7 @@ const ENTRIES: LabEntry[] = [
     expandables: [
       {
         label: 'Concept',
-        body: 'The first prototype uses an excerpt from The Kids’ Guidebook to the Rock, an original story about a girl visiting her father in a Florida prison and telling the story of how he once escaped.',
+        body: 'The first prototype is based on The Kids’ Guidebook to the Rock, an original children’s story about a girl visiting her father in a Florida prison after his failed escape.',
       },
       {
         // Description already covers illustrator-vs-code editions; Build
