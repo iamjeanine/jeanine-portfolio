@@ -565,19 +565,6 @@ const ProjectDetailPage = () => {
           MythOS maps 494 public-domain stories across cultures and centuries. Start with Circe and trace her through 46 cultures and 3,500 years.
         </p>
       ),
-      aside: (
-        <p className="max-w-[22rem] md:text-right">
-          <span
-            className="block text-[0.62rem] uppercase tracking-[0.18em]"
-            style={{ color: 'rgba(242,237,226,0.62)' }}
-          >
-            Working prototype
-          </span>
-          <span className="mt-1 block text-sm leading-relaxed" style={{ color: 'var(--cream-ink)' }}>
-            Built for studio development and franchise teams
-          </span>
-        </p>
-      ),
     });
   };
 
