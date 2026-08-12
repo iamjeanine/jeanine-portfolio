@@ -9,6 +9,58 @@ import PhoneEmbed from '../components/PhoneEmbed';
 import { useViewTransitionNavigate } from '../hooks/useViewTransition';
 
 
+const ProjectActionCard = ({
+  url,
+  eyebrow,
+  label,
+  dark = true,
+}: {
+  url: string;
+  eyebrow: string;
+  label: string;
+  dark?: boolean;
+}) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`group grid min-h-24 w-full max-w-[30rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border px-5 py-4 text-left transition-colors duration-300 sm:px-6 sm:py-5 ${
+      dark
+        ? 'border-[rgba(242,237,226,0.22)] bg-[rgba(242,237,226,0.025)] hover:border-[var(--ember)]'
+        : 'border-neutral-300 bg-neutral-50/60 hover:border-[#B3543A]'
+    }`}
+    aria-label={`${label}, opens in a new tab`}
+  >
+    <span>
+      <span
+        className={`block text-[0.65rem] uppercase tracking-[0.18em] ${
+          dark ? 'text-[rgba(242,237,226,0.58)]' : 'text-neutral-500'
+        }`}
+      >
+        {eyebrow}
+      </span>
+      <span
+        className={`mt-2 block text-base font-light ${
+          dark
+            ? 'text-[var(--cream-ink)] group-hover:text-[var(--ember)]'
+            : 'text-neutral-800 group-hover:text-[#B3543A]'
+        }`}
+      >
+        {label}
+      </span>
+    </span>
+    <span
+      aria-hidden="true"
+      className={`text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${
+        dark ? 'text-[var(--ember)]' : 'text-[#B3543A]'
+      }`}
+    >
+      ↗
+    </span>
+  </a>
+);
+
+
 // Reusable component for the text block
 const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: boolean }) => {
   const paragraphs = project.description.split('\n\n').filter(Boolean);
@@ -47,14 +99,22 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
         <div className="max-w-2xl">
             {/* Category label */}
             {(project.client || project.categoryLabel) && (
-              <p className={`text-[10px] tracking-[0.2em] uppercase font-normal mb-4 ${dark ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
+              <p className={`${dark ? 'text-[0.68rem]' : 'text-[10px]'} tracking-[0.2em] uppercase font-normal mb-4 ${dark ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
                 {[project.client, project.categoryLabel].filter(Boolean).join(' \u00B7 ')}
               </p>
             )}
 
             <div className="mb-8">
-              <h1 className={`text-3xl md:text-4xl font-normal ${dark ? 'text-[var(--cream-ink)]' : ''}`}>{project.title}</h1>
-              {(project.subtitle || project.descriptor) && <p className={`text-lg md:text-xl font-light italic ${dark ? 'text-[rgba(242,237,226,0.58)]' : 'text-neutral-500'}`}>{project.subtitle || project.descriptor}</p>}
+              <h1
+                className={`${dark ? 'font-serif text-[clamp(2.8rem,6vw,5rem)] leading-[0.92] tracking-[-0.015em]' : 'text-3xl md:text-4xl'} font-normal ${dark ? 'text-[var(--cream-ink)]' : ''}`}
+              >
+                {project.title}
+              </h1>
+              {(project.subtitle || project.descriptor) && (
+                <p className={`${dark ? 'mt-3 text-base leading-relaxed text-[rgba(242,237,226,0.72)]' : 'text-lg md:text-xl italic text-neutral-500'} font-light`}>
+                  {project.subtitle || project.descriptor}
+                </p>
+              )}
             </div>
 
             {/* Lead: epigraph or drop cap */}
@@ -115,19 +175,13 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
             )}
 
             {project.liveUrl && (
-              <div className={`mt-10 mb-2 border rounded-sm px-6 py-5 ${dark ? 'border-[rgba(242,237,226,0.2)] bg-[rgba(242,237,226,0.025)]' : 'border-neutral-200 bg-neutral-50/60'}`}>
-                <p className={`text-xs font-light tracking-[0.2em] uppercase mb-3 ${dark ? 'text-[rgba(242,237,226,0.5)]' : 'text-neutral-500'}`}>
-                  {project.liveUrlEyebrow || (!project.liveUrlLabel ? 'Try the prototype' : null)}
-                </p>
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group inline-flex items-center text-base font-light transition-colors ${dark ? 'text-[var(--cream-ink)] hover:text-[var(--ember)]' : 'text-neutral-800 hover:text-[#B3543A]'}`}
-                >
-                  {project.liveUrlLabel || 'Visit the live site'}
-                  <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">&rarr;</span>
-                </a>
+              <div className="mt-10 mb-2">
+                <ProjectActionCard
+                  url={project.liveUrl}
+                  eyebrow={project.liveUrlEyebrow || 'Interactive prototype'}
+                  label={project.liveUrlLabel || 'Try the prototype'}
+                  dark={dark}
+                />
               </div>
             )}
 
@@ -202,6 +256,7 @@ const ProjectDetailPage = () => {
     media,
     statement,
     aside,
+    action,
   }: {
     eyebrow: string;
     title: string;
@@ -209,6 +264,7 @@ const ProjectDetailPage = () => {
     media: React.ReactNode;
     statement: React.ReactNode;
     aside?: React.ReactNode;
+    action?: React.ReactNode;
   }) => (
       <div
         className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
@@ -279,6 +335,14 @@ const ProjectDetailPage = () => {
               {statement}
               {aside}
             </div>
+            {action && (
+              <div
+                className="border-t py-6 md:py-7"
+                style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+              >
+                {action}
+              </div>
+            )}
           </main>
         </div>
       </div>
@@ -320,33 +384,12 @@ const ProjectDetailPage = () => {
           Last Active mapped 582 recurring patterns across 6,884 public accounts. It became the research engine behind Static.
         </p>
       ),
-      aside: project.liveUrl ? (
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex min-h-11 items-center gap-4 border-b pb-2 text-left transition-colors duration-300 md:text-right"
-          style={{ borderColor: 'var(--ember)', color: 'var(--cream-ink)' }}
-        >
-          <span>
-            <span
-              className="block text-[0.62rem] uppercase tracking-[0.18em]"
-              style={{ color: 'rgba(242,237,226,0.62)' }}
-            >
-              Built as a proposal for iHeart
-            </span>
-            <span className="mt-1 block text-sm tracking-[0.02em]">
-              View the original pitch
-            </span>
-          </span>
-          <span
-            aria-hidden="true"
-            className="transition-transform duration-300 group-hover:translate-x-1"
-            style={{ color: 'var(--ember)' }}
-          >
-            →
-          </span>
-        </a>
+      action: project.liveUrl ? (
+        <ProjectActionCard
+          url={project.liveUrl}
+          eyebrow={project.liveUrlEyebrow || 'Original pitch'}
+          label={project.liveUrlLabel || 'View the original pitch'}
+        />
       ) : undefined,
     });
   };
@@ -604,33 +647,12 @@ const ProjectDetailPage = () => {
           </blockquote>
         </div>
       ),
-      aside: project.liveUrl ? (
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex min-h-11 items-center gap-4 border-b pb-2 text-left transition-colors duration-300 md:text-right"
-          style={{ borderColor: 'var(--ember)', color: 'var(--cream-ink)' }}
-        >
-          <span>
-            <span
-              className="block text-[0.62rem] uppercase tracking-[0.18em]"
-              style={{ color: 'rgba(242,237,226,0.62)' }}
-            >
-              Proposal for Museums of History NSW
-            </span>
-            <span className="mt-1 block text-sm tracking-[0.02em]">
-              Explore Unstill
-            </span>
-          </span>
-          <span
-            aria-hidden="true"
-            className="transition-transform duration-300 group-hover:translate-x-1"
-            style={{ color: 'var(--ember)' }}
-          >
-            →
-          </span>
-        </a>
+      action: project.liveUrl ? (
+        <ProjectActionCard
+          url={project.liveUrl}
+          eyebrow={project.liveUrlEyebrow || 'Proposal for Museums of History NSW'}
+          label={project.liveUrlLabel || 'Explore Unstill'}
+        />
       ) : undefined,
     });
   };
@@ -770,7 +792,14 @@ const ProjectDetailPage = () => {
       ) : (
         <div className="w-full max-w-5xl space-y-8">
             {project.mainVideos.map((video, index) => (
-                <div key={`video-container-${index}`} style={index === 0 ? { viewTransitionName: 'project-hero' } as React.CSSProperties : undefined}>
+                <div
+                  key={`video-container-${index}`}
+                  className={isDarkEditorial ? 'border' : undefined}
+                  style={{
+                    ...(index === 0 ? { viewTransitionName: 'project-hero' } : {}),
+                    ...(isDarkEditorial ? { borderColor: 'rgba(242,237,226,0.18)' } : {}),
+                  } as React.CSSProperties}
+                >
                   <VideoPlayer
                     src={video.url}
                     posterUrl={video.posterUrl}
@@ -902,11 +931,15 @@ const ProjectDetailPage = () => {
       <div className="w-full min-h-screen p-4 md:p-8 flex flex-col" style={{ contain: 'layout', position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <header className="flex justify-between items-center w-full mb-8 shrink-0">
-          <button onClick={handleClose} className={`group flex items-center space-x-2 transition-colors ${isDarkEditorial ? 'text-[rgba(242,237,226,0.62)] hover:text-[var(--cream-ink)]' : 'text-neutral-600 hover:text-[#B3543A]'}`}>
+          <button
+            onClick={handleClose}
+            className={`group transition-colors ${isDarkEditorial ? '-ml-2 inline-flex min-h-11 items-center gap-3 px-2 text-[0.7rem] uppercase tracking-[0.18em] text-[rgba(242,237,226,0.67)] hover:text-[var(--cream-ink)]' : 'flex items-center space-x-2 text-neutral-600 hover:text-[#B3543A]'}`}
+            aria-label="Back to work"
+          >
             <BackIcon />
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm">Work</span>
+            <span className={isDarkEditorial ? '' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm'}>Work</span>
           </button>
-          <Link to="/" className={`text-[11px] tracking-[0.18em] uppercase transition-colors duration-300 ${isDarkEditorial ? 'text-[rgba(242,237,226,0.52)] hover:text-[var(--cream-ink)]' : 'text-neutral-400 hover:text-neutral-700'}`}>
+          <Link to="/" className={`${isDarkEditorial ? 'text-[0.65rem] tracking-[0.2em] text-[rgba(242,237,226,0.67)] hover:text-[var(--cream-ink)]' : 'text-[11px] tracking-[0.18em] text-neutral-400 hover:text-neutral-700'} uppercase transition-colors duration-300`}>
             Jeanine Emilia Cornillot
           </Link>
         </header>
@@ -917,7 +950,13 @@ const ProjectDetailPage = () => {
               if (project.id === 'visual-audiobooks') {
                 return (
                   <>
-                    <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
+                    <div
+                      className="w-full max-w-5xl border"
+                      style={{
+                        viewTransitionName: 'project-hero',
+                        borderColor: 'rgba(242,237,226,0.18)',
+                      } as React.CSSProperties}
+                    >
                       <video
                         src={project.previewVideoUrl}
                         poster={project.previewPosterUrl}
@@ -931,13 +970,19 @@ const ProjectDetailPage = () => {
                     <div className="w-full max-w-5xl mt-8 md:mt-12">
                       <div className="max-w-2xl">
                         {(project.client || project.categoryLabel) && (
-                          <p className={`text-[10px] tracking-[0.2em] uppercase font-normal mb-4 ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
+                          <p className={`${isDarkEditorial ? 'text-[0.68rem]' : 'text-[10px]'} tracking-[0.2em] uppercase font-normal mb-4 ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
                             {[project.client, project.categoryLabel].filter(Boolean).join(' · ')}
                           </p>
                         )}
                         <div className="mb-8">
-                          <h1 className={`text-3xl md:text-4xl font-normal ${isDarkEditorial ? 'text-[var(--cream-ink)]' : ''}`}>{project.title}</h1>
-                          {project.subtitle && <p className={`text-lg md:text-xl font-light italic ${isDarkEditorial ? 'text-[rgba(242,237,226,0.58)]' : 'text-neutral-500'}`}>{project.subtitle}</p>}
+                          <h1 className={`font-serif text-[clamp(2.8rem,6vw,5rem)] font-normal leading-[0.92] tracking-[-0.015em] ${isDarkEditorial ? 'text-[var(--cream-ink)]' : ''}`}>
+                            {project.title}
+                          </h1>
+                          {project.subtitle && (
+                            <p className={`mt-3 text-base font-light leading-relaxed ${isDarkEditorial ? 'text-[rgba(242,237,226,0.72)]' : 'text-neutral-500'}`}>
+                              {project.subtitle}
+                            </p>
+                          )}
                         </div>
                         <p className={`text-sm font-light tracking-[0.14em] uppercase ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>Coming soon</p>
                       </div>
@@ -956,8 +1001,10 @@ const ProjectDetailPage = () => {
             })()}
         </main>
         
-        {/* Footer Navigation: full-width on mobile, icon-only on desktop */}
-        <footer className="w-full mt-auto pt-8 shrink-0">
+        {/* Legacy navigation remains available for old light-layout routes.
+            The two dark editorial pages use Work as the single consistent exit. */}
+        {!isDarkEditorial && (
+          <footer className="w-full mt-auto pt-8 shrink-0">
             {/* Mobile: full-width prev/next with project names */}
             <div className="flex flex-col gap-3 md:hidden">
                 <Link
@@ -1010,7 +1057,8 @@ const ProjectDetailPage = () => {
                 </Link>
               </div>
             </div>
-        </footer>
+          </footer>
+        )}
       </div>
     </div>
   );
