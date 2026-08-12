@@ -10,7 +10,7 @@ import { useViewTransitionNavigate } from '../hooks/useViewTransition';
 
 
 // Reusable component for the text block
-const ProjectTextBlock = ({ project }: { project: Project }) => {
+const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: boolean }) => {
   const paragraphs = project.description.split('\n\n').filter(Boolean);
   const lastParagraph = paragraphs[paragraphs.length - 1];
   const hasCallout = paragraphs.length > 2 && lastParagraph.length < 80;
@@ -47,30 +47,30 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
         <div className="max-w-2xl">
             {/* Category label */}
             {(project.client || project.categoryLabel) && (
-              <p className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 font-normal mb-4">
+              <p className={`text-[10px] tracking-[0.2em] uppercase font-normal mb-4 ${dark ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
                 {[project.client, project.categoryLabel].filter(Boolean).join(' \u00B7 ')}
               </p>
             )}
 
             <div className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-normal">{project.title}</h1>
-              {(project.subtitle || project.descriptor) && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle || project.descriptor}</p>}
+              <h1 className={`text-3xl md:text-4xl font-normal ${dark ? 'text-[var(--cream-ink)]' : ''}`}>{project.title}</h1>
+              {(project.subtitle || project.descriptor) && <p className={`text-lg md:text-xl font-light italic ${dark ? 'text-[rgba(242,237,226,0.58)]' : 'text-neutral-500'}`}>{project.subtitle || project.descriptor}</p>}
             </div>
 
             {/* Lead: epigraph or drop cap */}
             {leadText && isEpigraph ? (
-              <blockquote className="border-l-2 border-neutral-300 pl-6 mb-8">
-                <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-700 leading-relaxed italic">
+              <blockquote className={`border-l-2 pl-6 mb-8 ${dark ? 'border-[rgba(242,237,226,0.2)]' : 'border-neutral-300'}`}>
+                <p className={`font-body-serif text-xl md:text-2xl font-light leading-relaxed italic ${dark ? 'text-[rgba(242,237,226,0.82)]' : 'text-neutral-700'}`}>
                   {parseEpigraph(leadText).quote}
                 </p>
                 {parseEpigraph(leadText).attribution && (
-                  <p className="text-sm text-neutral-500 font-light mt-3 tracking-wide">
+                  <p className={`text-sm font-light mt-3 tracking-wide ${dark ? 'text-[rgba(242,237,226,0.55)]' : 'text-neutral-500'}`}>
                     &mdash; {parseEpigraph(leadText).attribution}
                   </p>
                 )}
               </blockquote>
             ) : leadText ? (
-              <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-800 leading-relaxed mb-8">
+              <p className={`font-body-serif text-xl md:text-2xl font-light leading-relaxed mb-8 ${dark ? 'text-[rgba(242,237,226,0.86)]' : 'text-neutral-800'}`}>
                 <span className="float-left text-5xl md:text-6xl font-normal leading-[0.8] mr-2 mt-1">{dropCapLetter}</span>
                 {leadRest}
               </p>
@@ -78,19 +78,19 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
 
             {/* Subtle divider between lead and body */}
             {bodyParagraphs.length > 0 && (
-              <div className="w-10 h-px bg-neutral-300 mb-8" />
+              <div className={`w-10 h-px mb-8 ${dark ? 'bg-[rgba(242,237,226,0.2)]' : 'bg-neutral-300'}`} />
             )}
 
             {/* Body paragraphs, with pull quote detection */}
             {bodyParagraphs.map((para, i) =>
               isPullQuote(para) ? (
-                <blockquote key={i} className="border-l-2 border-neutral-300 pl-6 my-10">
-                  <p className="font-body-serif text-xl md:text-2xl font-light text-neutral-700 leading-relaxed italic">
+                <blockquote key={i} className={`border-l-2 pl-6 my-10 ${dark ? 'border-[rgba(242,237,226,0.2)]' : 'border-neutral-300'}`}>
+                  <p className={`font-body-serif text-xl md:text-2xl font-light leading-relaxed italic ${dark ? 'text-[rgba(242,237,226,0.78)]' : 'text-neutral-700'}`}>
                     {stripQuotes(para)}
                   </p>
                 </blockquote>
               ) : (
-                <p key={i} className="font-body-serif text-base md:text-lg font-light text-neutral-700 leading-[1.85] mb-7">
+                <p key={i} className={`font-body-serif text-base md:text-lg font-light leading-[1.85] mb-7 ${dark ? 'text-[rgba(242,237,226,0.72)]' : 'text-neutral-700'}`}>
                   {para}
                 </p>
               )
@@ -98,32 +98,32 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
 
             {/* Closing callout: short final lines get pulled out */}
             {hasCallout && (
-              <p className="font-body-serif text-lg md:text-xl font-light text-neutral-800 italic mt-10 mb-8">
+              <p className={`font-body-serif text-lg md:text-xl font-light italic mt-10 mb-8 ${dark ? 'text-[rgba(242,237,226,0.86)]' : 'text-neutral-800'}`}>
                 {lastParagraph}
               </p>
             )}
 
             {project.formats && (
                 <div className="mt-10 mb-8">
-                    <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 font-normal mb-3">Formats</span>
+                    <span className={`block text-[10px] tracking-[0.14em] uppercase font-normal mb-3 ${dark ? 'text-[rgba(242,237,226,0.48)]' : 'text-neutral-400'}`}>Formats</span>
                     <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {project.formats.map((format, index) => (
-                            <p key={index} className="text-base md:text-lg font-light text-neutral-700">{format}</p>
+                            <p key={index} className={`text-base md:text-lg font-light ${dark ? 'text-[rgba(242,237,226,0.72)]' : 'text-neutral-700'}`}>{format}</p>
                         ))}
                     </div>
                 </div>
             )}
 
             {project.liveUrl && (
-              <div className="mt-10 mb-2 border border-neutral-200 rounded-sm px-6 py-5 bg-neutral-50/60">
-                <p className="text-xs font-light tracking-[0.2em] uppercase text-neutral-500 mb-3">
+              <div className={`mt-10 mb-2 border rounded-sm px-6 py-5 ${dark ? 'border-[rgba(242,237,226,0.2)] bg-[rgba(242,237,226,0.025)]' : 'border-neutral-200 bg-neutral-50/60'}`}>
+                <p className={`text-xs font-light tracking-[0.2em] uppercase mb-3 ${dark ? 'text-[rgba(242,237,226,0.5)]' : 'text-neutral-500'}`}>
                   {project.liveUrlEyebrow || (!project.liveUrlLabel ? 'Try the prototype' : null)}
                 </p>
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center text-base font-light text-neutral-800 hover:text-[#B3543A] transition-colors"
+                  className={`group inline-flex items-center text-base font-light transition-colors ${dark ? 'text-[var(--cream-ink)] hover:text-[var(--ember)]' : 'text-neutral-800 hover:text-[#B3543A]'}`}
                 >
                   {project.liveUrlLabel || 'Visit the live site'}
                   <span className="ml-2 group-hover:translate-x-1 transition-transform duration-200">&rarr;</span>
@@ -131,7 +131,6 @@ const ProjectTextBlock = ({ project }: { project: Project }) => {
               </div>
             )}
 
-            {project.tools && <p className="text-xs md:text-sm text-neutral-500 font-light tracking-wider mt-10 pt-4 border-t border-neutral-200">{project.tools}</p>}
         </div>
     </div>
   );
@@ -143,8 +142,10 @@ const ProjectDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const vtNavigate = useViewTransitionNavigate();
-  const [project, setProject] = useState<Project | null>(null);
-  const [projectIndex, setProjectIndex] = useState(-1);
+  // Resolve the route synchronously. The previous effect-driven lookup left
+  // the first render completely empty, which created a visible dark flash
+  // between the homepage card and the project's media.
+  const project = PROJECTS.find(candidate => candidate.id === id) ?? null;
   const [isClosing, setIsClosing] = useState(false);
   
 
@@ -152,21 +153,16 @@ const ProjectDetailPage = () => {
     // Scroll to top on new project load
     window.scrollTo(0, 0);
 
-    const foundProject = PROJECTS.find(p => p.id === id);
-    if (foundProject) {
-      setProject(foundProject);
-      const index = PROJECTS.findIndex(p => p.id === id);
-      setProjectIndex(index);
-    } else {
+    if (!project) {
       navigate('/');
     }
-  }, [id, navigate]);
+  }, [id, navigate, project]);
 
     
 
   // location.key is 'default' only for the very first entry in this tab's
   // history (a direct link, bookmark, or refresh landed here with nothing
-  // in-app before it) — react-router's own signal for "there is no real
+  // in-app before it). React Router's own signal means "there is no real
   // back destination." Any in-app navigation before this page replaces it
   // with a unique key, so navigate(-1) is safe: it returns to wherever the
   // visitor actually came from (Labs, Productions, or the old homepage),
@@ -192,6 +188,551 @@ const ProjectDetailPage = () => {
   const visibleIndex = visibleProjects.findIndex(p => p.id === id);
   const prevProject = visibleIndex > 0 ? visibleProjects[visibleIndex - 1] : visibleProjects[visibleProjects.length - 1];
   const nextProject = visibleIndex < visibleProjects.length - 1 ? visibleProjects[visibleIndex + 1] : visibleProjects[0];
+  const isDarkEditorial = project.id === 'narrative-space' || project.id === 'visual-audiobooks';
+
+  /**
+   * Shared screening-room frame for project artifacts. The Labs chapter has
+   * already done the explaining; these pages are for the thing itself: a
+   * demo, a visualization, or a pitch, plus one concise line of context.
+   */
+  const renderArtifactRoom = ({
+    eyebrow,
+    title,
+    subtitle,
+    media,
+    statement,
+    aside,
+  }: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    media: React.ReactNode;
+    statement: React.ReactNode;
+    aside?: React.ReactNode;
+  }) => (
+      <div
+        className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
+        style={{
+          background:
+            'radial-gradient(ellipse 72% 58% at 50% 42%, rgba(232,166,114,0.055), transparent 72%), var(--ink-deep)',
+          color: 'var(--cream-ink)',
+          overscrollBehavior: 'contain',
+        }}
+      >
+        <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-4 py-5 sm:px-6 md:px-10 md:py-7 xl:px-14">
+          <header className="flex w-full shrink-0 items-center justify-between">
+            <button
+              onClick={handleClose}
+              className="group -ml-2 inline-flex min-h-11 items-center gap-3 px-2 text-[0.7rem] uppercase tracking-[0.18em] transition-colors duration-300"
+              style={{ color: 'rgba(242,237,226,0.67)' }}
+              aria-label="Back to work"
+            >
+              <BackIcon />
+              <span className="group-hover:text-[var(--cream-ink)]">Work</span>
+            </button>
+            <Link
+              to="/"
+              className="text-[0.65rem] uppercase tracking-[0.2em] transition-colors duration-300 hover:text-[var(--cream-ink)]"
+              style={{ color: 'rgba(242,237,226,0.67)' }}
+            >
+              Jeanine Emilia Cornillot
+            </Link>
+          </header>
+
+          <main className="flex flex-1 flex-col justify-center py-10 md:py-12">
+            <section className="mb-6 grid items-end gap-5 md:mb-8 md:grid-cols-[1fr_auto] md:gap-12">
+              <div>
+                <p
+                  className="mb-3 text-[0.68rem] uppercase tracking-[0.2em]"
+                  style={{ color: 'var(--ember)' }}
+                >
+                  {eyebrow}
+                </p>
+                <h1
+                  className="font-serif font-normal leading-[0.88]"
+                  style={{
+                    fontSize:
+                      title.length > 22
+                        ? 'clamp(2.65rem, 5vw, 5.2rem)'
+                        : title.length > 12
+                        ? 'clamp(3.15rem, 6.5vw, 6.35rem)'
+                        : 'clamp(3.8rem, 7.5vw, 7rem)',
+                  }}
+                >
+                  {title}
+                </h1>
+              </div>
+              <p
+                className="max-w-[34rem] pb-1 font-light leading-relaxed md:text-right"
+                style={{ color: 'rgba(242,237,226,0.72)' }}
+              >
+                {subtitle}
+              </p>
+            </section>
+
+            {media}
+
+            <div
+              className={`grid gap-7 border-t py-6 md:items-center md:gap-12 md:py-7 ${aside ? 'md:grid-cols-[minmax(0,1fr)_auto]' : ''}`}
+              style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+            >
+              {statement}
+              {aside}
+            </div>
+          </main>
+        </div>
+      </div>
+  );
+
+  const renderStaticDemoRoom = () => {
+    const demo = project.mainVideos[0];
+
+    return renderArtifactRoom({
+      eyebrow: 'Ghost Mode Labs · 2026',
+      title: project.title,
+      subtitle: 'Scripted supernatural series built from online folklore',
+      media: demo ? (
+        <div
+          className="w-full border"
+          style={{
+            borderColor: 'rgba(242,237,226,0.18)',
+            viewTransitionName: 'project-hero',
+          } as React.CSSProperties}
+        >
+          <VideoPlayer
+            src={demo.url}
+            posterUrl={demo.posterUrl}
+            aspectRatio={demo.aspectRatio}
+            autoplay={demo.autoplay}
+            loop={demo.loop}
+            showControls={demo.showControls}
+            hasAudio={demo.hasAudio}
+            projectId={project.id}
+            startUnmuted={false}
+          />
+        </div>
+      ) : null,
+      statement: (
+        <p
+          className="max-w-[48rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+          style={{ color: 'rgba(242,237,226,0.82)' }}
+        >
+          Last Active mapped 582 recurring patterns across 6,884 public accounts. It became the research engine behind Static.
+        </p>
+      ),
+      aside: project.liveUrl ? (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex min-h-11 items-center gap-4 border-b pb-2 text-left transition-colors duration-300 md:text-right"
+          style={{ borderColor: 'var(--ember)', color: 'var(--cream-ink)' }}
+        >
+          <span>
+            <span
+              className="block text-[0.62rem] uppercase tracking-[0.18em]"
+              style={{ color: 'rgba(242,237,226,0.62)' }}
+            >
+              Built as a proposal for iHeart
+            </span>
+            <span className="mt-1 block text-sm tracking-[0.02em]">
+              View the original pitch
+            </span>
+          </span>
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-1"
+            style={{ color: 'var(--ember)' }}
+          >
+            →
+          </span>
+        </a>
+      ) : undefined,
+    });
+  };
+
+  const renderMultiverseArtifactRoom = () => {
+    const visualization = project.mainImages?.[0];
+
+    return renderArtifactRoom({
+      eyebrow: 'Amazon AGI · 2025',
+      title: project.title,
+      subtitle: 'One story, four formats',
+      media: visualization ? (
+        <figure
+          className="w-full border"
+          style={{
+            borderColor: 'rgba(242,237,226,0.18)',
+            viewTransitionName: 'project-hero',
+          } as React.CSSProperties}
+        >
+          <div className="aspect-video w-full overflow-hidden bg-[var(--ink-deep)]">
+            <img
+              src={visualization.url}
+              alt="Concept visualization of Multiverse Quad on an AWS re:Invent keynote stage"
+              className="h-full w-full scale-[1.03] object-cover"
+            />
+          </div>
+          <figcaption
+            className="flex items-center justify-between gap-4 border-t px-4 py-3 text-[0.62rem] uppercase tracking-[0.18em] sm:px-5"
+            style={{ borderColor: 'rgba(242,237,226,0.16)', color: 'rgba(242,237,226,0.62)' }}
+          >
+            <span>Concept visualization</span>
+            <span>AWS re:Invent</span>
+          </figcaption>
+        </figure>
+      ) : null,
+      statement: (
+        <p
+          className="max-w-[50rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+          style={{ color: 'rgba(242,237,226,0.82)' }}
+        >
+          Built with Amazon AGI engineers and product leadership, one scene from The Last City became four simultaneous formats.
+        </p>
+      ),
+      aside: (
+        <p className="max-w-[20rem] md:text-right">
+          <span
+            className="block text-[0.62rem] uppercase tracking-[0.18em]"
+            style={{ color: 'rgba(242,237,226,0.62)' }}
+          >
+            AWS re:Invent
+          </span>
+          <span className="mt-1 block text-sm leading-relaxed" style={{ color: 'var(--cream-ink)' }}>
+            Shortlisted for Andy Jassy’s keynote
+          </span>
+        </p>
+      ),
+    });
+  };
+
+  const renderCreatorLabArtifactRoom = () => {
+    const archive = project.mainVideos[1];
+
+    return renderArtifactRoom({
+      eyebrow: 'Wondery · 2025',
+      title: project.title,
+      subtitle: 'Creative innovation',
+      media: archive ? (
+        <figure
+          className="w-full border"
+          style={{
+            borderColor: 'rgba(242,237,226,0.18)',
+            viewTransitionName: 'project-hero',
+          } as React.CSSProperties}
+        >
+          <VideoPlayer
+            src={archive.url}
+            posterUrl={archive.posterUrl}
+            aspectRatio={archive.aspectRatio}
+            autoplay={archive.autoplay}
+            loop={archive.loop}
+            showControls={archive.showControls}
+            hasAudio={archive.hasAudio}
+            projectId={project.id}
+            startUnmuted={false}
+          />
+          <figcaption
+            className="grid gap-3 border-t px-4 py-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-baseline sm:gap-10 sm:px-5"
+            style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+          >
+            <span className="text-sm" style={{ color: 'var(--cream-ink)' }}>
+              AI Lab Archive
+            </span>
+            <span
+              className="max-w-[60rem] text-[0.68rem] leading-relaxed tracking-[0.06em] sm:text-right"
+              style={{ color: 'rgba(242,237,226,0.62)' }}
+            >
+              I built this archive so people could catch up on sessions they missed or learn independently. Each module included a podcast, study guide, FAQs, original decks, and in some cases a recorded partner demonstration.
+            </span>
+          </figcaption>
+        </figure>
+      ) : null,
+      statement: (
+        <p
+          className="max-w-[50rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+          style={{ color: 'rgba(242,237,226,0.82)' }}
+        >
+          I founded Wondery’s first AI Creator Lab and built the curriculum, partnerships, and learning archive that grew it from four people to more than fifty across the company.
+        </p>
+      ),
+      aside: (
+        <p className="max-w-[22rem] md:text-right">
+          <span
+            className="block text-[0.62rem] uppercase tracking-[0.18em]"
+            style={{ color: 'rgba(242,237,226,0.62)' }}
+          >
+            Outcome
+          </span>
+          <span className="mt-1 block text-sm leading-relaxed" style={{ color: 'var(--cream-ink)' }}>
+            Three projects greenlit
+          </span>
+        </p>
+      ),
+    });
+  };
+
+  const renderMythosArtifactRoom = () => {
+    const demo = project.mainVideos[0];
+
+    return renderArtifactRoom({
+      eyebrow: 'Ghost Mode Labs · 2026',
+      title: project.title,
+      subtitle: 'Franchise intelligence',
+      media: demo ? (
+        <figure
+          className="w-full border"
+          style={{
+            borderColor: 'rgba(242,237,226,0.18)',
+            viewTransitionName: 'project-hero',
+          } as React.CSSProperties}
+        >
+          <VideoPlayer
+            src={demo.url}
+            posterUrl={demo.posterUrl}
+            aspectRatio={demo.aspectRatio}
+            autoplay={demo.autoplay}
+            loop={demo.loop}
+            showControls={demo.showControls}
+            hasAudio={demo.hasAudio}
+            projectId={project.id}
+            startUnmuted={false}
+          />
+          <figcaption
+            className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5"
+            style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+          >
+            <span className="text-sm" style={{ color: 'var(--cream-ink)' }}>
+              Prototype demonstration
+            </span>
+            <span
+              className="text-[0.62rem] uppercase tracking-[0.18em]"
+              style={{ color: 'rgba(242,237,226,0.62)' }}
+            >
+              Mythology · Folklore · Public domain IP
+            </span>
+          </figcaption>
+        </figure>
+      ) : null,
+      statement: (
+        <p
+          className="max-w-[52rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+          style={{ color: 'rgba(242,237,226,0.82)' }}
+        >
+          MythOS maps 494 public-domain stories across cultures and centuries. Start with Circe and trace her through 46 cultures and 3,500 years.
+        </p>
+      ),
+      aside: (
+        <p className="max-w-[22rem] md:text-right">
+          <span
+            className="block text-[0.62rem] uppercase tracking-[0.18em]"
+            style={{ color: 'rgba(242,237,226,0.62)' }}
+          >
+            Working prototype
+          </span>
+          <span className="mt-1 block text-sm leading-relaxed" style={{ color: 'var(--cream-ink)' }}>
+            Built for studio development and franchise teams
+          </span>
+        </p>
+      ),
+    });
+  };
+
+  const renderUnstillArtifactRoom = () => {
+    const demo = project.mainVideos[0];
+
+    return renderArtifactRoom({
+      eyebrow: 'Ghost Mode Labs · 2026',
+      title: project.title,
+      subtitle: 'Regenerative lives',
+      media: demo ? (
+        <figure
+          className="w-full border"
+          style={{
+            borderColor: 'rgba(242,237,226,0.18)',
+            viewTransitionName: 'project-hero',
+          } as React.CSSProperties}
+        >
+          <VideoPlayer
+            src={demo.url}
+            posterUrl={demo.posterUrl}
+            aspectRatio={demo.aspectRatio}
+            autoplay={demo.autoplay}
+            loop={demo.loop}
+            showControls={demo.showControls}
+            hasAudio={demo.hasAudio}
+            projectId={project.id}
+            startUnmuted={false}
+          />
+          <figcaption
+            className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5"
+            style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+          >
+            <span className="text-sm" style={{ color: 'var(--cream-ink)' }}>
+              Prototype demonstration
+            </span>
+            <span
+              className="text-[0.62rem] uppercase tracking-[0.18em]"
+              style={{ color: 'rgba(242,237,226,0.62)' }}
+            >
+              Archives in motion · 1920s Sydney
+            </span>
+          </figcaption>
+        </figure>
+      ) : null,
+      statement: (
+        <div className="max-w-[52rem]">
+          <p
+            className="max-w-[48rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+            style={{ color: 'rgba(242,237,226,0.82)' }}
+          >
+            Unstill begins with people preserved in 1920s Sydney police archives, often as little more than a name, date, photograph, and charge.
+          </p>
+          <blockquote className="mt-5">
+            <p
+              className="font-body-serif text-[1.15rem] font-light italic leading-relaxed md:text-[1.45rem]"
+              style={{ color: 'rgba(242,237,226,0.84)' }}
+            >
+              “The archive is a record of power, not of truth.”
+            </p>
+            <cite
+              className="mt-2 block text-[0.65rem] not-italic uppercase tracking-[0.18em]"
+              style={{ color: 'rgba(242,237,226,0.5)' }}
+            >
+              Saidiya Hartman
+            </cite>
+          </blockquote>
+        </div>
+      ),
+      aside: project.liveUrl ? (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex min-h-11 items-center gap-4 border-b pb-2 text-left transition-colors duration-300 md:text-right"
+          style={{ borderColor: 'var(--ember)', color: 'var(--cream-ink)' }}
+        >
+          <span>
+            <span
+              className="block text-[0.62rem] uppercase tracking-[0.18em]"
+              style={{ color: 'rgba(242,237,226,0.62)' }}
+            >
+              Proposal for Museums of History NSW
+            </span>
+            <span className="mt-1 block text-sm tracking-[0.02em]">
+              Explore Unstill
+            </span>
+          </span>
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-1"
+            style={{ color: 'var(--ember)' }}
+          >
+            →
+          </span>
+        </a>
+      ) : undefined,
+    });
+  };
+
+  const renderCampaignSystemArtifactRoom = () => {
+    const artifacts = [project.mainVideos[1], project.mainVideos[2]].filter(Boolean);
+    const labels = [
+      { title: '01 · Prototype board', detail: '12+ campaign concepts' },
+      { title: '02 · The Last City Hub', detail: 'Marketing · Ad sales · Film/TV' },
+    ];
+
+    return renderArtifactRoom({
+      eyebrow: 'Wondery · 2023–24',
+      title: 'In-World Campaign System',
+      subtitle: 'The Last City',
+      media: (
+        <div className="flex w-full flex-col gap-8 md:gap-12">
+          {artifacts.map((artifact, index) => (
+            <figure
+              key={artifact.url}
+              className="border"
+              style={{
+                borderColor: 'rgba(242,237,226,0.18)',
+                ...(index === 0 ? { viewTransitionName: 'project-hero' } : {}),
+              } as React.CSSProperties}
+            >
+              <VideoPlayer
+                src={artifact.url}
+                posterUrl={artifact.posterUrl}
+                aspectRatio={artifact.aspectRatio}
+                autoplay={artifact.autoplay}
+                loop={artifact.loop}
+                showControls={artifact.showControls}
+                hasAudio={artifact.hasAudio}
+                projectId={project.id}
+                startUnmuted={false}
+              />
+              <figcaption
+                className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5"
+                style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+              >
+                <span className="text-sm" style={{ color: 'var(--cream-ink)' }}>
+                  {labels[index].title}
+                </span>
+                <span
+                  className="text-[0.62rem] uppercase tracking-[0.18em]"
+                  style={{ color: 'rgba(242,237,226,0.62)' }}
+                >
+                  {labels[index].detail}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      ),
+      statement: (
+        <p
+          className="max-w-[52rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+          style={{ color: 'rgba(242,237,226,0.82)' }}
+        >
+          I developed more than a dozen in-world campaign concepts for The Last City, then built a shared story hub for teams across the company.
+        </p>
+      ),
+      aside: (
+        <p className="max-w-[20rem] md:text-right">
+          <span
+            className="block text-[0.62rem] uppercase tracking-[0.18em]"
+            style={{ color: 'rgba(242,237,226,0.62)' }}
+          >
+            Two prototypes
+          </span>
+          <span className="mt-1 block text-sm leading-relaxed" style={{ color: 'var(--cream-ink)' }}>
+            Moved into production
+          </span>
+        </p>
+      ),
+    });
+  };
+
+  if (project.id === 'static') {
+    return renderStaticDemoRoom();
+  }
+
+  if (project.id === 'multiverse-quad') {
+    return renderMultiverseArtifactRoom();
+  }
+
+  if (project.id === 'ai-creator-lab') {
+    return renderCreatorLabArtifactRoom();
+  }
+
+  if (project.id === 'mythos') {
+    return renderMythosArtifactRoom();
+  }
+
+  if (project.id === 'unstill') {
+    return renderUnstillArtifactRoom();
+  }
+
+  if (project.id === 'in-world-social-campaign') {
+    return renderCampaignSystemArtifactRoom();
+  }
   
   const renderDefaultLayout = () => (
     <>
@@ -266,92 +807,7 @@ const ProjectDetailPage = () => {
             })}
         </div>
       )}
-      <ProjectTextBlock project={project} />
-    </>
-  );
-
-  const renderSocialCampaignLayout = () => (
-    <>
-      <div className="w-full max-w-5xl">
-          {project.mainVideos[0] && (
-              <div key="video-container-0" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
-                  <VideoPlayer
-                      src={project.mainVideos[0].url}
-                      posterUrl={project.mainVideos[0].posterUrl}
-                      aspectRatio={project.mainVideos[0].aspectRatio}
-                      autoplay={project.mainVideos[0].autoplay}
-                      loop={project.mainVideos[0].loop}
-                      showControls={project.mainVideos[0].showControls}
-                      hasAudio={project.mainVideos[0].hasAudio}
-                      projectId={project.id}
-                      startUnmuted={!project.mainVideos[0].startMuted}
-                  />
-                  {project.mainVideos[0].caption && (
-                      <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{project.mainVideos[0].caption}</p>
-                  )}
-              </div>
-          )}
-      </div>
-
-      <ProjectTextBlock project={project} />
-
-      <div className="w-full max-w-5xl mt-8 md:mt-12">
-        {project.mainVideos[1] && (
-          <div key="video-container-1">
-            {(project.mainVideos[1].title || project.mainVideos[1].subtitle) && (
-              <div className="max-w-2xl mb-4">
-                {project.mainVideos[1].title && (
-                  <h3 className="text-xl md:text-2xl font-light text-neutral-800 mb-2">{project.mainVideos[1].title}</h3>
-                )}
-                {project.mainVideos[1].subtitle && (
-                  <p className="text-base md:text-lg text-neutral-700 font-light leading-relaxed">
-                    {project.mainVideos[1].subtitle}
-                  </p>
-                )}
-              </div>
-            )}
-            <VideoPlayer
-              src={project.mainVideos[1].url}
-              posterUrl={project.mainVideos[1].posterUrl}
-              aspectRatio={project.mainVideos[1].aspectRatio}
-              autoplay={project.mainVideos[1].autoplay}
-              loop={project.mainVideos[1].loop}
-              showControls={project.mainVideos[1].showControls}
-              hasAudio={project.mainVideos[1].hasAudio}
-              projectId={project.id}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="w-full max-w-5xl mt-8 md:mt-12">
-        {project.mainVideos[2] && (
-          <div key="video-container-2">
-             {(project.mainVideos[2].title || project.mainVideos[2].subtitle) && (
-              <div className="max-w-2xl mb-4">
-                {project.mainVideos[2].title && (
-                  <h3 className="text-xl md:text-2xl font-light text-neutral-800 mb-2">{project.mainVideos[2].title}</h3>
-                )}
-                {project.mainVideos[2].subtitle && (
-                  <p className="text-base md:text-lg text-neutral-700 font-light leading-relaxed">
-                    {project.mainVideos[2].subtitle}
-                  </p>
-                )}
-              </div>
-            )}
-            <VideoPlayer
-              src={project.mainVideos[2].url}
-              posterUrl={project.mainVideos[2].posterUrl}
-              aspectRatio={project.mainVideos[2].aspectRatio}
-              autoplay={project.mainVideos[2].autoplay}
-              loop={project.mainVideos[2].loop}
-              showControls={project.mainVideos[2].showControls}
-              hasAudio={project.mainVideos[2].hasAudio}
-              projectId={project.id}
-            />
-          </div>
-        )}
-      </div>
+      <ProjectTextBlock project={project} dark={isDarkEditorial} />
     </>
   );
 
@@ -419,15 +875,26 @@ const ProjectDetailPage = () => {
 
   return (
     <div
-      className={`fixed inset-0 bg-[#F5F2EC] z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto`}
-      style={{ overscrollBehavior: 'contain', willChange: 'scroll-position' }}
+      className={`fixed inset-0 z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'} overflow-y-auto ${isDarkEditorial ? 'text-[var(--cream-ink)]' : 'bg-[#F5F2EC]'}`}
+      style={{
+        overscrollBehavior: 'contain',
+        willChange: 'scroll-position',
+        ...(isDarkEditorial
+          ? {
+              background:
+                'radial-gradient(ellipse 72% 52% at 50% 28%, rgba(232,166,114,0.045), transparent 72%), var(--ink-deep)',
+            }
+          : {}),
+      }}
     >
       {/* Top gradient only. Grain removed from detail pages (invisible at 0.015 on light bg, wastes CPU) */}
       <div
         className="fixed top-0 left-0 right-0 pointer-events-none"
         style={{
-          height: '200px',
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.03), transparent)',
+          height: isDarkEditorial ? '100%' : '200px',
+          background: isDarkEditorial
+            ? 'linear-gradient(to bottom, rgba(242,237,226,0.018), transparent 26%)'
+            : 'linear-gradient(to bottom, rgba(0,0,0,0.03), transparent)',
           zIndex: 0,
         }}
       />
@@ -435,11 +902,11 @@ const ProjectDetailPage = () => {
       <div className="w-full min-h-screen p-4 md:p-8 flex flex-col" style={{ contain: 'layout', position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <header className="flex justify-between items-center w-full mb-8 shrink-0">
-          <button onClick={handleClose} className="group flex items-center space-x-2 text-neutral-600 hover:text-[#B3543A] transition-colors">
+          <button onClick={handleClose} className={`group flex items-center space-x-2 transition-colors ${isDarkEditorial ? 'text-[rgba(242,237,226,0.62)] hover:text-[var(--cream-ink)]' : 'text-neutral-600 hover:text-[#B3543A]'}`}>
             <BackIcon />
             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm">Work</span>
           </button>
-          <Link to="/" className="text-[11px] tracking-[0.18em] uppercase text-neutral-400 hover:text-neutral-700 transition-colors duration-300">
+          <Link to="/" className={`text-[11px] tracking-[0.18em] uppercase transition-colors duration-300 ${isDarkEditorial ? 'text-[rgba(242,237,226,0.52)] hover:text-[var(--cream-ink)]' : 'text-neutral-400 hover:text-neutral-700'}`}>
             Jeanine Emilia Cornillot
           </Link>
         </header>
@@ -453,6 +920,7 @@ const ProjectDetailPage = () => {
                     <div className="w-full max-w-5xl" style={{ viewTransitionName: 'project-hero' } as React.CSSProperties}>
                       <video
                         src={project.previewVideoUrl}
+                        poster={project.previewPosterUrl}
                         autoPlay
                         loop
                         muted
@@ -463,21 +931,19 @@ const ProjectDetailPage = () => {
                     <div className="w-full max-w-5xl mt-8 md:mt-12">
                       <div className="max-w-2xl">
                         {(project.client || project.categoryLabel) && (
-                          <p className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 font-normal mb-4">
+                          <p className={`text-[10px] tracking-[0.2em] uppercase font-normal mb-4 ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
                             {[project.client, project.categoryLabel].filter(Boolean).join(' · ')}
                           </p>
                         )}
                         <div className="mb-8">
-                          <h1 className="text-3xl md:text-4xl font-normal">{project.title}</h1>
-                          {project.subtitle && <p className="text-lg md:text-xl text-neutral-500 font-light italic">{project.subtitle}</p>}
+                          <h1 className={`text-3xl md:text-4xl font-normal ${isDarkEditorial ? 'text-[var(--cream-ink)]' : ''}`}>{project.title}</h1>
+                          {project.subtitle && <p className={`text-lg md:text-xl font-light italic ${isDarkEditorial ? 'text-[rgba(242,237,226,0.58)]' : 'text-neutral-500'}`}>{project.subtitle}</p>}
                         </div>
-                        <p className="text-sm text-neutral-400 font-light tracking-[0.14em] uppercase">Coming soon</p>
+                        <p className={`text-sm font-light tracking-[0.14em] uppercase ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>Coming soon</p>
                       </div>
                     </div>
                   </>
                 );
-              } else if (project.id === 'in-world-social-campaign') {
-                return renderSocialCampaignLayout();
               } else if (project.id === 'ai-creator-lab') {
                 return renderAICreatorLabLayout();
               } else {
@@ -496,46 +962,46 @@ const ProjectDetailPage = () => {
             <div className="flex flex-col gap-3 md:hidden">
                 <Link
                   to={`/project/${prevProject.id}`}
-                  className="flex items-center gap-3 px-4 py-3 border border-neutral-200 rounded-sm text-neutral-600 hover:text-neutral-800 hover:border-neutral-400 transition-colors"
+                  className={`flex items-center gap-3 px-4 py-3 border rounded-sm transition-colors ${isDarkEditorial ? 'border-[rgba(242,237,226,0.18)] text-[rgba(242,237,226,0.62)] hover:border-[rgba(242,237,226,0.34)] hover:text-[var(--cream-ink)]' : 'border-neutral-200 text-neutral-600 hover:text-neutral-800 hover:border-neutral-400'}`}
                 >
                     <PrevIcon />
                     <div className="min-w-0">
-                      <span className="block text-[10px] tracking-[0.12em] uppercase text-neutral-400">Previous</span>
+                      <span className={`block text-[10px] tracking-[0.12em] uppercase ${isDarkEditorial ? 'text-[rgba(242,237,226,0.45)]' : 'text-neutral-400'}`}>Previous</span>
                       <span className="block text-sm font-light truncate">{prevProject.title}</span>
                     </div>
                 </Link>
                 <Link
                   to={`/project/${nextProject.id}`}
-                  className="flex items-center justify-end gap-3 px-4 py-3 border border-neutral-200 rounded-sm text-neutral-600 hover:text-neutral-800 hover:border-neutral-400 transition-colors text-right"
+                  className={`flex items-center justify-end gap-3 px-4 py-3 border rounded-sm transition-colors text-right ${isDarkEditorial ? 'border-[rgba(242,237,226,0.18)] text-[rgba(242,237,226,0.62)] hover:border-[rgba(242,237,226,0.34)] hover:text-[var(--cream-ink)]' : 'border-neutral-200 text-neutral-600 hover:text-neutral-800 hover:border-neutral-400'}`}
                 >
                     <div className="min-w-0">
-                      <span className="block text-[10px] tracking-[0.12em] uppercase text-neutral-400">Next</span>
+                      <span className={`block text-[10px] tracking-[0.12em] uppercase ${isDarkEditorial ? 'text-[rgba(242,237,226,0.45)]' : 'text-neutral-400'}`}>Next</span>
                       <span className="block text-sm font-light truncate">{nextProject.title}</span>
                     </div>
                     <NextIcon />
                 </Link>
             </div>
             {/* Desktop: full-width editorial nav */}
-            <div className="hidden md:block border-t border-neutral-200 mt-4">
+            <div className={`hidden md:block border-t mt-4 ${isDarkEditorial ? 'border-[rgba(242,237,226,0.16)]' : 'border-neutral-200'}`}>
               <div className="grid grid-cols-2">
                 <Link
                   to={`/project/${prevProject.id}`}
-                  className="group flex items-center gap-4 py-6 pr-8 text-neutral-500 hover:text-neutral-800 transition-colors"
+                  className={`group flex items-center gap-4 py-6 pr-8 transition-colors ${isDarkEditorial ? 'text-[rgba(242,237,226,0.55)] hover:text-[var(--cream-ink)]' : 'text-neutral-500 hover:text-neutral-800'}`}
                 >
                   <span className="transition-transform duration-200 group-hover:-translate-x-1">
                     <PrevIcon />
                   </span>
                   <div>
-                    <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 mb-1">Previous</span>
+                    <span className={`block text-[10px] tracking-[0.14em] uppercase mb-1 ${isDarkEditorial ? 'text-[rgba(242,237,226,0.42)]' : 'text-neutral-400'}`}>Previous</span>
                     <span className="block text-base font-light">{prevProject.title}</span>
                   </div>
                 </Link>
                 <Link
                   to={`/project/${nextProject.id}`}
-                  className="group flex items-center justify-end gap-4 py-6 pl-8 border-l border-neutral-200 text-neutral-500 hover:text-neutral-800 transition-colors text-right"
+                  className={`group flex items-center justify-end gap-4 py-6 pl-8 border-l transition-colors text-right ${isDarkEditorial ? 'border-[rgba(242,237,226,0.16)] text-[rgba(242,237,226,0.55)] hover:text-[var(--cream-ink)]' : 'border-neutral-200 text-neutral-500 hover:text-neutral-800'}`}
                 >
                   <div>
-                    <span className="block text-[10px] tracking-[0.14em] uppercase text-neutral-400 mb-1">Next</span>
+                    <span className={`block text-[10px] tracking-[0.14em] uppercase mb-1 ${isDarkEditorial ? 'text-[rgba(242,237,226,0.42)]' : 'text-neutral-400'}`}>Next</span>
                     <span className="block text-base font-light">{nextProject.title}</span>
                   </div>
                   <span className="transition-transform duration-200 group-hover:translate-x-1">

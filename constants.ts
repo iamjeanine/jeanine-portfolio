@@ -23,6 +23,7 @@ export const PROJECTS: Project[] = [
     filterCategories: ['story-system'],
     categoryLabel: 'Story System',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/visual-audiobook-cover.mp4',
+    previewPosterUrl: '/visual-audiobooks-poster.jpg',
     previewAutoplay: true,
     mainVideos: [],
     descriptor: "Original children’s stories that can change each time you return",
@@ -43,6 +44,7 @@ export const PROJECTS: Project[] = [
     mainVideos: [
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/last-active-v2-web-1080p.mp4',
+        posterUrl: '/static-poster.jpg',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -105,7 +107,7 @@ export const PROJECTS: Project[] = [
         },
         {
           url: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub.mp4',
-          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/LearningHub-poster.jpg',
+          posterUrl: '/creator-lab-archive-poster.jpg',
           aspectRatio: '16:9',
           autoplay: true,
           loop: true,
@@ -132,6 +134,7 @@ export const PROJECTS: Project[] = [
     mainVideos: [
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
+        posterUrl: '/mythos-demo-poster.jpg',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -158,6 +161,7 @@ export const PROJECTS: Project[] = [
     mainVideos: [
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Narrative%20Space%203.14.mp4',
+        posterUrl: '/narrative-space-poster.jpg',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -184,6 +188,7 @@ export const PROJECTS: Project[] = [
     mainVideos: [
       {
         url: 'https://storage.googleapis.com/jeanine-portfolio-video/Unstill%20w%20Screen%20Studio%284%29.mp4',
+        posterUrl: '/unstill-poster.jpg',
         aspectRatio: '16:9',
         autoplay: true,
         loop: true,
@@ -251,6 +256,7 @@ export const PROJECTS: Project[] = [
         },
         {
             url: 'https://storage.googleapis.com/jeanine-portfolio-video/B9%20Whiteboard.mp4',
+            posterUrl: '/campaign-whiteboard-poster.jpg',
             aspectRatio: '16:9',
             autoplay: true,
             loop: true,
@@ -261,6 +267,7 @@ export const PROJECTS: Project[] = [
         },
         {
             url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Story%20Bible%20Explorer.mp4',
+            posterUrl: '/campaign-hub-poster.jpg',
             aspectRatio: '16:9',
             autoplay: true,
             loop: true,

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PROJECTS } from '../constants';
 import {
   ChapterContents,
   ColorBridge,
@@ -55,6 +56,27 @@ export const LAB = {
   accent: 'var(--ember)',
   border: 'rgba(242,237,226,0.16)',
 };
+
+const PROJECT_RETURN_SCROLL_KEY = 'portfolio-project-return-scroll';
+
+const rememberProjectReturnScroll = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  try {
+    const pathname = window.location.hash.replace(/^#/, '') || '/';
+    const projectHref = event.currentTarget.getAttribute('href') || '';
+    const linkViewportTop = event.currentTarget.getBoundingClientRect().top;
+    sessionStorage.setItem(
+      PROJECT_RETURN_SCROLL_KEY,
+      JSON.stringify({ pathname, scrollY: window.scrollY, projectHref, linkViewportTop })
+    );
+  } catch {
+    // Navigation still works when session storage is unavailable.
+  }
+};
+
+const DETAIL_POSTERS = PROJECTS.flatMap(project => [
+  project.previewPosterUrl,
+  ...project.mainVideos.map(video => video.posterUrl),
+]).filter((url): url is string => Boolean(url));
 
 /**
  * The chapter ground, plus a bloom. Both an outside reviewer and Jeanine
@@ -387,7 +409,11 @@ const ENTRIES: LabEntry[] = [
                     (three videos, a full write-up) but had nothing linking
                     to it since the campaign folded into this entry and its
                     own chapter listing was cut. */}
-                <Link to="/project/in-world-social-campaign" className="lab-inline-link">
+                <Link
+                  to="/project/in-world-social-campaign"
+                  className="lab-inline-link"
+                  onClick={rememberProjectReturnScroll}
+                >
                   <em style={{ color: LAB.accent, fontStyle: 'normal' }}>In-world social campaign</em>
                 </Link>
                 {' '}&mdash; a dozen in-world prototypes for The Last City.
@@ -669,6 +695,7 @@ const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 const OpenProjectLink: React.FC<{ id: string; label?: string }> = ({ id, label = 'Open project' }) => (
   <Link
     to={`/project/${id}`}
+    onClick={rememberProjectReturnScroll}
     className="lab-open mt-10 inline-flex items-baseline gap-2 text-[0.75rem] tracking-[0.18em] uppercase"
     style={{ color: LAB.ink }}
   >
@@ -1201,6 +1228,14 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
  * whatever comes before and after.
  */
 export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => {
+  useEffect(() => {
+    DETAIL_POSTERS.forEach(url => {
+      const image = new Image();
+      image.decoding = 'async';
+      image.src = url;
+    });
+  }, []);
+
   return (
     <>
       <style>{`

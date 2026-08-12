@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd, gradientStart } from '../components/chapter';
 import {
@@ -59,6 +59,8 @@ const AWARDS: { title: string; detail: string }[] = [
     detail: 'Shortlisted for Amazon’s AWS re:Invent keynote.',
   },
 ];
+
+const PROJECT_RETURN_SCROLL_KEY = 'portfolio-project-return-scroll';
 
 const PUBLICATIONS: { title: string; detail: string }[] = [
   {
@@ -395,6 +397,65 @@ const SpinePreviewPage: React.FC = () => {
   // scroll (below) would re-trigger this same effect and fight the
   // visitor's own scrolling.
   const lastSyncedChapter = useRef<string | undefined>(undefined);
+
+  // A project opens as its own route, so the continuous homepage unmounts.
+  // Save the exact viewport before leaving and restore it before paint when
+  // Back returns. Setting lastSyncedChapter at the same time prevents the
+  // chapter deep-link effect below from replacing the exact position with
+  // the beginning of the Labs section.
+  useLayoutEffect(() => {
+    let saved: {
+      pathname?: string;
+      scrollY?: number;
+      projectHref?: string;
+      linkViewportTop?: number;
+    } | null = null;
+
+    try {
+      const raw = sessionStorage.getItem(PROJECT_RETURN_SCROLL_KEY);
+      sessionStorage.removeItem(PROJECT_RETURN_SCROLL_KEY);
+      if (raw) saved = JSON.parse(raw);
+    } catch {
+      return;
+    }
+
+    if (
+      saved?.pathname !== pathname ||
+      typeof saved.scrollY !== 'number' ||
+      !Number.isFinite(saved.scrollY)
+    ) {
+      return;
+    }
+
+    const restorePosition = () => {
+      let targetScrollY = saved!.scrollY!;
+
+      if (
+        saved!.projectHref &&
+        typeof saved!.linkViewportTop === 'number'
+      ) {
+        const projectLink = Array.from(
+          document.querySelectorAll<HTMLAnchorElement>('a[href]')
+        ).find(link => link.getAttribute('href') === saved!.projectHref);
+
+        if (projectLink) {
+          const linkDocumentTop = window.scrollY + projectLink.getBoundingClientRect().top;
+          targetScrollY = linkDocumentTop - saved!.linkViewportTop;
+        }
+      }
+
+      window.scrollTo(0, targetScrollY);
+    };
+
+    restorePosition();
+    lastSyncedChapter.current = chapter;
+
+    // Reapply after the mount effects settle so the clicked project link
+    // returns to the same viewport position even if fonts finish resolving
+    // during the route transition.
+    const settleTimer = window.setTimeout(restorePosition, 0);
+    return () => window.clearTimeout(settleTimer);
+  }, [chapter, pathname]);
 
   // Old-route deep links (/preview/spine/productions etc.), and now also
   // Back/Forward between chapters, land on the matching anchor instead of

@@ -29,6 +29,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
   const [showHighlightOverlay, setShowHighlightOverlay] = useState(false);
   const overlayShownRef = useRef(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [hasLoadedFrame, setHasLoadedFrame] = useState(false);
+
+  useEffect(() => {
+    setHasLoadedFrame(false);
+  }, [src, posterUrl]);
 
   // Unmute after autoplay succeeds (browsers require muted for autoplay)
   useEffect(() => {
@@ -117,7 +122,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     }
   };
 
-  const showNativeControls = showControls && (projectId === 'narrative-space' || isHovering);
+  // Touch devices have no hover state, so a demo with showControls enabled
+  // must expose its native controls immediately instead of leaving play and
+  // audio unreachable behind a desktop-only interaction.
+  const showNativeControls = showControls && (isMobile || projectId === 'narrative-space' || isHovering);
 
   return (
     <div 
@@ -138,7 +146,21 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
         controls={showNativeControls}
         controlsList="nodownload"
         preload="metadata"
+        onLoadedData={() => setHasLoadedFrame(true)}
       />
+
+      {posterUrl && (
+        <img
+          src={posterUrl}
+          alt=""
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 z-[1] h-full w-full transition-opacity duration-200 ${
+            projectId === 'narrative-space' || projectId === 'unstill' || projectId === 'mythos'
+              ? 'object-contain bg-black'
+              : 'object-cover'
+          } ${hasLoadedFrame ? 'opacity-0' : 'opacity-100'}`}
+        />
+      )}
 
       {glassPlateImageUrl && (
         <div 
