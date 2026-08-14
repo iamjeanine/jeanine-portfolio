@@ -297,15 +297,14 @@ const BORN_THIS_WAY: SpreadData = {
   // Year, #1 Apple Fiction). The nominations keep their weight in the
   // label: 16 alongside 3 reads as recognition sustained across the run.
   //
-  // The label says only "16 nominations" because the display line above
-  // already establishes Emmy, so repeating it put the same word on two
-  // adjacent lines. "Primetime" is dropped here rather than lost: the
-  // About colophon carries the exact record ("3 wins, 16 Primetime Emmy
-  // nominations"), and this line has to survive a skim. Putting the
-  // qualifier in the display line was measured instead of assumed: "3
-  // Primetime Emmy wins" wraps to three lines at both 1440 and 390,
-  // which is the fragmentation this whole pass existed to remove.
-  stat: { value: '3 Emmy wins', label: '16 nominations' },
+  // "Primetime" stays out of the display line on purpose: "3 Primetime
+  // Emmy wins" wraps to three lines at both 1440 and 390, which is the
+  // fragmentation this whole pass existed to remove. The label has the
+  // room the display line doesn't (measured at both widths, single line
+  // either way), and Jeanine wanted the Primetime distinction visible
+  // here rather than only on the About colophon, so it carries the full
+  // "16 Primetime Emmy nominations" instead of the shorter "16 nominations."
+  stat: { value: '3 Emmy wins', label: '16 Primetime Emmy nominations' },
   expandables: [
     {
       label: 'Role',
