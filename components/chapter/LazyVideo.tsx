@@ -44,6 +44,25 @@ export const LazyVideo: React.FC<{
    * as one even grid of covers instead of a different height each.
    */
   compact?: boolean;
+  /**
+   * Play through once and rest on the final frame instead of looping.
+   * For a clip whose ending is a finished state rather than a cycle:
+   * Visual Audiobooks' cover film assembles a cover and the point is
+   * that it stays assembled (Jeanine, 2026-08-14). Same rest-on-final-
+   * frame idea as Productions' Hollywood & Crime collage.
+   *
+   * Two departures from the looping default. Playback starts when the
+   * frame is meaningfully on screen (35% visible), not at the 400px
+   * prefetch margin, so a one-shot's opening is not spent off-screen;
+   * the element still mounts early so the file buffers ahead. And the
+   * site pause toggle will pause and resume it mid-play but never
+   * restarts it after it ends, since play() on an ended video rewinds
+   * to zero, which would undo the settled state the flag exists for.
+   * Reduced-motion visitors get the poster, which for this kind of
+   * asset should be the settled final frame, the same image the film
+   * ends on.
+   */
+  playOnce?: boolean;
 }> = ({
   src,
   poster,
@@ -56,12 +75,17 @@ export const LazyVideo: React.FC<{
   rootMargin = '400px',
   startAt,
   compact = false,
+  playOnce = false,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [near, setNear] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [errored, setErrored] = useState(false);
   const [naturalRatio, setNaturalRatio] = useState<string | undefined>(aspectRatio);
+  // Whether a play-once clip has begun. A ref, not state: it changes inside
+  // effects that must not re-run because of it.
+  const startedRef = useRef(false);
   const reduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -70,16 +94,29 @@ export const LazyVideo: React.FC<{
 
   // Apply the site-wide pause to this video whenever the flag flips, and to
   // videos that mount while already paused (a later entry scrolled into
-  // view after the visitor pressed pause).
+  // view after the visitor pressed pause). A play-once clip additionally
+  // waits for real visibility before its first play, and is left alone
+  // once ended: play() on an ended, non-looping video rewinds to zero,
+  // which would restart the one-shot this flag exists to settle.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (shouldPlay) {
-      v.play().catch(() => {});
-    } else {
+    if (!shouldPlay) {
       v.pause();
+      return;
     }
-  }, [shouldPlay, near]);
+    if (playOnce) {
+      if (v.ended) return;
+      if (visible && !startedRef.current) {
+        startedRef.current = true;
+        v.play().catch(() => {});
+      } else if (startedRef.current) {
+        v.play().catch(() => {});
+      }
+      return;
+    }
+    v.play().catch(() => {});
+  }, [shouldPlay, near, visible, playOnce]);
 
   useEffect(() => {
     const el = ref.current;
@@ -96,6 +133,26 @@ export const LazyVideo: React.FC<{
     io.observe(el);
     return () => io.disconnect();
   }, [rootMargin]);
+
+  // Second, stricter observer for play-once clips: mount-and-buffer happens
+  // at the prefetch margin above, but the single playthrough should not
+  // begin until the frame is actually on screen.
+  useEffect(() => {
+    if (!playOnce) return;
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [playOnce]);
 
   return (
     <div
@@ -120,10 +177,10 @@ export const LazyVideo: React.FC<{
           poster={poster}
           aria-label={alt}
           muted
-          loop={startAt === undefined}
+          loop={startAt === undefined && !playOnce}
           playsInline
-          autoPlay={shouldPlay}
-          preload="metadata"
+          autoPlay={shouldPlay && !playOnce}
+          preload={playOnce ? 'auto' : 'metadata'}
           className="w-full h-full object-cover"
           style={{ backgroundColor: fallbackBackground }}
           onLoadedMetadata={(e) => {
@@ -136,6 +193,8 @@ export const LazyVideo: React.FC<{
             }
           }}
           onEnded={(e) => {
+            // playOnce falls through here on purpose: no loop attribute, no
+            // manual restart, the element simply holds its final frame.
             if (startAt === undefined) return;
             const v = e.currentTarget;
             v.currentTime = startAt;

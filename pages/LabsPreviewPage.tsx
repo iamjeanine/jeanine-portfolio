@@ -153,7 +153,15 @@ interface LabEntry {
   // list (three distinct projects), which reads as a wall of text run
   // together as prose in a 38ch column, so ReactNode is allowed here too.
   expandables?: { label: string; body: React.ReactNode }[];
-  video: { src: string; poster?: string; alt: string; aspectRatio?: string; startAt?: number };
+  video: {
+    src: string;
+    poster?: string;
+    alt: string;
+    aspectRatio?: string;
+    startAt?: number;
+    /** Play through once and rest on the final frame (see LazyVideo). */
+    playOnce?: boolean;
+  };
   /**
    * Was shown only on the in-development tier ("Coming soon"). Now also
    * rendered by FeatureEntry, for Visual Audiobooks: promoted to a full
@@ -255,10 +263,18 @@ const ENTRIES: LabEntry[] = [
     // color preserved end to end so the warm paper and oxide red match
     // the master. Poster is the film's final settled cover frame; ratio
     // pinned so the frame doesn't reflow when metadata arrives.
+    //
+    // playOnce, not looping (Jeanine, 2026-08-14): the film assembles the
+    // cover and then holds it, so a visitor understands they are looking
+    // at a book. The poster doubles as the settled end state, which is
+    // also what reduced-motion visitors see. The cover art's own "Open
+    // the book" line is inert until the prototype gets a public URL;
+    // the plan is to make the settled frame a real link to it then.
     video: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/living-photocopy-cover-web-1080p.mp4',
       poster: '/visual-audiobooks-poster.jpg',
       aspectRatio: '16 / 9',
+      playOnce: true,
       alt: 'Living Photocopy cover film for Visual Audiobooks: a paper collage cover for The Kids’ Guidebook to the Rock assembling itself',
     },
   },
@@ -827,6 +843,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
             alt={data.video.alt}
             aspectRatio={data.video.aspectRatio}
             startAt={data.video.startAt}
+            playOnce={data.video.playOnce}
             fallbackTitle={data.title}
           />
         </ProjectorLight>
@@ -981,6 +998,7 @@ const ShortEntry: React.FC<{ data: LabEntry; position: number; total: number }> 
             alt={data.video.alt}
             aspectRatio={data.video.aspectRatio}
             startAt={data.video.startAt}
+            playOnce={data.video.playOnce}
             fallbackTitle={data.title}
           />
         </div>
