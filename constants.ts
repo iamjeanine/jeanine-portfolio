@@ -22,7 +22,9 @@ export const PROJECTS: Project[] = [
     category: 'Experiments',
     filterCategories: ['story-system'],
     categoryLabel: 'Story System',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/visual-audiobook-cover.mp4',
+    // Kept in sync with the Labs chapter entry (2026-08-14): the Living
+    // Photocopy cover film replaced the old cover reel in both places.
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/living-photocopy-cover-web-1080p.mp4',
     previewPosterUrl: '/visual-audiobooks-poster.jpg',
     previewAutoplay: true,
     mainVideos: [],
