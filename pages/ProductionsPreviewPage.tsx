@@ -291,20 +291,18 @@ const BORN_THIS_WAY: SpreadData = {
   role: 'Supervising Producer',
   description:
     'Seven young adults with Down syndrome build careers, independence, and love, on camera and on their own terms.',
-  // One figure in the display line, not two. This was the only lead
-  // spread bolding a pair of numbers, which made the eye do arithmetic
-  // where the other three state a single unit (53M, Podcast of the
-  // Year, #1 Apple Fiction). The nominations keep their weight in the
-  // label: 16 alongside 3 reads as recognition sustained across the run.
-  //
-  // "Primetime" stays out of the display line on purpose: "3 Primetime
-  // Emmy wins" wraps to three lines at both 1440 and 390, which is the
-  // fragmentation this whole pass existed to remove. The label has the
-  // room the display line doesn't (measured at both widths, single line
-  // either way), and Jeanine wanted the Primetime distinction visible
-  // here rather than only on the About colophon, so it carries the full
-  // "16 Primetime Emmy nominations" instead of the shorter "16 nominations."
-  stat: { value: '3 Emmy wins', label: '16 Primetime Emmy nominations' },
+  // Deliberate exception to the site's one-line pull-stat rule (every
+  // other lead spread's display value is a single line: 53M, Podcast of
+  // the Year, #1 Apple Fiction). "Primetime" matters enough to Jeanine to
+  // break it here: Emmys can be local or daytime, Primetime is the top
+  // tier, and burying that distinction in the smaller label undersold it.
+  // "3 Primetime Emmy wins" still wraps to three lines at both 1440 and
+  // 390 (measured), so "wins" is cut; "3 Primetime Emmys" wraps to a
+  // clean two ("3 Primetime" / "Emmys") at both widths instead of three.
+  // Label reverts to the plain "16 nominations" now that Primetime is
+  // established above it — repeating the qualifier on both lines was
+  // the same redundancy the original single-line design avoided.
+  stat: { value: '3 Primetime Emmys', label: '16 nominations' },
   expandables: [
     {
       label: 'Role',
