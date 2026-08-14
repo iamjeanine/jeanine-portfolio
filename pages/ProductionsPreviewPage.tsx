@@ -343,7 +343,7 @@ const BORN_THIS_WAY: SpreadData = {
 const NO_PASSPORT_REQUIRED: SpreadData = {
   slug: 'no-passport-required',
   name: 'No Passport Required',
-  eyebrow: 'Vox Media · PBS · 2018–2019',
+  eyebrow: 'Vox Media · Apple TV · PBS · 2018–2019',
   title: 'No Passport Required',
   role: 'Supervising Producer',
   description:
@@ -360,6 +360,7 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
       body: 'Supervising producer on the series for Vox Media and PBS, shaping story across its run. Oversaw story across six cities, working closely with producers and editors.',
     },
   ],
+  link: { label: 'Watch on Apple TV', url: 'https://tv.apple.com/us/show/no-passport-required/umc.cmc.4ft1es62v2rav3mk2sp2qsrbr' },
   media: {
     main: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20No%20Passport%20Necessary/NPR_s2_HeroImage_3_2.jpg',
@@ -394,7 +395,7 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
 const LIFE_OF_KYLIE: SpreadData = {
   slug: 'life-of-kylie',
   name: 'Life of Kylie',
-  eyebrow: 'E! · Bunim/Murray · 2017–2018',
+  eyebrow: 'E! · Bunim/Murray · Apple TV · 2017–2018',
   title: <>Life of&nbsp;Kylie</>,
   role: 'Senior Supervising Producer',
   description:
@@ -409,6 +410,7 @@ const LIFE_OF_KYLIE: SpreadData = {
       body: 'Produced at the peak of the Kardashian-Jenner media empire, when Kylie Jenner was among the most-followed people on the planet.',
     },
   ],
+  link: { label: 'Watch on Apple TV', url: 'https://tv.apple.com/us/show/life-of-kylie/umc.cmc.687z0r46pelftup0kl0yyxcc2' },
   media: {
     main: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Life%20of%20Kylie/No%20text%20keyart.png',
@@ -819,6 +821,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
       body: 'Billionaire Boys Club (Season 6): co-hosted with Tracy Pattin and actor Timothy Olyphant, critically praised. The Execution of Bonny Lee Bakley (Season 7): co-hosted with Tracy Pattin and actor Josh Lucas, a chart-topping true-crime hit.',
     },
   ],
+  link: { label: 'Listen to the podcast', url: 'https://www.audible.com/podcast/Wondery-Presents-The-Execution-of-Bonny-Lee-Bakley/B0B4KM3J2Z?srsltid=AfmBOooMI8wLS-XV5zLtcRXM7u2hXGyt0iywklthBzUynqztD1EokIg_' },
   media: {
     // Still broken, not fixed in this pass: Jeanine's upload was images
     // only. She did add a new "Screen Recording 2026-08-05.mov" in the
@@ -1071,6 +1074,20 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
               >
                 {credit.eyebrow}
               </p>
+              {credit.link && (
+                <a
+                  href={credit.link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-[0.7rem] tracking-[0.16em] uppercase transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  style={{ color: 'var(--ink)', outlineColor: 'var(--terra-text)' }}
+                >
+                  {credit.link.label}
+                  <span aria-hidden="true" style={{ color: 'var(--terra-text)' }}>
+                    &rarr;
+                  </span>
+                </a>
+              )}
             </div>
 
             {/* Right-aligned on desktop so the four stats form their own
