@@ -51,12 +51,11 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
-    // Her approved copy, verbatim (2026-08-15). Replaces the earlier short
-    // "first book" summary: that one mostly restated the Labs chapter
-    // tagline, where this instead answers why the idea is interesting.
-    // Checked against her own rules before use: no colons, semicolons, or
-    // em dashes anywhere in it, so nothing needed changing to comply.
-    description: "Children’s books are filled with things that are true without being literal. A blanket can become a landscape. A monster can be a feeling. A journey can happen in the world and inside a child’s imagination at the same time.\n\nWhat would code make of all that?\n\nWhich moments would it hold onto, and which would it transform? Could it find something in the story that we had not imagined?\n\nThat is what I find fascinating about code. It can be weird and whimsical, delightful and strange, all at the same time.\n\nThis prototype explores how code rebuilds a story’s visual world over and over. The first viewing will not look like the hundredth.",
+    // Her approved copy, verbatim (2026-08-15, second pass). Replaces the
+    // first "Children's books are filled with..." draft above with a
+    // tighter version she supplied directly. Checked against her own
+    // rules before use: no colons, semicolons, or em dashes.
+    description: "In children’s stories, the world is always changing shape. A blanket can become a landscape. A monster can be a feeling. A myth can become a roadmap.\n\nWhat would code make of a story like that?\n\nWhich moments would it hold onto? Which would it change? Could it find something in the story that we never saw?\n\nThat’s what fascinates me. The results can be weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen will not look like the hundredth.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
