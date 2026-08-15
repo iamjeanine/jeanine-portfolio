@@ -51,11 +51,12 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
-    // Her approved copy, verbatim (2026-08-15, second pass). Replaces the
-    // first "Children's books are filled with..." draft above with a
-    // tighter version she supplied directly. Checked against her own
-    // rules before use: no colons, semicolons, or em dashes.
-    description: "In children’s stories, the world is always changing shape. A blanket can become a landscape. A monster can be a feeling. A myth can become a roadmap.\n\nWhat would code make of a story like that?\n\nWhich moments would it hold onto? Which would it change? Could it find something in the story that we never saw?\n\nThat’s what fascinates me. The results can be weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen will not look like the hundredth.",
+    // Her approved copy (2026-08-15, third pass), supplied by dictation.
+    // One reconstruction flagged to her at the time: the dictated text
+    // opened mid-phrase ("children's story, things are never...") and
+    // "In a" was restored to complete it. Checked against her rules:
+    // no colons, semicolons, or em dashes.
+    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nThat’s what fascinates me. What comes back is weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen never looks like the hundredth.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
