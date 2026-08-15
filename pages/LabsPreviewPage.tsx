@@ -172,10 +172,11 @@ interface LabEntry {
   note?: string;
   /**
    * Defaults true. Set false to suppress "Open project →" for a Feature
-   * whose real detail page has no content yet (constants.ts currently has
-   * description: '' and mainVideos: [] for Visual Audiobooks). Showing
-   * that link before the page behind it exists would be the same
-   * scaffolding problem as the About colophon's empty Teaching block.
+   * whose real detail page has no content yet. Showing that link before
+   * the page behind it exists would be the same scaffolding problem as
+   * the About colophon's empty Teaching block. (Visual Audiobooks was the
+   * one suppressed case until its detail page was written on 2026-08-14,
+   * alongside the Living Photocopy cover film.)
    */
   hasProjectPage?: boolean;
   /** Overrides OpenProjectLink's default "Open project" label. Static uses
@@ -257,7 +258,6 @@ const ENTRIES: LabEntry[] = [
         body: 'The prototype asks what happens when code interprets a story instead of simply illustrating it. Launching soon.',
       },
     ],
-    hasProjectPage: false,
     // The Living Photocopy cover film: 1080p web derivative cut from the
     // 4K master (which stays untouched outside the repo), full-range
     // color preserved end to end so the warm paper and oxide red match

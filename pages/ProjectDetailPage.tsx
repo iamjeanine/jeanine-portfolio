@@ -934,49 +934,13 @@ const ProjectDetailPage = () => {
         {/* Content */}
         <main className="flex-grow flex flex-col items-center">
             {(() => {
-              if (project.id === 'visual-audiobooks') {
-                return (
-                  <>
-                    <div
-                      className="w-full max-w-5xl border"
-                      style={{
-                        viewTransitionName: 'project-hero',
-                        borderColor: 'rgba(242,237,226,0.18)',
-                      } as React.CSSProperties}
-                    >
-                      <video
-                        src={project.previewVideoUrl}
-                        poster={project.previewPosterUrl}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full aspect-video object-cover"
-                      />
-                    </div>
-                    <div className="w-full max-w-5xl mt-8 md:mt-12">
-                      <div className="max-w-2xl">
-                        {(project.client || project.categoryLabel) && (
-                          <p className={`${isDarkEditorial ? 'text-[0.68rem]' : 'text-[10px]'} tracking-[0.2em] uppercase font-normal mb-4 ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
-                            {[project.client, project.categoryLabel].filter(Boolean).join(' · ')}
-                          </p>
-                        )}
-                        <div className="mb-8">
-                          <h1 className={`font-serif text-[clamp(2.8rem,6vw,5rem)] font-normal leading-[0.92] tracking-[-0.015em] ${isDarkEditorial ? 'text-[var(--cream-ink)]' : ''}`}>
-                            {project.title}
-                          </h1>
-                          {project.subtitle && (
-                            <p className={`mt-3 text-base font-light leading-relaxed ${isDarkEditorial ? 'text-[rgba(242,237,226,0.72)]' : 'text-neutral-500'}`}>
-                              {project.subtitle}
-                            </p>
-                          )}
-                        </div>
-                        <p className={`text-sm font-light tracking-[0.14em] uppercase ${isDarkEditorial ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>Coming soon</p>
-                      </div>
-                    </div>
-                  </>
-                );
-              } else if (project.id === 'ai-creator-lab') {
+              /* visual-audiobooks used to short-circuit here to a "Coming
+                 soon" placeholder (looping teaser, no description). Retired
+                 2026-08-14 when the page got real content: it now falls
+                 through to the default dark-editorial layout, same as
+                 Narrative Space, so the Living Photocopy film renders
+                 through VideoPlayer with loop off and controls on. */
+              if (project.id === 'ai-creator-lab') {
                 return renderAICreatorLabLayout();
               } else {
                 return (
