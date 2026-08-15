@@ -27,26 +27,33 @@ export const PROJECTS: Project[] = [
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/living-photocopy-cover-web-1080p.mp4',
     previewPosterUrl: '/visual-audiobooks-poster.jpg',
     previewAutoplay: true,
-    // loop: false on purpose, same call as the Labs chapter frame: the film
-    // assembles the cover and holds it, so the page opens on a finished book.
+    // The interior piece ("The picture will not stay put"), not the cover
+    // film: her call, 2026-08-15 — the chapter already opens on the cover,
+    // and the detail page should not repeat what the chapter or the
+    // prototype shows. Loops with its music on (Static's precedent:
+    // autoplay starts muted for the browser, then unmutes when allowed;
+    // VideoPlayer's mute button is the visitor's control either way).
+    // Near-4:3 source (1898x1440), so the box is 4:3 rather than 16:9.
     mainVideos: [
       {
-        url: 'https://storage.googleapis.com/jeanine-portfolio-video/living-photocopy-cover-web-1080p.mp4',
-        posterUrl: '/visual-audiobooks-poster.jpg',
-        aspectRatio: '16:9',
+        url: 'https://storage.googleapis.com/jeanine-portfolio-video/Audiobook%20interior%20cover.mp4',
+        posterUrl: '/visual-audiobooks-interior-poster.jpg',
+        aspectRatio: '4:3',
         autoplay: true,
-        loop: false,
+        loop: true,
         showControls: true,
-        hasAudio: false,
+        hasAudio: true,
+        startMuted: false,
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
     // Short on purpose (Jeanine, 2026-08-15): the longer five-paragraph
     // version mostly restated the Labs chapter entry after her copy pass
     // there. What stays is only what the chapter doesn't say up front.
-    // A "test the prototype" CTA goes in liveUrl once the prototype has
-    // a public URL.
-    description: "The first book is The Kids’ Guidebook to the Rock, an original story about a girl visiting her father in a Florida prison after his failed escape.\n\nSome editions are illustrated by artists. Some are drawn by code that reimagines the story every listen.",
+    // "Illustrated by artists" cut on her call the same day: code is the
+    // star, no hedging. A "test the prototype" CTA goes in liveUrl once
+    // the prototype has a public URL.
+    description: "The first book is The Kids’ Guidebook to the Rock, an original story about a girl visiting her father in a Florida prison after his failed escape.\n\nEach edition is drawn by code that reimagines the story every listen.",
   },
   {
     id: 'static',
