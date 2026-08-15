@@ -53,6 +53,10 @@
      new title (2.67:1) and was left alone; only this token needed the cut. */
   --stat: clamp(2.5rem, 4vw, 3.5rem);
   --stat-long: clamp(2rem, 3vw, 3rem);
+  /* Sentence-length stats (Visual Audiobooks' "Written by hand, drawn by
+     code") drop one more step so the whole line holds on one line like
+     its single-line siblings, rather than wrapping into a taller block. */
+  --stat-sentence: clamp(1.45rem, 2.2vw, 2.1rem);
   --body: 1.02rem;
   /* Chapter header scale (REDESIGN-PLAN.md 3.2): the Cover's name, and
      eventually Labs' chapter title once unified with Productions'. */

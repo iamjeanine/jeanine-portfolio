@@ -728,11 +728,12 @@ const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat 
       style={{
         fontFamily: SERIF_DISPLAY,
         // Long values drop a step so a phrase-length stat never overruns
-        // its column (3.2).
-        fontSize: stat.value.length > 6 ? 'var(--stat-long)' : 'var(--stat)',
+        // its column (3.2). Sentence-length values drop once more and get
+        // the full column so they hold to one line like their siblings.
+        fontSize: stat.value.length > 24 ? 'var(--stat-sentence)' : stat.value.length > 6 ? 'var(--stat-long)' : 'var(--stat)',
         lineHeight: 1.05,
         color: LAB.ink,
-        maxWidth: '14ch',
+        maxWidth: stat.value.length > 24 ? '34ch' : '14ch',
       }}
     >
       {stat.value}
