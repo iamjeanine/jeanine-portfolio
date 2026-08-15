@@ -34,6 +34,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
 
   useEffect(() => {
     setHasLoadedFrame(false);
+    // A CTA-click silence applies to the page it happened on, not to the
+    // next project this same player instance renders after SPA navigation.
+    silencedRef.current = false;
   }, [src, posterUrl]);
 
   // Opening an external prototype must not leave this page's soundtrack
@@ -49,7 +52,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     return () => window.removeEventListener('portfolio:silence-videos', handleSilence);
   }, []);
 
-  // Unmute after autoplay succeeds (browsers require muted for autoplay)
+  // Unmute after autoplay succeeds (browsers require muted for autoplay).
+  // Re-armed per src: this player instance survives SPA navigation between
+  // project pages, so a once-consumed listener from the previous page must
+  // not leave the next page's video permanently muted. If the new video is
+  // already playing by the time this effect runs, unmute directly.
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !wantsUnmuted) return;
@@ -64,9 +71,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
       }, 100);
     };
 
+    if (!video.paused && video.readyState >= 3) {
+      handlePlaying();
+      return;
+    }
     video.addEventListener('playing', handlePlaying, { once: true });
     return () => video.removeEventListener('playing', handlePlaying);
-  }, [wantsUnmuted]);
+  }, [wantsUnmuted, src]);
 
   useEffect(() => {
     const video = videoRef.current;

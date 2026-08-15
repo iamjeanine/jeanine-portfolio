@@ -373,7 +373,7 @@ const ProjectDetailPage = () => {
             showControls={demo.showControls}
             hasAudio={demo.hasAudio}
             projectId={project.id}
-            startUnmuted={false}
+            startUnmuted={Boolean(demo.hasAudio && !demo.startMuted)}
           />
         </div>
       ) : null,
@@ -540,7 +540,7 @@ const ProjectDetailPage = () => {
             showControls={demo.showControls}
             hasAudio={demo.hasAudio}
             projectId={project.id}
-            startUnmuted={false}
+            startUnmuted={Boolean(demo.hasAudio && !demo.startMuted)}
           />
           <figcaption
             className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5"
@@ -593,7 +593,7 @@ const ProjectDetailPage = () => {
             showControls={demo.showControls}
             hasAudio={demo.hasAudio}
             projectId={project.id}
-            startUnmuted={false}
+            startUnmuted={Boolean(demo.hasAudio && !demo.startMuted)}
           />
           <figcaption
             className="flex flex-col gap-2 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5"
