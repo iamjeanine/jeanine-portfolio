@@ -236,6 +236,9 @@ const ENTRIES: LabEntry[] = [
         </p>
       </>
     ),
+    // Her line, chosen 2026-08-15 after a round of rejected candidates
+    // (the concept is endless retellings, so no demo-count numbers).
+    stat: { value: 'Written by hand, drawn by code', label: 'A visual audiobook prototype' },
     expandables: [
       {
         label: 'Concept',
