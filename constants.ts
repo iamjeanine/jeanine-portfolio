@@ -17,7 +17,11 @@ export const PROJECTS: Project[] = [
     id: 'visual-audiobooks',
     title: 'Visual Audiobooks',
     coverTitle: 'Visual Audio Book',
-    subtitle: "Original children’s stories that can change each time you return",
+    // Detail-page headline, her approved copy (2026-08-15): "The strange
+    // visual life of a children's story." Distinct on purpose from the
+    // Labs chapter's tagline below (descriptor) — the chapter states what
+    // it is, this page opens on why it's creatively interesting.
+    subtitle: "The strange visual life of a children’s story",
     client: 'Ghost Mode Labs',
     category: 'Experiments',
     filterCategories: ['story-system'],
@@ -47,13 +51,16 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
-    // Short on purpose (Jeanine, 2026-08-15): the longer five-paragraph
-    // version mostly restated the Labs chapter entry after her copy pass
-    // there. What stays is only what the chapter doesn't say up front.
-    // "Illustrated by artists" cut on her call the same day: code is the
-    // star, no hedging. A "test the prototype" CTA goes in liveUrl once
-    // the prototype has a public URL.
-    description: "The first book is The Kids’ Guidebook to the Rock, an original story about a girl visiting her father in a Florida prison after his failed escape.\n\nEach edition is drawn by code that reimagines the story every listen.",
+    // Her approved copy, verbatim (2026-08-15). Replaces the earlier short
+    // "first book" summary: that one mostly restated the Labs chapter
+    // tagline, where this instead answers why the idea is interesting.
+    // Checked against her own rules before use: no colons, semicolons, or
+    // em dashes anywhere in it, so nothing needed changing to comply.
+    description: "Children’s books are filled with things that are true without being literal. A blanket can become a landscape. A monster can be a feeling. A journey can happen in the world and inside a child’s imagination at the same time.\n\nWhat would code make of all that?\n\nWhich moments would it hold onto, and which would it transform? Could it find something in the story that we had not imagined?\n\nThat is what I find fascinating about code. It can be weird and whimsical, delightful and strange, all at the same time.\n\nThis prototype explores how code rebuilds a story’s visual world over and over. The first viewing will not look like the hundredth.",
+    // liveUrl is intentionally unset: the prototype has no public URL yet.
+    // Label is set now so the CTA (labeled "Experience the prototype", her
+    // wording) is correct the moment a URL is added, with no second edit.
+    liveUrlLabel: 'Experience the prototype',
   },
   {
     id: 'static',
