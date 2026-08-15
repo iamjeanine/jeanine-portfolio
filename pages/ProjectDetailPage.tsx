@@ -24,6 +24,7 @@ const ProjectActionCard = ({
     href={url}
     target="_blank"
     rel="noopener noreferrer"
+    onClick={() => window.dispatchEvent(new Event('portfolio:silence-videos'))}
     className={`group grid min-h-24 w-full max-w-[30rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border px-5 py-4 text-left transition-colors duration-300 sm:px-6 sm:py-5 ${
       dark
         ? 'border-[rgba(242,237,226,0.22)] bg-[rgba(242,237,226,0.025)] hover:border-[var(--ember)]'

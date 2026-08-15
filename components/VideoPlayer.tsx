@@ -30,10 +30,24 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
   const overlayShownRef = useRef(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hasLoadedFrame, setHasLoadedFrame] = useState(false);
+  const silencedRef = useRef(false);
 
   useEffect(() => {
     setHasLoadedFrame(false);
   }, [src, posterUrl]);
+
+  // Opening an external prototype must not leave this page's soundtrack
+  // playing underneath it. The action card dispatches this event on click;
+  // the visitor can still unmute manually afterward.
+  useEffect(() => {
+    const handleSilence = () => {
+      silencedRef.current = true;
+      if (videoRef.current) videoRef.current.muted = true;
+      setIsMuted(true);
+    };
+    window.addEventListener('portfolio:silence-videos', handleSilence);
+    return () => window.removeEventListener('portfolio:silence-videos', handleSilence);
+  }, []);
 
   // Unmute after autoplay succeeds (browsers require muted for autoplay)
   useEffect(() => {
@@ -43,7 +57,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     const handlePlaying = () => {
       // Small delay to ensure playback is stable before unmuting
       setTimeout(() => {
-        if (video && !video.paused) {
+        if (video && !video.paused && !silencedRef.current) {
           video.muted = false;
           setIsMuted(false);
         }
