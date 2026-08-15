@@ -57,10 +57,16 @@ export const PROJECTS: Project[] = [
     // Checked against her own rules before use: no colons, semicolons, or
     // em dashes anywhere in it, so nothing needed changing to comply.
     description: "Children’s books are filled with things that are true without being literal. A blanket can become a landscape. A monster can be a feeling. A journey can happen in the world and inside a child’s imagination at the same time.\n\nWhat would code make of all that?\n\nWhich moments would it hold onto, and which would it transform? Could it find something in the story that we had not imagined?\n\nThat is what I find fascinating about code. It can be weird and whimsical, delightful and strange, all at the same time.\n\nThis prototype explores how code rebuilds a story’s visual world over and over. The first viewing will not look like the hundredth.",
-    // liveUrl is intentionally unset: the prototype has no public URL yet.
-    // Label is set now so the CTA (labeled "Experience the prototype", her
-    // wording) is correct the moment a URL is added, with no second edit.
-    liveUrlLabel: 'Experience the prototype',
+    // Public prototype went live 2026-08-15 on Vercel (deploys from the
+    // visiting-day repo's main branch, opens on Pieced Together). The path
+    // matters: the bare domain root serves an abandoned July-era player.html
+    // via a redirect that predates this whole system, unrelated to the
+    // current visual-audiobook-player/ — caught while verifying this link,
+    // not a hypothetical. Label updated to her current wording, "Explore
+    // the prototype" (was "Experience the prototype" in the original
+    // handoff).
+    liveUrl: 'https://visiting-day.vercel.app/visual-audiobook-player/',
+    liveUrlLabel: 'Explore the prototype',
   },
   {
     id: 'static',
