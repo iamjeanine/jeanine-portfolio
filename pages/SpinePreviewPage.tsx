@@ -301,8 +301,11 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
           style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
         >
-          Scripted and nonfiction series across podcasts and television. New
-          storytelling tools at Ghost Mode Labs.
+          {/* Slimmed to the share card's own line (Jeanine, 2026-08-16):
+              one statement, not two sentences. Ghost Mode Labs keeps its
+              mention in the chapter list directly below. */}
+          Scripted and nonfiction stories for podcasts, television, and
+          new formats.
         </p>
         {/* Sized up from the shared chapter-label default (0.7rem, an
             11.2px byline the recruiter critique flagged as unreadable for
