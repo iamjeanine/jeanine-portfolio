@@ -67,6 +67,11 @@ export const PROJECTS: Project[] = [
     // handoff).
     liveUrl: 'https://visiting-day.vercel.app/visual-audiobook-player/',
     liveUrlLabel: 'Explore the prototype',
+    // Flow ruling in progress (2026-08-16): the card sits above the
+    // description so skimmers meet the door in the first screenful; the
+    // bottom keeps a quiet text link as the reader's exit. Approved shape
+    // rolls out to static, narrative-space, and unstill afterward.
+    liveUrlFirst: true,
   },
   {
     id: 'static',

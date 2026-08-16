@@ -118,6 +118,17 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
               )}
             </div>
 
+            {project.liveUrl && project.liveUrlFirst && (
+              <div className="mb-10">
+                <ProjectActionCard
+                  url={project.liveUrl}
+                  eyebrow={project.liveUrlEyebrow || 'Interactive prototype'}
+                  label={project.liveUrlLabel || 'Try the prototype'}
+                  dark={dark}
+                />
+              </div>
+            )}
+
             {/* Lead: epigraph or drop cap */}
             {leadText && isEpigraph ? (
               <blockquote className={`border-l-2 pl-6 mb-8 ${dark ? 'border-[rgba(242,237,226,0.2)]' : 'border-neutral-300'}`}>
@@ -175,7 +186,7 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
                 </div>
             )}
 
-            {project.liveUrl && (
+            {project.liveUrl && !project.liveUrlFirst && (
               <div className="mt-10 mb-2">
                 <ProjectActionCard
                   url={project.liveUrl}
@@ -184,6 +195,23 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
                   dark={dark}
                 />
               </div>
+            )}
+            {project.liveUrl && project.liveUrlFirst && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => window.dispatchEvent(new Event('portfolio:silence-videos'))}
+                className={`group mt-10 mb-2 inline-flex items-center gap-3 text-base font-light ${
+                  dark
+                    ? 'text-[rgba(242,237,226,0.78)] hover:text-[var(--ember)]'
+                    : 'text-neutral-700 hover:text-[#B3543A]'
+                }`}
+                aria-label={`${project.liveUrlLabel || 'Try the prototype'}, opens in a new tab`}
+              >
+                <span className="border-b border-current pb-0.5">{project.liveUrlLabel || 'Try the prototype'}</span>
+                <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
+              </a>
             )}
 
         </div>
