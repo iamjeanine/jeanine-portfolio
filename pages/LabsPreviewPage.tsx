@@ -489,43 +489,6 @@ const ENTRIES: LabEntry[] = [
  */
 const CREDIT_ENTRIES: LabEntry[] = [
   {
-    id: 'mythos',
-    client: 'Ghost Mode Labs',
-    year: '2026',
-    title: 'MythOS',
-    tagline: 'Franchise intelligence',
-    tier: 'feature',
-    description:
-      'Studios return to the same handful of myths while thousands more remain largely unused. MythOS maps how stories move across cultures and centuries. Start with Circe and trace her across 46 cultures and 3,500 years.',
-    stat: { value: '494', label: 'Source stories in the prototype' },
-    expandables: [
-      {
-        label: 'Concept',
-        body: 'Studios keep looping the same franchises while thousands of stories sit in public domain archives, never mapped, never developed. MythOS is an interactive globe that tracks how myths travel across cultures and centuries. Click Circe and it lights up with every culture that told her story, 46 of them across 3,500 years.',
-      },
-      {
-        label: 'Build',
-        body: 'Scroll down through a figure’s full timeline, ask it questions, and find what is developable. Built with React, Three.js, React Three Fiber, the Claude API, GSAP, and Vite, using Claude Code.',
-      },
-      {
-        label: 'Status',
-        body: 'A working prototype with 494 source stories in it. Works with any mythology, folklore tradition, or public domain IP. Built for studio development and franchise teams.',
-      },
-    ],
-    // Kept for a possible promotion back, and unread by the credits rows:
-    // the original cover carries a baked-in MythOS wordmark that duplicates
-    // the page title, so this uses the project's own demo footage instead,
-    // starting at t=4 to clear that clip's own gold title card (confirmed by
-    // frame-capture during Phase 2 review). No media file was re-edited;
-    // startAt is playback-only.
-    video: {
-      src: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
-      aspectRatio: '2664 / 1440',
-      startAt: 4,
-      alt: 'MythOS demo: an interactive globe tracking myths across cultures',
-    },
-  },
-  {
     id: 'narrative-space',
     client: 'Ghost Mode Labs',
     year: '2026',
@@ -596,6 +559,43 @@ const CREDIT_ENTRIES: LabEntry[] = [
       alt: 'Preview reel for Unstill, 1920s Sydney archive portraits returning to color and motion',
     },
     flip: true,
+  },
+  {
+    id: 'mythos',
+    client: 'Ghost Mode Labs',
+    year: '2026',
+    title: 'MythOS',
+    tagline: 'Franchise intelligence',
+    tier: 'feature',
+    description:
+      'Studios return to the same handful of myths while thousands more remain largely unused. MythOS maps how stories move across cultures and centuries. Start with Circe and trace her across 46 cultures and 3,500 years.',
+    stat: { value: '494', label: 'Source stories in the prototype' },
+    expandables: [
+      {
+        label: 'Concept',
+        body: 'Studios keep looping the same franchises while thousands of stories sit in public domain archives, never mapped, never developed. MythOS is an interactive globe that tracks how myths travel across cultures and centuries. Click Circe and it lights up with every culture that told her story, 46 of them across 3,500 years.',
+      },
+      {
+        label: 'Build',
+        body: 'Scroll down through a figure’s full timeline, ask it questions, and find what is developable. Built with React, Three.js, React Three Fiber, the Claude API, GSAP, and Vite, using Claude Code.',
+      },
+      {
+        label: 'Status',
+        body: 'A working prototype with 494 source stories in it. Works with any mythology, folklore tradition, or public domain IP. Built for studio development and franchise teams.',
+      },
+    ],
+    // Kept for a possible promotion back, and unread by the credits rows:
+    // the original cover carries a baked-in MythOS wordmark that duplicates
+    // the page title, so this uses the project's own demo footage instead,
+    // starting at t=4 to clear that clip's own gold title card (confirmed by
+    // frame-capture during Phase 2 review). No media file was re-edited;
+    // startAt is playback-only.
+    video: {
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/MythOS%20Demo4.mp4',
+      aspectRatio: '2664 / 1440',
+      startAt: 4,
+      alt: 'MythOS demo: an interactive globe tracking myths across cultures',
+    },
   },
 ];
 

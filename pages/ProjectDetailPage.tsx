@@ -378,9 +378,11 @@ const ProjectDetailPage = () => {
               </p>
             </section>
 
-            {action && actionFirst && <div className="mb-6 md:mb-8">{action}</div>}
-
             {media}
+
+            {/* Consistent placement across every project (Jeanine, 2026-08-16):
+                the door sits directly under the video, everywhere. */}
+            {action && actionFirst && <div className="mt-6 md:mt-8">{action}</div>}
 
             <div
               className={`grid gap-7 border-t py-6 md:items-center md:gap-12 md:py-7 ${aside ? 'md:grid-cols-[minmax(0,1fr)_auto]' : ''}`}
