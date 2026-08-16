@@ -396,11 +396,11 @@ const LIFE_OF_KYLIE: SpreadData = {
   title: <>Life of&nbsp;Kylie</>,
   role: 'Senior Supervising Producer',
   description:
-    'One of the most-watched women in the world opens her life to cameras, at the height of the Kardashian-Jenner media empire.',
+    'One of the most-watched women in the world opens her life to cameras.',
   expandables: [
     {
       label: 'Role',
-      body: 'Senior supervising producer on the series for E! and Bunim/Murray, overseeing post production during the height of media attention around the family.',
+      body: 'Senior supervising producer on the series for E! and Bunim/Murray, overseeing post production.',
     },
     {
       label: 'Impact',
@@ -811,7 +811,7 @@ const HOLLYWOOD_CRIME: SpreadData = {
   expandables: [
     {
       label: 'Role',
-      body: 'Senior producer on both seasons, shaping story across Wondery’s Hollywood true-crime franchise.',
+      body: 'Senior producer on both seasons, shaping story across the anthology.',
     },
     {
       label: 'Series',

@@ -129,8 +129,12 @@ export const PROJECTS: Project[] = [
     category: 'Selected',
     filterCategories: ['production-tool'],
     categoryLabel: 'Production Tool',
-    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
-    previewPosterUrl: '/ai-creator-lab-cover-poster.jpg',
+    // The record-player reel ("AI Creator Lab 2 - New Cover") is retired
+    // here too: Jeanine moved this entry to the moody close-up everywhere
+    // it previews (same call as the Labs chapter, "too much of a Canva
+    // template"). Same asset and poster the chapter already streams.
+    previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/Heroshotmusic2.mp4',
+    previewPosterUrl: '/hero-poster.jpg',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
