@@ -130,13 +130,13 @@ export const PROJECTS: Project[] = [
     filterCategories: ['production-tool'],
     categoryLabel: 'Production Tool',
     previewVideoUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab%202%20-%20New%20Cover%20.mp4',
-    previewPosterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Cover2-poster.jpg',
+    previewPosterUrl: '/ai-creator-lab-cover-poster.jpg',
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [
         {
           url: 'https://storage.googleapis.com/jeanine-portfolio-video/AI%20Creator%20Lab2.mp4',
-          posterUrl: 'https://storage.googleapis.com/jeanine-portfolio-video/B6-Interior-poster.jpg',
+          posterUrl: '/ai-creator-lab-interior-poster.jpg',
           aspectRatio: '16:9',
           autoplay: true,
           loop: true,
