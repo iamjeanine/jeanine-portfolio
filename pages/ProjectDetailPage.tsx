@@ -61,6 +61,35 @@ const ProjectActionCard = ({
   </a>
 );
 
+// The quiet second door: pages that lift the action card above the fold
+// keep this one-line exit where the card used to sit, so a visitor who
+// reads to the end still lands on a way in.
+const PrototypeExitLink = ({
+  url,
+  label,
+  dark = true,
+}: {
+  url: string;
+  label: string;
+  dark?: boolean;
+}) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    onClick={() => window.dispatchEvent(new Event('portfolio:silence-videos'))}
+    className={`group inline-flex items-center gap-3 text-base font-light ${
+      dark
+        ? 'text-[rgba(242,237,226,0.78)] hover:text-[var(--ember)]'
+        : 'text-neutral-700 hover:text-[#B3543A]'
+    }`}
+    aria-label={`${label}, opens in a new tab`}
+  >
+    <span className="border-b border-current pb-0.5">{label}</span>
+    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
+  </a>
+);
+
 
 // Reusable component for the text block
 const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: boolean }) => {
@@ -197,21 +226,9 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
               </div>
             )}
             {project.liveUrl && project.liveUrlFirst && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => window.dispatchEvent(new Event('portfolio:silence-videos'))}
-                className={`group mt-10 mb-2 inline-flex items-center gap-3 text-base font-light ${
-                  dark
-                    ? 'text-[rgba(242,237,226,0.78)] hover:text-[var(--ember)]'
-                    : 'text-neutral-700 hover:text-[#B3543A]'
-                }`}
-                aria-label={`${project.liveUrlLabel || 'Try the prototype'}, opens in a new tab`}
-              >
-                <span className="border-b border-current pb-0.5">{project.liveUrlLabel || 'Try the prototype'}</span>
-                <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
-              </a>
+              <div className="mt-10 mb-2">
+                <PrototypeExitLink url={project.liveUrl} label={project.liveUrlLabel || 'Try the prototype'} dark={dark} />
+              </div>
             )}
 
         </div>
@@ -286,6 +303,8 @@ const ProjectDetailPage = () => {
     statement,
     aside,
     action,
+    actionFirst = false,
+    exit,
   }: {
     eyebrow: string;
     title: string;
@@ -294,6 +313,10 @@ const ProjectDetailPage = () => {
     statement: React.ReactNode;
     aside?: React.ReactNode;
     action?: React.ReactNode;
+    /** Lift the action card above the media so the first screenful holds
+     *  the door; `exit` then renders the quiet link in the old bottom slot. */
+    actionFirst?: boolean;
+    exit?: React.ReactNode;
   }) => (
       <div
         className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
@@ -355,6 +378,8 @@ const ProjectDetailPage = () => {
               </p>
             </section>
 
+            {action && actionFirst && <div className="mb-6 md:mb-8">{action}</div>}
+
             {media}
 
             <div
@@ -364,12 +389,20 @@ const ProjectDetailPage = () => {
               {statement}
               {aside}
             </div>
-            {action && (
+            {action && !actionFirst && (
               <div
                 className="border-t py-6 md:py-7"
                 style={{ borderColor: 'rgba(242,237,226,0.16)' }}
               >
                 {action}
+              </div>
+            )}
+            {exit && actionFirst && (
+              <div
+                className="border-t py-6 md:py-7"
+                style={{ borderColor: 'rgba(242,237,226,0.16)' }}
+              >
+                {exit}
               </div>
             )}
           </main>
@@ -419,6 +452,10 @@ const ProjectDetailPage = () => {
           eyebrow={project.liveUrlEyebrow || 'Original pitch'}
           label={project.liveUrlLabel || 'View the original pitch'}
         />
+      ) : undefined,
+      actionFirst: true,
+      exit: project.liveUrl ? (
+        <PrototypeExitLink url={project.liveUrl} label={project.liveUrlLabel || 'View the original pitch'} />
       ) : undefined,
     });
   };
@@ -669,6 +706,10 @@ const ProjectDetailPage = () => {
           eyebrow={project.liveUrlEyebrow || 'Proposal for Museums of History NSW'}
           label={project.liveUrlLabel || 'Explore Unstill'}
         />
+      ) : undefined,
+      actionFirst: true,
+      exit: project.liveUrl ? (
+        <PrototypeExitLink url={project.liveUrl} label={project.liveUrlLabel || 'Explore Unstill'} />
       ) : undefined,
     });
   };
