@@ -236,9 +236,11 @@ const ENTRIES: LabEntry[] = [
         </p>
       </>
     ),
-    // Her line, chosen 2026-08-15 after a round of rejected candidates
-    // (the concept is endless retellings, so no demo-count numbers).
-    stat: { value: 'Written by hand, drawn by code', label: 'A visual audiobook prototype' },
+    // No stat, by Jeanine's ruling (2026-08-17): "Written by hand, drawn
+    // by code" was the only display-type mention of code on either site
+    // and risked reading as an AI flag to industry visitors; the poetic
+    // alternatives felt unclear. The mechanism stays in the Build
+    // expandable, framed on her terms.
     expandables: [
       {
         label: 'Concept',
