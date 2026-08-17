@@ -12,6 +12,9 @@ export interface ProjectVideo {
   hasAudio?: boolean;
   startMuted?: boolean;
   glassPlateImageUrl?: string;
+  /** Dip to dark at the film's tail and ease the restart in, masking a
+   *  loop seam whose master lacks an opening bloom. */
+  softLoop?: boolean;
 }
 
 export interface ProjectImage {

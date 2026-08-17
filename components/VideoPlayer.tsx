@@ -14,9 +14,10 @@ interface VideoPlayerProps {
   hasAudio?: boolean;
   projectId?: string;
   startUnmuted?: boolean;
+  softLoop?: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false, softLoop = false }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   // On mobile, keep everything muted, no auto-unmuting
@@ -31,6 +32,24 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hasLoadedFrame, setHasLoadedFrame] = useState(false);
   const silencedRef = useRef(false);
+  // Soft loop veil: the interior film blooms out at its tail but opens
+  // cold, so a looping playback jumps at the seam. Until the master gets
+  // its opening bloom re-exported, this dips to dark over the last beat
+  // and eases the fresh start in, on first play and on every loop.
+  const [veiled, setVeiled] = useState(softLoop);
+  useEffect(() => {
+    if (!softLoop) return;
+    const video = videoRef.current;
+    if (!video) return;
+    const onTime = () => {
+      const d = video.duration;
+      if (!d || !Number.isFinite(d)) return;
+      if (video.currentTime > d - 0.45) setVeiled(true);
+      else if (video.currentTime < d - 1) setVeiled(false);
+    };
+    video.addEventListener('timeupdate', onTime);
+    return () => video.removeEventListener('timeupdate', onTime);
+  }, [softLoop]);
 
   useEffect(() => {
     setHasLoadedFrame(false);
@@ -173,6 +192,20 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
         preload="metadata"
         onLoadedData={() => setHasLoadedFrame(true)}
       />
+
+      {softLoop && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[2]"
+          style={{
+            background: '#100B08',
+            opacity: veiled ? 1 : 0,
+            transition: veiled
+              ? 'opacity 320ms ease-in'
+              : 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        />
+      )}
 
       {posterUrl && (
         <img

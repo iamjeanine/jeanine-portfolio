@@ -870,6 +870,7 @@ const ProjectDetailPage = () => {
                     hasAudio={video.hasAudio}
                     projectId={project.id}
                     startUnmuted={index === 0 && video.hasAudio && !video.startMuted}
+                    softLoop={video.softLoop}
                   />
                   {video.caption && (
                       <p className="text-center text-xs text-neutral-500 mt-2 font-light tracking-wide">{video.caption}</p>

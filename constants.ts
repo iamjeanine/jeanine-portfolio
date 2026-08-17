@@ -48,6 +48,10 @@ export const PROJECTS: Project[] = [
         showControls: true,
         hasAudio: true,
         startMuted: false,
+        // The film blooms out at its tail but opens cold; until the
+        // CapCut master is re-exported with its opening bloom, the
+        // player veils the loop seam (Jeanine, 2026-08-17).
+        softLoop: true,
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
