@@ -299,10 +299,9 @@ const ENTRIES: LabEntry[] = [
       </>
     ),
     stat: { value: '7,000 voices', label: 'One American haunting' },
-    // Detail page is itself framed as a pitch (the CTA there already reads
-    // "See the original pitch"), so this names what the click leads to
-    // instead of the generic default every other Feature entry uses.
-    openProjectLabel: 'Open the original pitch',
+    // Chapter link uses the generic default like every other Feature
+    // (Jeanine, 2026-08-17); "See the original pitch" lives on the detail
+    // page's action card, where the click actually leads there.
     // Left column (description) = what happened and what she made. Concept
     // = what she saw in the material. Build = what the tool actually did.
     // Status = where the project went. Each expandable advances past the
