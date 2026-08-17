@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import ProductionsPreviewPage from './pages/ProductionsPreviewPage';
 import LabsPreviewPage from './pages/LabsPreviewPage';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/preview/spine/:chapter" element={<SpinePreviewPage />} />
         <Route path="/preview/cover-options" element={<CoverOptionsPreviewPage />} />
       </Routes>
+      <Analytics />
     </HashRouter>
   );
 }
