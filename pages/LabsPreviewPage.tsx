@@ -529,13 +529,13 @@ const CREDIT_ENTRIES: LabEntry[] = [
     description: (
       <>
         <p>
-          Unstill begins with people preserved in 1920s Sydney police
-          archives, often as little more than a name, date, photograph,
-          and charge. Their portraits gradually come back to life through
-          color, motion, archival material, and fragments of story that
-          change over time.
+          A museum experience about young Australians who pushed against
+          the Victorian order in 1920s Sydney. The only photographs of
+          them that survive are the ones the justice system kept. Move
+          the loupe across the portrait and it reveals the life behind
+          the record, pulled from court files and press clippings.
         </p>
-        <p className="mt-3">Built as a proposal for Museums of History NSW.</p>
+        <p className="mt-3">Created as a proposal for Museums of History NSW.</p>
       </>
     ),
     expandables: [
@@ -569,7 +569,7 @@ const CREDIT_ENTRIES: LabEntry[] = [
     tagline: 'Franchise intelligence',
     tier: 'feature',
     description:
-      'Studios return to the same handful of myths while thousands more remain largely unused. MythOS maps how stories move across cultures and centuries. Start with Circe and trace her across 46 cultures and 3,500 years.',
+      'A research tool that helps studios find new franchise IP. Most development slates return to the same public domain stories. MythOS opens 3,500 years of mythology and folklore from across cultures for writers and showrunners to develop.',
     stat: { value: '494', label: 'Source stories in the prototype' },
     expandables: [
       {
