@@ -292,7 +292,7 @@ const BORN_THIS_WAY: SpreadData = {
   title: <>Born This&nbsp;Way</>,
   role: 'Supervising Producer',
   description:
-    'Seven young adults with Down syndrome build careers, independence, and love, on camera and on their own terms.',
+    'Seven young adults with Down syndrome build careers, independence, and love, on their own terms.',
   // Deliberate exception to the site's one-line pull-stat rule (every
   // other lead spread's display value is a single line: 53M, Podcast of
   // the Year, #1 Apple Fiction). "Primetime" matters enough to Jeanine to
