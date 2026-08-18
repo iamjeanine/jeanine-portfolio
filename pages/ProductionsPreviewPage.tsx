@@ -239,9 +239,10 @@ const SPREADS: SpreadData[] = [
         body: (
           <>
             <p>
-              Original IP I created at Wondery. I developed the world and
-              its characters, hired the head writer and writers. Cast more
-              than forty roles and oversaw production across two seasons.
+              Original IP I created at Wondery. I developed the pitch and
+              treatment for the world and its characters, and hired the
+              head writer, writers, and production team. We cast more
+              than forty roles. I oversaw production across two seasons.
             </p>
             <p className="mt-3">
               It was adapted into an Audible Original audiobook. Its world
