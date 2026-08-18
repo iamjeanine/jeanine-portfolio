@@ -497,7 +497,7 @@ const CREDIT_ENTRIES: LabEntry[] = [
     tagline: 'Interactive worldbuilding',
     tier: 'short',
     description:
-      'Story worlds usually live across scattered documents, character notes, locations, and timelines. Narrative Space turns them into an interactive space where characters, places, and themes become connected nodes you can explore and build on.',
+      'An interactive worldbuilding tool that turns scattered story notes, characters, timelines, and locations into a 3D space writers can move through.',
     expandables: [
       {
         label: 'Concept',
@@ -529,13 +529,13 @@ const CREDIT_ENTRIES: LabEntry[] = [
     description: (
       <>
         <p>
-          A museum experience about young Australians who pushed against
-          the Victorian order in 1920s Sydney. The only photographs of
-          them that survive are the ones the justice system kept. Move
-          the loupe across the portrait and it reveals the life behind
-          the record, pulled from court files and press clippings.
+          Unstill begins with people preserved in 1920s Sydney police
+          archives, often as little more than a name, date, photograph,
+          and charge. Their portraits gradually come back to life through
+          color, motion, archival material, and fragments of story that
+          change over time.
         </p>
-        <p className="mt-3">Created as a proposal for Museums of History NSW.</p>
+        <p className="mt-3">Built as a proposal for Museums of History NSW.</p>
       </>
     ),
     expandables: [
