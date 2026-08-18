@@ -236,24 +236,11 @@ const SPREADS: SpreadData[] = [
     expandables: [
       {
         label: 'Role',
-        body: (
-          <>
-            <p>
-              Original IP I created, then developed at Wondery. I wrote
-              the pitch and treatment for the world and its characters,
-              and hired the head writer, writers, and production team.
-              We cast more than forty roles. I oversaw production across
-              two seasons.
-            </p>
-            <p className="mt-3">
-              The first Wondery podcast adapted into an Audible Original
-              audiobook, which I re-edited from its twelve episodes into
-              one seamless, continuous listen. Its world later became
-              the basis for Multiverse Quad, which I built with
-              Amazon&rsquo;s AGI team.
-            </p>
-          </>
-        ),
+        body: 'Original IP I created, then developed at Wondery. I wrote the pitch and treatment for the world and its characters, and hired the head writer, writers, and production team. We cast more than forty roles. I oversaw production across two seasons.',
+      },
+      {
+        label: 'Impact',
+        body: 'The first Wondery podcast adapted into an Audible Original audiobook, which I re-edited from its twelve episodes into one seamless, continuous listen. Its world later became the basis for Multiverse Quad, which I built with Amazon’s AGI team.',
       },
     ],
     link: { label: 'Listen to the audiobook', url: 'https://www.audible.com/pd/The-Last-City-Audiobook/B0F44KWN5D?srsltid=AfmBOopjoEwnj_0Sm99UwpGxQotk0fA41r6p3zHw2NMEJ_CVMn0_FXhp' },
