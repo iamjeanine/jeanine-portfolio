@@ -304,6 +304,7 @@ const BORN_THIS_WAY: SpreadData = {
       body: 'Celebrated as the first major television series with a primary cast of people with disabilities to win a major Emmy category.',
     },
   ],
+  link: { label: 'Watch on A&E', url: 'https://play.aetv.com/shows/born-this-way' },
   media: {
     main: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Born%20This%20way/Born-This-Way-cast.jpg',
