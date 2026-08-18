@@ -246,9 +246,11 @@ const SPREADS: SpreadData[] = [
               two seasons.
             </p>
             <p className="mt-3">
-              It was adapted into an Audible Original audiobook. Its world
-              later became the basis for Multiverse Quad, which I built
-              with Amazon&rsquo;s AGI team.
+              The first Wondery podcast adapted into an Audible Original
+              audiobook, which I re-edited from its twelve episodes into
+              one seamless, continuous listen. Its world later became
+              the basis for Multiverse Quad, which I built with
+              Amazon&rsquo;s AGI team.
             </p>
           </>
         ),
