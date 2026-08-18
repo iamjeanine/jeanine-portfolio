@@ -310,6 +310,23 @@ const BORN_THIS_WAY: SpreadData = {
       label: 'Role',
       body: 'As supervising producer, I led the story department across the A&E series.',
     },
+    {
+      label: 'Impact',
+      body: (
+        <>
+          <p>
+            Celebrated as the first major television series with a
+            primary cast of people with disabilities to win a major
+            Emmy category.
+          </p>
+          <p className="mt-3">
+            Shifted the advocacy landscape by partnering with national
+            organizations to drive political and economic change for
+            people with intellectual disabilities.
+          </p>
+        </>
+      ),
+    },
   ],
   media: {
     main: {
