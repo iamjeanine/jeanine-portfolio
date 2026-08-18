@@ -240,7 +240,7 @@ const SPREADS: SpreadData[] = [
       },
       {
         label: 'Impact',
-        body: 'The first Wondery podcast adapted into an Audible Original audiobook. I re-edited it from its twelve episodes into one seamless, continuous listen. Its world later became the basis for Multiverse Quad. I built it with Amazon’s AGI team.',
+        body: 'The first Wondery podcast adapted into an Audible Original audiobook. I re-edited it from its twelve episodes into one seamless, continuous listen. Its world later became the basis for Multiverse Quad, co-developed with Amazon’s AGI team.',
       },
     ],
     link: { label: 'Listen to the audiobook', url: 'https://www.audible.com/pd/The-Last-City-Audiobook/B0F44KWN5D?srsltid=AfmBOopjoEwnj_0Sm99UwpGxQotk0fA41r6p3zHw2NMEJ_CVMn0_FXhp' },
