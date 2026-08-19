@@ -15,6 +15,10 @@ export interface ProjectVideo {
   /** Dip to dark at the film's tail and ease the restart in, masking a
    *  loop seam whose master lacks an opening bloom. */
   softLoop?: boolean;
+  /** Seconds to skip into the clip before it starts (and restarts on
+   *  each loop) — for a clip that opens on something the source
+   *  recording can't cut. */
+  startTime?: number;
 }
 
 export interface ProjectImage {

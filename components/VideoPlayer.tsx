@@ -15,6 +15,10 @@ interface VideoPlayerProps {
   projectId?: string;
   startUnmuted?: boolean;
   softLoop?: boolean;
+  /** Seconds to skip into the clip before it starts (and, if looping,
+   *  before it restarts on each cycle) — for a clip that opens on
+   *  something the source recording can't cut, like a stale title card. */
+  startTime?: number;
 }
 
 // Ramps volume from 0 up to 1 instead of snapping to full volume on unmute,
@@ -36,7 +40,7 @@ const fadeVolumeIn = (video: HTMLVideoElement, frameRef: React.MutableRefObject<
   frameRef.current = requestAnimationFrame(step);
 };
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false, softLoop = false }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false, softLoop = false, startTime = 0 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fadeFrameRef = useRef<number | null>(null);
@@ -81,6 +85,32 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
       fadeFrameRef.current = null;
     }
   }, [src, posterUrl]);
+
+  // Skip into the clip rather than opening on frame zero. Native `loop`
+  // restarts at 0 regardless, so a looping clip with a startTime handles
+  // its own repeat instead, seeking back to startTime rather than 0.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !startTime) return;
+
+    const seekPastStart = () => {
+      if (video.currentTime < startTime) video.currentTime = startTime;
+    };
+    if (video.readyState >= 1) seekPastStart();
+    else video.addEventListener('loadedmetadata', seekPastStart, { once: true });
+
+    const handleEnded = () => {
+      if (!loop) return;
+      video.currentTime = startTime;
+      video.play().catch(() => {});
+    };
+    if (loop) video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('loadedmetadata', seekPastStart);
+      if (loop) video.removeEventListener('ended', handleEnded);
+    };
+  }, [startTime, loop, src]);
 
   // Opening an external prototype must not leave this page's soundtrack
   // playing underneath it. The action card dispatches this event on click;
@@ -217,7 +247,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
         src={src}
         poster={posterUrl}
         autoPlay={autoplay}
-        loop={loop}
+        loop={loop && !startTime}
         muted={isMuted}
         playsInline
         controls={showNativeControls}

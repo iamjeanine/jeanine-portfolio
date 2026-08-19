@@ -542,6 +542,7 @@ const ProjectDetailPage = () => {
             hasAudio={archive.hasAudio}
             projectId={project.id}
             startUnmuted={false}
+            startTime={archive.startTime}
           />
           <figcaption
             className="grid gap-3 border-t px-4 py-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-baseline sm:gap-10 sm:px-5"
@@ -551,7 +552,7 @@ const ProjectDetailPage = () => {
               AI Lab Archive
             </span>
             <span
-              className="max-w-[60rem] text-[0.68rem] leading-relaxed tracking-[0.06em] sm:text-right"
+              className="max-w-[60rem] text-sm leading-relaxed sm:text-right"
               style={{ color: 'rgba(242,237,226,0.62)' }}
             >
               I built this archive so people could catch up on sessions they missed or learn independently. Each module included a podcast, study guide, FAQs, original decks, and in some cases a recorded partner demonstration.

@@ -164,6 +164,9 @@ export const PROJECTS: Project[] = [
           loop: true,
           showControls: true,
           hasAudio: true,
+          // The recording opens on a stale 2025 landing screen that reads
+          // wrong now (Jeanine, 2026-08-19); skips past it into the hub.
+          startTime: 15,
           caption: 'AI Lab Archive\n\nTo support the lab, I built an online hub where the curriculum could live.\n\nEach module included a NotebookLM podcast walkthrough, study guide, FAQs, and the original presentation. Some modules also included recorded sessions with industry partners demonstrating the tools in practice.\n\nThe archive allowed teams across the company to learn at their own pace or revisit sessions as the tools evolved.'
         }
     ],
