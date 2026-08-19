@@ -521,7 +521,7 @@ const ProjectDetailPage = () => {
     const archive = project.mainVideos[1];
 
     return renderArtifactRoom({
-      eyebrow: 'Wondery · 2025',
+      eyebrow: 'Wondery · 2024–2025',
       title: project.title,
       subtitle: 'Creative innovation',
       media: archive ? (
@@ -545,18 +545,21 @@ const ProjectDetailPage = () => {
             startTime={archive.startTime}
           />
           <figcaption
-            className="grid gap-3 border-t px-4 py-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-baseline sm:gap-10 sm:px-5"
+            className="flex flex-col gap-2 border-t px-4 py-4 sm:px-5"
             style={{ borderColor: 'rgba(242,237,226,0.16)' }}
           >
-            <span className="text-sm" style={{ color: 'var(--cream-ink)' }}>
+            <span
+              className="text-[0.62rem] uppercase tracking-[0.18em]"
+              style={{ color: 'var(--ember)' }}
+            >
               AI Lab Archive
             </span>
-            <span
-              className="max-w-[60rem] text-sm leading-relaxed sm:text-right"
-              style={{ color: 'rgba(242,237,226,0.62)' }}
+            <p
+              className="max-w-[38rem] text-[0.9rem] leading-relaxed"
+              style={{ color: 'rgba(242,237,226,0.72)' }}
             >
               I built this archive so people could catch up on sessions they missed or learn independently. Each module included a podcast, study guide, FAQs, original decks, and in some cases a recorded partner demonstration.
-            </span>
+            </p>
           </figcaption>
         </figure>
       ) : null,

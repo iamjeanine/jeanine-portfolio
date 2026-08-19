@@ -384,7 +384,10 @@ const ENTRIES: LabEntry[] = [
   {
     id: 'ai-creator-lab',
     client: 'Wondery',
-    year: '2025',
+    // Widened to a range (Jeanine, 2026-08-19), superseding the single-year
+    // 2025 the field comment above still describes: the lab ran across
+    // 2024-2025, not just its final year.
+    year: '2024–2025',
     title: 'AI Creator Lab',
     // Sentence case, and no second "lab": taglines render as typed in
     // the chapter index, where every sibling is sentence case, and the
