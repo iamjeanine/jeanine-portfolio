@@ -247,11 +247,12 @@ const ENTRIES: LabEntry[] = [
         body: 'The first prototype is based on The Kids’ Guidebook to the Rock, an original children’s story about a girl visiting her father in a Florida prison after his failed escape.',
       },
       {
-        // Her wording, 2026-08-15 ("reimagines" agreed from her dictated
-        // "reimagine"). "Launching soon." is the relocated badge, kept in
-        // its exact approved wording rather than rephrased into a claim.
+        // Rewritten 2026-08-19: the "prototype asks what happens when"
+        // framing buried the actual hook under throat-clearing. Leads with
+        // the mechanism instead. "Launching soon." stays, exact approved
+        // wording per the 2026-08-15 pass.
         label: 'Build',
-        body: 'The prototype asks what happens when code reimagines a story every listen. Launching soon.',
+        body: 'A prototype that reimagines the story with every listen. Launching soon.',
       },
     ],
     // The Living Photocopy cover film: 1080p web derivative cut from the
