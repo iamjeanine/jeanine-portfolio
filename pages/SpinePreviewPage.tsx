@@ -322,8 +322,13 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       <div
         style={{
           maxWidth: '34ch',
+          // Pure fade, no rise (Jeanine, 2026-08-19): even on the retuned
+          // curve, the 12px translateY still read as popping into place.
+          // The name's own rise stays -- it's carrying the blur and
+          // letter-spacing settle too, so 12px reads as part of that
+          // larger arrival rather than an isolated jump the way it did
+          // here on a plain opacity fade.
           opacity: shown ? 1 : 0,
-          transform: shown ? 'none' : 'translateY(12px)',
           ...entrance(900),
         }}
       >
