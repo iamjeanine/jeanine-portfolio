@@ -543,6 +543,7 @@ const ProjectDetailPage = () => {
             projectId={project.id}
             startUnmuted={false}
             startTime={archive.startTime}
+            softLoop={archive.softLoop}
           />
           <figcaption
             className="flex flex-col gap-2 border-t px-4 py-4 sm:px-5"

@@ -173,6 +173,12 @@ export const PROJECTS: Project[] = [
           // heading hasn't landed — that was the sliver), and it's fully
           // settled by 21.
           startTime: 21,
+          // The tail (duration 52.35s) is a scroll blur into solid black
+          // with the loading circles still visible -- confirmed by
+          // scrubbing to 52.3s directly. That's what flashed on every
+          // loop restart. softLoop dips to black just before it and eases
+          // back in after the restart, same mechanism as Unstill's veil.
+          softLoop: true,
           caption: 'AI Lab Archive\n\nTo support the lab, I built an online hub where the curriculum could live.\n\nEach module included a NotebookLM podcast walkthrough, study guide, FAQs, and the original presentation. Some modules also included recorded sessions with industry partners demonstrating the tools in practice.\n\nThe archive allowed teams across the company to learn at their own pace or revisit sessions as the tools evolved.'
         }
     ],
