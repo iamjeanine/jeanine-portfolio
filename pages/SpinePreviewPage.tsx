@@ -178,13 +178,22 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
   // recruiter-persona pass landed on the same reading of that, one calling
   // it "nothing moves and nothing invites."
   //
-  // Same curve, durations and stagger as the original hero, so this reads
-  // as the site's own gesture rather than a new one: 1200ms on
-  // cubic-bezier(0.2,0.8,0.2,1), lines at 300ms and 550ms, supporting copy
-  // at 900ms and 1050ms, with the kicker added at 150ms since the Cover has
-  // one and the hero did not. The letter-spacing settle (0.08em to the
-  // Cover's own -0.02em) is the part that carries the "type setting
-  // itself" quality; it is not decoration on top of a fade.
+  // Same durations and stagger as the original hero, so this reads as the
+  // site's own gesture rather than a new one: 1200ms, lines at 300ms and
+  // 550ms, supporting copy at 900ms and 1050ms, with the kicker added at
+  // 150ms since the Cover has one and the hero did not. The letter-spacing
+  // settle (0.08em to the Cover's own -0.02em) is the part that carries
+  // the "type setting itself" quality; it is not decoration on top of a
+  // fade.
+  //
+  // Curve retuned from the original hero's cubic-bezier(0.2,0.8,0.2,1)
+  // (Jeanine, 2026-08-19): that curve front-loads motion hard -- 80% of
+  // the distance covered in the first 20% of the duration -- so anything
+  // riding it that isn't also softened by the name's blur (the tagline,
+  // kicker, nav) read as popping into place and then sitting through an
+  // imperceptible, overlong tail. Material's standard ease-in-out spreads
+  // the same 1200ms evenly across a rise and settle instead of a snap and
+  // coast, with no change to any of the durations or delays above.
   //
   // Reduced motion is read synchronously in the initial state, not in an
   // effect, so `shown` starts true and no transition property is ever
@@ -233,7 +242,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
   }, [reduced]);
 
   const entrance = (delay: number): React.CSSProperties =>
-    reduced ? {} : { transition: `all 1200ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms` };
+    reduced ? {} : { transition: `all 1200ms cubic-bezier(0.4,0,0.2,1) ${delay}ms` };
 
   return (
   <section
