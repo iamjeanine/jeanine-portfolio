@@ -198,11 +198,38 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
 
   useEffect(() => {
     if (reduced) return;
+    let cancelled = false;
     // One frame of the pre-entrance state has to actually paint for the
     // transition to run at all; setting state directly in the effect would
     // batch into the same commit and jump straight to the end.
-    const raf = requestAnimationFrame(() => setShown(true));
-    return () => cancelAnimationFrame(raf);
+    let raf = 0;
+    let begun = false;
+    const begin = () => {
+      if (begun) return;
+      begun = true;
+      raf = requestAnimationFrame(() => {
+        if (!cancelled) setShown(true);
+      });
+    };
+    // Bodoni Moda loads with font-display: swap and nothing else preloads
+    // it. On a cold cache the swap from the fallback serif can land mid-
+    // entrance, reflowing the headline into its real metrics on top of the
+    // letter-spacing settle already in motion -- a second, uncontrolled
+    // snap stacked on the deliberate one. Bounded so a slow or failed font
+    // load can't hang the entrance itself.
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      const timeout = window.setTimeout(begin, 400);
+      document.fonts.ready.then(() => {
+        window.clearTimeout(timeout);
+        begin();
+      }).catch(begin);
+    } else {
+      begin();
+    }
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+    };
   }, [reduced]);
 
   const entrance = (delay: number): React.CSSProperties =>
