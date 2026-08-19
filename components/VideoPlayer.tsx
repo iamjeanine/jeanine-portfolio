@@ -25,7 +25,11 @@ const fadeVolumeIn = (video: HTMLVideoElement, frameRef: React.MutableRefObject<
   video.volume = 0;
   const start = performance.now();
   const step = (now: number) => {
-    const t = Math.min(1, (now - start) / ms);
+    // now can land fractionally before `start` on the very first frame
+    // (observed in production right after navigation) — an unclamped
+    // lower bound sends volume briefly negative, which throws and kills
+    // the rAF chain, leaving the video stuck silent instead of faded in.
+    const t = Math.min(1, Math.max(0, (now - start) / ms));
     video.volume = t;
     frameRef.current = t < 1 ? requestAnimationFrame(step) : null;
   };
