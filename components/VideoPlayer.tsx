@@ -17,9 +17,25 @@ interface VideoPlayerProps {
   softLoop?: boolean;
 }
 
+// Ramps volume from 0 up to 1 instead of snapping to full volume on unmute,
+// which read as an abrupt pop. Cancelable so a fresh fade (or an unmount)
+// doesn't fight a previous one still in flight.
+const fadeVolumeIn = (video: HTMLVideoElement, frameRef: React.MutableRefObject<number | null>, ms = 700) => {
+  if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+  video.volume = 0;
+  const start = performance.now();
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / ms);
+    video.volume = t;
+    frameRef.current = t < 1 ? requestAnimationFrame(step) : null;
+  };
+  frameRef.current = requestAnimationFrame(step);
+};
+
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false, softLoop = false }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const fadeFrameRef = useRef<number | null>(null);
   // On mobile, keep everything muted, no auto-unmuting
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   // Always start muted so autoplay works (browsers block unmuted autoplay).
@@ -56,6 +72,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     // A CTA-click silence applies to the page it happened on, not to the
     // next project this same player instance renders after SPA navigation.
     silencedRef.current = false;
+    if (fadeFrameRef.current !== null) {
+      cancelAnimationFrame(fadeFrameRef.current);
+      fadeFrameRef.current = null;
+    }
   }, [src, posterUrl]);
 
   // Opening an external prototype must not leave this page's soundtrack
@@ -64,6 +84,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
   useEffect(() => {
     const handleSilence = () => {
       silencedRef.current = true;
+      if (fadeFrameRef.current !== null) {
+        cancelAnimationFrame(fadeFrameRef.current);
+        fadeFrameRef.current = null;
+      }
       if (videoRef.current) videoRef.current.muted = true;
       setIsMuted(true);
     };
@@ -85,6 +109,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
       setTimeout(() => {
         if (video && !video.paused && !silencedRef.current) {
           video.muted = false;
+          fadeVolumeIn(video, fadeFrameRef);
           setIsMuted(false);
         }
       }, 100);
@@ -153,7 +178,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
   const toggleMute = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsMuted(prev => !prev);
+    setIsMuted(prev => {
+      const next = !prev;
+      if (!next && videoRef.current) fadeVolumeIn(videoRef.current, fadeFrameRef);
+      return next;
+    });
   };
   
   const handleFullscreen = () => {
