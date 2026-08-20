@@ -75,7 +75,17 @@ export const PROJECTS: Project[] = [
     // it explains the "understands the story" idea without naming AI,
     // prompts, or models. Same no-colon/semicolon/em-dash check as the
     // rest of the copy.
-    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nTouch the small icon in the corner of the screen, and watch it redraw the scene right there, live.\n\nThis isn’t a prompt into an image generator. The code is reading the story itself, deciding what to keep and what to invent, the way you’d retell a story from memory. Ask it again, and it remembers a little differently.\n\nThat’s what fascinates me. What comes back is weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen never looks like the hundredth.",
+    //
+    // "Touch the small icon in the corner of the screen" reworded
+    // 2026-08-19 (Jeanine, mid-review): this page shows the cover film, not
+    // the prototype itself, so an instruction naming a specific on-screen
+    // element pointed at nothing here. The concrete "here's the control,
+    // here's what it looks like" instruction now lives inside the
+    // prototype, next to the actual icon, as a one-time first-visit hint
+    // (visual-audiobook-player/index.html). This paragraph only needs to
+    // promise what's inside, not describe a control that isn't on this
+    // page.
+    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nOpen the prototype, and you can redraw the scene yourself, live, with a touch.\n\nThis isn’t a prompt into an image generator. The code is reading the story itself, deciding what to keep and what to invent, the way you’d retell a story from memory. Ask it again, and it remembers a little differently.\n\nThat’s what fascinates me. What comes back is weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen never looks like the hundredth.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
