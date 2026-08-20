@@ -55,60 +55,19 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
-    // Her approved copy (2026-08-15, third pass), supplied by dictation.
-    // One reconstruction flagged to her at the time: the dictated text
-    // opened mid-phrase ("children's story, things are never...") and
-    // "In a" was restored to complete it. Checked against her rules:
-    // no colons, semicolons, or em dashes.
-    //
-    // Two paragraphs added 2026-08-19, after a first-look test: the reader
-    // (mobile, casual, didn't read closely) never found the redraw control
-    // and, separately, read this as generic Gen AI ("like Midjourney") once
-    // Jeanine tried explaining it in person. The question-then-reflection
-    // shape asked "what would code make of a story like that" and then
-    // jumped straight to "that's what fascinates me" without ever landing
-    // an answer in between. These two land the answer: the first is the
-    // concrete instruction (nothing upstream of it says the icon does
-    // anything), the second is the actual distinction Jeanine keeps coming
-    // back to (code reading and deciding, not a prompt), given as a
-    // person-retelling-a-story analogy rather than technical language, so
-    // it explains the "understands the story" idea without naming AI,
-    // prompts, or models. Same no-colon/semicolon/em-dash check as the
-    // rest of the copy.
-    //
-    // "Touch the small icon in the corner of the screen" reworded
-    // 2026-08-19 (Jeanine, mid-review): this page shows the cover film, not
-    // the prototype itself, so an instruction naming a specific on-screen
-    // element pointed at nothing here. The concrete "here's the control,
-    // here's what it looks like" instruction now lives inside the
-    // prototype, next to the actual icon, as a one-time first-visit hint
-    // (visual-audiobook-player/index.html).
-    //
-    // Rewritten again same day, after an engineering check of the actual
-    // render code (both the "living"/Pieced Together and "charcoal"
-    // editions): "the code is reading the story itself, deciding what to
-    // keep and invent" is not true of the implementation. Nothing parses
-    // story text at runtime, the beats and captions are hand-authored and
-    // fixed, and the imagery is pre-existing static assets. What's real:
-    // a seed decides how those same fixed pictures get torn, cropped, and
-    // layered together, differently on every listen. That happens live;
-    // the broader authored system it draws from (the "diversity law"
-    // ranges, the composition rules) was itself built with code, just not
-    // decided in realtime per listen, a distinction Jeanine drew explicitly
-    // rather than letting the copy blur build-time and runtime together.
-    //
-    // Also, on her explicit call: "Gen AI" is named directly this time
-    // rather than avoided, specifically to rule out the demonized category
-    // by name rather than leave it ambiguous. "Dreaming" stays as the
-    // governing metaphor over any human-craft comparison (a "printmaker"
-    // draft was rejected) because she wants the machine-ness left visible,
-    // not softened into something that reads as human skill. Dropped the
-    // "That's what fascinates me" line as redundant once "piecing together
-    // a child's world" was carrying the same wonder-beat; kept "The first
-    // listen never looks like the hundredth" as the closing line since it
-    // works as a standalone button rather than a second reflection stacked
-    // on the first.
-    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nThis isn’t a prompt into an image generator. It’s not Gen AI. The code takes the same pictures and reimagines them each listen, deciding how they’re torn, cropped, and layered together.\n\nThe way a machine might dream its way through a story. We’re getting a peek into how it’s piecing together a child’s world.\n\nOpen the prototype, and you can redraw the scene yourself, live, by dragging the cursor over the image.\n\nThe first listen never looks like the hundredth.",
+    // Approved copy (2026-08-15, dictation, third pass), with the redraw
+    // paragraph rewritten several times on 2026-08-19: added after a
+    // first-look test showed neither the mechanic nor the interaction was
+    // landing, corrected once an engineering check found the runtime code
+    // doesn't parse story text (a seed reworks pre-made images live, not a
+    // live reinterpretation), corrected again once Jeanine confirmed an
+    // AI/code process did do the real creative work at build time, guided
+    // by her. Final wording keeps that build-time credit implicit rather
+    // than spelled out, names Gen AI explicitly to rule it out by name, and
+    // keeps "dreaming" over any human-craft comparison so the machine-ness
+    // stays visible. No colons, semicolons, or em dashes, per her rule for
+    // this copy throughout.
+    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nThis isn’t a prompt into an image generator. It’s not Gen AI. The code takes the story and reimagines it each listen.\n\nThe way a machine might dream its way through a story. We’re getting a peek into how it’s piecing together a child’s world.\n\nOpen the prototype, and you can redraw the scene yourself, live, by dragging the cursor over the image.\n\nThe first listen never looks like the hundredth.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
