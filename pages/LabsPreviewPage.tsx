@@ -272,6 +272,9 @@ const ENTRIES: LabEntry[] = [
       poster: '/visual-audiobooks-poster.jpg',
       aspectRatio: '16 / 9',
       playOnce: true,
+      // The film's first beats are near-blank paper; starting past them
+      // keeps the card from opening on an empty frame (2026-08-20 audit).
+      startAt: 2,
       alt: 'Living Photocopy cover film for Visual Audiobooks: a paper collage cover for The Kids’ Guidebook to the Rock assembling itself',
     },
   },
@@ -1271,8 +1274,14 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         /* Same convention as .lab-open (dim static underline, brightens on
            interaction) so this reads as a link rather than just another
            bold term, since it sits beside two others that are not links. */
-        .lab-inline-link { border-bottom: 1px solid ${LAB.border}; transition: border-color 0.3s ease; }
-        .lab-inline-link:hover { border-color: ${LAB.accent}; }
+        /* Padding + negative margin expands the touch target to ~44px
+           without moving the text or the line box (2026-08-20 audit: the
+           only path to the campaign page measured 22px tall on phones).
+           The underline lives on the inner em so it stays hugging the
+           text instead of dropping to the padded box edge. */
+        .lab-inline-link { display: inline-block; padding: 0.75rem 0.375rem; margin: -0.75rem -0.375rem; }
+        .lab-inline-link em { border-bottom: 1px solid ${LAB.border}; transition: border-color 0.3s ease; }
+        .lab-inline-link:hover em { border-color: ${LAB.accent}; }
         .lab-inline-link:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; border-radius: 1px; }
       `}</style>
       {/* overflow-hidden (the SpreadShell default) contains the projector
@@ -1390,14 +1399,32 @@ const LabsPreviewPage: React.FC = () => {
       {/* Cream coda: same fix as the Spine's own breather, the narration
           line was an unnecessary stage direction; the real navigation
           (the link below) stays. */}
-      <footer className="px-6 md:px-24 py-20 md:py-28 flex items-baseline justify-end">
+      {/* Standalone footer carries real onward navigation (2026-08-20
+          audit): the back-link alone dead-ended, and was desktop-only. */}
+      <footer className="px-6 md:px-24 py-20 md:py-28 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-6">
         <Link
           to="/preview/productions"
-          className="hidden md:block text-[0.7rem] tracking-[0.18em] uppercase"
+          className="text-[0.7rem] tracking-[0.18em] uppercase"
           style={{ color: 'var(--ink-mute)' }}
         >
           &larr; Productions
         </Link>
+        <div className="flex items-baseline gap-8">
+          <Link
+            to="/about"
+            className="text-[0.7rem] tracking-[0.18em] uppercase"
+            style={{ color: 'var(--ink-mute)' }}
+          >
+            About
+          </Link>
+          <a
+            href="mailto:iamjeanine@me.com"
+            className="text-[0.7rem] tracking-[0.14em]"
+            style={{ color: 'var(--ink-mute)' }}
+          >
+            iamjeanine@me.com
+          </a>
+        </div>
       </footer>
     </div>
   );

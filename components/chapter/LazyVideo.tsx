@@ -81,6 +81,10 @@ export const LazyVideo: React.FC<{
   const videoRef = useRef<HTMLVideoElement>(null);
   const [near, setNear] = useState(false);
   const [visible, setVisible] = useState(false);
+  // Live on-screen state, unlike `near` which latches once for mounting.
+  // Playback follows it both ways: a page of looping films would otherwise
+  // keep every offscreen clip decoding for the whole visit.
+  const [onScreen, setOnScreen] = useState(false);
   const [errored, setErrored] = useState(false);
   const [naturalRatio, setNaturalRatio] = useState<string | undefined>(aspectRatio);
   // Whether a play-once clip has begun. A ref, not state: it changes inside
@@ -101,7 +105,7 @@ export const LazyVideo: React.FC<{
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (!shouldPlay) {
+    if (!shouldPlay || !onScreen) {
       v.pause();
       return;
     }
@@ -116,7 +120,7 @@ export const LazyVideo: React.FC<{
       return;
     }
     v.play().catch(() => {});
-  }, [shouldPlay, near, visible, playOnce]);
+  }, [shouldPlay, near, visible, onScreen, playOnce]);
 
   useEffect(() => {
     const el = ref.current;
@@ -133,6 +137,21 @@ export const LazyVideo: React.FC<{
     io.observe(el);
     return () => io.disconnect();
   }, [rootMargin]);
+
+  // Persistent observer for playback: unlike the latching mount observer,
+  // this one keeps reporting, so clips pause when scrolled away and resume
+  // on return. The small margin lets a clip keep playing just past the
+  // viewport edge instead of cutting at the exact boundary.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setOnScreen(entry.isIntersecting),
+      { rootMargin: '120px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Second, stricter observer for play-once clips: mount-and-buffer happens
   // at the prefetch margin above, but the single playthrough should not
@@ -179,7 +198,7 @@ export const LazyVideo: React.FC<{
           muted
           loop={startAt === undefined && !playOnce}
           playsInline
-          autoPlay={shouldPlay && !playOnce}
+          autoPlay={shouldPlay && !playOnce && onScreen}
           preload={playOnce ? 'auto' : 'metadata'}
           className="w-full h-full object-cover"
           style={{ backgroundColor: fallbackBackground }}

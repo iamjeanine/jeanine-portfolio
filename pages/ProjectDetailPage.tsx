@@ -92,7 +92,7 @@ const PrototypeExitLink = ({
 
 
 // Reusable component for the text block
-const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: boolean }) => {
+const ProjectTextBlock = ({ project, dark = false, headerAbove = false }: { project: Project; dark?: boolean; headerAbove?: boolean }) => {
   const paragraphs = project.description.split('\n\n').filter(Boolean);
   const lastParagraph = paragraphs[paragraphs.length - 1];
   const hasCallout = paragraphs.length > 2 && lastParagraph.length < 80;
@@ -127,13 +127,15 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
   return (
     <div className="w-full max-w-5xl mt-8 md:mt-12">
         <div className="max-w-2xl">
-            {/* Category label */}
-            {(project.client || project.categoryLabel) && (
+            {/* Category label (skipped when the page renders its header above
+                the film so the title lives in the first screen) */}
+            {!headerAbove && (project.client || project.categoryLabel) && (
               <p className={`${dark ? 'text-[0.68rem]' : 'text-[10px]'} tracking-[0.2em] uppercase font-normal mb-4 ${dark ? 'text-[var(--ember)]' : 'text-neutral-400'}`}>
                 {[project.client, project.categoryLabel].filter(Boolean).join(' \u00B7 ')}
               </p>
             )}
 
+            {!headerAbove && (
             <div className="mb-8">
               <h1
                 className={`${dark ? 'font-serif text-[clamp(2.8rem,6vw,5rem)] leading-[0.92] tracking-[-0.015em]' : 'text-3xl md:text-4xl'} font-normal ${dark ? 'text-[var(--cream-ink)]' : ''}`}
@@ -146,6 +148,7 @@ const ProjectTextBlock = ({ project, dark = false }: { project: Project; dark?: 
                 </p>
               )}
             </div>
+            )}
 
             {project.liveUrl && project.liveUrlFirst && (
               <div className="mb-10">
@@ -854,6 +857,29 @@ const ProjectDetailPage = () => {
             </a>
          </div>
       ) : (
+        <>
+        {/* On the dark-editorial standard pages the header renders above the
+            film, so the first screen names the project (2026-08-20 audit P2:
+            Visual Audiobooks opened on an anonymous full-height frame). */}
+        {isDarkEditorial && (
+          <div className="w-full max-w-5xl mb-6 md:mb-8">
+            <div className="max-w-2xl">
+              {(project.client || project.categoryLabel) && (
+                <p className="text-[0.68rem] tracking-[0.2em] uppercase font-normal mb-4 text-[var(--ember)]">
+                  {[project.client, project.categoryLabel].filter(Boolean).join(' · ')}
+                </p>
+              )}
+              <h1 className="font-serif text-[clamp(2.8rem,6vw,5rem)] leading-[0.92] tracking-[-0.015em] font-normal text-[var(--cream-ink)]">
+                {project.title}
+              </h1>
+              {(project.subtitle || project.descriptor) && (
+                <p className="mt-3 text-base leading-relaxed text-[rgba(242,237,226,0.72)] font-light">
+                  {project.subtitle || project.descriptor}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
         <div className="w-full max-w-5xl space-y-8">
             {project.mainVideos.map((video, index) => (
                 <div
@@ -900,8 +926,9 @@ const ProjectDetailPage = () => {
               )
             })}
         </div>
+        </>
       )}
-      <ProjectTextBlock project={project} dark={isDarkEditorial} />
+      <ProjectTextBlock project={project} dark={isDarkEditorial} headerAbove={isDarkEditorial} />
     </>
   );
 

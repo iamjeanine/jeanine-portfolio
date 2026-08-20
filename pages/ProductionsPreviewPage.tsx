@@ -1253,6 +1253,35 @@ const ProductionsPreviewPage: React.FC = () => {
           the chapter now ends on its own paper-ground credits screen, so
           PRODUCTIONS_LAST_COLOR and this page's cream are the same value
           and the bridge had nothing left to cross. */}
+      {/* Standalone footer (2026-08-20 audit): the page dead-ended after
+          the credits screen with no onward path. Same row as Labs'
+          standalone footer, mirrored: onward chapter right, About and
+          contact left. */}
+      <footer className="px-6 md:px-20 py-20 md:py-28 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-6">
+        <div className="flex items-baseline gap-8">
+          <Link
+            to="/about"
+            className="text-[0.7rem] tracking-[0.18em] uppercase"
+            style={{ color: 'var(--ink-mute)' }}
+          >
+            About
+          </Link>
+          <a
+            href="mailto:iamjeanine@me.com"
+            className="text-[0.7rem] tracking-[0.14em]"
+            style={{ color: 'var(--ink-mute)' }}
+          >
+            iamjeanine@me.com
+          </a>
+        </div>
+        <Link
+          to="/preview/labs"
+          className="text-[0.7rem] tracking-[0.18em] uppercase"
+          style={{ color: 'var(--ink-mute)' }}
+        >
+          Ghost Mode Labs &rarr;
+        </Link>
+      </footer>
     </div>
   );
 };
