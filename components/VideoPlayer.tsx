@@ -335,7 +335,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
         <button
           onClick={toggleMute}
           aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-          className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+          className={`absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-opacity ${
+            // While muted (including the first-visit fallback) the sound
+            // affordance must be discoverable without hover; once sound is
+            // on it recedes to the original hover-only behavior.
+            isMuted ? 'opacity-80' : 'opacity-0 group-hover:opacity-100'
+          }`}
         >
           {isMuted ? <AudioOffIcon /> : <AudioOnIcon />}
         </button>
