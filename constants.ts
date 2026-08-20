@@ -82,10 +82,33 @@ export const PROJECTS: Project[] = [
     // element pointed at nothing here. The concrete "here's the control,
     // here's what it looks like" instruction now lives inside the
     // prototype, next to the actual icon, as a one-time first-visit hint
-    // (visual-audiobook-player/index.html). This paragraph only needs to
-    // promise what's inside, not describe a control that isn't on this
-    // page.
-    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nOpen the prototype, and you can redraw the scene yourself, live, with a touch.\n\nThis isn’t a prompt into an image generator. The code is reading the story itself, deciding what to keep and what to invent, the way you’d retell a story from memory. Ask it again, and it remembers a little differently.\n\nThat’s what fascinates me. What comes back is weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen never looks like the hundredth.",
+    // (visual-audiobook-player/index.html).
+    //
+    // Rewritten again same day, after an engineering check of the actual
+    // render code (both the "living"/Pieced Together and "charcoal"
+    // editions): "the code is reading the story itself, deciding what to
+    // keep and invent" is not true of the implementation. Nothing parses
+    // story text at runtime, the beats and captions are hand-authored and
+    // fixed, and the imagery is pre-existing static assets. What's real:
+    // a seed decides how those same fixed pictures get torn, cropped, and
+    // layered together, differently on every listen. That happens live;
+    // the broader authored system it draws from (the "diversity law"
+    // ranges, the composition rules) was itself built with code, just not
+    // decided in realtime per listen, a distinction Jeanine drew explicitly
+    // rather than letting the copy blur build-time and runtime together.
+    //
+    // Also, on her explicit call: "Gen AI" is named directly this time
+    // rather than avoided, specifically to rule out the demonized category
+    // by name rather than leave it ambiguous. "Dreaming" stays as the
+    // governing metaphor over any human-craft comparison (a "printmaker"
+    // draft was rejected) because she wants the machine-ness left visible,
+    // not softened into something that reads as human skill. Dropped the
+    // "That's what fascinates me" line as redundant once "piecing together
+    // a child's world" was carrying the same wonder-beat; kept "The first
+    // listen never looks like the hundredth" as the closing line since it
+    // works as a standalone button rather than a second reflection stacked
+    // on the first.
+    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nThis isn’t a prompt into an image generator. It’s not Gen AI. The code takes the same pictures and reimagines them each listen, deciding how they’re torn, cropped, and layered together.\n\nThe way a machine might dream its way through a story. We’re getting a peek into how it’s piecing together a child’s world.\n\nOpen the prototype, and you can redraw the scene yourself, live, by dragging the cursor over the image.\n\nThe first listen never looks like the hundredth.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
