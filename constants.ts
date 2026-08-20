@@ -60,7 +60,22 @@ export const PROJECTS: Project[] = [
     // opened mid-phrase ("children's story, things are never...") and
     // "In a" was restored to complete it. Checked against her rules:
     // no colons, semicolons, or em dashes.
-    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nThat’s what fascinates me. What comes back is weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen never looks like the hundredth.",
+    //
+    // Two paragraphs added 2026-08-19, after a first-look test: the reader
+    // (mobile, casual, didn't read closely) never found the redraw control
+    // and, separately, read this as generic Gen AI ("like Midjourney") once
+    // Jeanine tried explaining it in person. The question-then-reflection
+    // shape asked "what would code make of a story like that" and then
+    // jumped straight to "that's what fascinates me" without ever landing
+    // an answer in between. These two land the answer: the first is the
+    // concrete instruction (nothing upstream of it says the icon does
+    // anything), the second is the actual distinction Jeanine keeps coming
+    // back to (code reading and deciding, not a prompt), given as a
+    // person-retelling-a-story analogy rather than technical language, so
+    // it explains the "understands the story" idea without naming AI,
+    // prompts, or models. Same no-colon/semicolon/em-dash check as the
+    // rest of the copy.
+    description: "In a children’s story, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child hears the same story a hundred times and pictures it a hundred ways.\n\nSo what would code make of a story like that? What would it hold onto, and what would it find in there that we never saw?\n\nTouch the small icon in the corner of the screen, and watch it redraw the scene right there, live.\n\nThis isn’t a prompt into an image generator. The code is reading the story itself, deciding what to keep and what to invent, the way you’d retell a story from memory. Ask it again, and it remembers a little differently.\n\nThat’s what fascinates me. What comes back is weird and whimsical, and sometimes unexpectedly beautiful.\n\nThe first listen never looks like the hundredth.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
@@ -71,6 +86,11 @@ export const PROJECTS: Project[] = [
     // handoff).
     liveUrl: 'https://visiting-day.vercel.app/visual-audiobook-player/',
     liveUrlLabel: 'Explore the prototype',
+    // Default eyebrow ("Interactive prototype") named the category, not
+    // the hook. This sits directly above the button a skimmer actually
+    // clicks, so it carries the one line most likely to be read at all
+    // (2026-08-19, same first-look test as the description additions).
+    liveUrlEyebrow: 'Redraws itself, live, while you watch',
     // Flow ruling in progress (2026-08-16): the card sits above the
     // description so skimmers meet the door in the first screenful; the
     // bottom keeps a quiet text link as the reader's exit. Approved shape
