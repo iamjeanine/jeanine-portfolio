@@ -145,6 +145,18 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
           video.muted = false;
           fadeVolumeIn(video, fadeFrameRef);
           setIsMuted(false);
+          // First-visit fallback: browsers with no engagement history for
+          // this site pause playback the moment it is unmuted without a
+          // gesture, which froze every sound-on hero on a recruiter's
+          // first visit (2026-08-20 audit P0). Detect the pause and fall
+          // back to muted, moving pictures with the unmute button offered.
+          setTimeout(() => {
+            if (video && video.paused && !silencedRef.current) {
+              video.muted = true;
+              setIsMuted(true);
+              video.play().catch(() => {});
+            }
+          }, 180);
         }
       }, 100);
     };
@@ -214,7 +226,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     e.stopPropagation();
     setIsMuted(prev => {
       const next = !prev;
-      if (!next && videoRef.current) fadeVolumeIn(videoRef.current, fadeFrameRef);
+      if (!next && videoRef.current) {
+        fadeVolumeIn(videoRef.current, fadeFrameRef);
+        // Unmuting is a real gesture, so playback is allowed even where
+        // autoplay-with-sound was refused; resume if the browser paused it.
+        if (videoRef.current.paused) videoRef.current.play().catch(() => {});
+      }
       return next;
     });
   };
