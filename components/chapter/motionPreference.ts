@@ -39,3 +39,19 @@ function subscribe(listener: () => void) {
 export function useMotionPaused() {
   return useSyncExternalStore(subscribe, isMotionPaused, () => false);
 }
+
+/**
+ * Scroll behavior that honors prefers-reduced-motion. scrollIntoView and
+ * scrollTo with an explicit `behavior: 'smooth'` ignore the CSS
+ * scroll-behavior override entirely, so the reduced-motion sweep has to
+ * happen at the call site: a rail click that animates a five-chapter
+ * glide for everyone else becomes an instant jump for visitors who asked
+ * for less motion. Read at call time, not module load, so a preference
+ * flipped mid-visit is respected.
+ */
+export function preferredScrollBehavior(): ScrollBehavior {
+  return typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 'auto'
+    : 'smooth';
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd, gradientStart } from '../components/chapter';
+import { preferredScrollBehavior } from '../components/chapter/motionPreference';
 import {
   ProductionsChapter,
   SCAMFLUENCERS_FIELD,
@@ -123,8 +124,10 @@ const RAIL_SECTIONS: RailSection[] = [
 
 const VALID_CHAPTERS = new Set(RAIL_SECTIONS.map((s) => s.id));
 
-const scrollToSection = (id: string, behavior: ScrollBehavior = 'smooth') => {
-  document.getElementById(id)?.scrollIntoView({ behavior, block: 'start' });
+const scrollToSection = (id: string, behavior?: ScrollBehavior) => {
+  document
+    .getElementById(id)
+    ?.scrollIntoView({ behavior: behavior ?? preferredScrollBehavior(), block: 'start' });
 };
 
 /**
@@ -136,7 +139,7 @@ const scrollToSection = (id: string, behavior: ScrollBehavior = 'smooth') => {
 const skipToSection = (id: string) => {
   const el = document.getElementById(id);
   if (!el) return;
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
   el.focus({ preventScroll: true });
 };
 
@@ -550,7 +553,7 @@ const SpinePreviewPage: React.FC = () => {
   const goToCover = () => {
     lastSyncedChapter.current = undefined;
     navigate(chapterPath());
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: preferredScrollBehavior() });
   };
 
   // Passive scroll: silently keep the URL in step via history.replace (no

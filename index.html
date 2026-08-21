@@ -149,8 +149,24 @@
         from { opacity: 0; transform: translateX(-28px); }
       }
 
-      /* Reduced motion */
+      /* Reduced motion. The global flatten finishes every animation in one
+         instant pass: iteration-count 1 stops the infinite ambient loops
+         (the scroll cue's falling line, the phone hint's pulsing ring),
+         and the 0.01s duration turns one-shot entrances into static
+         arrivals. !important is required — both loops set their animation
+         in inline styles. Transitions are deliberately left alone: the
+         remaining ones are opacity and color feedback (hover eases, the
+         pressed-state dip), which reduced motion should keep. JS-driven
+         motion is handled at its source (LazyVideo posters, parallax,
+         ColorBridge, the cover entrance, and preferredScrollBehavior for
+         programmatic scrolling — scrollIntoView ignores CSS overrides).
+         The ::view-transition rule stays separate: those pseudos live
+         outside the tree the * selector reaches. */
       @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01s !important;
+          animation-iteration-count: 1 !important;
+        }
         .grain-overlay { animation: none !important; }
         ::view-transition-old(*),
         ::view-transition-new(*) { animation-duration: 0.01s !important; }

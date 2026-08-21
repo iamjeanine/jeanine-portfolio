@@ -1,4 +1,5 @@
 import React from 'react';
+import { preferredScrollBehavior } from './motionPreference';
 
 export interface ChapterContentsItem {
   anchor: string;
@@ -35,7 +36,7 @@ export const ChapterContents: React.FC<ChapterContentsProps> = ({
   const openItem = (anchor: string, moveFocus: boolean) => {
     const target = document.getElementById(anchor);
     if (!target) return;
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
     // Keyboard and assistive-technology activation moves the reading cursor
     // with the viewport. Pointer activation only scrolls: forcing focus after
     // a mouse/touch click paints a browser outline around an entire cinematic

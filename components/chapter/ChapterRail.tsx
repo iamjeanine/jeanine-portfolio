@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useElementVisible } from './useElementVisible';
+import { preferredScrollBehavior } from './motionPreference';
 
 export interface RailSection {
   id: string;
@@ -210,7 +211,9 @@ export const ChapterRail: React.FC<{
       };
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
     onNavigate?.(id);
   };
 
