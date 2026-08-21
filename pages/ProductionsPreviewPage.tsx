@@ -697,6 +697,7 @@ const Spread: React.FC<{
                   fontSize:
                     data.stat.value.length > 6 ? 'var(--stat-long)' : 'var(--stat)',
                   lineHeight: 1.05,
+                  letterSpacing: '-0.01em',
                   color: p.ink,
                   maxWidth: '12ch',
                 }}
@@ -1155,7 +1156,7 @@ export const ProductionsChapter: React.FC = () => (
             just at the clamp's cap. */}
         <h2
           className="text-[2.4rem] md:text-[3.5rem] leading-none"
-          style={{ fontFamily: DISPLAY_FAMILY, color: 'var(--ink)' }}
+          style={{ fontFamily: DISPLAY_FAMILY, letterSpacing: '-0.01em', color: 'var(--ink)' }}
         >
           Productions
         </h2>

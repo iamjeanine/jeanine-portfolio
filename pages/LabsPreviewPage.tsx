@@ -758,6 +758,7 @@ const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat 
         // the full column so they hold to one line like their siblings.
         fontSize: stat.value.length > 24 ? 'var(--stat-sentence)' : stat.value.length > 6 ? 'var(--stat-long)' : 'var(--stat)',
         lineHeight: 1.05,
+        letterSpacing: '-0.01em',
         color: LAB.ink,
         maxWidth: stat.value.length > 24 ? '34ch' : '14ch',
       }}
@@ -1317,7 +1318,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
         <div id="labs-chapter-header" className="pt-24 md:pt-40 pb-24 md:pb-40">
           <h2
             className="text-[2.4rem] md:text-[3.5rem] leading-none"
-            style={{ fontFamily: SERIF_DISPLAY, color: LAB.ink }}
+            style={{ fontFamily: SERIF_DISPLAY, letterSpacing: '-0.01em', color: LAB.ink }}
           >
             Ghost Mode Labs
           </h2>

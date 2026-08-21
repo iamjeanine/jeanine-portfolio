@@ -660,6 +660,7 @@ const SpinePreviewPage: React.FC = () => {
           style={{
             fontFamily: "'Bodoni Moda', serif",
             fontSize: 'var(--display-md)',
+            letterSpacing: '-0.01em',
             color: 'var(--ink)',
           }}
         >
@@ -742,6 +743,7 @@ const SpinePreviewPage: React.FC = () => {
               fontFamily: "'Bodoni Moda', serif",
               fontSize: 'var(--display-md)',
               lineHeight: 1.05,
+              letterSpacing: '-0.01em',
               color: SCAMFLUENCERS_INK,
             }}
           >
