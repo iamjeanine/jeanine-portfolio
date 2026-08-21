@@ -308,3 +308,20 @@
   padding: 0.45rem 0.5rem;
   margin: -0.45rem -0.5rem;
 }
+
+/* Pressed-state response: acknowledge on pointer-down, not on release.
+   The whole site answered a press with silence (zero :active rules); on
+   touch, where hover does not exist, nothing happened between tap and
+   navigation. The treatment is an ink-like dip, in the site's print
+   idiom, rather than a scale bounce: fast in (~80ms, instant enough to
+   read as contact), and the element's own transition eases it back out
+   on release. Opacity only, so it composes with any hover transform and
+   is safe under prefers-reduced-motion (non-vestibular). :focus-visible
+   outlines and disabled controls are unaffected. */
+a:active,
+button:active:not(:disabled),
+summary:active,
+[role="button"]:active {
+  opacity: 0.65;
+  transition: opacity 80ms ease-out;
+}
