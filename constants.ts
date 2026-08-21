@@ -55,10 +55,10 @@ export const PROJECTS: Project[] = [
       }
     ],
     descriptor: "Original children’s stories that can change each time you return",
-    // Approved copy (2026-08-20, dictation, replaces the 2026-08-15 pass).
+    // Approved copy (2026-08-21, dictation, replaces the 2026-08-20 pass).
     // No colons, semicolons, or em dashes, per her rule for this copy
     // throughout.
-    description: "In children’s stories, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child can hear the same story a hundred times and picture it a hundred different ways.\n\nThis prototype asks what those imagined worlds might look like if they could change every time a child returned to the story.\n\nInstead of using a generative AI image model, this prototype uses code to redraw the illustrations every time the story is heard.\n\nOpen the prototype and click Redraw, or drag across the image to reshape the scene yourself.",
+    description: "In children’s stories, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child can hear the same story a hundred times and picture it a hundred different ways. What happens when code interprets the story too?\n\nInstead of using a generative AI image model, this prototype uses code to reimagine the visuals with every listen. As the story plays, the child can reshape the scene live.\n\nOpen the prototype and click Redraw for a new version, or drag the mouse across the image to reshape it yourself.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
