@@ -332,6 +332,14 @@ const ProjectDetailPage = () => {
           overscrollBehavior: 'contain',
         }}
       >
+        {/* Scroll-edge fade: the page's own ground dissolving over the top
+            56px, so scrolled-out type fades into the paper instead of
+            being cut mid-letter by the viewport edge. Ground-over-ground,
+            so it is invisible until something scrolls beneath it. */}
+        <div
+          className="fixed top-0 left-0 right-0 pointer-events-none z-20"
+          style={{ height: '56px', background: 'linear-gradient(to bottom, var(--ink-deep), transparent)' }}
+        />
         <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-4 py-5 sm:px-6 md:px-10 md:py-7 xl:px-14">
           <header className="flex w-full shrink-0 items-center justify-between">
             <button
@@ -1020,6 +1028,20 @@ const ProjectDetailPage = () => {
             ? 'linear-gradient(to bottom, rgba(242,237,226,0.018), transparent 26%)'
             : 'linear-gradient(to bottom, rgba(0,0,0,0.03), transparent)',
           zIndex: 0,
+        }}
+      />
+      {/* Scroll-edge fade: the page ground dissolving over the top 56px,
+          so scrolled-out type fades into the paper instead of being cut
+          mid-letter by the viewport edge. Ground-over-ground, invisible
+          until content scrolls beneath it. */}
+      <div
+        className="fixed top-0 left-0 right-0 pointer-events-none"
+        style={{
+          height: '56px',
+          background: isDarkEditorial
+            ? 'linear-gradient(to bottom, var(--ink-deep), transparent)'
+            : 'linear-gradient(to bottom, #F5F2EC, transparent)',
+          zIndex: 20,
         }}
       />
 
