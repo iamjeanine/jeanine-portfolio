@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics, type BeforeSendEvent } from '@vercel/analytics/react';
 
 // Owner exclusion: visiting ghostmode.studio/?me=1 once in a browser marks
 // it as Jeanine's; every visit from that browser is then dropped before it
@@ -14,13 +14,34 @@ try {
 } catch {
   // Private-mode storage failures just mean this visit counts normally.
 }
-const dropOwnerVisits = (event: { url: string }) => {
+// Hash routes are invisible to Vercel Analytics: every route under HashRouter
+// reports as "/", because the server derives the page from the URL path and the
+// hash never reaches it. Route changes do fire pageviews (hash history calls
+// pushState, which the analytics script patches), so the counts are right and
+// only the labels are lost. Folding the hash into the pathname before the event
+// leaves gives each chapter and project detail page its own row.
+const foldHashIntoPath = (rawUrl: string) => {
+  const url = new URL(rawUrl);
+  const route = url.hash.match(/^#(\/[^?#]*)/);
+  if (!route) return rawUrl;
+  const [, pathname] = route;
+  url.pathname = pathname.length > 1 ? pathname.replace(/\/+$/, '') : '/';
+  url.hash = '';
+  return url.toString();
+};
+
+const analyticsBeforeSend = (event: BeforeSendEvent) => {
   try {
     if (window.localStorage.getItem(OWNER_KEY) === '1') return null;
   } catch {
     // fall through: count the visit
   }
-  return event;
+  try {
+    return { ...event, url: foldHashIntoPath(event.url) };
+  } catch {
+    // A URL we cannot parse still counts, just under its original label.
+    return event;
+  }
 };
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import ProductionsPreviewPage from './pages/ProductionsPreviewPage';
@@ -41,7 +62,7 @@ function App() {
         <Route path="/preview/spine/:chapter" element={<SpinePreviewPage />} />
         <Route path="/preview/cover-options" element={<CoverOptionsPreviewPage />} />
       </Routes>
-      <Analytics beforeSend={dropOwnerVisits} />
+      <Analytics beforeSend={analyticsBeforeSend} />
     </HashRouter>
   );
 }
