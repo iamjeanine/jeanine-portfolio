@@ -732,9 +732,13 @@ const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const OpenProjectLink: React.FC<{ id: string; label?: string }> = ({ id, label = 'Open project' }) => {
   const spineNav = useSpineNavigate();
+  // Seven identical "Open project" links are indistinguishable in a
+  // screen reader's link list; the accessible name carries the project.
+  const projectTitle = PROJECTS.find((p) => p.id === id)?.title;
   return (
     <Link
       to={`/project/${id}`}
+      aria-label={projectTitle ? `${label}: ${projectTitle}` : undefined}
       onClick={(e) => { rememberProjectReturnScroll(e); spineNav(e, `/project/${id}`, 'forward'); }}
       className="lab-open mt-10 inline-flex items-baseline gap-2 text-[0.75rem] tracking-[0.18em] uppercase"
       style={{ color: LAB.ink }}
@@ -1384,10 +1388,18 @@ const LabsPreviewPage: React.FC = () => {
   const spineNav = useSpineNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = 'Ghost Mode Labs · Jeanine Cornillot';
+    return () => {
+      document.title = 'Jeanine Cornillot';
+    };
   }, []);
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
+      {/* Standalone route: the chapter's own heading is an h2 (correct on
+          the spine, where the cover h1 outranks it), so this page had no
+          h1 at all. Screen-reader only; the visual title is unchanged. */}
+      <h1 className="sr-only">Ghost Mode Labs · Jeanine Emilia Cornillot</h1>
       <MotionToggle hideWhileVisibleId="labs-chapter-header" />
 
       {/* Cream strip: where the Productions coda hands off */}
@@ -1396,7 +1408,7 @@ const LabsPreviewPage: React.FC = () => {
           <Link
             to="/"
             onClick={(e) => spineNav(e, '/', 'back')}
-            className="text-[0.7rem] tracking-[0.18em] uppercase"
+            className="standalone-hit text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
             Jeanine Emilia Cornillot
@@ -1426,7 +1438,7 @@ const LabsPreviewPage: React.FC = () => {
         <Link
           to="/preview/productions"
           onClick={(e) => spineNav(e, '/preview/productions', 'back')}
-          className="text-[0.7rem] tracking-[0.18em] uppercase"
+          className="standalone-hit text-[0.7rem] tracking-[0.18em] uppercase"
           style={{ color: 'var(--ink-mute)' }}
         >
           &larr; Productions
@@ -1435,14 +1447,14 @@ const LabsPreviewPage: React.FC = () => {
           <Link
             to="/about"
             onClick={(e) => spineNav(e, '/about', 'forward')}
-            className="text-[0.7rem] tracking-[0.18em] uppercase"
+            className="standalone-hit text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
             About
           </Link>
           <a
             href="mailto:iamjeanine@me.com"
-            className="text-[0.7rem] tracking-[0.14em]"
+            className="standalone-hit text-[0.7rem] tracking-[0.14em]"
             style={{ color: 'var(--ink-mute)' }}
           >
             iamjeanine@me.com

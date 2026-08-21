@@ -1227,10 +1227,17 @@ const ProductionsPreviewPage: React.FC = () => {
   const spineNav = useSpineNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = 'Productions · Jeanine Cornillot';
+    return () => {
+      document.title = 'Jeanine Cornillot';
+    };
   }, []);
 
   return (
     <div style={{ backgroundColor: 'var(--bg-site)' }}>
+      {/* Standalone route: the chapter heading is an h2 (correct on the
+          spine), so this page had no h1. Screen-reader only. */}
+      <h1 className="sr-only">Productions · Jeanine Emilia Cornillot</h1>
       {/* Cream connective tissue: chapter opening (identity only; the
           "Productions" title itself lives in ProductionsChapter, see
           there for why) */}
@@ -1239,7 +1246,7 @@ const ProductionsPreviewPage: React.FC = () => {
           <Link
             to="/"
             onClick={(e) => spineNav(e, '/', 'back')}
-            className="text-[0.7rem] tracking-[0.18em] uppercase"
+            className="standalone-hit text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
             Jeanine Emilia Cornillot
@@ -1266,14 +1273,14 @@ const ProductionsPreviewPage: React.FC = () => {
           <Link
             to="/about"
             onClick={(e) => spineNav(e, '/about', 'forward')}
-            className="text-[0.7rem] tracking-[0.18em] uppercase"
+            className="standalone-hit text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
             About
           </Link>
           <a
             href="mailto:iamjeanine@me.com"
-            className="text-[0.7rem] tracking-[0.14em]"
+            className="standalone-hit text-[0.7rem] tracking-[0.14em]"
             style={{ color: 'var(--ink-mute)' }}
           >
             iamjeanine@me.com
@@ -1282,7 +1289,7 @@ const ProductionsPreviewPage: React.FC = () => {
         <Link
           to="/preview/labs"
           onClick={(e) => spineNav(e, '/preview/labs', 'forward')}
-          className="text-[0.7rem] tracking-[0.18em] uppercase"
+          className="standalone-hit text-[0.7rem] tracking-[0.18em] uppercase"
           style={{ color: 'var(--ink-mute)' }}
         >
           Ghost Mode Labs &rarr;

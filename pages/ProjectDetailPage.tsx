@@ -251,7 +251,18 @@ const ProjectDetailPage = () => {
   // between the homepage card and the project's media.
   const project = PROJECTS.find(candidate => candidate.id === id) ?? null;
   const [isClosing, setIsClosing] = useState(false);
-  
+
+  // Every route shared one <title>, so history and open tabs were
+  // indistinguishable (2026-08-20 audit P3). Restore the base title on
+  // the way out so the spine never inherits a project's.
+  useEffect(() => {
+    if (!project) return;
+    document.title = `${project.title} · Jeanine Cornillot`;
+    return () => {
+      document.title = 'Jeanine Cornillot';
+    };
+  }, [project]);
+
 
   useEffect(() => {
     // Scroll to top on new project load

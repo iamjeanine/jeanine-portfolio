@@ -309,6 +309,15 @@
   margin: -0.45rem -0.5rem;
 }
 
+/* The standalone chapter pages' header/footer links are 17px label type;
+   this lifts each one to a ~44px touch target without moving the text
+   (2026-08-20 audit P3: eight sub-24px links, all in these two rows). */
+.standalone-hit {
+  display: inline-block;
+  padding: 0.85rem 0.5rem;
+  margin: -0.85rem -0.5rem;
+}
+
 /* Pressed-state response: acknowledge on pointer-down, not on release.
    The whole site answered a press with silence (zero :active rules); on
    touch, where hover does not exist, nothing happened between tap and
