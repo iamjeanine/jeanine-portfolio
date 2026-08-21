@@ -12,6 +12,7 @@ interface VideoPlayerProps {
   loop?: boolean;
   showControls?: boolean;
   hasAudio?: boolean;
+  volume?: number;
   projectId?: string;
   startUnmuted?: boolean;
   softLoop?: boolean;
@@ -21,10 +22,12 @@ interface VideoPlayerProps {
   startTime?: number;
 }
 
-// Ramps volume from 0 up to 1 instead of snapping to full volume on unmute,
-// which read as an abrupt pop. Cancelable so a fresh fade (or an unmount)
+// Ramps volume from 0 up to `target` instead of snapping to full volume on
+// unmute, which read as an abrupt pop. `target` defaults to 1; pages whose
+// masters run hot pass a lower cap so browsing page to page stays level
+// (2026-08-21 loudness pass). Cancelable so a fresh fade (or an unmount)
 // doesn't fight a previous one still in flight.
-const fadeVolumeIn = (video: HTMLVideoElement, frameRef: React.MutableRefObject<number | null>, ms = 700) => {
+const fadeVolumeIn = (video: HTMLVideoElement, frameRef: React.MutableRefObject<number | null>, ms = 700, target = 1) => {
   if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
   video.volume = 0;
   const start = performance.now();
@@ -34,13 +37,13 @@ const fadeVolumeIn = (video: HTMLVideoElement, frameRef: React.MutableRefObject<
     // lower bound sends volume briefly negative, which throws and kills
     // the rAF chain, leaving the video stuck silent instead of faded in.
     const t = Math.min(1, Math.max(0, (now - start) / ms));
-    video.volume = t;
+    video.volume = t * target;
     frameRef.current = t < 1 ? requestAnimationFrame(step) : null;
   };
   frameRef.current = requestAnimationFrame(step);
 };
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, projectId, startUnmuted = false, softLoop = false, startTime = 0 }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateImageUrl, aspectRatio, autoplay = false, loop = false, showControls = false, hasAudio = false, volume = 1, projectId, startUnmuted = false, softLoop = false, startTime = 0 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const fadeFrameRef = useRef<number | null>(null);
@@ -143,7 +146,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
       setTimeout(() => {
         if (video && !video.paused && !silencedRef.current) {
           video.muted = false;
-          fadeVolumeIn(video, fadeFrameRef);
+          fadeVolumeIn(video, fadeFrameRef, 700, volume);
           setIsMuted(false);
           // First-visit fallback: browsers with no engagement history for
           // this site pause playback the moment it is unmuted without a
@@ -227,7 +230,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, posterUrl, glassPlateIma
     setIsMuted(prev => {
       const next = !prev;
       if (!next && videoRef.current) {
-        fadeVolumeIn(videoRef.current, fadeFrameRef);
+        fadeVolumeIn(videoRef.current, fadeFrameRef, 700, volume);
         // Unmuting is a real gesture, so playback is allowed even where
         // autoplay-with-sound was refused; resume if the browser paused it.
         if (videoRef.current.paused) videoRef.current.play().catch(() => {});

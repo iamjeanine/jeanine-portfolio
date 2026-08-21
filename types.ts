@@ -10,6 +10,10 @@ export interface ProjectVideo {
   caption?: string;
   showControls?: boolean;
   hasAudio?: boolean;
+  /** Playback volume cap, 0-1. Measured 2026-08-21: four sound-on pages
+   *  already sat within 2.3dB of each other; this trims the hot outliers
+   *  web-side to meet that cluster instead of re-exporting masters. */
+  volume?: number;
   startMuted?: boolean;
   glassPlateImageUrl?: string;
   /** Dip to dark at the film's tail and ease the restart in, masking a

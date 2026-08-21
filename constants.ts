@@ -47,6 +47,9 @@ export const PROJECTS: Project[] = [
         loop: true,
         showControls: true,
         hasAudio: true,
+        // Measured 2026-08-21: this master's loudest passage ran ~5dB above
+        // the four already-matched sound pages; 0.55 lands it in their band.
+        volume: 0.55,
         startMuted: false,
         // The film blooms out at its tail but opens cold; until the
         // CapCut master is re-exported with its opening bloom, the
@@ -100,6 +103,9 @@ export const PROJECTS: Project[] = [
         loop: true,
         showControls: true,
         hasAudio: true,
+        // Measured 2026-08-21: the loudest page by ~10dB (4x the matched
+        // cluster); 0.3 brings it level so page-to-page browsing stays even.
+        volume: 0.3,
         startMuted: false
       }
     ],

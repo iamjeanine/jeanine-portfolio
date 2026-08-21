@@ -460,6 +460,7 @@ const ProjectDetailPage = () => {
             loop={demo.loop}
             showControls={demo.showControls}
             hasAudio={demo.hasAudio}
+            volume={demo.volume}
             projectId={project.id}
             startUnmuted={Boolean(demo.hasAudio && !demo.startMuted)}
           />
@@ -565,6 +566,7 @@ const ProjectDetailPage = () => {
             loop={archive.loop}
             showControls={archive.showControls}
             hasAudio={archive.hasAudio}
+            volume={archive.volume}
             projectId={project.id}
             startUnmuted={false}
             startTime={archive.startTime}
@@ -636,6 +638,7 @@ const ProjectDetailPage = () => {
             loop={demo.loop}
             showControls={demo.showControls}
             hasAudio={demo.hasAudio}
+            volume={demo.volume}
             projectId={project.id}
             startUnmuted={Boolean(demo.hasAudio && !demo.startMuted)}
           />
@@ -689,6 +692,7 @@ const ProjectDetailPage = () => {
             loop={demo.loop}
             showControls={demo.showControls}
             hasAudio={demo.hasAudio}
+            volume={demo.volume}
             projectId={project.id}
             startUnmuted={Boolean(demo.hasAudio && !demo.startMuted)}
           />
@@ -776,6 +780,7 @@ const ProjectDetailPage = () => {
                 loop={artifact.loop}
                 showControls={artifact.showControls}
                 hasAudio={artifact.hasAudio}
+                volume={artifact.volume}
                 projectId={project.id}
                 startUnmuted={false}
               />
@@ -921,6 +926,7 @@ const ProjectDetailPage = () => {
                     loop={video.loop}
                     showControls={video.showControls}
                     hasAudio={video.hasAudio}
+                    volume={video.volume}
                     projectId={project.id}
                     startUnmuted={index === 0 && video.hasAudio && !video.startMuted}
                     softLoop={video.softLoop}
@@ -973,6 +979,7 @@ const ProjectDetailPage = () => {
                   loop={project.mainVideos[0].loop}
                   showControls={project.mainVideos[0].showControls}
                   hasAudio={project.mainVideos[0].hasAudio}
+                  volume={project.mainVideos[0].volume}
                   projectId={project.id}
                 />
                 {project.mainVideos[0].caption && (
@@ -997,6 +1004,7 @@ const ProjectDetailPage = () => {
                   loop={video2.loop}
                   showControls={video2.showControls}
                   hasAudio={video2.hasAudio}
+                  volume={video2.volume}
                   projectId={project.id}
                 />
                 {video2.caption && (
