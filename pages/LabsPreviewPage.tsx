@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSpineNavigate } from '../hooks/useViewTransition';
 import { PROJECTS } from '../constants';
 import {
   ChapterContents,
@@ -71,6 +72,26 @@ const rememberProjectReturnScroll = (event: React.MouseEvent<HTMLAnchorElement>)
   } catch {
     // Navigation still works when session storage is unavailable.
   }
+};
+
+/**
+ * The campaign's inline prose link, as a component so it can use the
+ * spine-navigate hook (its JSX lives in the module-level ENTRIES array,
+ * where hooks are out of reach). Opening a project is a step forward
+ * along the spine.
+ */
+const CampaignProjectLink: React.FC = () => {
+  const spineNav = useSpineNavigate();
+  const to = '/project/in-world-social-campaign';
+  return (
+    <Link
+      to={to}
+      className="lab-inline-link"
+      onClick={(e) => { rememberProjectReturnScroll(e); spineNav(e, to, 'forward'); }}
+    >
+      <em style={{ color: LAB.accent, fontStyle: 'normal' }}>In-world social campaign</em>
+    </Link>
+  );
 };
 
 const DETAIL_POSTERS = PROJECTS.flatMap(project => [
@@ -432,13 +453,7 @@ const ENTRIES: LabEntry[] = [
                     (three videos, a full write-up) but had nothing linking
                     to it since the campaign folded into this entry and its
                     own chapter listing was cut. */}
-                <Link
-                  to="/project/in-world-social-campaign"
-                  className="lab-inline-link"
-                  onClick={rememberProjectReturnScroll}
-                >
-                  <em style={{ color: LAB.accent, fontStyle: 'normal' }}>In-world social campaign</em>
-                </Link>
+                <CampaignProjectLink />
                 {' '}&mdash; a dozen in-world prototypes for The Last City.
                 Two moved into production, one beat its engagement
                 benchmarks.
@@ -715,19 +730,22 @@ const Reveal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-const OpenProjectLink: React.FC<{ id: string; label?: string }> = ({ id, label = 'Open project' }) => (
-  <Link
-    to={`/project/${id}`}
-    onClick={rememberProjectReturnScroll}
-    className="lab-open mt-10 inline-flex items-baseline gap-2 text-[0.75rem] tracking-[0.18em] uppercase"
-    style={{ color: LAB.ink }}
-  >
-    {label}
-    <span aria-hidden="true" style={{ color: LAB.accent }}>
-      &rarr;
-    </span>
-  </Link>
-);
+const OpenProjectLink: React.FC<{ id: string; label?: string }> = ({ id, label = 'Open project' }) => {
+  const spineNav = useSpineNavigate();
+  return (
+    <Link
+      to={`/project/${id}`}
+      onClick={(e) => { rememberProjectReturnScroll(e); spineNav(e, `/project/${id}`, 'forward'); }}
+      className="lab-open mt-10 inline-flex items-baseline gap-2 text-[0.75rem] tracking-[0.18em] uppercase"
+      style={{ color: LAB.ink }}
+    >
+      {label}
+      <span aria-hidden="true" style={{ color: LAB.accent }}>
+        &rarr;
+      </span>
+    </Link>
+  );
+};
 
 const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat }) => (
   <div className="mt-10 md:mt-14">
@@ -1362,6 +1380,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
 };
 
 const LabsPreviewPage: React.FC = () => {
+  const spineNav = useSpineNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -1375,6 +1394,7 @@ const LabsPreviewPage: React.FC = () => {
         <div className="flex items-baseline justify-between">
           <Link
             to="/"
+            onClick={(e) => spineNav(e, '/', 'back')}
             className="text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
@@ -1404,6 +1424,7 @@ const LabsPreviewPage: React.FC = () => {
       <footer className="px-6 md:px-24 py-20 md:py-28 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-6">
         <Link
           to="/preview/productions"
+          onClick={(e) => spineNav(e, '/preview/productions', 'back')}
           className="text-[0.7rem] tracking-[0.18em] uppercase"
           style={{ color: 'var(--ink-mute)' }}
         >
@@ -1412,6 +1433,7 @@ const LabsPreviewPage: React.FC = () => {
         <div className="flex items-baseline gap-8">
           <Link
             to="/about"
+            onClick={(e) => spineNav(e, '/about', 'forward')}
             className="text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >

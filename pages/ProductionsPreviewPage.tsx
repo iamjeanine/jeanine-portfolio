@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSpineNavigate } from '../hooks/useViewTransition';
 import {
   ChapterContents,
   ColorBridge,
@@ -1222,6 +1223,7 @@ export const ProductionsChapter: React.FC = () => (
 );
 
 const ProductionsPreviewPage: React.FC = () => {
+  const spineNav = useSpineNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -1235,6 +1237,7 @@ const ProductionsPreviewPage: React.FC = () => {
         <div className="flex items-baseline justify-between">
           <Link
             to="/"
+            onClick={(e) => spineNav(e, '/', 'back')}
             className="text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
@@ -1261,6 +1264,7 @@ const ProductionsPreviewPage: React.FC = () => {
         <div className="flex items-baseline gap-8">
           <Link
             to="/about"
+            onClick={(e) => spineNav(e, '/about', 'forward')}
             className="text-[0.7rem] tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-mute)' }}
           >
@@ -1276,6 +1280,7 @@ const ProductionsPreviewPage: React.FC = () => {
         </div>
         <Link
           to="/preview/labs"
+          onClick={(e) => spineNav(e, '/preview/labs', 'forward')}
           className="text-[0.7rem] tracking-[0.18em] uppercase"
           style={{ color: 'var(--ink-mute)' }}
         >

@@ -6,7 +6,7 @@ import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
 import { BackIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
 import PhoneEmbed from '../components/PhoneEmbed';
-import { useViewTransitionNavigate } from '../hooks/useViewTransition';
+import { useViewTransitionNavigate, useSpineNavigate } from '../hooks/useViewTransition';
 
 
 const ProjectActionCard = ({
@@ -245,6 +245,7 @@ const ProjectDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const vtNavigate = useViewTransitionNavigate();
+  const spineNav = useSpineNavigate();
   // Resolve the route synchronously. The previous effect-driven lookup left
   // the first render completely empty, which created a visible dark flash
   // between the homepage card and the project's media.
@@ -280,7 +281,8 @@ const ProjectDetailPage = () => {
       setTimeout(() => navigate(destination as any), 300);
       return;
     }
-    vtNavigate(destination);
+    // Closing a project is always a step back toward the spine.
+    vtNavigate(destination, 'back');
   };
   
   if (!project) {
@@ -343,6 +345,7 @@ const ProjectDetailPage = () => {
             </button>
             <Link
               to="/"
+              onClick={(e) => spineNav(e, '/', 'back')}
               className="text-[0.65rem] uppercase tracking-[0.2em] transition-colors duration-300 hover:text-[var(--cream-ink)]"
               style={{ color: 'rgba(242,237,226,0.67)' }}
             >
@@ -1031,7 +1034,7 @@ const ProjectDetailPage = () => {
             <BackIcon />
             <span className={isDarkEditorial ? '' : 'opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out font-light text-sm'}>Work</span>
           </button>
-          <Link to="/" className={`${isDarkEditorial ? 'text-[0.65rem] tracking-[0.2em] text-[rgba(242,237,226,0.67)] hover:text-[var(--cream-ink)]' : 'text-[11px] tracking-[0.18em] text-neutral-400 hover:text-neutral-700'} uppercase transition-colors duration-300`}>
+          <Link to="/" onClick={(e) => spineNav(e, '/', 'back')} className={`${isDarkEditorial ? 'text-[0.65rem] tracking-[0.2em] text-[rgba(242,237,226,0.67)] hover:text-[var(--cream-ink)]' : 'text-[11px] tracking-[0.18em] text-neutral-400 hover:text-neutral-700'} uppercase transition-colors duration-300`}>
             Jeanine Emilia Cornillot
           </Link>
         </header>
@@ -1065,6 +1068,7 @@ const ProjectDetailPage = () => {
             <div className="flex flex-col gap-3 md:hidden">
                 <Link
                   to={`/project/${prevProject.id}`}
+                  onClick={(e) => spineNav(e, `/project/${prevProject.id}`, 'back')}
                   className={`flex items-center gap-3 px-4 py-3 border rounded-sm transition-colors ${isDarkEditorial ? 'border-[rgba(242,237,226,0.18)] text-[rgba(242,237,226,0.62)] hover:border-[rgba(242,237,226,0.34)] hover:text-[var(--cream-ink)]' : 'border-neutral-200 text-neutral-600 hover:text-neutral-800 hover:border-neutral-400'}`}
                 >
                     <PrevIcon />
@@ -1075,6 +1079,7 @@ const ProjectDetailPage = () => {
                 </Link>
                 <Link
                   to={`/project/${nextProject.id}`}
+                  onClick={(e) => spineNav(e, `/project/${nextProject.id}`, 'forward')}
                   className={`flex items-center justify-end gap-3 px-4 py-3 border rounded-sm transition-colors text-right ${isDarkEditorial ? 'border-[rgba(242,237,226,0.18)] text-[rgba(242,237,226,0.62)] hover:border-[rgba(242,237,226,0.34)] hover:text-[var(--cream-ink)]' : 'border-neutral-200 text-neutral-600 hover:text-neutral-800 hover:border-neutral-400'}`}
                 >
                     <div className="min-w-0">
@@ -1089,6 +1094,7 @@ const ProjectDetailPage = () => {
               <div className="grid grid-cols-2">
                 <Link
                   to={`/project/${prevProject.id}`}
+                  onClick={(e) => spineNav(e, `/project/${prevProject.id}`, 'back')}
                   className={`group flex items-center gap-4 py-6 pr-8 transition-colors ${isDarkEditorial ? 'text-[rgba(242,237,226,0.55)] hover:text-[var(--cream-ink)]' : 'text-neutral-500 hover:text-neutral-800'}`}
                 >
                   <span className="transition-transform duration-200 group-hover:-translate-x-1">
@@ -1101,6 +1107,7 @@ const ProjectDetailPage = () => {
                 </Link>
                 <Link
                   to={`/project/${nextProject.id}`}
+                  onClick={(e) => spineNav(e, `/project/${nextProject.id}`, 'forward')}
                   className={`group flex items-center justify-end gap-4 py-6 pl-8 border-l transition-colors text-right ${isDarkEditorial ? 'border-[rgba(242,237,226,0.16)] text-[rgba(242,237,226,0.55)] hover:text-[var(--cream-ink)]' : 'border-neutral-200 text-neutral-500 hover:text-neutral-800'}`}
                 >
                   <div>

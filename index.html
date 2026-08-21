@@ -103,6 +103,29 @@
         animation: vt-fade-in 0.3s ease-in 0.1s both;
       }
 
+      /* Directional variants: when a navigation moves along the spine
+         (deeper into the book = forward, toward the cover = back), the
+         route change reads as movement in that direction instead of a
+         placeless crossfade. hooks/useViewTransition.ts stamps
+         <html data-vt-dir> just before the transition. Old and new run
+         together (no delay) so the slide is continuous; the easings are
+         mirrored per the reversibility rule: the leaving page accelerates
+         away, the arriving page decelerates into place. 28px is a hint of
+         motion, not a carousel. The project-hero morph rides on top
+         unchanged. */
+      html[data-vt-dir="forward"] ::view-transition-old(root) {
+        animation: vt-slide-out-left 0.35s cubic-bezier(0.4, 0, 1, 1) both;
+      }
+      html[data-vt-dir="forward"] ::view-transition-new(root) {
+        animation: vt-slide-in-right 0.35s cubic-bezier(0, 0, 0.2, 1) both;
+      }
+      html[data-vt-dir="back"] ::view-transition-old(root) {
+        animation: vt-slide-out-right 0.35s cubic-bezier(0.4, 0, 1, 1) both;
+      }
+      html[data-vt-dir="back"] ::view-transition-new(root) {
+        animation: vt-slide-in-left 0.35s cubic-bezier(0, 0, 0.2, 1) both;
+      }
+
       @keyframes vt-fade-out {
         from { opacity: 1; }
         to { opacity: 0; }
@@ -111,6 +134,19 @@
       @keyframes vt-fade-in {
         from { opacity: 0; }
         to { opacity: 1; }
+      }
+
+      @keyframes vt-slide-out-left {
+        to { opacity: 0; transform: translateX(-28px); }
+      }
+      @keyframes vt-slide-in-right {
+        from { opacity: 0; transform: translateX(28px); }
+      }
+      @keyframes vt-slide-out-right {
+        to { opacity: 0; transform: translateX(28px); }
+      }
+      @keyframes vt-slide-in-left {
+        from { opacity: 0; transform: translateX(-28px); }
       }
 
       /* Reduced motion */
