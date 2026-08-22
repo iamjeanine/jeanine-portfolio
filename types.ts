@@ -64,6 +64,8 @@ export interface Project {
   liveUrl?: string;
   liveUrlLabel?: string;
   liveUrlEyebrow?: string;
+  /** One-line how-to rendered inside the action card, under the label. */
+  liveUrlNote?: string;
   /** Lift the action card above the description so skimmers cannot miss
    *  it; the old bottom position keeps a quiet text link as the reader's
    *  exit. Rolls out per project after Jeanine approves the shape. */

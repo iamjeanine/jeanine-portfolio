@@ -61,7 +61,7 @@ export const PROJECTS: Project[] = [
     // Approved copy (2026-08-21, dictation, replaces the 2026-08-20 pass).
     // No colons, semicolons, or em dashes, per her rule for this copy
     // throughout.
-    description: "In children’s stories, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child can hear the same story a hundred times and picture it a hundred different ways. What happens when code interprets the story too?\n\nInstead of using a generative AI image model, this prototype uses code to reimagine the visuals with every listen. As the story plays, the child can reshape the scene live.\n\nOpen the prototype and click Redraw for a new version, or drag the mouse across the image to reshape it yourself.",
+    description: "In children’s stories, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child can hear the same story a hundred times and picture it a hundred different ways. What happens when code interprets the story too?\n\nInstead of using a generative AI image model, this prototype uses code to reimagine the visuals with every listen. As the story plays, the child can reshape the scene live.\n\nNext, a choice of voices and music. A parent\u2019s, a grandparent\u2019s, the child\u2019s.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
@@ -76,7 +76,17 @@ export const PROJECTS: Project[] = [
     // the hook. This sits directly above the button a skimmer actually
     // clicks, so it carries the one line most likely to be read at all
     // (2026-08-19, same first-look test as the description additions).
-    liveUrlEyebrow: 'Redraws itself, live, while you watch',
+    // Was "Redraws itself, live, while you watch" (2026-08-22): two real
+    // viewers read that one line, did what it said, and watched. The
+    // subject is now the reader.
+    liveUrlEyebrow: 'You redraw it, live, while it plays',
+    // The redraw how-to lives on the door, not three paragraphs past it
+    // (2026-08-22 reading critique: the instruction sat at 1638px of an
+    // 1812px page, after the exit; nobody read it). Device-neutral: no
+    // mouse.
+    // Two imperatives, two ember words, the player's own Redraw mark in
+    // front of the first so they land looking for a shape they know.
+    liveUrlNote: 'Tap Redraw for a new drawing. Drag across the picture to reshape it.',
     // Flow ruling in progress (2026-08-16): the card sits above the
     // description so skimmers meet the door in the first screenful; the
     // bottom keeps a quiet text link as the reader's exit. Approved shape

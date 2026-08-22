@@ -13,11 +13,18 @@ const ProjectActionCard = ({
   url,
   eyebrow,
   label,
+  note,
   dark = true,
 }: {
   url: string;
   eyebrow: string;
   label: string;
+  /** One-line how-to inside the card. The action words "Redraw" and
+   *  "Drag" render in ember, the page's action color, so the two things
+   *  to do read as actions before the sentence is parsed; "Redraw" also
+   *  carries the player's corner mark so it is recognized on arrival
+   *  (2026-08-22, after two viewers read the page and redrew nothing). */
+  note?: string;
   dark?: boolean;
 }) => (
   <a
@@ -49,6 +56,41 @@ const ProjectActionCard = ({
       >
         {label}
       </span>
+      {note && (
+        <span
+          className={`mt-2 block text-[0.82rem] font-light leading-relaxed ${
+            dark ? 'text-[rgba(242,237,226,0.62)]' : 'text-neutral-500'
+          }`}
+        >
+          {note.split(/(Redraw|Drag)/).map((part, i) =>
+            part === 'Redraw' || part === 'Drag' ? (
+              <em
+                key={i}
+                className="not-italic font-normal whitespace-nowrap"
+                style={{ color: dark ? 'var(--ember)' : '#B3543A' }}
+              >
+                {part === 'Redraw' && (
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 26 12"
+                    className="inline-block h-[0.62em] w-auto mr-[0.3em] align-[-0.04em]"
+                  >
+                    <g transform="rotate(-12 12 6)" fill="currentColor">
+                      <rect x="1" y="5.5" width="20" height="2" rx="1" />
+                      <rect x="3.5" y="8.5" width="7" height="1.6" rx="0.8" opacity="0.7" />
+                      <rect x="7" y="2.2" width="10" height="1.6" rx="0.8" opacity="0.7" />
+                      <circle cx="22.5" cy="3.6" r="2.4" />
+                    </g>
+                  </svg>
+                )}
+                {part}
+              </em>
+            ) : (
+              part
+            )
+          )}
+        </span>
+      )}
     </span>
     <span
       aria-hidden="true"
@@ -156,6 +198,7 @@ const ProjectTextBlock = ({ project, dark = false, headerAbove = false }: { proj
                   url={project.liveUrl}
                   eyebrow={project.liveUrlEyebrow || 'Interactive prototype'}
                   label={project.liveUrlLabel || 'Try the prototype'}
+                  note={project.liveUrlNote}
                   dark={dark}
                 />
               </div>
@@ -911,12 +954,27 @@ const ProjectDetailPage = () => {
             {project.mainVideos.map((video, index) => (
                 <div
                   key={`video-container-${index}`}
-                  className={isDarkEditorial ? 'border' : undefined}
+                  className={isDarkEditorial ? 'relative border' : 'relative'}
                   style={{
                     ...(index === 0 ? { viewTransitionName: 'project-hero' } : {}),
                     ...(isDarkEditorial ? { borderColor: 'rgba(242,237,226,0.18)' } : {}),
                   } as React.CSSProperties}
                 >
+                  {/* The film's settled frame paints its own "Open the book"
+                      button, formerly inert pixels that taught visitors this
+                      page's text is decorative (2026-08-22 reading critique).
+                      The whole frame is now the real door; the player's own
+                      controls sit above it at z-10. */}
+                  {project.id === 'visual-audiobooks' && project.liveUrl && index === 0 && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Open the book, opens the prototype in a new tab"
+                      className="absolute inset-0 z-[1] cursor-pointer"
+                      onClick={() => window.dispatchEvent(new Event('portfolio:silence-videos'))}
+                    />
+                  )}
                   <VideoPlayer
                     src={video.url}
                     posterUrl={video.posterUrl}
