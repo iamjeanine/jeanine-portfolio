@@ -261,7 +261,7 @@ const ENTRIES: LabEntry[] = [
     // her own voice claim, not a mechanism line. Concept ruling
     // (2026-08-22): voices are a wide range of human narrators to choose
     // from per telling, not family uploads; the detail page says the same.
-    stat: { value: 'A wide range of human narrators to choose from.', label: 'The voice is a choice too' },
+    stat: { value: 'A wide range of human voice artists to choose from.', label: 'The voice is a choice too' },
     expandables: [
       {
         label: 'Concept',

@@ -61,7 +61,7 @@ export const PROJECTS: Project[] = [
     // Approved copy (2026-08-21, dictation, replaces the 2026-08-20 pass).
     // No colons, semicolons, or em dashes, per her rule for this copy
     // throughout.
-    description: "In children’s stories, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child can hear the same story a hundred times and picture it a hundred different ways. What happens when code interprets the story too?\n\nInstead of using a generative AI image model, this prototype uses code to reimagine the visuals with every listen. As the story plays, the child can reshape the scene live.\n\nThe narration today is a prototype voice.\n\nNext, a wide range of human narrators to choose from, and music.",
+    description: "In children’s stories, things are never just what they are. A blanket becomes a landscape. A monster turns out to be a feeling.\n\nA child can hear the same story a hundred times and picture it a hundred different ways. What happens when code interprets the story too?\n\nInstead of using a generative AI image model, this prototype uses code to reimagine the visuals with every listen. As the story plays, the child can reshape the scene live.\n\nThe narration today is a prototype voice.\n\nNext, a wide range of human voice artists to choose from, and music.",
     // Public prototype went live 2026-08-15 on Vercel (deploys from the
     // visiting-day repo's main branch, opens on Pieced Together). The path
     // matters: the bare domain root serves an abandoned July-era player.html
