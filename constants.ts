@@ -84,9 +84,12 @@ export const PROJECTS: Project[] = [
     // (2026-08-22 reading critique: the instruction sat at 1638px of an
     // 1812px page, after the exit; nobody read it). Device-neutral: no
     // mouse.
-    // Two imperatives, two ember words, the player's own Redraw mark in
-    // front of the first so they land looking for a shape they know.
-    liveUrlNote: 'Tap Redraw for a new drawing. Drag across the picture to reshape it.',
+    // Sets the expectation that a turn is coming (so the player's own
+    // demonstration reads as a lesson, not the show), then the one action
+    // in the ember convention with the player's Redraw mark in front of it.
+    // One verb for the gesture across the whole journey: brush
+    // (2026-08-22 journey review; "drag" retired).
+    liveUrlNote: 'It shows you once, then hands you the brush. Tap Redraw and brush across the picture.',
     // Flow ruling in progress (2026-08-16): the card sits above the
     // description so skimmers meet the door in the first screenful; the
     // bottom keeps a quiet text link as the reader's exit. Approved shape
