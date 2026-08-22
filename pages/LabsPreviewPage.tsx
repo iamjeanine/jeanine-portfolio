@@ -258,8 +258,10 @@ const ENTRIES: LabEntry[] = [
     // film, the product-defining line was measured invisible; both real
     // viewers missed it). The earlier no-stat ruling (2026-08-17) was
     // about code/AI language in display type and still holds; this is
-    // her own voice claim, not a mechanism line.
-    stat: { value: 'Narrated by a parent, a grandparent, or the child.', label: 'The voice can be personal too' },
+    // her own voice claim, not a mechanism line. Concept ruling
+    // (2026-08-22): voices are a wide range of human narrators to choose
+    // from per telling, not family uploads; the detail page says the same.
+    stat: { value: 'A wide range of human narrators to choose from.', label: 'The voice is a choice too' },
     expandables: [
       {
         label: 'Concept',
