@@ -863,7 +863,7 @@ const ProjectDetailPage = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative block w-full aspect-video bg-neutral-200 border border-neutral-300"
-                aria-label={`View interactive pitch for ${project.title}`}
+                aria-label={`View pitch: ${project.title}, opens in a new tab`}
             >
                 <video
                     src={project.interactivePitch.previewVideoUrl}

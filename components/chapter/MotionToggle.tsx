@@ -70,7 +70,7 @@ export const MotionToggle: React.FC<{
          itself. The label alone is unambiguous. */
       className="fixed left-4 bottom-4 z-40 chapter-label chapter-rail-btn chapter-rail-hit chapter-rail-invert transition-opacity duration-300 hover:opacity-70"
     >
-      {paused ? 'Play motion' : 'Pause motion'}
+      {paused ? 'Resume motion' : 'Pause motion'}
     </button>
   );
 };

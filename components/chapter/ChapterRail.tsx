@@ -268,7 +268,7 @@ export const ChapterRail: React.FC<{
         className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
         style={{ opacity: suppressed ? 0 : 1, pointerEvents: suppressed ? 'none' : 'auto' }}
         aria-hidden={suppressed || undefined}
-        aria-label="Chapter navigation"
+        aria-label="Chapters"
       >
         {sections.map((s) => {
           const isActive = s.id === activeId;
@@ -353,7 +353,7 @@ export const ChapterRail: React.FC<{
             {active.index}{activeProgress ? ` · ${activeProgress}` : ''}
           </button>
           {mobileOpen && (
-            <nav aria-label="Chapter list" className="w-64 px-3 pb-3">
+            <nav aria-label="Chapters" className="w-64 px-3 pb-3">
               {sections.map((s) => {
                 const isActive = s.id === activeId;
                 return (

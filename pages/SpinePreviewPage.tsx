@@ -378,7 +378,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       </div>
 
       <nav
-        aria-label="Contents"
+        aria-label="Chapters"
         className="flex flex-col gap-3 md:items-end"
         style={{
           opacity: shown ? 1 : 0,
