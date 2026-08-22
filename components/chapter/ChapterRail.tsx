@@ -343,11 +343,12 @@ export const ChapterRail: React.FC<{
             aria-label={
               mobileOpen
                 ? 'Close chapter list'
-                : `Currently in ${active.label}${
-                    activeProgress
-                      ? `, ${activeProgress.replace('/', ' of ')}`
-                      : ''
-                  }. Open chapter list.`
+                : // Label in Name (WCAG 2.5.3): the accessible name opens
+                  // with the numerals the button visibly shows, so a
+                  // speech-input user can say what they see.
+                  `${active.index}${
+                    activeProgress ? ` \u00B7 ${activeProgress}` : ''
+                  }, currently in ${active.label}. Open chapter list.`
             }
           >
             {active.index}{activeProgress ? ` · ${activeProgress}` : ''}
