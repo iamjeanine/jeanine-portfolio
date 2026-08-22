@@ -251,17 +251,15 @@ const ENTRIES: LabEntry[] = [
           Children return to the same stories again and again. What if the
           book could redraw itself every time they came back?
         </p>
-        <p className="mt-3">
-          The voice can be personal too, with narration recorded by a
-          parent, grandparent, or even the child.
-        </p>
       </>
     ),
-    // No stat, by Jeanine's ruling (2026-08-17): "Written by hand, drawn
-    // by code" was the only display-type mention of code on either site
-    // and risked reading as an AI flag to industry visitors; the poetic
-    // alternatives felt unclear. The mechanism stays in the Build
-    // expandable, framed on her terms.
+    // The stat slot carries the voice claim at display rank (2026-08-22
+    // reading critique: as sentence two of paragraph two beside a playing
+    // film, the product-defining line was measured invisible; both real
+    // viewers missed it). The earlier no-stat ruling (2026-08-17) was
+    // about code/AI language in display type and still holds; this is
+    // her own voice claim, not a mechanism line.
+    stat: { value: 'Narrated by a parent, a grandparent, or the child.', label: 'The voice can be personal too' },
     expandables: [
       {
         label: 'Concept',
@@ -908,9 +906,13 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
             rather than being pinned to one column's role. */}
         <div
           className={
+            // col-span-6, not 5 (2026-08-22 reading critique): the body
+            // column measured 33-39 characters per line, caption width;
+            // taking the spare gutter column lifts it toward the 45ch
+            // comfort floor without moving the media column.
             data.flip
-              ? 'md:col-span-5 md:col-start-8 xl:pr-44'
-              : 'md:col-span-5 md:col-start-1'
+              ? 'md:col-span-6 md:col-start-7 xl:pr-44'
+              : 'md:col-span-6 md:col-start-1'
           }
         >
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-4">
@@ -930,7 +932,11 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           {data.description && (
             <div
               className="mt-5 text-[length:var(--body)] leading-relaxed"
-              style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '40ch' }}
+              // 52ch, not 40 (2026-08-22 reading critique): the ch unit
+              // underestimates serif averages, so 40ch measured 33-39 real
+              // characters per line, caption width. 52ch lands ~45-48 real
+              // CPL, the comfort floor; the widened col-span-6 gives it room.
+              style={{ fontFamily: SERIF_BODY, color: LAB.inkBody, maxWidth: '52ch' }}
             >
               {data.description}
             </div>
