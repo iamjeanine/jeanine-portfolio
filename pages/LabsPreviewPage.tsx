@@ -169,7 +169,7 @@ interface LabEntry {
   // dense enough to need a break (Static, once Last Active's own sentence
   // needed separating from the setup before it).
   description?: React.ReactNode;
-  stat?: { value: string; label: string };
+  stat?: { value: string; label?: string };
   // body is usually a plain paragraph; AI Creator Lab's Impact needs a real
   // list (three distinct projects), which reads as a wall of text run
   // together as prose in a 38ch column, so ReactNode is allowed here too.
@@ -261,7 +261,10 @@ const ENTRIES: LabEntry[] = [
     // her own voice claim, not a mechanism line. Concept ruling
     // (2026-08-22): voices are a wide range of human narrators to choose
     // from per telling, not family uploads; the detail page says the same.
-    stat: { value: 'A wide range of human voice artists to choose from.', label: 'The voice is a choice too' },
+    // Label is one word (Jeanine, 2026-08-22: the earlier "The voice is a
+    // choice too" was filler). "Next" marks the line as a promise, not a
+    // feature of the prototype as it stands, matching the detail page.
+    stat: { value: 'A wide range of human voice artists to choose from.', label: 'Next' },
     expandables: [
       {
         label: 'Concept',
@@ -769,9 +772,11 @@ const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat 
     >
       {stat.value}
     </p>
-    <p className="mt-2 chapter-label" style={{ color: LAB.inkSoft }}>
-      {stat.label}
-    </p>
+    {stat.label && (
+      <p className="mt-2 chapter-label" style={{ color: LAB.inkSoft }}>
+        {stat.label}
+      </p>
+    )}
   </div>
 );
 
