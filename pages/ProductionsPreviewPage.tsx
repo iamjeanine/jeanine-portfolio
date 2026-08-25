@@ -63,6 +63,10 @@ interface SpreadData {
    * rendered into a text link or read as a string.
    */
   name: string;
+  /** 'Podcast' or 'Television'. Rendered as its own small tracked-caps tag,
+   *  the same treatment Labs uses for `tagline`, so a reader can tell the
+   *  format at a glance without opening anything. */
+  format: string;
   eyebrow: string;
   title: React.ReactNode;
   /**
@@ -118,6 +122,7 @@ const SPREADS: SpreadData[] = [
   {
     slug: 'scamfluencers',
     name: 'Scamfluencers',
+    format: 'Podcast',
     awards: ['2023 Ambie winner', '2025 Ambie nominee', 'Vogue’s Best Podcasts', 'Apple’s Creators We Love'],
     eyebrow: 'Wondery · Amazon · 2022–Present',
     // Zero-width space, not a soft hyphen: the title needs a break
@@ -186,6 +191,7 @@ const SPREADS: SpreadData[] = [
   {
     slug: 'dying-for-sex',
     name: 'Dying for Sex',
+    format: 'Podcast',
     awards: ['Apple Podcasts Favorites of the Year'],
     eyebrow: 'Wondery · Amazon · 2019–2020',
     title: <>Dying for&nbsp;Sex</>,
@@ -227,6 +233,7 @@ const SPREADS: SpreadData[] = [
   {
     slug: 'the-last-city',
     name: 'The Last City',
+    format: 'Podcast',
     awards: ['Ambie Best Fiction nominee'],
     eyebrow: 'Wondery · Amazon · 2023–2025',
     title: <>The Last&nbsp;City</>,
@@ -278,6 +285,7 @@ const SPREADS: SpreadData[] = [
 const BORN_THIS_WAY: SpreadData = {
   slug: 'born-this-way',
   name: 'Born This Way',
+  format: 'Television',
   eyebrow: 'A&E · Bunim/Murray · 2015–2016',
   title: <>Born This&nbsp;Way</>,
   role: 'Supervising Producer',
@@ -337,6 +345,7 @@ const BORN_THIS_WAY: SpreadData = {
 const NO_PASSPORT_REQUIRED: SpreadData = {
   slug: 'no-passport-required',
   name: 'No Passport Required',
+  format: 'Television',
   eyebrow: 'Vox Media · Apple TV · PBS · 2018–2019',
   title: 'No Passport Required',
   role: 'Supervising Producer',
@@ -389,6 +398,7 @@ const NO_PASSPORT_REQUIRED: SpreadData = {
 const LIFE_OF_KYLIE: SpreadData = {
   slug: 'life-of-kylie',
   name: 'Life of Kylie',
+  format: 'Television',
   eyebrow: 'E! · Bunim/Murray · Apple TV · 2017–2018',
   title: <>Life of&nbsp;Kylie</>,
   role: 'Senior Supervising Producer',
@@ -678,6 +688,9 @@ const Spread: React.FC<{
           }`}
         >
           <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
+            {data.format}
+          </p>
+          <p className="mt-1 text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
             {data.role}
           </p>
           <p
@@ -801,6 +814,7 @@ const Spread: React.FC<{
 const HOLLYWOOD_CRIME: SpreadData = {
   slug: 'hollywood-and-crime',
   name: 'Hollywood & Crime',
+  format: 'Podcast',
   eyebrow: 'Wondery · Amazon · 2019–2024',
   title: <>Hollywood &amp;&nbsp;Crime</>,
   role: 'Senior Producer',
@@ -1061,6 +1075,9 @@ const ProductionCredits: React.FC<{ progressIndex: number; progressTotal: number
                 {credit.name}
               </h4>
               <p className="mt-1.5 chapter-label" style={{ color: 'var(--ink-mute)' }}>
+                {credit.format}
+              </p>
+              <p className="mt-0.5 chapter-label" style={{ color: 'var(--ink-mute)' }}>
                 {credit.role}
               </p>
               <p
