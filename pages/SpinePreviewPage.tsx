@@ -71,6 +71,13 @@ const PUBLICATIONS: { title: string; detail: string }[] = [
   },
 ];
 
+const PROGRAMS: { title: string; detail: string }[] = [
+  {
+    title: 'Google Labs Trusted Tester',
+    detail: 'Early access to pre-release AI tools',
+  },
+];
+
 const ColophonList: React.FC<{
   label: string;
   items?: { title: string; detail: string }[];
@@ -708,6 +715,7 @@ const SpinePreviewPage: React.FC = () => {
           <div className="lg:col-span-6 lg:col-start-7 flex flex-col gap-10">
             <ColophonList label="Awards" items={AWARDS} />
             <ColophonList label="Publications" items={PUBLICATIONS} />
+            <ColophonList label="Programs" items={PROGRAMS} />
           </div>
         </div>
       </section>
