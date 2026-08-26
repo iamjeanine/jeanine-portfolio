@@ -698,7 +698,7 @@ const SpinePreviewPage: React.FC = () => {
             <p>
               At Ghost Mode Labs, I develop original IP and prototype new
               ways to research, develop, and extend stories across scripted,
-              nonfiction, and interactive formats.
+              nonfiction, and new formats.
             </p>
           </div>
 

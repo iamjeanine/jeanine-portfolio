@@ -1345,7 +1345,7 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
           >
             At Ghost Mode Labs, I develop original IP and prototype new ways
             to research, develop, and extend stories across scripted,
-            nonfiction, and interactive formats.
+            nonfiction, and new formats.
           </p>
           <ChapterContents
             ariaLabel="Ghost Mode Labs project index"
