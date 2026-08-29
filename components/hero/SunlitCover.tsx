@@ -118,8 +118,8 @@ export const SunlitCover: React.FC<{ onSelectChapter: (id: string) => void }> = 
         <div
           className="absolute rounded-full"
           style={{
-            top: '11%',
-            right: '15%',
+            top: '17%',
+            right: '9%',
             width: 'clamp(14px, 1.4vw, 22px)',
             height: 'clamp(14px, 1.4vw, 22px)',
             background: '#B3543A',
@@ -129,8 +129,8 @@ export const SunlitCover: React.FC<{ onSelectChapter: (id: string) => void }> = 
         <div
           className="absolute rounded-full"
           style={{
-            top: '14.5%',
-            right: '18.5%',
+            top: '20.5%',
+            right: '12%',
             width: 'clamp(14px, 1.4vw, 22px)',
             height: 'clamp(14px, 1.4vw, 22px)',
             background: 'rgba(179,84,58,0.3)',
@@ -143,18 +143,32 @@ export const SunlitCover: React.FC<{ onSelectChapter: (id: string) => void }> = 
         />
       </div>
 
-      <p
-        className="relative pt-8 sm:pt-10 text-center"
-        style={{
-          fontFamily: MONO,
-          fontSize: '0.7rem',
-          letterSpacing: '0.34em',
-          textTransform: 'uppercase',
-          color: INK,
-        }}
-      >
-        Ghost Mode Studio
-      </p>
+      <div className="relative pt-8 sm:pt-10 text-center">
+        <p
+          style={{
+            fontFamily: MONO,
+            fontSize: '0.7rem',
+            letterSpacing: '0.34em',
+            textTransform: 'uppercase',
+            color: INK,
+          }}
+        >
+          Ghost Mode Studio
+        </p>
+        <p
+          className="mt-3 px-6"
+          style={{
+            fontFamily: DISPLAY,
+            fontSize: '0.9rem',
+            color: 'rgba(20,49,58,0.78)',
+          }}
+        >
+          <em style={{ fontFamily: DISPLAY_ITALIC, fontStyle: 'italic' }}>
+            Emmy and Ambie Award-winning
+          </em>{' '}
+          showrunner and executive producer.
+        </p>
+      </div>
 
       {/* The name stands on the waterline just below center; everything
           under it is reflection. */}
@@ -176,41 +190,112 @@ export const SunlitCover: React.FC<{ onSelectChapter: (id: string) => void }> = 
         </div>
       </div>
 
-      <div className="relative pb-8 sm:pb-10 flex flex-col items-center gap-5">
-        <p
-          className="text-center px-6"
-          style={{
-            fontFamily: DISPLAY,
-            fontSize: '0.95rem',
-            color: 'rgba(20,49,58,0.85)',
-          }}
-        >
-          <em style={{ fontFamily: DISPLAY_ITALIC, fontStyle: 'italic' }}>
-            Emmy and Ambie Award-winning
-          </em>{' '}
-          showrunner and executive producer.
-        </p>
-        <nav aria-label="Chapters" className="flex flex-wrap justify-center items-baseline gap-x-6 gap-y-1 px-4">
-          {[
-            { id: 'productions', label: 'Productions' },
-            { id: 'labs', label: 'Ghost Mode Labs' },
-            { id: 'about', label: 'About' },
-          ].map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => onSelectChapter(c.id)}
-              className="hero-utility-link inline-flex min-h-8 items-center"
-              style={navStyle}
+      {/* The chapters as three objects standing in the shallows, each
+          already wearing its chapter's ground color and casting its own
+          rippled reflection. The hero is the site's map: surface above,
+          the body of work beneath. Real raised objects with labels and a
+          hover lift, so navigation reads as things to press, not floating
+          caps. */}
+      <nav
+        aria-label="Chapters"
+        className="relative pb-8 sm:pb-10 flex justify-center items-end gap-[clamp(28px,5vw,72px)] px-4"
+      >
+        {[
+          {
+            id: 'productions',
+            index: '01',
+            label: 'Productions',
+            face: 'linear-gradient(165deg, #A0522D 0%, #8a3d1c 100%)',
+            tall: 'clamp(96px, 13dvh, 150px)',
+            ink: '#F6EFE7',
+          },
+          {
+            id: 'labs',
+            index: '02',
+            label: 'Ghost Mode Labs',
+            face: 'linear-gradient(165deg, #241a12 0%, #120C08 100%)',
+            tall: 'clamp(82px, 11dvh, 128px)',
+            ink: '#E8A672',
+          },
+          {
+            id: 'about',
+            index: '03',
+            label: 'About',
+            face: 'linear-gradient(165deg, #F3EEE3 0%, #E2DBC9 100%)',
+            tall: 'clamp(70px, 9.5dvh, 110px)',
+            ink: '#2b2118',
+          },
+        ].map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => onSelectChapter(c.id)}
+            className="hero-stone group relative flex flex-col items-center"
+          >
+            <span
+              className="relative flex items-start justify-center pt-2.5"
+              style={{
+                width: 'clamp(66px, 8.5vw, 108px)',
+                height: c.tall,
+                background: c.face,
+                borderRadius: '3px 3px 1px 1px',
+                boxShadow: '0 10px 28px -12px rgba(20,49,58,0.45)',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: MONO,
+                  fontSize: '0.62rem',
+                  letterSpacing: '0.2em',
+                  color: c.ink,
+                }}
+              >
+                {c.index}
+              </span>
+            </span>
+            {/* The stone's reflection in the shallows. */}
+            {/* Fixed reflection and label heights so every stone's base
+                sits on the same ground line under items-end. */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none"
+              style={{
+                width: 'clamp(66px, 8.5vw, 108px)',
+                height: '46px',
+                background: c.face,
+                transform: 'scaleY(-1)',
+                filter: 'url(#hero-ripple) blur(1.5px)',
+                opacity: 0.26,
+                maskImage: 'linear-gradient(0deg, black 0%, transparent 85%)',
+                WebkitMaskImage: 'linear-gradient(0deg, black 0%, transparent 85%)',
+                marginTop: '2px',
+              }}
+            />
+            <span
+              className="mt-2 text-center"
+              style={{
+                ...navStyle,
+                fontSize: '0.58rem',
+                letterSpacing: '0.14em',
+                maxWidth: 'clamp(96px, 12vw, 150px)',
+                lineHeight: 1.5,
+                minHeight: '1.8rem',
+                color: 'rgba(20,49,58,0.85)',
+              }}
             >
               {c.label}
-            </button>
-          ))}
-          <a href="mailto:iamjeanine@me.com" className="hero-utility-link inline-flex min-h-8 items-center" style={navStyle}>
-            iamjeanine@me.com
-          </a>
-        </nav>
-      </div>
+            </span>
+          </button>
+        ))}
+      </nav>
+
+      <a
+        href="mailto:iamjeanine@me.com"
+        className="hero-utility-link absolute bottom-3 left-4"
+        style={{ ...navStyle, fontSize: '0.6rem', color: 'rgba(20,49,58,0.55)' }}
+      >
+        iamjeanine@me.com
+      </a>
     </section>
   );
 };

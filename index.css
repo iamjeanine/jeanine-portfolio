@@ -129,6 +129,24 @@
     animation: none !important;
   }
 }
+.hero-stone {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hero-stone:hover {
+  transform: translateY(-6px);
+}
+.hero-stone:active {
+  transform: translateY(-4px);
+}
+.hero-stone:focus-visible {
+  outline: 2px solid rgba(20, 49, 58, 0.85);
+  outline-offset: 4px;
+}
+
 .hero-gel {
   background: none;
   border: none;
