@@ -71,8 +71,10 @@ const ProfileOverlay: React.FC<{ cls: string }> = ({ cls }) => {
       className="absolute inset-0 pointer-events-none overflow-hidden"
       style={{ maskImage: mask, WebkitMaskImage: mask }}
     >
+      {/* Sized so the face itself sits below the headline's band on real
+          viewports; only the crown rises into the break. */}
       <svg
-        className={`${cls} absolute right-0 bottom-0 h-[82%] w-[46%] min-w-[320px]`}
+        className={`${cls} absolute right-[2%] bottom-0 h-[58%] w-[46%] min-w-[320px]`}
         viewBox="0 0 600 900"
         preserveAspectRatio="xMidYMax meet"
       >
