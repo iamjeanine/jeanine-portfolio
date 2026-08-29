@@ -648,8 +648,10 @@ const SpinePreviewPage: React.FC = () => {
       {heroVariant === 'gels' && <GelRackCover onSelectChapter={goToChapter} />}
       {heroVariant === 'dusk' && <DuskCover onSelectChapter={goToChapter} />}
       {heroVariant === 'sunlit' && <SunlitCover onSelectChapter={goToChapter} />}
-      {/* Branch-only comp switcher. Remove before merging to main. */}
-      <HeroPicker current={heroVariant} />
+      {/* Branch-only comp switcher: hidden on the default view, appears
+          only when a ?hero= variant is explicitly opened. Remove before
+          merging to main. */}
+      {heroVariant !== 'off' && <HeroPicker current={heroVariant} />}
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>

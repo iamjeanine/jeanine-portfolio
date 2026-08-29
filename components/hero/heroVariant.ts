@@ -42,5 +42,5 @@ export function getHeroVariant(): HeroVariant {
   } catch {
     // Unparseable location: fall through to the branch default.
   }
-  return 'line-a';
+  return 'off';
 }
