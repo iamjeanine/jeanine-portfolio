@@ -9,6 +9,7 @@ import { HERO_MONO } from './HeroChrome';
  * which is exactly what the comps expect.
  */
 const OPTIONS: { value: HeroVariant; label: string }[] = [
+  { value: 'sunlit', label: 'Sunlit' },
   { value: 'dusk', label: 'Dusk' },
   { value: 'unstill', label: 'Unstill' },
   { value: 'gels', label: 'Gels' },

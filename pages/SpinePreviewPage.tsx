@@ -16,6 +16,7 @@ import { HeroPicker } from '../components/hero/HeroPicker';
 import { UnstillCover, UNSTILL_GROUND } from '../components/hero/UnstillCover';
 import { GelRackCover, GELS_GROUND } from '../components/hero/GelRackCover';
 import { DuskCover, DUSK_BRIDGE_FROM } from '../components/hero/DuskCover';
+import { SunlitCover, SUNLIT_BRIDGE_FROM } from '../components/hero/SunlitCover';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -630,6 +631,7 @@ const SpinePreviewPage: React.FC = () => {
       {heroVariant === 'unstill' && <UnstillCover onSelectChapter={goToChapter} />}
       {heroVariant === 'gels' && <GelRackCover onSelectChapter={goToChapter} />}
       {heroVariant === 'dusk' && <DuskCover onSelectChapter={goToChapter} />}
+      {heroVariant === 'sunlit' && <SunlitCover onSelectChapter={goToChapter} />}
       {/* Branch-only comp switcher. Remove before merging to main. */}
       <HeroPicker current={heroVariant} />
 
@@ -658,6 +660,7 @@ const SpinePreviewPage: React.FC = () => {
               unstill: UNSTILL_GROUND,
               gels: GELS_GROUND,
               dusk: DUSK_BRIDGE_FROM,
+              sunlit: SUNLIT_BRIDGE_FROM,
             }[heroVariant]
           }
           to="var(--bg-site)"
