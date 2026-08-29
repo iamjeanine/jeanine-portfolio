@@ -10,6 +10,8 @@ import {
   SCAMFLUENCERS_ACCENT,
 } from './ProductionsPreviewPage';
 import { LabsChapter, LAB } from './LabsPreviewPage';
+import { SignalHero } from '../components/hero/SignalHero';
+import { getHeroVariant } from '../components/hero/heroVariant';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -429,6 +431,10 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
 };
 
 const SpinePreviewPage: React.FC = () => {
+  // hero-explorations branch: ?hero=signal|off|plate switches the cover so
+  // the Vercel preview can be compared against production side by side.
+  // Read once per mount; the value never changes without a full page load.
+  const [heroVariant] = useState(getHeroVariant);
   const { chapter } = useParams<{ chapter?: string }>();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -608,8 +614,16 @@ const SpinePreviewPage: React.FC = () => {
         showWhileVisibleId="labs"
         hideWhileVisibleId="labs-chapter-header"
       />
+      {/* The signal hero autoplays treated footage on the cover, so the
+          pause mechanism (WCAG 2.2.2) has to reach it there too. Same
+          global paused state; the hero freezes on its current frame. */}
+      {heroVariant === 'signal' && <MotionToggle showWhileVisibleId="cover" />}
 
-      <Cover onSelectChapter={goToChapter} />
+      {heroVariant === 'off' ? (
+        <Cover onSelectChapter={goToChapter} />
+      ) : (
+        <SignalHero variant={heroVariant} onSelectChapter={goToChapter} />
+      )}
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>
@@ -627,7 +641,10 @@ const SpinePreviewPage: React.FC = () => {
             ProductionsPreviewPage.tsx, between the card and Scamfluencers)
             handles the cream-to-terra half; this one only needs to get
             the Cover's terra to the card's cream. */}
-        <ColorBridge from={gradientEnd(SCAMFLUENCERS_FIELD)} to="var(--bg-site)" />
+        <ColorBridge
+          from={heroVariant === 'off' ? gradientEnd(SCAMFLUENCERS_FIELD) : '#0a0a0a'}
+          to="var(--bg-site)"
+        />
         <ProductionsChapter />
         {/*
           Both the closing bridge and the cream breather that used to sit

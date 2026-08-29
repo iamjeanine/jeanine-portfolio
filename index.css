@@ -79,6 +79,60 @@
   font-display: swap;
 }
 
+/* Signal hero display face (hero-explorations branch): a drop-in slot for
+   whichever foundry face gets licensed. Place trial files at
+   /public/fonts/HeroDisplay.woff2 (or .otf) and HeroDisplayItalic.woff2 —
+   no code changes needed. Until they exist these 404 and the hero falls
+   back to Georgia, by design. */
+@font-face {
+  font-family: 'HeroDisplay';
+  src: url('/fonts/HeroDisplay.woff2') format('woff2'),
+    url('/fonts/HeroDisplay.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeroDisplayItalic';
+  src: url('/fonts/HeroDisplayItalic.woff2') format('woff2'),
+    url('/fonts/HeroDisplayItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Signal hero frozen state (reduced motion, Pause Motion, plate): the one
+   treated frame keeps only a slow linear opacity drift. Ambient media, not
+   UI, so a keyframe animation is correct here. */
+@keyframes hero-breathe {
+  from {
+    opacity: 0.88;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Signal hero utility strip: plain-text controls, ease-out, interruptible. */
+.hero-utility-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hero-utility-link:hover {
+  opacity: 0.55;
+}
+.hero-utility-link:active {
+  transform: translateY(1px);
+}
+.hero-utility-link:focus-visible {
+  outline: 2px solid rgba(242, 237, 226, 0.9);
+  outline-offset: 3px;
+}
+
 @theme {
   --font-body-serif: "Source Serif 4", Georgia, serif;
 }
