@@ -17,7 +17,7 @@ export type SketchKind = 'profile' | 'emerging' | 'duet';
    Front contour only, in the iconic-silhouette register: few curves,
    drawn once, no back-of-head loop. */
 const PROFILE_D =
-  'M 226 -400 C 282 -336 320 -262 324 -180 C 327 -118 322 -60 318 -10 C 296 70 272 150 264 218 C 261 236 252 244 250 254 C 248 262 236 292 226 312 C 222 320 220 328 226 332 C 234 338 244 337 246 344 C 247 352 242 356 243 362 C 252 366 258 372 255 380 C 252 388 246 392 248 400 C 256 406 262 412 259 422 C 256 432 250 438 253 448 C 262 462 274 472 280 486 C 292 512 310 526 336 538 C 352 546 360 562 364 584 C 370 620 366 664 376 700 C 382 724 394 738 412 748';
+  'M 210 -330 C 290 -318 336 -258 342 -178 C 347 -114 340 -52 328 -4 C 315 42 300 90 290 138 C 286 152 276 158 273 170 C 268 186 244 240 228 276 C 222 288 220 298 228 303 C 238 310 250 308 252 318 C 253 328 248 332 250 340 C 262 346 269 354 264 366 C 259 375 253 379 256 388 C 267 394 274 403 268 417 C 262 428 257 435 262 447 C 272 464 286 476 295 492 C 310 520 330 536 358 550 C 370 560 375 574 376 594 C 379 640 375 692 385 736 C 393 760 407 772 427 780';
 
 /* A wandering line that only becomes a face at its end. */
 const MEANDER_D =
@@ -73,12 +73,14 @@ const ProfileOverlay: React.FC<{ cls: string }> = ({ cls }) => {
     >
       {/* Sized so the crown shows above the headline, the band breaks the
           line, and the face itself sits fully below on real viewports. */}
+      {/* The pen starts after the name has set itself: type first, then
+          the hand. */}
       <svg
         className={`${cls} absolute right-[2%] top-[9%] h-[89%] w-[46%] min-w-[320px]`}
         viewBox="0 -400 600 1300"
         preserveAspectRatio="xMidYMin meet"
       >
-        <Path d={PROFILE_D} />
+        <Path d={PROFILE_D} delay={1.9} duration={3.2} />
       </svg>
     </div>
   );
