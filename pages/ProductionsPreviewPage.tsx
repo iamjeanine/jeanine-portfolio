@@ -179,7 +179,7 @@ const SPREADS: SpreadData[] = [
     // there"; see plan 9.1), now clears 4.5:1 too against the darkened
     // field, unchanged. The hue was never touched.
     palette: {
-      field: 'linear-gradient(160deg, #9F481C 0%, #933D14 55%, #893710 100%)',
+      field: 'linear-gradient(160deg, #FA4B24 0%, #F43A1A 55%, #E5300F 100%)',
       ink: '#FCF5EC',
       inkSoft: 'rgba(252,245,236,0.85)',
       inkBody: 'rgba(252,245,236,0.95)',
