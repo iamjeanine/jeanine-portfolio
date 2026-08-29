@@ -12,6 +12,10 @@ import {
 import { LabsChapter, LAB } from './LabsPreviewPage';
 import { SignalHero } from '../components/hero/SignalHero';
 import { getHeroVariant } from '../components/hero/heroVariant';
+import { HeroPicker } from '../components/hero/HeroPicker';
+import { UnstillCover, UNSTILL_GROUND } from '../components/hero/UnstillCover';
+import { GelRackCover, GELS_GROUND } from '../components/hero/GelRackCover';
+import { DuskCover, DUSK_BRIDGE_FROM } from '../components/hero/DuskCover';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -619,11 +623,15 @@ const SpinePreviewPage: React.FC = () => {
           global paused state; the hero freezes on its current frame. */}
       {heroVariant === 'signal' && <MotionToggle showWhileVisibleId="cover" />}
 
-      {heroVariant === 'off' ? (
-        <Cover onSelectChapter={goToChapter} />
-      ) : (
+      {heroVariant === 'off' && <Cover onSelectChapter={goToChapter} />}
+      {(heroVariant === 'signal' || heroVariant === 'plate') && (
         <SignalHero variant={heroVariant} onSelectChapter={goToChapter} />
       )}
+      {heroVariant === 'unstill' && <UnstillCover onSelectChapter={goToChapter} />}
+      {heroVariant === 'gels' && <GelRackCover onSelectChapter={goToChapter} />}
+      {heroVariant === 'dusk' && <DuskCover onSelectChapter={goToChapter} />}
+      {/* Branch-only comp switcher. Remove before merging to main. */}
+      <HeroPicker current={heroVariant} />
 
       {/* Chapter 01: Productions */}
       <div id="productions" tabIndex={-1}>
@@ -642,7 +650,16 @@ const SpinePreviewPage: React.FC = () => {
             handles the cream-to-terra half; this one only needs to get
             the Cover's terra to the card's cream. */}
         <ColorBridge
-          from={heroVariant === 'off' ? gradientEnd(SCAMFLUENCERS_FIELD) : '#0a0a0a'}
+          from={
+            {
+              off: gradientEnd(SCAMFLUENCERS_FIELD),
+              signal: '#0a0a0a',
+              plate: '#0a0a0a',
+              unstill: UNSTILL_GROUND,
+              gels: GELS_GROUND,
+              dusk: DUSK_BRIDGE_FROM,
+            }[heroVariant]
+          }
           to="var(--bg-site)"
         />
         <ProductionsChapter />
