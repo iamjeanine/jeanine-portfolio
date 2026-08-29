@@ -9,12 +9,15 @@ import { HERO_MONO } from './HeroChrome';
  * which is exactly what the comps expect.
  */
 const OPTIONS: { value: HeroVariant; label: string }[] = [
+  { value: 'line-a', label: 'Line A' },
+  { value: 'line-b', label: 'Line B' },
+  { value: 'line-c', label: 'Line C' },
+  { value: 'off', label: 'Prod' },
   { value: 'sunlit', label: 'Sunlit' },
   { value: 'dusk', label: 'Dusk' },
   { value: 'unstill', label: 'Unstill' },
   { value: 'gels', label: 'Gels' },
   { value: 'signal', label: 'Signal' },
-  { value: 'off', label: 'Prod' },
 ];
 
 export const HeroPicker: React.FC<{ current: HeroVariant }> = ({ current }) => (

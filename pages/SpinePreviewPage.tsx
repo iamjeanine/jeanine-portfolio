@@ -17,6 +17,7 @@ import { UnstillCover, UNSTILL_GROUND } from '../components/hero/UnstillCover';
 import { GelRackCover, GELS_GROUND } from '../components/hero/GelRackCover';
 import { DuskCover, DUSK_BRIDGE_FROM } from '../components/hero/DuskCover';
 import { SunlitCover, SUNLIT_BRIDGE_FROM } from '../components/hero/SunlitCover';
+import { SketchLineOverlay } from '../components/hero/SketchLineOverlay';
 
 /**
  * PROTOTYPE: not linked from site navigation.
@@ -186,7 +187,12 @@ const skipToSection = (id: string) => {
  * on the page, ~30 viewport-heights deep, so any earlier bail lost it.
  * Mastheads print contact information.
  */
-const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectChapter }) => {
+const Cover: React.FC<{
+  onSelectChapter: (id: string) => void;
+  /** hero-explorations branch: an optional decorative layer rendered
+      inside the section, above the field, below the content. */
+  overlay?: React.ReactNode;
+}> = ({ onSelectChapter, overlay }) => {
   // Entrance, once, on mount. Ported from the video hero this Cover
   // replaced (components/Hero.tsx): the swap took the hero's staggered
   // blur-to-sharp settle and its scroll-driven zoom and left nothing in
@@ -284,6 +290,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       className="absolute inset-0 pointer-events-none mix-blend-overlay"
       style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
     />
+    {overlay}
 
     <div className="relative">
       <p
@@ -625,6 +632,15 @@ const SpinePreviewPage: React.FC = () => {
       {heroVariant === 'signal' && <MotionToggle showWhileVisibleId="cover" />}
 
       {heroVariant === 'off' && <Cover onSelectChapter={goToChapter} />}
+      {heroVariant === 'line-a' && (
+        <Cover onSelectChapter={goToChapter} overlay={<SketchLineOverlay kind="profile" />} />
+      )}
+      {heroVariant === 'line-b' && (
+        <Cover onSelectChapter={goToChapter} overlay={<SketchLineOverlay kind="emerging" />} />
+      )}
+      {heroVariant === 'line-c' && (
+        <Cover onSelectChapter={goToChapter} overlay={<SketchLineOverlay kind="duet" />} />
+      )}
       {(heroVariant === 'signal' || heroVariant === 'plate') && (
         <SignalHero variant={heroVariant} onSelectChapter={goToChapter} />
       )}
@@ -661,6 +677,9 @@ const SpinePreviewPage: React.FC = () => {
               gels: GELS_GROUND,
               dusk: DUSK_BRIDGE_FROM,
               sunlit: SUNLIT_BRIDGE_FROM,
+              'line-a': gradientEnd(SCAMFLUENCERS_FIELD),
+              'line-b': gradientEnd(SCAMFLUENCERS_FIELD),
+              'line-c': gradientEnd(SCAMFLUENCERS_FIELD),
             }[heroVariant]
           }
           to="var(--bg-site)"

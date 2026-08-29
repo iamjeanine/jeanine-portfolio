@@ -10,9 +10,30 @@
  *   ?hero=plate    signal frozen on one treated frame
  *   ?hero=off      the production typographic Cover
  */
-export type HeroVariant = 'signal' | 'off' | 'plate' | 'unstill' | 'gels' | 'dusk' | 'sunlit';
+export type HeroVariant =
+  | 'signal'
+  | 'off'
+  | 'plate'
+  | 'unstill'
+  | 'gels'
+  | 'dusk'
+  | 'sunlit'
+  | 'line-a'
+  | 'line-b'
+  | 'line-c';
 
-const VARIANTS: HeroVariant[] = ['signal', 'off', 'plate', 'unstill', 'gels', 'dusk', 'sunlit'];
+const VARIANTS: HeroVariant[] = [
+  'signal',
+  'off',
+  'plate',
+  'unstill',
+  'gels',
+  'dusk',
+  'sunlit',
+  'line-a',
+  'line-b',
+  'line-c',
+];
 
 export function getHeroVariant(): HeroVariant {
   try {
@@ -21,5 +42,5 @@ export function getHeroVariant(): HeroVariant {
   } catch {
     // Unparseable location: fall through to the branch default.
   }
-  return 'sunlit';
+  return 'line-a';
 }

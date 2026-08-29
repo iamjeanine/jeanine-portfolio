@@ -1,0 +1,116 @@
+{
+  "title": "Choose the cover's world",
+  "question": "The roll assigned Opening Night. Keep it, take an alternate, steer a re-roll, or take the category standard. One of these becomes the real cover.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Opening Night",
+      "kicker": "THE ROLL",
+      "lineage": "fine theater and premiere programs, the industry's black-tie ritual",
+      "thesis": "The cover is tonight's program. House lights just down, her name above the title, the hits as the bill. The program's grammar, never its costume, so it behaves like a premiere rather than referencing one.",
+      "palette": ["#16241E", "#C9A227", "#F4EDDC", "#B3543A"],
+      "materials": ["engraved rules", "gilt restraint", "evening ground"],
+      "viewport": "A deep evening field. GHOST MODE STUDIO small over one engraved rule. The name enormous in the licensed face. Beneath it the bill, three acts carrying the real shows and real awards in formal credit order. The terra dot presides as the studio's one modern mark.",
+      "risk": "Sits one wrong move from a costume. If it says program instead of behaving like one, it lands in the bin with the call sheet.",
+      "raised": [
+        { "from": "challenger-ligne-claire", "raise": "One rule weight everywhere. Every rule and border on the cover is the same single line, flat fills, no gradient washes." },
+        { "from": "challenger-six-pack", "raise": "Damped physical motion. Everything that moves settles like a needle under glass, nothing snaps." },
+        { "from": "challenger-shader-portal", "raise": "One living material. The evening ground breathes as a single orchestrated surface, not scattered hover effects." },
+        { "from": "challenger-film-strip", "raise": "Specific wear only. No generic grain washes; texture exists only where a real material decision earns it." },
+        { "from": "challenger-tensegrity", "raise": "Nothing decorative. Anything removable without losing information or structure goes." }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "For Your Consideration",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "awards-season trade campaigns in Variety and The Hollywood Reporter",
+      "thesis": "The industry's own graphic ritual for declaring a hit, run for Jeanine herself. Giant credit line as the headline, real accolades set enormous, the chapters as the campaign slate.",
+      "palette": ["#141210", "#CBA95E", "#EFEAE0", "#B3543A"],
+      "materials": ["full-page trade print", "campaign gold", "billing-block type"],
+      "viewport": "A full-page campaign without the words For Your Consideration. The accolades lead at display scale, her name as the credit line every ad builds toward, one commanding color field.",
+      "risk": "My top-ranked candidate and the most familiar strong choice. It also flirts with the literal-artifact line the call sheet died on; grammar, not costume, is the whole game."
+    },
+    {
+      "id": "challenger-rietveld",
+      "label": "Sliding Planes",
+      "verdict": "competitive",
+      "lineage": "the Rietveld Schröder house, rooms reconfigured by sliding color planes",
+      "thesis": "The cover as an operable composition. Each plane carries one show's real field color; sliding planes reconfigure the room into the chapters.",
+      "palette": ["#9F481C", "#2B3A55", "#F3D5CE", "#120C08"],
+      "materials": ["sliding color planes", "structural frame lines"],
+      "viewport": "A pale room ruled by thin black frame lines. Show-colored planes overlap mid-slide; the name runs across the structure. Moving a plane is the navigation.",
+      "case": "Holds product clarity, the planes are literally her shows' colors and the site already lives on those fields. Loses audience identification; a buyer reads gallery, not industry.",
+      "risk": "Lives or dies on flawless motion. One sticky plane kills the premise.",
+      "hero": "https://impeccable.style/worlds/cards/design-canon-rietveld-sliding-house-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/design-canon-rietveld-sliding-house.webp"
+    },
+    {
+      "id": "challenger-ligne-claire",
+      "label": "Ligne Claire Album",
+      "verdict": "declined",
+      "lineage": "Brussels clear-line comic albums",
+      "palette": ["#2E5C8A", "#D9B44A", "#F2EFE6"],
+      "materials": ["one even line", "flat fills"],
+      "case": "A buyer deciding whether to greenlight a showrunner does not identify with an adventure album, and the hitmaker claim reads whimsical in it.",
+      "kept": "Its discipline of evenness. One line weight, flat unmodulated fills.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-ligne-claire-album-hero.webp"
+    },
+    {
+      "id": "challenger-six-pack",
+      "label": "Night Instruments",
+      "verdict": "declined",
+      "lineage": "a small aircraft's night instrument panel",
+      "palette": ["#0B0D0E", "#DDE6E2", "#7FE08A"],
+      "materials": ["luminous dials", "matte panel"],
+      "case": "Gauges carry trust in data, not a career of hits. Neither axis holds for this audience.",
+      "kept": "Its motion grammar. Damped, physical, never snapped.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp"
+    },
+    {
+      "id": "challenger-shader-portal",
+      "label": "Shader Portal",
+      "verdict": "declined",
+      "lineage": "experiential-studio WebGL portals",
+      "palette": ["#0E0E16", "#F2F0EA"],
+      "materials": ["fragment shader", "film grain"],
+      "case": "The fashionable experiential template, and the mood leads while the career hides. For this buyer it reads fancy agency, not proven hitmaker.",
+      "kept": "One orchestrated living surface, built with real technique.",
+      "hero": "https://impeccable.style/worlds/cards/webgl-shader-portal-hero.webp"
+    },
+    {
+      "id": "challenger-film-strip",
+      "label": "Hand-Processed Film",
+      "verdict": "declined",
+      "lineage": "hand-processed 16mm emulsion",
+      "palette": ["#141310", "#C9CBC4", "#D97B3F"],
+      "materials": ["emulsion", "light leaks"],
+      "case": "Archival material as the lead is a recorded ban; it makes the studio read documentary.",
+      "kept": "Specific wear tied to real events, never a generic filter.",
+      "hero": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-hand-processed-film-bloom-hero.webp"
+    },
+    {
+      "id": "challenger-tensegrity",
+      "label": "Tensegrity Column",
+      "verdict": "declined",
+      "lineage": "carbon rods and red cord in balanced tension",
+      "palette": ["#1A1A1A", "#E8E4DC", "#C0392B"],
+      "materials": ["carbon rods", "tension cord"],
+      "case": "Structurally beautiful, communicatively mute for a hitmaker claim.",
+      "kept": "Everything on the page load-bearing; nothing decorative survives.",
+      "hero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-tensegrity-breathing-column-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "The serious portfolio hero every studio ships. Huge name, generous whitespace, one reel, executed at full craft with a licensed face.",
+    "palette": ["#FFFFFF", "#141414", "#B3543A"],
+    "materials": ["clean grid", "display type"],
+    "viewport": "Name enormous, credential line, three links, one piece of moving work.",
+    "risk": "Indistinguishable from every other serious portfolio, by design."
+  },
+  "steer": true
+}
