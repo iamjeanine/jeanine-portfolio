@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 /**
  * A single thin sketch line over the untouched production Cover: the hand
@@ -13,9 +13,11 @@ import React, { useState } from 'react';
 
 export type SketchKind = 'profile' | 'emerging' | 'duet';
 
-/* One continuous contour line, a profile facing into the page. */
+/* One continuous contour line, a profile facing into the page.
+   Front contour only, in the iconic-silhouette register: few curves,
+   drawn once, no back-of-head loop. */
 const PROFILE_D =
-  'M 258 6 C 244 60 228 120 224 168 C 222 190 214 198 213 210 C 212 220 206 232 197 248 C 190 260 186 268 190 274 C 196 282 204 284 205 292 C 206 300 200 304 201 312 C 209 318 213 322 210 330 C 207 338 200 344 203 354 C 210 368 222 378 228 392 C 238 414 262 428 292 438 C 316 446 330 464 336 492 C 342 522 338 558 348 588 C 362 622 398 640 452 652 C 520 636 548 480 536 380 C 528 300 500 200 450 130 C 420 88 380 40 348 10';
+  'M 318 -10 C 296 70 272 150 264 218 C 261 236 252 244 250 254 C 248 262 236 292 226 312 C 222 320 220 328 226 332 C 234 338 244 337 246 344 C 247 352 242 356 243 362 C 252 366 258 372 255 380 C 252 388 246 392 248 400 C 256 406 262 412 259 422 C 256 432 250 438 253 448 C 262 462 274 472 280 486 C 292 512 310 526 336 538 C 352 546 360 562 364 584 C 370 620 366 664 376 700 C 382 724 394 738 412 748';
 
 /* A wandering line that only becomes a face at its end. */
 const MEANDER_D =
@@ -33,6 +35,53 @@ const Path: React.FC<{ d: string; delay?: number; duration?: number }> = ({
   />
 );
 
+/* The profile breaks where the name crosses it: the line stops at the
+   headline's band and resumes beneath it, so the type always wins. The
+   band is measured from the section's own h1, not guessed. */
+const ProfileOverlay: React.FC<{ cls: string }> = ({ cls }) => {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [band, setBand] = useState<[number, number] | null>(null);
+
+  useLayoutEffect(() => {
+    const wrap = wrapRef.current;
+    const section = wrap?.closest('section');
+    const h1 = section?.querySelector('h1');
+    if (!wrap || !section || !h1) return;
+    const measure = () => {
+      const s = section.getBoundingClientRect();
+      const n = h1.getBoundingClientRect();
+      const pad = 18;
+      setBand([Math.max(0, n.top - s.top - pad), n.bottom - s.top + pad]);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(section);
+    ro.observe(h1);
+    return () => ro.disconnect();
+  }, []);
+
+  const mask = band
+    ? `linear-gradient(180deg, black 0, black ${band[0]}px, transparent ${band[0]}px, transparent ${band[1]}px, black ${band[1]}px, black 100%)`
+    : undefined;
+
+  return (
+    <div
+      ref={wrapRef}
+      aria-hidden="true"
+      className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ maskImage: mask, WebkitMaskImage: mask }}
+    >
+      <svg
+        className={`${cls} absolute right-0 bottom-0 h-[82%] w-[46%] min-w-[320px]`}
+        viewBox="0 0 600 900"
+        preserveAspectRatio="xMidYMax meet"
+      >
+        <Path d={PROFILE_D} />
+      </svg>
+    </div>
+  );
+};
+
 export const SketchLineOverlay: React.FC<{ kind: SketchKind }> = ({ kind }) => {
   const [reduced] = useState(
     () =>
@@ -42,17 +91,7 @@ export const SketchLineOverlay: React.FC<{ kind: SketchKind }> = ({ kind }) => {
   const cls = `hero-sketch${reduced ? '' : ' hero-sketch--animate'}`;
 
   if (kind === 'profile') {
-    return (
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-        <svg
-          className={`${cls} absolute right-0 top-0 h-full w-[46%] min-w-[320px]`}
-          viewBox="0 0 600 900"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <Path d={PROFILE_D} />
-        </svg>
-      </div>
-    );
+    return <ProfileOverlay cls={cls} />;
   }
 
   if (kind === 'emerging') {

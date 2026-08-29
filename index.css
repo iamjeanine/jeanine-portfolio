@@ -132,8 +132,8 @@
 /* Sketch-line cover overlay: the line draws itself once on arrival. */
 .hero-sketch path {
   fill: none;
-  stroke: rgba(246, 239, 231, 0.75);
-  stroke-width: 2;
+  stroke: rgba(246, 239, 231, 0.8);
+  stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
   stroke-linecap: round;
   stroke-linejoin: round;
