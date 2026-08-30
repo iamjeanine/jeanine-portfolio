@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { ColorBridge, ChapterRail, MotionToggle, RailSection, GRAIN_URI, gradientEnd, gradientStart } from '../components/chapter';
+import { ColorBridge, ChapterRail, MotionToggle, RailSection, gradientEnd, gradientStart } from '../components/chapter';
 import { preferredScrollBehavior } from '../components/chapter/motionPreference';
 import {
   ProductionsChapter,
@@ -271,12 +271,6 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
     className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12"
     style={{ background: SCAMFLUENCERS_FIELD }}
   >
-    <div
-      aria-hidden="true"
-      className="absolute inset-0 pointer-events-none mix-blend-overlay"
-      style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
-    />
-
     <div className="relative">
       <p
         className="chapter-label"
@@ -700,11 +694,6 @@ const SpinePreviewPage: React.FC = () => {
         className="relative overflow-hidden px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
         style={{ background: SCAMFLUENCERS_FIELD }}
       >
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none mix-blend-overlay"
-          style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
-        />
         <div className="relative">
           {/* "Get in touch" is the headline itself now, not an eyebrow over
               a separate statement line: the statement ("Building the next

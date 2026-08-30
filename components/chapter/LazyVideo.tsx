@@ -63,22 +63,30 @@ export const LazyVideo: React.FC<{
    * ends on.
    */
   playOnce?: boolean;
+  /**
+   * Render the same media behind the frame at 130%, blurred and saturated.
+   * This is the frame's ambient color, so the surrounding light follows the
+   * footage instead of relying on a fixed-color shadow or gradient.
+   */
+  ambient?: boolean;
 }> = ({
   src,
   poster,
   alt,
   fallbackTitle,
   fallbackColor = 'var(--cream-ink)',
-  fallbackBackground = '#17100B',
+  fallbackBackground = '#05070C',
   className = '',
   aspectRatio,
   rootMargin = '400px',
   startAt,
   compact = false,
   playOnce = false,
+  ambient = false,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const ambientVideoRef = useRef<HTMLVideoElement>(null);
   const [near, setNear] = useState(false);
   const [visible, setVisible] = useState(false);
   // Live on-screen state, unlike `near` which latches once for mounting.
@@ -107,6 +115,7 @@ export const LazyVideo: React.FC<{
     if (!v) return;
     if (!shouldPlay || !onScreen) {
       v.pause();
+      ambientVideoRef.current?.pause();
       return;
     }
     if (playOnce) {
@@ -114,12 +123,15 @@ export const LazyVideo: React.FC<{
       if (visible && !startedRef.current) {
         startedRef.current = true;
         v.play().catch(() => {});
+        ambientVideoRef.current?.play().catch(() => {});
       } else if (startedRef.current) {
         v.play().catch(() => {});
+        ambientVideoRef.current?.play().catch(() => {});
       }
       return;
     }
     v.play().catch(() => {});
+    ambientVideoRef.current?.play().catch(() => {});
   }, [shouldPlay, near, visible, onScreen, playOnce]);
 
   useEffect(() => {
@@ -173,63 +185,107 @@ export const LazyVideo: React.FC<{
     return () => io.disconnect();
   }, [playOnce]);
 
+  const ratio = (compact ? aspectRatio : naturalRatio) ?? '16 / 9';
+
+  const mediaElement = (
+    videoRefProp: React.RefObject<HTMLVideoElement | null>,
+    isAmbient: boolean
+  ) => (
+    <video
+      ref={videoRefProp}
+      src={src}
+      poster={poster}
+      aria-label={isAmbient ? undefined : alt}
+      aria-hidden={isAmbient || undefined}
+      muted
+      loop={startAt === undefined && !playOnce}
+      playsInline
+      autoPlay={shouldPlay && !playOnce && onScreen}
+      preload={playOnce ? 'auto' : 'metadata'}
+      tabIndex={isAmbient ? -1 : undefined}
+      className="w-full h-full object-cover"
+      style={{ backgroundColor: fallbackBackground }}
+      onLoadedMetadata={(e) => {
+        const v = e.currentTarget;
+        if (!isAmbient && !compact && v.videoWidth && v.videoHeight) {
+          setNaturalRatio(`${v.videoWidth} / ${v.videoHeight}`);
+        }
+        if (startAt !== undefined) v.currentTime = startAt;
+        if (isAmbient && videoRef.current?.readyState) {
+          v.currentTime = videoRef.current.currentTime;
+        }
+      }}
+      onTimeUpdate={isAmbient ? undefined : (e) => {
+        const aura = ambientVideoRef.current;
+        if (aura && Math.abs(aura.currentTime - e.currentTarget.currentTime) > 0.18) {
+          aura.currentTime = e.currentTarget.currentTime;
+        }
+      }}
+      onEnded={isAmbient ? undefined : (e) => {
+        // playOnce falls through here on purpose: no loop attribute, no
+        // manual restart, the element simply holds its final frame.
+        if (startAt === undefined || playOnce) return;
+        const v = e.currentTarget;
+        v.currentTime = startAt;
+        if (ambientVideoRef.current) ambientVideoRef.current.currentTime = startAt;
+        v.play().catch(() => {});
+        ambientVideoRef.current?.play().catch(() => {});
+      }}
+      onError={isAmbient ? undefined : () => setErrored(true)}
+    />
+  );
+
   return (
     <div
       ref={ref}
-      className={`relative overflow-hidden ${className}`}
+      className={`relative ${className}`}
       style={{
         // Compact ignores the detected natural ratio and stays at whatever
         // aspectRatio was passed in (square, for the two credits screens):
         // a thumbnail is a cropped cover, not a frame, so snapping to the
         // source's real shape once metadata loads would make each row a
         // different height instead of one even grid of covers.
-        aspectRatio: (compact ? aspectRatio : naturalRatio) ?? '16 / 9',
-        background: fallbackBackground,
-        border: '1px solid rgba(242,237,226,0.14)',
-        boxShadow: compact ? '0 8px 24px rgba(0,0,0,0.5)' : '0 40px 120px rgba(0,0,0,0.6)',
+        aspectRatio: ratio,
       }}
     >
-      {near && !errored && (
-        <video
-          ref={videoRef}
-          src={src}
-          poster={poster}
-          aria-label={alt}
-          muted
-          loop={startAt === undefined && !playOnce}
-          playsInline
-          autoPlay={shouldPlay && !playOnce && onScreen}
-          preload={playOnce ? 'auto' : 'metadata'}
-          className="w-full h-full object-cover"
-          style={{ backgroundColor: fallbackBackground }}
-          onLoadedMetadata={(e) => {
-            const v = e.currentTarget;
-            if (!compact && v.videoWidth && v.videoHeight) {
-              setNaturalRatio(`${v.videoWidth} / ${v.videoHeight}`);
-            }
-            if (startAt !== undefined) {
-              v.currentTime = startAt;
-            }
-          }}
-          onEnded={(e) => {
-            // playOnce falls through here on purpose: no loop attribute, no
-            // manual restart, the element simply holds its final frame.
-            if (startAt === undefined) return;
-            const v = e.currentTarget;
-            v.currentTime = startAt;
-            v.play().catch(() => {});
-          }}
-          onError={() => setErrored(true)}
-        />
-      )}
-      {near && errored && fallbackTitle && (
+      {ambient && near && !errored && (
         <div
-          className="w-full h-full flex items-center justify-center text-center px-6"
-          style={{ color: fallbackColor }}
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: '#05070c',
+            filter: 'blur(60px) saturate(1.3)',
+            opacity: 0.55,
+            transform: 'scale(1.3)',
+            transformOrigin: 'center',
+          }}
         >
-          <span className="chapter-label">{fallbackTitle}</span>
+          {mediaElement(ambientVideoRef, true)}
         </div>
       )}
+
+      <div
+        className="absolute inset-0 overflow-hidden"
+        style={{
+          background: fallbackBackground,
+          border: '1px solid rgba(247,243,237,0.16)',
+          boxShadow: ambient
+            ? 'none'
+            : compact
+              ? '0 8px 24px rgba(0,0,0,0.5)'
+              : '0 24px 72px rgba(0,0,0,0.48)',
+        }}
+      >
+        {near && !errored && mediaElement(videoRef, false)}
+        {near && errored && fallbackTitle && (
+          <div
+            className="w-full h-full flex items-center justify-center text-center px-6"
+            style={{ color: fallbackColor }}
+          >
+            <span className="chapter-label">{fallbackTitle}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

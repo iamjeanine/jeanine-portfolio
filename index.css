@@ -1,33 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --bg-site: #F5F2EC;
-  --ink: #150E0A;
-  --ink-soft: rgba(21,14,10,0.70);
+  /* Poppy-led identity. The primary is sampled from the supplied Clare V
+     reference rather than inherited from the previous rust palette. */
+  --poppy: #FD452D;
+  --poppy-text: #C52D22;
+  --poppy-on-dark: #FF6B57;
+  --signal: #F0FF29;
+  --lavender: #B7A1F7;
+
+  --bg-site: #F7F3ED;
+  --ink: #14100E;
+  --ink-soft: rgba(20,16,14,0.72);
   /* Contrast repair (REDESIGN-PLAN.md 6.4, computed): --ink-mute measured
      4.10:1 against paper and --ink-faint 2.09:1, both failing 4.5:1 for the
      small header/label text they're used on. Raised within the plan's
      suggested 62-70% range; both now clear 4.5:1 with margin (5.18 and
      5.74 respectively) while --ink-faint stays the more muted of the two. */
-  --ink-mute: rgba(21,14,10,0.65);
-  --ink-faint: rgba(21,14,10,0.62);
-  --cream: #F6EFE7;
-  --cream-faint: rgba(246,239,231,0.55);
-  --terra: #E5300F;
-  /* --terra itself measures 4.43:1 on paper, a near miss for the 4.5:1
-     small-text floor (it's fine for backgrounds/borders, which only need
-     3:1). Rather than touch the shared brand accent, which is also live
-     on the homepage's ProjectTile, this barely-darker variant is for new
-     small text specifically: computed to clear 4.5:1 (4.57), used by the
-     Spine's chapter-label instances (Cover contents, colophon lists). */
-  --terra-text: #D42B0C;
-  --umber-deep: #150E0A;
+  --ink-mute: rgba(20,16,14,0.67);
+  --ink-faint: rgba(20,16,14,0.62);
+  --cream: #F7F3ED;
+  --cream-faint: rgba(247,243,237,0.58);
+  /* Legacy aliases remain while the chapter components migrate to semantic
+     names. Both now resolve into the new poppy system. */
+  --terra: var(--poppy);
+  /* The vivid primary is for fields and large display type. This darker
+     relation clears 4.5:1 on paper and carries small labels and links. */
+  --terra-text: var(--poppy-text);
+  --umber-deep: var(--ink);
 
   /* Chapter system tokens (REDESIGN-PLAN.md 3.1-3.2). Labs ground/ink/accent,
      formerly local hex in LabsPreviewPage's LAB object. */
-  --ink-deep: #120C08;
-  --cream-ink: #F2EDE2;
-  --ember: #E8A672;
+  --ink-deep: #05070C;
+  --cream-ink: #F7F3ED;
+  --ember: var(--poppy-on-dark);
 
   /* Typographic scale (REDESIGN-PLAN.md 3.2). --display-xl is reserved for
      the Cover's name, the one thing on the site that should read as the
@@ -84,8 +90,21 @@
 }
 
 @layer base {
+  html {
+    background: var(--bg-site);
+    color: var(--ink);
+    accent-color: var(--poppy);
+    scrollbar-color: var(--poppy) var(--bg-site);
+  }
   body {
     font-family: 'Uncut Sans', sans-serif;
+    background: var(--bg-site);
+    color: var(--ink);
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--ink);
   }
 }
 
@@ -226,33 +245,6 @@
   top: 0.5rem;
   outline: 2px solid var(--terra-text);
   outline-offset: 2px;
-}
-
-/* Projector light (REDESIGN-PLAN.md 5.3): a warm radial wash behind a
-   Feature's video frame, opacity and vertical position driven by the
-   scroll-set --pl. Gradient, not a box-shadow, so it never reads as the
-   banned zero-offset colored glow: peak opacity is 0.07, and it sits
-   behind the frame via z-index, not attached to it as a shadow. The live
-   browser detector's radial-spotlight-glow rule flags this anyway; it is
-   the plan's mandated signature moment, not the anti-pattern the rule
-   targets, so it is dispositioned here rather than suppressed blind. */
-/* impeccable-disable-next-line radial-spotlight-glow -- REDESIGN-PLAN.md 5.3 mandated effect, 0.07 peak opacity, positioned behind the frame not as its shadow */
-.chapter-projector-light {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 130%;
-  height: 140%;
-  transform: translate(-50%, -50%) translateY(calc((1 - var(--pl, 0)) * 28px));
-  background: radial-gradient(
-    ellipse at center,
-    rgba(232, 166, 114, 0.07) 0%,
-    rgba(232, 166, 114, 0.03) 45%,
-    rgba(232, 166, 114, 0) 70%
-  );
-  opacity: var(--pl, 0);
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* The fixed ChapterRail overlays every ground in the spine, including

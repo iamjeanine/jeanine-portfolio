@@ -9,7 +9,6 @@ import {
   Expandable,
   LazyVideo,
   MotionToggle,
-  ProjectorLight,
   SpreadShell,
   useRevealOnce,
 } from '../components/chapter';
@@ -37,8 +36,7 @@ import {
  */
 
 export const LAB = {
-  // Warm ink-black: the site's own ink (#150E0A) deepened, same hue family
-  // as terra. Labs is the site with the lights down, not a different site.
+  // Cool near-black lets the live media supply the hue around each frame.
   ground: 'var(--ink-deep)',
   ink: 'var(--cream-ink)',
   // Bumped from 0.55: Labs was the one chapter whose secondary label
@@ -50,12 +48,11 @@ export const LAB = {
   // inside Productions' own range rather than at either end of it —
   // still clearly secondary to the ink/inkBody tiers above it, just no
   // longer the one label on the page that's easy to miss.
-  inkSoft: 'rgba(242,237,226,0.67)',
-  inkBody: 'rgba(242,237,226,0.82)',
-  // Terra tuned for dark ground: same hue as the site accent, lightness
-  // raised for legibility (9.4:1 on the ground; raw terra reads 3.9:1).
+  inkSoft: 'rgba(247,243,237,0.67)',
+  inkBody: 'rgba(247,243,237,0.82)',
+  // A lighter member of the poppy family clears small-text contrast here.
   accent: 'var(--ember)',
-  border: 'rgba(242,237,226,0.16)',
+  border: 'rgba(247,243,237,0.16)',
 };
 
 const PROJECT_RETURN_SCROLL_KEY = 'portfolio-project-return-scroll';
@@ -99,30 +96,9 @@ const DETAIL_POSTERS = PROJECTS.flatMap(project => [
   ...project.mainVideos.map(video => video.posterUrl),
 ]).filter((url): url is string => Boolean(url));
 
-/**
- * The chapter ground, plus a bloom. Both an outside reviewer and Jeanine
- * separately raised the same worry about this chapter, in different words:
- * her "this looks black, did we decide black was too cold" and the
- * review's "the warmth is carried entirely by the ember kickers and cream
- * serif sitting on top... the dead margins read #000." Correct on the
- * numbers: LAB.ground (#120C08) is warm in hue, but at that luminance the
- * hue is imperceptible, so any patch of it with no text or frame over it
- * reads as plain black.
- *
- * The reviewer's own prescription, taken directly rather than reinvented:
- * "a subtle warm vignette or a barely-there ember bloom... without lifting
- * the base." So the base colour is untouched (LAB.ground is still what
- * ColorBridge blends against, keeping the seams into and out of this
- * chapter exact), and a very low-opacity radial glow sits above it,
- * `background-attachment: fixed` so it holds roughly centred on the
- * viewport as the page scrolls, rather than being pinned to one point in
- * a chapter that runs many viewport-heights tall. --ember at 0.05 alpha:
- * enough to lift the empty ground a little without reading as a coloured
- * patch or competing with the projector light's own glow around each
- * frame.
- */
-const LAB_GROUND_WITH_BLOOM =
-  'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(232,166,114,0.05), transparent 70%) fixed, var(--ink-deep)';
+/* The room itself stays neutral. Color around each frame now comes from a
+   blurred duplicate of that frame's live media, never a fixed ember bloom. */
+const LAB_GROUND = 'var(--ink-deep)';
 
 const SERIF_DISPLAY = "'Bodoni Moda', serif";
 const SERIF_BODY = "'Source Serif 4', Georgia, serif";
@@ -782,8 +758,8 @@ const StatBlock: React.FC<{ stat: { value: string; label: string } }> = ({ stat 
 
 /**
  * Full treatment: oversized title matching the Productions spread scale so
- * the chapters read as siblings, a near-full-width frame with the projector
- * light behind it, and Concept / Build / Status expandables for parity with
+ * the chapters read as siblings, a near-full-width frame with media-derived
+ * ambient color behind it, and Concept / Build / Status expandables for parity with
  * Productions' Role / Series / Impact.
  */
 const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }> = ({
@@ -802,11 +778,8 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
    * The frame beat is deliberately the one with the most travel (44px,
    * matching the weight Productions gives its title): this chapter's
    * identity is the screening room, so the entrance should be about the
-   * frame arriving, not the words above it. ProjectorLight's own glow is
-   * untouched and keeps its independent scroll-coupled brighten-and-hold;
-   * wrapping its container in this beat does not gate that effect, only the
-   * frame's own opacity and position, so the two compound: the frame rises
-   * into place while the light is already warming up behind it.
+   * frame arriving, not the words above it. The ambient layer is the same
+   * media, so its color follows the footage automatically.
    *
    * useRevealOnce observes `lab-${data.id}`, the same id this article
    * already carries for the Cover's index and the rail's progress tracking,
@@ -867,17 +840,16 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
         className={`mt-10 md:mt-12 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}
         style={beat(140, 44)}
       >
-        <ProjectorLight>
-          <LazyVideo
-            src={data.video.src}
-            poster={data.video.poster}
-            alt={data.video.alt}
-            aspectRatio={data.video.aspectRatio}
-            startAt={data.video.startAt}
-            playOnce={data.video.playOnce}
-            fallbackTitle={data.title}
-          />
-        </ProjectorLight>
+        <LazyVideo
+          src={data.video.src}
+          poster={data.video.poster}
+          alt={data.video.alt}
+          aspectRatio={data.video.aspectRatio}
+          startAt={data.video.startAt}
+          playOnce={data.video.playOnce}
+          fallbackTitle={data.title}
+          ambient
+        />
       </div>
 
       {/*
@@ -1327,8 +1299,8 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
           past the viewport and created horizontal scroll. */}
       <SpreadShell
         as="div"
-        background={LAB_GROUND_WITH_BLOOM}
-        grainOpacity={0.04}
+        background={LAB_GROUND}
+        grainOpacity={0.02}
         gutterClassName="px-6 md:px-24"
       >
         {/* chapter header */}

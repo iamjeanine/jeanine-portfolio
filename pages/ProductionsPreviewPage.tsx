@@ -168,18 +168,18 @@ const SPREADS: SpreadData[] = [
         className: 'hidden lg:block absolute w-[30%] aspect-[4/5] object-cover -bottom-24 -left-[6%]',
       },
     },
-    // This saturated poppy field deliberately carries light text only at
-    // display size. Small copy runs near-black: #140702 maintains readable
-    // contrast across all three stops. The chartreuse accent is reserved
+    // The Clare V reference uses a decisive flat field, not a rust gradient.
+    // Small copy runs near-black while display type can use warm white. The
+    // chartreuse accent is reserved
     // for large labels and non-text cues such as underlines and focus rings.
     palette: {
-      field: 'linear-gradient(160deg, #FA4B24 0%, #F43A1A 55%, #E5300F 100%)',
+      field: 'var(--poppy)',
       ink: '#FCF5EC',
-      inkSoft: '#140702',
-      inkBody: '#140702',
-      accent: '#F0FF29',
+      inkSoft: 'var(--ink)',
+      inkBody: 'var(--ink)',
+      accent: 'var(--signal)',
       border: 'rgba(252,245,236,0.28)',
-      shadow: 'rgba(60,20,0,0.35)',
+      shadow: 'rgba(93,18,10,0.28)',
     },
   },
   {
@@ -531,6 +531,7 @@ const Spread: React.FC<{
         'data-progress-total': progressTotal,
       }}
       background={p.field}
+      grainOpacity={data.slug === 'scamfluencers' ? 0 : 0.05}
       gutterClassName="px-6 md:px-20 xl:pr-64"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
     >

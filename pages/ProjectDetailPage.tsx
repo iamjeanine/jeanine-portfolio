@@ -35,7 +35,7 @@ const ProjectActionCard = ({
     className={`group grid min-h-24 w-full max-w-[30rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border px-5 py-4 text-left transition-colors duration-300 sm:px-6 sm:py-5 ${
       dark
         ? 'border-[rgba(242,237,226,0.22)] bg-[rgba(242,237,226,0.025)] hover:border-[var(--ember)]'
-        : 'border-neutral-300 bg-neutral-50/60 hover:border-[#B3543A]'
+        : 'border-neutral-300 bg-neutral-50/60 hover:border-[var(--poppy-text)]'
     }`}
     aria-label={`${label}, opens in a new tab`}
   >
@@ -51,7 +51,7 @@ const ProjectActionCard = ({
         className={`mt-2 block text-base font-light ${
           dark
             ? 'text-[var(--cream-ink)] group-hover:text-[var(--ember)]'
-            : 'text-neutral-800 group-hover:text-[#B3543A]'
+            : 'text-neutral-800 group-hover:text-[var(--poppy-text)]'
         }`}
       >
         {label}
@@ -67,7 +67,7 @@ const ProjectActionCard = ({
               <em
                 key={i}
                 className="not-italic font-normal whitespace-nowrap"
-                style={{ color: dark ? 'var(--ember)' : '#B3543A' }}
+                style={{ color: dark ? 'var(--ember)' : 'var(--poppy-text)' }}
               >
                 {part === 'Redraw' && (
                   <svg
@@ -95,7 +95,7 @@ const ProjectActionCard = ({
     <span
       aria-hidden="true"
       className={`text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${
-        dark ? 'text-[var(--ember)]' : 'text-[#B3543A]'
+        dark ? 'text-[var(--ember)]' : 'text-[var(--poppy-text)]'
       }`}
     >
       ↗
@@ -123,7 +123,7 @@ const PrototypeExitLink = ({
     className={`group inline-flex items-center gap-3 text-base font-light ${
       dark
         ? 'text-[rgba(242,237,226,0.78)] hover:text-[var(--ember)]'
-        : 'text-neutral-700 hover:text-[#B3543A]'
+        : 'text-neutral-700 hover:text-[var(--poppy-text)]'
     }`}
     aria-label={`${label}, opens in a new tab`}
   >
@@ -380,8 +380,7 @@ const ProjectDetailPage = () => {
       <div
         className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
         style={{
-          background:
-            'radial-gradient(ellipse 72% 58% at 50% 42%, rgba(232,166,114,0.055), transparent 72%), var(--ink-deep)',
+          background: 'var(--ink-deep)',
           color: 'var(--cream-ink)',
           overscrollBehavior: 'contain',
         }}
@@ -1090,8 +1089,7 @@ const ProjectDetailPage = () => {
         willChange: 'scroll-position',
         ...(isDarkEditorial
           ? {
-              background:
-                'radial-gradient(ellipse 72% 52% at 50% 28%, rgba(232,166,114,0.045), transparent 72%), var(--ink-deep)',
+              background: 'var(--ink-deep)',
             }
           : {}),
       }}
@@ -1127,7 +1125,7 @@ const ProjectDetailPage = () => {
         <header className="flex justify-between items-center w-full mb-8 shrink-0">
           <button
             onClick={handleClose}
-            className={`group transition-colors ${isDarkEditorial ? '-ml-2 inline-flex min-h-11 items-center gap-3 px-2 text-[0.7rem] uppercase tracking-[0.18em] text-[rgba(242,237,226,0.67)] hover:text-[var(--cream-ink)]' : 'flex items-center space-x-2 text-neutral-600 hover:text-[#B3543A]'}`}
+            className={`group transition-colors ${isDarkEditorial ? '-ml-2 inline-flex min-h-11 items-center gap-3 px-2 text-[0.7rem] uppercase tracking-[0.18em] text-[rgba(242,237,226,0.67)] hover:text-[var(--cream-ink)]' : 'flex items-center space-x-2 text-neutral-600 hover:text-[var(--poppy-text)]'}`}
             aria-label="Back to work"
           >
             <BackIcon />

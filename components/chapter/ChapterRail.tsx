@@ -196,17 +196,17 @@ export const ChapterRail: React.FC<{
   // borrowing a rectangular hole from whatever happens to pass behind it.
   const mobileRailColors = active?.id === 'labs'
     ? {
-        surface: 'rgba(18,12,8,0.96)',
+        surface: 'rgba(5,7,12,0.96)',
         ink: 'var(--cream-ink)',
-        muted: 'rgba(242,237,226,0.67)',
-        border: 'rgba(242,237,226,0.22)',
+        muted: 'rgba(247,243,237,0.67)',
+        border: 'rgba(247,243,237,0.22)',
         accent: 'var(--ember)',
       }
     : {
-        surface: 'rgba(245,242,236,0.97)',
+        surface: 'rgba(247,243,237,0.97)',
         ink: 'var(--ink)',
         muted: 'var(--ink-mute)',
-        border: 'rgba(21,14,10,0.22)',
+        border: 'rgba(20,16,14,0.22)',
         accent: 'var(--terra-text)',
       };
 

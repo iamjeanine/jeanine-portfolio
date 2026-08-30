@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
  * keep resolving against the same box they always have.
  *
  * Driven by a scroll-set CSS custom property via rAF, the same pattern
- * ColorBridge and ProjectorLight already use, so there are no React
+ * ColorBridge already uses, so there are no React
  * re-renders on scroll. Reduced motion skips the effect entirely: the
  * effect bails before ever touching the custom property, so it stays at
  * its 0px default and no transform is ever applied.
