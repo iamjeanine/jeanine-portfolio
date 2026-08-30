@@ -30,3 +30,30 @@ export const useElementVisible = (id?: string): boolean => {
 
   return visible;
 };
+
+/** True while any element in a stable list of ids intersects the viewport. */
+export const useAnyElementVisible = (ids?: readonly string[]): boolean => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ids || ids.length === 0) return;
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (elements.length === 0) return;
+
+    const visibleElements = new Set<Element>();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleElements.add(entry.target);
+        else visibleElements.delete(entry.target);
+      });
+      setVisible(visibleElements.size > 0);
+    }, { threshold: 0 });
+
+    elements.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [ids]);
+
+  return visible;
+};

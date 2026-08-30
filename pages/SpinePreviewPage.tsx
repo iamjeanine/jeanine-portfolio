@@ -128,6 +128,8 @@ const RAIL_SECTIONS: RailSection[] = [
   { id: 'about', index: '03', label: 'About' },
 ];
 
+const RAIL_SUPPRESSION_IDS = ['cover', 'contact-endcap'] as const;
+
 const VALID_CHAPTERS = new Set(RAIL_SECTIONS.map((s) => s.id));
 
 const scrollToSection = (id: string, behavior?: ScrollBehavior) => {
@@ -148,6 +150,100 @@ const skipToSection = (id: string) => {
   el.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
   el.focus({ preventScroll: true });
 };
+
+/**
+ * One cropped headphone, treated as an editorial object rather than an
+ * avatar. Its scale and interruption carry the hero; there is deliberately
+ * no face for the object to explain or decorate.
+ */
+const HeadphoneMotif: React.FC = () => (
+  <div className="cover-headphones" aria-hidden="true">
+    <svg
+      className="cover-headphones-desktop"
+      viewBox="0 0 1440 900"
+      preserveAspectRatio="xMaxYMid meet"
+      role="presentation"
+    >
+      <g transform="rotate(-9 1280 280)">
+        <path
+          className="cover-headphones-band"
+          pathLength="1"
+          d="M 1118 292 C 1095 121, 1189 20, 1327 28 C 1464 36, 1523 143, 1484 310"
+        />
+        <path
+          className="cover-headphones-band-inner"
+          pathLength="1"
+          d="M 1140 286 C 1124 144, 1203 58, 1322 64 C 1439 70, 1485 161, 1460 300"
+        />
+        <path
+          className="cover-headphones-yoke"
+          pathLength="1"
+          d="M 1118 278 C 1091 303, 1081 327, 1083 354 M 1484 296 C 1499 320, 1501 344, 1492 370"
+        />
+        <g className="cover-headphones-earcup">
+          <path
+            d="M 1083 284 C 1124 254, 1205 257, 1239 297 C 1270 334, 1262 417, 1228 453 C 1193 490, 1105 479, 1076 436 C 1047 393, 1045 325, 1083 284 Z"
+          />
+          <path
+            className="cover-headphones-earcup-seam"
+            d="M 1105 307 C 1135 286, 1185 288, 1209 316 C 1232 343, 1226 401, 1202 427 C 1177 453, 1123 446, 1102 416 C 1081 386, 1078 337, 1105 307 Z"
+          />
+        </g>
+        <g className="cover-headphones-earcup cover-headphones-earcup-back">
+          <path
+            d="M 1460 309 C 1498 284, 1559 293, 1583 331 C 1606 369, 1593 431, 1559 459 C 1526 487, 1466 467, 1447 428 C 1428 389, 1428 335, 1460 309 Z"
+          />
+          <path
+            className="cover-headphones-earcup-seam"
+            d="M 1480 331 C 1506 315, 1542 321, 1558 345 C 1574 370, 1565 412, 1542 430 C 1519 449, 1484 436, 1471 410 C 1459 383, 1459 349, 1480 331 Z"
+          />
+        </g>
+        <path
+          className="cover-headphones-cable"
+          pathLength="1"
+          d="M 1168 476 C 1171 562, 1244 588, 1225 682 C 1208 766, 1268 831, 1312 934"
+        />
+      </g>
+    </svg>
+
+    <svg
+      className="cover-headphones-mobile"
+      viewBox="0 0 390 844"
+      preserveAspectRatio="none"
+      role="presentation"
+    >
+      <path
+        className="cover-headphones-band"
+        pathLength="1"
+        d="M 430 -26 C 356 34, 326 116, 348 194"
+      />
+      <path
+        className="cover-headphones-band-inner"
+        pathLength="1"
+        d="M 414 -8 C 357 46, 340 118, 358 183"
+      />
+      <path
+        className="cover-headphones-yoke"
+        pathLength="1"
+        d="M 348 188 C 334 209, 331 235, 339 258"
+      />
+      <g className="cover-headphones-earcup cover-headphones-earcup-mobile">
+        <path
+          d="M 375 111 C 423 82, 486 104, 512 156 C 538 208, 523 296, 481 337 C 437 379, 372 347, 347 296 C 323 246, 331 153, 375 111 Z"
+        />
+        <path
+          className="cover-headphones-earcup-seam"
+          d="M 395 143 C 425 126, 463 140, 479 174 C 495 208, 486 269, 459 294 C 432 320, 394 299, 380 267 C 366 235, 369 171, 395 143 Z"
+        />
+      </g>
+      <path
+        className="cover-headphones-cable"
+        pathLength="1"
+        d="M 352 317 C 336 407, 366 471, 350 557 C 336 643, 361 731, 374 872"
+      />
+    </svg>
+  </div>
+);
 
 /**
  * The Cover (REDESIGN-PLAN.md 4.3, restaged 2026-08-07 per an Impeccable
@@ -271,7 +367,9 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
     className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12"
     style={{ background: SCAMFLUENCERS_FIELD }}
   >
-    <div className="relative">
+    <HeadphoneMotif />
+
+    <div className="relative z-10">
       <p
         className="chapter-label"
         style={{
@@ -295,7 +393,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           fontFamily: "'Bodoni Moda', serif",
           fontSize: 'var(--display-xl)',
           lineHeight: 0.88,
-          color: '#FFFFFF',
+          color: 'var(--poppy-ink)',
         }}
       >
         {[
@@ -319,24 +417,26 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       </h1>
     </div>
 
-    <div className="relative mt-16 lg:mt-20 flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-16">
+    <div className="relative z-10 mt-16 lg:mt-20 flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-16">
       <p
         className="text-[1.5rem] md:text-[1.75rem] italic leading-snug"
         style={{
           fontFamily: "'Source Serif 4', Georgia, serif",
-          color: '#FFFFFF',
-          maxWidth: '26ch',
+          color: 'var(--poppy-ink)',
+          maxWidth: '31ch',
           opacity: shown ? 1 : 0,
           ...entrance(900),
         }}
       >
-        Emmy and Ambie Award-winning showrunner and executive producer.
+        Emmy and Ambie Award‑winning showrunner and executive producer.
       </p>
 
       <nav
         aria-label="Chapters"
-        className="flex flex-col gap-3 md:items-end"
+        className="relative flex flex-col gap-3 md:items-end"
         style={{
+          background: SCAMFLUENCERS_FIELD,
+          boxShadow: '0 0 0 0.9rem var(--poppy)',
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : 'translateY(12px)',
           ...entrance(1050),
@@ -362,7 +462,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           >
             <span
               className="chapter-label tabular-nums"
-              style={{ color: '#FFFFFF', fontSize: '1.2rem', fontWeight: 700 }}
+              style={{ color: 'var(--poppy-ink)', fontSize: '1.2rem', fontWeight: 700 }}
             >
               {c.index}
             </span>
@@ -370,7 +470,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
               className="text-[1.5rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
               style={{
                 fontFamily: "'Bodoni Moda', serif",
-                color: '#FFFFFF',
+                color: 'var(--poppy-ink)',
                 textDecorationLine: 'underline',
                 textDecorationColor: SCAMFLUENCERS_ACCENT,
                 textDecorationThickness: 2,
@@ -556,7 +656,7 @@ const SpinePreviewPage: React.FC = () => {
 
       <ChapterRail
         sections={RAIL_SECTIONS}
-        hideWhileVisibleId="cover"
+        hideWhileVisibleIds={RAIL_SUPPRESSION_IDS}
         onNavigate={pushChapterUrl}
         onActiveChange={syncActiveChapterToUrl}
       />
@@ -689,11 +789,12 @@ const SpinePreviewPage: React.FC = () => {
           (LinkedIn, back to cover) move in here as the small print under
           the beat, the same relationship the Cover's own contact line has
           to its name. */}
-      <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} heightClassName="h-[20vh] md:h-[24vh]" />
-      <footer
-        className="relative overflow-hidden px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
-        style={{ background: SCAMFLUENCERS_FIELD }}
-      >
+      <div id="contact-endcap">
+        <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} heightClassName="h-[20vh] md:h-[24vh]" />
+        <footer
+          className="relative overflow-hidden px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
+          style={{ background: SCAMFLUENCERS_FIELD }}
+        >
         <div className="relative">
           {/* "Get in touch" is the headline itself now, not an eyebrow over
               a separate statement line: the statement ("Building the next
@@ -709,7 +810,7 @@ const SpinePreviewPage: React.FC = () => {
               fontSize: 'var(--display-md)',
               lineHeight: 1.05,
               letterSpacing: '-0.01em',
-              color: '#FFFFFF',
+              color: 'var(--poppy-ink)',
             }}
           >
             Get in touch
@@ -722,7 +823,7 @@ const SpinePreviewPage: React.FC = () => {
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
                 fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
-                color: '#FFFFFF',
+                color: 'var(--poppy-ink)',
                 textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
@@ -737,7 +838,7 @@ const SpinePreviewPage: React.FC = () => {
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
                 fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
-                color: '#FFFFFF',
+                color: 'var(--poppy-ink)',
                 textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
@@ -757,7 +858,8 @@ const SpinePreviewPage: React.FC = () => {
             </button>
           </div>
         </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 };

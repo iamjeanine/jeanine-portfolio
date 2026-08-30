@@ -21,7 +21,9 @@ import { GRAIN_URI } from './constants';
  * one as you move through it, and the seams stay exact throughout.
  *
  * Shared by Productions (spread to spread) and Ghost Mode Labs (paper into
- * the chapter's dark ground and back).
+ * the chapter's dark ground and back). Productions opts into `wipe`, a
+ * short, nearly hard editorial turn with no grain. Labs keeps this animated
+ * wash, where the longer atmosphere belongs to the chapter's visual language.
  *
  * Reduced motion: the midpoint parks at 0.5, which renders a clean
  * symmetric gradient rather than the muddy frozen mid-mix the flat-colour
@@ -60,12 +62,17 @@ export const ColorBridge: React.FC<{
   to: string;
   heightClassName?: string;
   via?: string;
-}> = ({ from, to, heightClassName = 'h-[10vh] md:h-[14vh]', via }) => {
+  variant?: 'wash' | 'wipe';
+}> = ({ from, to, heightClassName, via, variant = 'wash' }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const resolvedHeight =
+    heightClassName ??
+    (variant === 'wipe' ? 'h-[5vh] md:h-[6vh]' : 'h-[10vh] md:h-[14vh]');
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (variant === 'wipe') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       el.style.setProperty('--t', '0.5');
       return;
@@ -91,13 +98,13 @@ export const ColorBridge: React.FC<{
       window.removeEventListener('resize', onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [variant]);
 
   return (
     <div
       ref={ref}
       aria-hidden="true"
-      className={`relative ${heightClassName}`}
+      className={`relative ${resolvedHeight}`}
       style={
         {
           '--t': 0.5,
@@ -106,9 +113,12 @@ export const ColorBridge: React.FC<{
           // Midpoint sweeps 82% -> 18% as the bridge rises through the
           // viewport: early on most of the band still reads as the colour
           // being left, and by the time it exits, as the colour arriving.
-          background: `linear-gradient(180deg, var(--from-c) 0%, ${
-            via ?? 'color-mix(in oklch, var(--from-c), var(--to-c))'
-          } calc(82% - var(--t) * 64%), var(--to-c) 100%)`,
+          background:
+            variant === 'wipe'
+              ? 'linear-gradient(180deg, var(--from-c) 0%, var(--from-c) 49%, var(--to-c) 51%, var(--to-c) 100%)'
+              : `linear-gradient(180deg, var(--from-c) 0%, ${
+                  via ?? 'color-mix(in oklch, var(--from-c), var(--to-c))'
+                } calc(82% - var(--t) * 64%), var(--to-c) 100%)`,
         } as React.CSSProperties
       }
     >
@@ -117,11 +127,13 @@ export const ColorBridge: React.FC<{
           measurable step at each seam (the neighbouring section's grain
           against the bridge's clean fill) and broke the "one grain" the
           shared physics depends on. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
-      />
+      {variant === 'wash' && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none mix-blend-overlay"
+          style={{ backgroundImage: GRAIN_URI, opacity: 0.05 }}
+        />
+      )}
     </div>
   );
 };

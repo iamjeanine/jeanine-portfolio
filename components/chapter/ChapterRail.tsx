@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useElementVisible } from './useElementVisible';
+import { useAnyElementVisible } from './useElementVisible';
 import { preferredScrollBehavior } from './motionPreference';
 
 export interface RailSection {
@@ -58,22 +58,15 @@ const useChapterProgress = (): Progress | null => {
  * right edge on desktop, a single compact current-position label on
  * mobile.
  *
- * The plan specifies ink-on-paper vs cream-ink-on-dark, but the rail
- * spends most of the scroll floating over Productions' saturated
- * per-spread fields (terra orange, navy, near-black plum), not just
- * "paper" or "the Labs dark ground": a binary light/dark scheme goes
- * unreadable there (e.g. muted ink or terra on the Scamfluencers
- * orange field measures under 2:1). Instead the rail is white text in
- * `mix-blend-mode: difference`, which inverts against whatever is
- * behind it and stays legible against every ground in the spine
- * without needing to know what that ground is. Active vs inactive is
- * conveyed by opacity and weight instead of hue, since the whole
- * point is not depending on a color read against a variable backdrop.
- * Still no pill, no glass, no backdrop blur.
+ * The desktop rail uses an explicit ink for each production spread, cream
+ * in Labs, and dark ink on paper. This keeps the fixed navigation inside the
+ * authored palette instead of generating surprise colors with blend modes.
+ * Active vs inactive is conveyed by opacity and weight. Still no pill, no
+ * glass, no backdrop blur.
  */
 export const ChapterRail: React.FC<{
   sections: RailSection[];
-  hideWhileVisibleId?: string;
+  hideWhileVisibleIds?: readonly string[];
   /** Called once per deliberate click (rail button or mobile menu item),
    * after the click's own scroll. Meant to push a real history entry, so
    * Back can undo the jump. */
@@ -86,7 +79,7 @@ export const ChapterRail: React.FC<{
    * an inline function passed fresh every parent render doesn't re-run
    * this effect on anything but a real position change. */
   onActiveChange?: (id: string | undefined) => void;
-}> = ({ sections, hideWhileVisibleId, onNavigate, onActiveChange }) => {
+}> = ({ sections, hideWhileVisibleIds, onNavigate, onActiveChange }) => {
   // Starts undefined, not at the first section: on the Cover no chapter is
   // in view yet, and defaulting to sections[0] made the rail claim
   // "01 Productions" on the very first screen, which is the one place a
@@ -162,9 +155,9 @@ export const ChapterRail: React.FC<{
   // floated over the Contents block while it displayed the identical list at
   // a larger size, with mismatched copy besides. Rather than pick a winner,
   // the rail steps aside for whichever element owns that job at the moment,
-  // fading out while `hideWhileVisibleId` is on screen and back in once the
+  // fading out while a competing endcap is on screen and back in once the
   // visitor reaches an actual chapter.
-  const suppressed = useElementVisible(hideWhileVisibleId);
+  const suppressed = useAnyElementVisible(hideWhileVisibleIds);
 
   // Closing the mobile menu on every chapter change (rather than leaving it
   // open) keeps it from surviving into a chapter its contents no longer
@@ -189,6 +182,18 @@ export const ChapterRail: React.FC<{
     active && progress && progress.chapter === active.id
       ? `${progress.position}/${progress.total}`
       : undefined;
+  const productionRailInks = [
+    'var(--ink)',
+    '#26141A',
+    'var(--cream)',
+    'var(--ink)',
+    'var(--ink)',
+  ];
+  const desktopRailInk = active?.id === 'labs'
+    ? 'var(--cream-ink)'
+    : active?.id === 'productions' && progress?.chapter === 'productions'
+      ? productionRailInks[Math.max(0, Math.min(productionRailInks.length - 1, progress.position - 1))]
+      : 'var(--ink)';
   // The compact control is an actual fore-edge tab now, rather than long
   // difference-blended text floating over faces, titles and body copy. Labs
   // gets the chapter's ink-black stock; every paper/colour-field chapter
@@ -228,19 +233,6 @@ export const ChapterRail: React.FC<{
   return (
     <>
       {/*
-        Desktop: full vertical stack, right edge.
-
-        The difference-blend lives on the fixed <nav>, not on the buttons.
-        A position:fixed element establishes its own stacking context, which
-        isolates its descendants' blend group: a mix-blend-mode on a child
-        therefore has no page backdrop to invert against and paints as
-        literal white. That was a real defect, caught in the Phase 5
-        critique, that rendered the rail at 1.12:1 on paper. Blending at the
-        fixed element itself is correct, because an element with
-        mix-blend-mode blends against its own backdrop rather than its
-        children's.
-      */}
-      {/*
         lg, not md. The vertical rail used to appear from 768px, where no
         chapter has the horizontal room for a fixed right-edge label beside
         its content: measured at 768, every section on the site put text
@@ -265,8 +257,13 @@ export const ChapterRail: React.FC<{
         reservation at all, because there is no rail there to clear.
       */}
       <nav
-        className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert transition-opacity duration-500"
-        style={{ opacity: suppressed ? 0 : 1, pointerEvents: suppressed ? 'none' : 'auto' }}
+        className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert chapter-rail-authored transition-opacity duration-500"
+        style={{
+          opacity: suppressed ? 0 : 1,
+          pointerEvents: suppressed ? 'none' : 'auto',
+          color: desktopRailInk,
+          mixBlendMode: 'normal',
+        }}
         aria-hidden={suppressed || undefined}
         aria-label="Chapters"
       >
@@ -279,14 +276,15 @@ export const ChapterRail: React.FC<{
               tabIndex={suppressed ? -1 : undefined}
               onClick={() => scrollToSection(s.id)}
               className="chapter-label chapter-rail-btn chapter-rail-hit flex items-baseline gap-2 transition-opacity duration-300"
-              /* 0.66, not a lower "muted" value: opacity scales the
-                 difference blend, so an inactive item's effective contrast
-                 drops with it. Measured from rendered pixels, 0.55 landed at
-                 3.66:1 against the palest spread field (Dying for Sex) and
-                 4.18:1 on paper, both under the floor. 0.66 clears 4.5:1 on
-                 every ground in the spine while still reading as clearly
-                 secondary to the active item at full opacity. */
-              style={{ opacity: isActive ? 1 : 0.66, fontWeight: isActive ? 700 : 400 }}
+              /* Keep inactive choices clearly secondary without fading
+                 the authored rail ink into an ambiguous mid-tone. */
+              style={{
+                // 0.84 keeps near-black above 4.5:1 on the poppy field,
+                // the lowest-contrast light field in this sequence.
+                opacity: isActive ? 1 : 0.84,
+                fontWeight: isActive ? 700 : 400,
+                outlineColor: desktopRailInk,
+              }}
               aria-current={isActive ? 'true' : undefined}
             >
               <span className="tabular-nums">{s.index}</span>

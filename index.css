@@ -4,10 +4,19 @@
   /* Poppy-led identity. The primary is sampled from the supplied Clare V
      reference rather than inherited from the previous rust palette. */
   --poppy: #FD452D;
+  /* Crisp optical ink for large type on poppy. Warm cream remains the
+     site's paper and the light ink used in the darker chapters. */
+  --poppy-ink: #FFFFFF;
   --poppy-text: #C52D22;
   --poppy-on-dark: #FF6B57;
   --signal: #F0FF29;
   --lavender: #B7A1F7;
+  /* Production fields share one flat, high-clarity register. Each hue is
+     drawn from its show's artwork, while the repeated material treatment
+     keeps the chapter in the same visual world as the poppy cover. */
+  --production-blush: #F2B6C2;
+  --production-navy: #182B56;
+  --production-powder: #B8D9E8;
 
   --bg-site: #F7F3ED;
   --ink: #14100E;
@@ -124,6 +133,123 @@
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+/* The cover's one non-typographic object. The shape stays behind the name,
+   enters from outside the canvas, and never becomes a freestanding logo. */
+.cover-headphones {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+}
+
+.cover-headphones svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-headphones > .cover-headphones-mobile {
+  display: none;
+}
+
+.cover-headphones-band,
+.cover-headphones-band-inner,
+.cover-headphones-yoke,
+.cover-headphones-cable {
+  fill: none;
+  stroke: #171725;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  animation: cover-headphones-draw 760ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.cover-headphones-band {
+  stroke-width: 12;
+  animation-delay: 180ms;
+}
+
+.cover-headphones-band-inner {
+  stroke: #b8d9e8;
+  stroke-width: 6;
+  animation-delay: 280ms;
+}
+
+.cover-headphones-yoke {
+  stroke-width: 9;
+  animation-delay: 360ms;
+}
+
+.cover-headphones-cable {
+  stroke-width: 7;
+  animation-delay: 620ms;
+}
+
+.cover-headphones-earcup {
+  fill: #b8d9e8;
+  stroke: #171725;
+  stroke-width: 7;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cover-headphones-settle 640ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
+}
+
+.cover-headphones-earcup-back {
+  animation-delay: 520ms;
+}
+
+.cover-headphones-earcup-seam {
+  fill: none;
+  stroke: rgba(23, 23, 37, 0.48);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+@keyframes cover-headphones-draw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes cover-headphones-settle {
+  from {
+    opacity: 0;
+    transform: translateX(32px) rotate(3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+}
+
+@media (max-width: 767px) {
+  /* On phones, the name is the hero. The cropped earcup competed with
+     "Emilia" and stopped reading clearly as a headphone, so the editorial
+     object is reserved for layouts with enough room to recognize it. */
+  .cover-headphones {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-headphones-band,
+  .cover-headphones-band-inner,
+  .cover-headphones-yoke,
+  .cover-headphones-cable,
+  .cover-headphones-earcup {
+    animation: none;
+  }
 }
 
 .chapter-expandable {
@@ -247,10 +373,8 @@
   outline-offset: 2px;
 }
 
-/* The fixed ChapterRail overlays every ground in the spine, including
-   Productions' saturated per-spread fields, not just paper/dark: see
-   the comment in ChapterRail.tsx for why this inverts instead of
-   picking a color. */
+/* MotionToggle still uses difference blending because it can cross any
+   surface. ChapterRail adds the authored modifier below and opts out. */
 .chapter-rail-invert {
   color: #ffffff;
   mix-blend-mode: difference;
@@ -259,6 +383,17 @@
 .chapter-rail-invert :focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
+}
+
+/* The desktop chapter rail now uses an authored ink for each production
+   field. This keeps its color inside the palette instead of generating
+   cyan, green, or brown artifacts through difference blending. */
+.chapter-rail-authored {
+  mix-blend-mode: normal;
+}
+.chapter-rail-authored:focus-visible,
+.chapter-rail-authored :focus-visible {
+  outline-color: currentColor;
 }
 
 /* Windows High Contrast / forced-colors fallback (Impeccable navigation

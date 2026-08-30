@@ -237,10 +237,9 @@ const ENTRIES: LabEntry[] = [
     // her own voice claim, not a mechanism line. Concept ruling
     // (2026-08-22): voices are a wide range of human narrators to choose
     // from per telling, not family uploads; the detail page says the same.
-    // Label is one word (Jeanine, 2026-08-22: the earlier "The voice is a
-    // choice too" was filler). "Next" marks the line as a promise, not a
-    // feature of the prototype as it stands, matching the detail page.
-    stat: { value: 'A wide range of human voice artists to choose from.', label: 'Next' },
+    // The display line names the future feature plainly. "Coming next"
+    // makes its roadmap status explicit instead of reading like navigation.
+    stat: { value: 'A choice of human narrators', label: 'Coming next' },
     expandables: [
       {
         label: 'Concept',
@@ -398,7 +397,7 @@ const ENTRIES: LabEntry[] = [
     // Lab" is the real program name, so this line is a descriptor and
     // can drop the noun it would otherwise repeat, matching the shape
     // of Franchise intelligence and Interactive worldbuilding.
-    tagline: 'Creative innovation',
+    tagline: 'Practical AI for production',
     tier: 'feature',
     description:
       'I founded Wondery’s first AI Creator Lab. I built the curriculum, internal hub, and partnerships that brought AI into production. Three projects were greenlit from the lab.',

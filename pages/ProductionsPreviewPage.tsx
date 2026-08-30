@@ -27,6 +27,7 @@ interface SpreadPalette {
   inkSoft: string; // eyebrows, small labels
   inkBody: string; // serif body copy
   accent: string; // role label, index number, expandable markers
+  accentText?: string; // accessible small-label color when the signal accent is decorative only
   border: string; // expandable hairlines
   shadow: string; // media drop shadows
 }
@@ -174,12 +175,13 @@ const SPREADS: SpreadData[] = [
     // for large labels and non-text cues such as underlines and focus rings.
     palette: {
       field: 'var(--poppy)',
-      ink: '#FCF5EC',
+      ink: 'var(--poppy-ink)',
       inkSoft: 'var(--ink)',
       inkBody: 'var(--ink)',
       accent: 'var(--signal)',
-      border: 'rgba(252,245,236,0.28)',
-      shadow: 'rgba(93,18,10,0.28)',
+      accentText: 'var(--ink)',
+      border: 'rgba(20,16,14,0.24)',
+      shadow: 'rgba(20,16,14,0.22)',
     },
   },
   {
@@ -206,21 +208,19 @@ const SPREADS: SpreadData[] = [
         alt: 'Dying for Sex podcast and FX series artwork with 9 Emmy nominations laurel',
       },
       overlap: {
-        src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Dying%20for%20Sex/THE%20PEABODY%20AWARDS.jpg',
-        alt: 'Dying for Sex FX series Peabody Awards winner poster',
+        src: '/dying-for-sex-peabody.png',
+        alt: 'Dying for Sex FX series Peabody winner artwork featuring Michelle Williams and Rob Delaney',
       },
     },
     palette: {
-      field: 'linear-gradient(165deg, #F7E1DB 0%, #F3D5CE 60%, #EFCCC5 100%)',
+      field: 'var(--production-blush)',
       ink: '#26141A',
-      // Phase 5 sweep: measured 4.24:1 against the field's lightest stop,
-      // failing the 4.5:1 floor for the eyebrow/stat-label/expandable-label
-      // text this drives. Raised to the computed minimum plus a buffer.
-      inkSoft: 'rgba(38,20,26,0.65)',
+      // 0.70 clears the small-text contrast floor on the flat blush field.
+      inkSoft: 'rgba(38,20,26,0.70)',
       inkBody: 'rgba(38,20,26,0.85)',
-      accent: '#B30957',
+      accent: '#970A4B',
       border: 'rgba(38,20,26,0.22)',
-      shadow: 'rgba(140,50,70,0.28)',
+      shadow: 'rgba(20,16,14,0.20)',
     },
     flip: true,
   },
@@ -259,13 +259,13 @@ const SPREADS: SpreadData[] = [
       },
     },
     palette: {
-      field: 'linear-gradient(165deg, #2B3A55 0%, #1C2540 55%, #131A30 100%)',
-      ink: '#F2ECDD',
-      inkSoft: 'rgba(242,236,221,0.68)',
-      inkBody: 'rgba(242,236,221,0.9)',
-      accent: '#E5A43B',
-      border: 'rgba(242,236,221,0.25)',
-      shadow: 'rgba(0,5,20,0.5)',
+      field: 'var(--production-navy)',
+      ink: 'var(--cream)',
+      inkSoft: 'rgba(247,243,237,0.72)',
+      inkBody: 'rgba(247,243,237,0.92)',
+      accent: 'var(--signal)',
+      border: 'rgba(247,243,237,0.25)',
+      shadow: 'rgba(5,7,12,0.42)',
     },
     // The one spread whose art can take it: the top band is open sky,
     // with the figure at 45-56% of the image height.
@@ -319,14 +319,14 @@ const BORN_THIS_WAY: SpreadData = {
     },
   },
   palette: {
-    field: 'linear-gradient(165deg, #EDEAE1 0%, #E6E1D4 55%, #DED7C5 100%)',
-    ink: '#211C15',
-    // Phase 5 sweep: measured 4.15:1 against the field's lightest stop.
-    inkSoft: 'rgba(33,28,21,0.66)',
-    inkBody: 'rgba(33,28,21,0.86)',
-    accent: '#066B34',
-    border: 'rgba(33,28,21,0.2)',
-    shadow: 'rgba(60,50,30,0.22)',
+    field: 'var(--production-powder)',
+    ink: 'var(--ink)',
+    // Dark supporting ink preserves the light-field hierarchy on powder blue.
+    inkSoft: 'rgba(20,16,14,0.68)',
+    inkBody: 'rgba(20,16,14,0.88)',
+    accent: '#075A38',
+    border: 'rgba(20,16,14,0.2)',
+    shadow: 'rgba(20,16,14,0.18)',
   },
   // Required by its promotion to the fourth lead, not cosmetic: The Last
   // City ahead of it has no flip, so without this the front of book would
@@ -436,6 +436,7 @@ const Spread: React.FC<{
   progressTotal: number;
 }> = ({ data, label, progressIndex, progressTotal }) => {
   const { palette: p, flip } = data;
+  const accentText = p.accentText ?? p.accent;
 
   /*
    * Spread choreography: the credits were the most static screens on the
@@ -531,7 +532,7 @@ const Spread: React.FC<{
         'data-progress-total': progressTotal,
       }}
       background={p.field}
-      grainOpacity={data.slug === 'scamfluencers' ? 0 : 0.05}
+      grainOpacity={0}
       gutterClassName="px-6 md:px-20 xl:pr-64"
       paddingClassName="pt-10 md:pt-14 pb-24 md:pb-36"
     >
@@ -539,7 +540,8 @@ const Spread: React.FC<{
         label={data.eyebrow}
         index={label}
         labelColor={p.inkSoft}
-        indexColor={p.accent}
+        indexColor={accentText}
+        indexClassName="hidden xl:inline"
         style={beat(0, 10)}
       />
 
@@ -624,7 +626,7 @@ const Spread: React.FC<{
                 data.media.main.className ??
                 `w-full lg:w-[82%] block ${flip ? 'lg:mr-auto' : 'lg:ml-auto'}`
               }
-              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
+              style={{ boxShadow: `0 20px 44px ${p.shadow}` }}
             />
           ) : (
             <img
@@ -639,7 +641,7 @@ const Spread: React.FC<{
                 data.media.main.className ??
                 `w-full lg:w-[82%] block ${flip ? 'lg:mr-auto' : 'lg:ml-auto'}`
               }
-              style={{ boxShadow: `0 30px 80px ${p.shadow}` }}
+              style={{ boxShadow: `0 20px 44px ${p.shadow}` }}
             />
           )}
           {data.media.overlap && (
@@ -658,7 +660,7 @@ const Spread: React.FC<{
                   flip ? '-right-[8%]' : '-left-[8%]'
                 }`
               }
-              style={{ boxShadow: `0 24px 60px ${p.shadow}` }}
+              style={{ boxShadow: `0 16px 30px ${p.shadow}` }}
             />
           )}
         </div>
@@ -682,10 +684,10 @@ const Spread: React.FC<{
             flip ? 'lg:col-start-9' : 'lg:col-start-1'
           }`}
         >
-          <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
+          <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: accentText }}>
             {data.format}
           </p>
-          <p className="mt-1 text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
+          <p className="mt-1 text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: accentText }}>
             {data.role}
           </p>
           <p
@@ -746,7 +748,7 @@ const Spread: React.FC<{
               underneath it implies the big line above is not one. */}
           {data.awards && data.awards.length > 0 && (
             <div className="mt-10">
-              <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: p.accent }}>
+              <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: accentText }}>
                 Recognition
               </p>
               <ul className="mt-3.5 space-y-1.5">
@@ -787,7 +789,7 @@ const Spread: React.FC<{
               target="_blank"
               rel="noopener noreferrer"
               className="mt-10 inline-flex min-h-11 items-center gap-2 py-3 text-[0.75rem] tracking-[0.18em] uppercase transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              style={{ color: p.ink, outlineColor: p.accent }}
+              style={{ color: p.inkBody, outlineColor: p.accent }}
             >
               {data.link.label}
               <span aria-hidden="true" style={{ color: p.accent }}>
@@ -1204,7 +1206,7 @@ export const ProductionsChapter: React.FC = () => (
         Scamfluencers' own field made the same pre-existing seam obvious:
         terra Cover, cream card, terra spread, cream doing nothing but
         interrupting two things that already match. */}
-    <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} />
+    <ColorBridge from="var(--bg-site)" to={PRODUCTIONS_FIRST_COLOR} variant="wipe" />
     {/* Progress counts the credits screen as the chapter's final unit, so
         the rail reads "2/4" rather than claiming seven stops when four of
         them now share one screen. */}
@@ -1218,6 +1220,7 @@ export const ProductionsChapter: React.FC = () => (
         />
         <ColorBridge
           from={gradientEnd(spread.palette.field)}
+          variant="wipe"
           // The last lead bridges into the credits screen's paper rather
           // than into another field.
           to={
