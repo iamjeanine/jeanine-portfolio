@@ -168,21 +168,22 @@ const SPREADS: SpreadData[] = [
         className: 'hidden lg:block absolute w-[30%] aspect-[4/5] object-cover -bottom-24 -left-[6%]',
       },
     },
-    // Contrast repair (REDESIGN-PLAN.md 6.1, computed via WCAG relative
-    // luminance, not eyeballed): the original field's light stops failed
-    // 4.5:1 for small text at every stop (inkSoft as low as 2.67:1). Field
-    // darkened ~22% (uniformly, so its gradient shape is unchanged) and ink
-    // lifted slightly toward white; every stop now clears 4.5:1 for
-    // inkSoft/inkBody and 3:1 for the display-size title, with margin.
-    // Bonus: the chartreuse accent, previously a disclosed 3.69:1 ceiling
-    // against the original field ("no chartreuse-family value passes 4.5:1
-    // there"; see plan 9.1), now clears 4.5:1 too against the darkened
-    // field, unchanged. The hue was never touched.
+    // Contrast reality on the poppy field (computed via WCAG relative
+    // luminance, 2026-08-29): this saturated field caps light-text
+    // contrast at ~3.2:1 (cream) and ~3.4:1 (pure white), so NO light
+    // color can carry small text on it; only display-size type (>=24px,
+    // or >=18.66px bold) passes at the 3:1 large-text floor. Small text
+    // therefore runs dark: #140702 measures 5.1:1 on the lightest stop
+    // and 4.5:1 on the darkest, the practical ceiling for this red.
+    // Alpha-muted darks fail on the darkest stop, so inkSoft is solid and
+    // hierarchy comes from size, not opacity. The chartreuse accent
+    // (3.1-4.0:1 across stops) is legal only at display size or as a
+    // non-text ornament (underlines, rings); never set small copy in it.
     palette: {
       field: 'linear-gradient(160deg, #FA4B24 0%, #F43A1A 55%, #E5300F 100%)',
       ink: '#FCF5EC',
-      inkSoft: 'rgba(252,245,236,0.85)',
-      inkBody: 'rgba(252,245,236,0.95)',
+      inkSoft: '#140702',
+      inkBody: '#140702',
       accent: '#F0FF29',
       border: 'rgba(252,245,236,0.28)',
       shadow: 'rgba(60,20,0,0.35)',

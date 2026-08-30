@@ -293,10 +293,15 @@ const Cover: React.FC<{
     {overlay}
 
     <div className="relative">
+      {/* The acid accent caps at ~3.1:1 on this field, legal only at
+          WCAG large-text size, so the kicker earns its color by being a
+          stamp (19px bold) rather than a whisper. */}
       <p
         className="chapter-label"
         style={{
           color: SCAMFLUENCERS_ACCENT,
+          fontSize: '1.2rem',
+          fontWeight: 700,
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : 'translateY(8px)',
           ...entrance(150),
@@ -358,7 +363,7 @@ const Cover: React.FC<{
       >
         <p
           className="text-[1.3rem] md:text-[1.5rem] italic leading-snug"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK }}
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#140702' }}
         >
           Emmy and Ambie Award-winning showrunner and executive producer.
         </p>
@@ -379,10 +384,13 @@ const Cover: React.FC<{
             label, just a legible one. No underline, no arrow: both read as
             too corporate on a first pass. */}
         <div className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          {/* Dark ink so the primary conversion links actually read on the
+              field; the acid accent survives as the underline, which also
+              makes them look pressable. */}
           <a
             href="mailto:iamjeanine@me.com"
             className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '0.95rem', color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
+            style={{ fontSize: '0.95rem', color: '#140702', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
           >
             iamjeanine@me.com
           </a>
@@ -391,7 +399,7 @@ const Cover: React.FC<{
             target="_blank"
             rel="noopener noreferrer"
             className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '0.95rem', color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
+            style={{ fontSize: '0.95rem', color: '#140702', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
           >
             LinkedIn
           </a>
@@ -425,11 +433,11 @@ const Cover: React.FC<{
             className="chapter-rail-btn group flex min-h-11 items-center gap-4 py-1 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
           >
-            <span className="chapter-label tabular-nums" style={{ color: SCAMFLUENCERS_ACCENT }}>
+            <span className="chapter-label tabular-nums" style={{ color: '#140702' }}>
               {c.index}
             </span>
             <span
-              className="text-[1.35rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
+              className="text-[1.5rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
               style={{ fontFamily: "'Bodoni Moda', serif", color: SCAMFLUENCERS_INK }}
             >
               {c.label}
@@ -820,13 +828,16 @@ const SpinePreviewPage: React.FC = () => {
           </h2>
 
           <div className="mt-8 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10">
+            {/* Dark ink for the same reason as the cover's links: light
+                text at this size cannot pass on the poppy field. */}
             <a
               href="mailto:iamjeanine@me.com"
-              className="inline-flex min-h-11 items-center py-2 underline decoration-1 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
                 fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                color: SCAMFLUENCERS_INK,
+                color: '#140702',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
             >
@@ -836,11 +847,12 @@ const SpinePreviewPage: React.FC = () => {
               href="https://www.linkedin.com/in/jcornillot"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center py-2 underline decoration-1 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
                 fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                color: SCAMFLUENCERS_INK,
+                color: '#140702',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
             >
