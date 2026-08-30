@@ -371,43 +371,11 @@ const Cover: React.FC<{
         >
           Emmy and Ambie Award-winning showrunner and executive producer.
         </p>
-        <p
-          className="mt-3 md:mt-4 text-[1.5rem] leading-snug"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#FFFFFF' }}
-        >
-          {/* Slimmed to the share card's own line (Jeanine, 2026-08-16):
-              one statement, not two sentences. Ghost Mode Labs keeps its
-              mention in the chapter list directly below. */}
-          Scripted and nonfiction stories for podcasts, television, and
-          new formats.
-        </p>
-        {/* Sized up from the shared chapter-label default (0.7rem, an
-            11.2px byline the recruiter critique flagged as unreadable for
-            the only contact info on the Cover) while keeping its tracking
-            and uppercase treatment, so this still reads as a masthead
-            label, just a legible one. No underline, no arrow: both read as
-            too corporate on a first pass. */}
-        <div className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-2">
-          {/* Dark ink so the primary conversion links actually read on the
-              field; the acid accent survives as the underline, which also
-              makes them look pressable. */}
-          <a
-            href="mailto:iamjeanine@me.com"
-            className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
-          >
-            iamjeanine@me.com
-          </a>
-          <a
-            href="https://www.linkedin.com/in/jcornillot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
-          >
-            LinkedIn
-          </a>
-        </div>
+        {/* Cut to the one credential line (Jeanine, 2026-08-29): the
+            category line repeated what the chapter list below already
+            says, and contact moved off the cover entirely since it lives
+            in About and on the back cover. The cover carries four things
+            now, stamp, name, credential, chapters. */}
       </div>
 
       <nav
