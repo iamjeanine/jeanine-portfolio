@@ -37,13 +37,16 @@
      out after an outside design review flagged that every title on the
      page sharing one token made the whole scroll read as one relentless
      size rather than a hierarchy. */
-  /* Cap cut again, from 11rem: at a laptop's ~1440-1512px width, 12.5vw
-     already exceeds even that cap, so the name sits flat at the ceiling
-     rather than scaling with viewport, which is most people's actual
-     screen. A cap trim only registers if it lands below that flat line;
-     11rem didn't (176px, an ~12% change from the original 12.5rem too
-     small to read as different), 9.5rem does (152px). */
-  --display-xl: clamp(3.2rem, 12.5vw, 9.5rem);
+  /* Cap history: cut to 9.5rem when the cover carried five elements and
+     the name had to share the frame. Raised back to 11.25rem with the
+     four-element poppy cover (layout assessment, 2026-08-29): the name is
+     now the only large element and at 9.5rem it left a 330px bare band to
+     its right at 1440, reading as under-composed rather than restrained.
+     10.5rem = 168px, chosen against viewport height as well as width: at
+     180px the two-line name plus the credential tier overflowed an
+     810px-tall laptop by ~170px, and 168px is the largest cap that lets
+     the whole four-element cover hold one viewport there. */
+  --display-xl: clamp(3.2rem, 12.5vw, 10.5rem);
   --display-lg: clamp(2.8rem, 8vw, 8rem);
   /* Pull-stat display size. The long-value step-down (used when a stat
      reads as a phrase rather than a number) is --stat-long. Trimmed

@@ -282,7 +282,7 @@ const Cover: React.FC<{
     // with a chosen amount at every width; leftover height now collects
     // as trailing space below the credential block instead of a void
     // between it and the name.
-    className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
+    className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12"
     style={{ background: SCAMFLUENCERS_FIELD }}
   >
     <div
@@ -341,52 +341,40 @@ const Cover: React.FC<{
           </span>
         ))}
       </h1>
-    </div>
-
-    <div className="relative mt-20 lg:mt-28 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
-      {/* Credential, tagline and contact animate as one beat, not five:
-          the pitch was the name settling and then the supporting material
-          following, and staggering every line inside this block would turn
-          a two-second first impression into a queue. */}
-      <div
+      {/* The middle tier the four-element cover was missing (layout
+          assessment, 2026-08-29): the credential regroups with the name
+          it modifies, scaled between the 180px display and the 24px nav
+          so the type ramp reads name, credential, chapters instead of
+          jumping from shout to whisper. Pure fade, no rise (Jeanine,
+          2026-08-19). */}
+      <p
+        className="mt-10 md:mt-12 text-[1.5rem] md:text-[1.9rem] italic leading-snug"
         style={{
-          maxWidth: '34ch',
-          // Pure fade, no rise (Jeanine, 2026-08-19): even on the retuned
-          // curve, the 12px translateY still read as popping into place.
-          // The name's own rise stays -- it's carrying the blur and
-          // letter-spacing settle too, so 12px reads as part of that
-          // larger arrival rather than an isolated jump the way it did
-          // here on a plain opacity fade.
+          fontFamily: "'Source Serif 4', Georgia, serif",
+          color: '#FFFFFF',
           opacity: shown ? 1 : 0,
           ...entrance(900),
         }}
       >
-        {/* The Clare V. rule for this field: nothing small ever sits on
-            the red. Short lines grow to display size (24px clears the
-            3:1 large-text floor) and stay light, in pure white for the
-            crispest read against the poppy. */}
-        <p
-          className="text-[1.5rem] italic leading-snug"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#FFFFFF' }}
-        >
-          Emmy and Ambie Award-winning showrunner and executive producer.
-        </p>
-        {/* Cut to the one credential line (Jeanine, 2026-08-29): the
-            category line repeated what the chapter list below already
-            says, and contact moved off the cover entirely since it lives
-            in About and on the back cover. The cover carries four things
-            now, stamp, name, credential, chapters. */}
-      </div>
+        Emmy and Ambie Award-winning showrunner and executive producer.
+      </p>
+    </div>
 
-      <nav
-        aria-label="Chapters"
-        className="flex flex-col gap-3 md:items-end"
-        style={{
-          opacity: shown ? 1 : 0,
-          transform: shown ? 'none' : 'translateY(12px)',
-          ...entrance(1050),
-        }}
-      >
+    {/* mt-auto assigns the tall-viewport surplus deliberately: identity
+        group above, wayfinding riding the bottom edge, and the open field
+        between them is a chosen pause. Safe now that the credential lives
+        with the name; the old justify-between defect this section's
+        comment used to warn about needed the void to fall between a name
+        and its own supporting line, which no longer sit apart. */}
+    <nav
+      aria-label="Chapters"
+      className="relative mt-auto pt-12 flex flex-col gap-2 md:items-end"
+      style={{
+        opacity: shown ? 1 : 0,
+        transform: shown ? 'none' : 'translateY(12px)',
+        ...entrance(1050),
+      }}
+    >
         {[
           { id: 'productions', index: '01', label: 'Productions' },
           { id: 'labs', index: '02', label: 'Ghost Mode Labs' },
@@ -417,7 +405,6 @@ const Cover: React.FC<{
           </button>
         ))}
       </nav>
-    </div>
   </section>
   );
 };
@@ -803,29 +790,16 @@ const SpinePreviewPage: React.FC = () => {
             Get in touch
           </h2>
 
-          {/* The lilac-bag move, from Jeanine's Clare V. reference: one
-              soft object breaking the hot field. Contact rides a blush
-              calling card in Dying for Sex's own palette, dark plum ink
-              on powder pink, tipped a degree so it reads as a thing laid
-              on the red rather than a panel. */}
-          <div
-            className="mt-8 md:mt-10 inline-flex flex-col gap-1 px-8 py-7 md:px-10 md:py-8"
-            style={{
-              background: 'linear-gradient(165deg, #F7E1DB 0%, #F3D5CE 60%, #EFCCC5 100%)',
-              borderRadius: '4px',
-              boxShadow: '0 14px 34px -14px rgba(60,20,0,0.5)',
-              transform: 'rotate(-1.2deg)',
-            }}
-          >
+          <div className="mt-8 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10">
             <a
               href="mailto:iamjeanine@me.com"
-              className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.25rem, 1.6vw, 1.45rem)',
-                color: '#26141A',
-                textDecorationColor: '#B30957',
-                outlineColor: '#B30957',
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: '#FFFFFF',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                outlineColor: SCAMFLUENCERS_ACCENT,
               }}
             >
               iamjeanine@me.com
@@ -834,13 +808,13 @@ const SpinePreviewPage: React.FC = () => {
               href="https://www.linkedin.com/in/jcornillot"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.25rem, 1.6vw, 1.45rem)',
-                color: '#26141A',
-                textDecorationColor: '#B30957',
-                outlineColor: '#B30957',
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: '#FFFFFF',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                outlineColor: SCAMFLUENCERS_ACCENT,
               }}
             >
               LinkedIn
