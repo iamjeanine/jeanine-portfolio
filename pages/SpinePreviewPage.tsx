@@ -319,7 +319,7 @@ const Cover: React.FC<{
           fontFamily: "'Bodoni Moda', serif",
           fontSize: 'var(--display-xl)',
           lineHeight: 0.88,
-          color: SCAMFLUENCERS_INK,
+          color: '#FFFFFF',
         }}
       >
         {[
@@ -361,15 +361,19 @@ const Cover: React.FC<{
           ...entrance(900),
         }}
       >
+        {/* The Clare V. rule for this field: nothing small ever sits on
+            the red. Short lines grow to display size (24px clears the
+            3:1 large-text floor) and stay light, in pure white for the
+            crispest read against the poppy. */}
         <p
-          className="text-[1.3rem] md:text-[1.5rem] italic leading-snug"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#140702' }}
+          className="text-[1.5rem] italic leading-snug"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#FFFFFF' }}
         >
           Emmy and Ambie Award-winning showrunner and executive producer.
         </p>
         <p
-          className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
+          className="mt-3 md:mt-4 text-[1.5rem] leading-snug"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#FFFFFF' }}
         >
           {/* Slimmed to the share card's own line (Jeanine, 2026-08-16):
               one statement, not two sentences. Ghost Mode Labs keeps its
@@ -390,7 +394,7 @@ const Cover: React.FC<{
           <a
             href="mailto:iamjeanine@me.com"
             className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '0.95rem', color: '#140702', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
+            style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
           >
             iamjeanine@me.com
           </a>
@@ -399,7 +403,7 @@ const Cover: React.FC<{
             target="_blank"
             rel="noopener noreferrer"
             className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '0.95rem', color: '#140702', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
+            style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF', outlineColor: SCAMFLUENCERS_ACCENT, textDecorationLine: 'underline', textDecorationColor: SCAMFLUENCERS_ACCENT, textDecorationThickness: 2, textUnderlineOffset: 5 }}
           >
             LinkedIn
           </a>
@@ -433,12 +437,12 @@ const Cover: React.FC<{
             className="chapter-rail-btn group flex min-h-11 items-center gap-4 py-1 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
           >
-            <span className="chapter-label tabular-nums" style={{ color: '#140702' }}>
+            <span className="chapter-label tabular-nums" style={{ color: '#FFFFFF', fontSize: '1.2rem', fontWeight: 700 }}>
               {c.index}
             </span>
             <span
               className="text-[1.5rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
-              style={{ fontFamily: "'Bodoni Moda', serif", color: SCAMFLUENCERS_INK }}
+              style={{ fontFamily: "'Bodoni Moda', serif", color: '#FFFFFF' }}
             >
               {c.label}
             </span>
@@ -796,7 +800,11 @@ const SpinePreviewPage: React.FC = () => {
           (LinkedIn, back to cover) move in here as the small print under
           the beat, the same relationship the Cover's own contact line has
           to its name. */}
-      <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} via="var(--terra)" heightClassName="h-[20vh] md:h-[24vh]" />
+      {/* No via here since the poppy swap: --terra (#E5300F) is darker
+          than the footer's own first stop, so routing through it dipped
+          below the field it lands on and left a visible band at the seam.
+          Bridging straight to the field's start keeps the wash smooth. */}
+      <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} heightClassName="h-[20vh] md:h-[24vh]" />
       <footer
         className="relative overflow-hidden px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
         style={{ background: SCAMFLUENCERS_FIELD }}
@@ -821,7 +829,7 @@ const SpinePreviewPage: React.FC = () => {
               fontSize: 'var(--display-md)',
               lineHeight: 1.05,
               letterSpacing: '-0.01em',
-              color: SCAMFLUENCERS_INK,
+              color: '#FFFFFF',
             }}
           >
             Get in touch
@@ -835,8 +843,8 @@ const SpinePreviewPage: React.FC = () => {
               className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                color: '#140702',
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: '#FFFFFF',
                 textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
@@ -850,8 +858,8 @@ const SpinePreviewPage: React.FC = () => {
               className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                color: '#140702',
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: '#FFFFFF',
                 textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}

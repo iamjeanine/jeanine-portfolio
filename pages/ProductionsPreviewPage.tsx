@@ -1182,7 +1182,7 @@ export const ProductionsChapter: React.FC = () => (
           className="hidden md:block text-[0.8rem] italic"
           style={{ fontFamily: "'Source Serif 4', serif", color: 'var(--ink-mute)' }}
         >
-          2015–Present &middot; podcasts &amp; television
+          podcasts &amp; television
         </span>
       </div>
       <ChapterContents
