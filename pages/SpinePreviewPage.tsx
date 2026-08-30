@@ -803,18 +803,29 @@ const SpinePreviewPage: React.FC = () => {
             Get in touch
           </h2>
 
-          <div className="mt-8 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10">
-            {/* Dark ink for the same reason as the cover's links: light
-                text at this size cannot pass on the poppy field. */}
+          {/* The lilac-bag move, from Jeanine's Clare V. reference: one
+              soft object breaking the hot field. Contact rides a blush
+              calling card in Dying for Sex's own palette, dark plum ink
+              on powder pink, tipped a degree so it reads as a thing laid
+              on the red rather than a panel. */}
+          <div
+            className="mt-8 md:mt-10 inline-flex flex-col gap-1 px-8 py-7 md:px-10 md:py-8"
+            style={{
+              background: 'linear-gradient(165deg, #F7E1DB 0%, #F3D5CE 60%, #EFCCC5 100%)',
+              borderRadius: '4px',
+              boxShadow: '0 14px 34px -14px rgba(60,20,0,0.5)',
+              transform: 'rotate(-1.2deg)',
+            }}
+          >
             <a
               href="mailto:iamjeanine@me.com"
-              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
-                color: '#FFFFFF',
-                textDecorationColor: SCAMFLUENCERS_ACCENT,
-                outlineColor: SCAMFLUENCERS_ACCENT,
+                fontSize: 'clamp(1.25rem, 1.6vw, 1.45rem)',
+                color: '#26141A',
+                textDecorationColor: '#B30957',
+                outlineColor: '#B30957',
               }}
             >
               iamjeanine@me.com
@@ -823,13 +834,13 @@ const SpinePreviewPage: React.FC = () => {
               href="https://www.linkedin.com/in/jcornillot"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
-                color: '#FFFFFF',
-                textDecorationColor: SCAMFLUENCERS_ACCENT,
-                outlineColor: SCAMFLUENCERS_ACCENT,
+                fontSize: 'clamp(1.25rem, 1.6vw, 1.45rem)',
+                color: '#26141A',
+                textDecorationColor: '#B30957',
+                outlineColor: '#B30957',
               }}
             >
               LinkedIn
