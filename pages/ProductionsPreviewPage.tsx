@@ -37,7 +37,63 @@ interface SpreadMedia {
   alt: string;
   className?: string; // width/placement override (literal Tailwind classes)
   isVideo?: boolean; // renders as a muted video that plays once on scroll into view
+  intrinsicWidth?: number;
+  intrinsicHeight?: number;
 }
+
+/**
+ * Native lazy-loading begins fetching several screens ahead, which let The
+ * Last City's 2.3MB PNG compete with the cover on a cold mobile visit. Keep
+ * the real image element and its accessible name in the document, but attach
+ * the source only when the artwork is close enough to be useful. Explicit
+ * dimensions reserve its aspect ratio before download and prevent a scroll
+ * jump when the source arrives.
+ */
+const DeferredImage: React.FC<{
+  media: SpreadMedia;
+  className: string;
+  style: React.CSSProperties;
+}> = ({ media, className, style }) => {
+  const imageRef = React.useRef<HTMLImageElement>(null);
+  const [shouldLoad, setShouldLoad] = React.useState(false);
+
+  useEffect(() => {
+    const image = imageRef.current;
+    if (!image) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setShouldLoad(true);
+        observer.disconnect();
+      },
+      { rootMargin: '700px 0px' }
+    );
+
+    observer.observe(image);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <img
+      ref={imageRef}
+      src={shouldLoad ? media.src : undefined}
+      alt={media.alt}
+      width={media.intrinsicWidth}
+      height={media.intrinsicHeight}
+      loading="lazy"
+      decoding="async"
+      fetchPriority="low"
+      className={className}
+      style={style}
+    />
+  );
+};
 
 interface SpreadData {
   /*
@@ -155,6 +211,8 @@ const SPREADS: SpreadData[] = [
         // wiring in, not matched by filename alone.
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Scamfluencers/Podcasts.jpeg',
         alt: 'Scamfluencers hosts Scaachi Koul and Sarah Hagi, featured by Apple Podcasts',
+        intrinsicWidth: 1568,
+        intrinsicHeight: 1474,
       },
       overlap: {
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Scamfluencers/Scamfluencers%20Keyart.jpg',
@@ -206,6 +264,8 @@ const SPREADS: SpreadData[] = [
       main: {
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Dying%20for%20Sex/9.jpg',
         alt: 'Dying for Sex podcast and FX series artwork with 9 Emmy nominations laurel',
+        intrinsicWidth: 800,
+        intrinsicHeight: 800,
       },
       overlap: {
         src: '/dying-for-sex-peabody.png',
@@ -250,6 +310,8 @@ const SPREADS: SpreadData[] = [
       main: {
         src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/The%20Last%20City/No%20text%20Key%20Art.png',
         alt: 'The Last City key art: a woman looking back at a smoking domed city at golden hour',
+        intrinsicWidth: 1254,
+        intrinsicHeight: 1254,
         className: 'w-full lg:w-[76%] block lg:ml-auto',
       },
       overlap: {
@@ -312,6 +374,8 @@ const BORN_THIS_WAY: SpreadData = {
     main: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Born%20This%20way/Born-This-Way-cast.jpg',
       alt: 'The cast of Born This Way posing together in a studio portrait',
+      intrinsicWidth: 675,
+      intrinsicHeight: 440,
     },
     overlap: {
       src: 'https://storage.googleapis.com/jeanine-portfolio-video/Broader%20Portfolio%20references/Tv%20Born%20This%20way/Keyart.jpg',
@@ -629,14 +693,8 @@ const Spread: React.FC<{
               style={{ boxShadow: `0 20px 44px ${p.shadow}` }}
             />
           ) : (
-            <img
-              src={data.media.main.src}
-              alt={data.media.main.alt}
-              /* Spread art runs to 2.4MB per file and only the first spread
-                 is ever above the fold, so everything defers. decoding=async
-                 keeps a large decode off the main thread during scroll. */
-              loading="lazy"
-              decoding="async"
+            <DeferredImage
+              media={data.media.main}
               className={
                 data.media.main.className ??
                 `w-full lg:w-[82%] block ${flip ? 'lg:mr-auto' : 'lg:ml-auto'}`
@@ -645,11 +703,8 @@ const Spread: React.FC<{
             />
           )}
           {data.media.overlap && (
-            <img
-              src={data.media.overlap.src}
-              alt={data.media.overlap.alt}
-              loading="lazy"
-              decoding="async"
+            <DeferredImage
+              media={data.media.overlap}
               /* Fixed 4:5 crop: at w-[36%] alone the inset's height came from
                  whatever ratio the source file happened to have, so it ran
                  from 37% to 99% of the main image's height and the
@@ -773,7 +828,7 @@ const Spread: React.FC<{
                   key={e.label}
                   label={e.label}
                   accentColor={p.accent}
-                  labelColor={p.inkSoft}
+                  labelColor={accentText}
                   bodyColor={p.inkBody}
                   borderColor={p.border}
                 >

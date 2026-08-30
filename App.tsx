@@ -49,6 +49,9 @@ import LabsPreviewPage from './pages/LabsPreviewPage';
 import SpinePreviewPage from './pages/SpinePreviewPage';
 import CoverOptionsPreviewPage from './pages/CoverOptionsPreviewPage';
 
+const isLocalPreview =
+  window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 function App() {
   return (
     <HashRouter>
@@ -64,7 +67,7 @@ function App() {
         <Route path="/preview/spine/:chapter?" element={<SpinePreviewPage />} />
         <Route path="/preview/cover-options" element={<CoverOptionsPreviewPage />} />
       </Routes>
-      <Analytics beforeSend={analyticsBeforeSend} />
+      {!isLocalPreview && <Analytics beforeSend={analyticsBeforeSend} />}
     </HashRouter>
   );
 }

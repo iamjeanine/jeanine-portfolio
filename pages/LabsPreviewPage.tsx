@@ -91,11 +91,6 @@ const CampaignProjectLink: React.FC = () => {
   );
 };
 
-const DETAIL_POSTERS = PROJECTS.flatMap(project => [
-  project.previewPosterUrl,
-  ...project.mainVideos.map(video => video.posterUrl),
-]).filter((url): url is string => Boolean(url));
-
 /* The room itself stays neutral. Color around each frame now comes from a
    blurred duplicate of that frame's live media, never a fixed ember bloom. */
 const LAB_GROUND = 'var(--ink-deep)';
@@ -1261,14 +1256,6 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
  * whatever comes before and after.
  */
 export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => {
-  useEffect(() => {
-    DETAIL_POSTERS.forEach(url => {
-      const image = new Image();
-      image.decoding = 'async';
-      image.src = url;
-    });
-  }, []);
-
   return (
     <>
       <style>{`
@@ -1324,8 +1311,10 @@ export const LabsChapter: React.FC<{ onAbout?: () => void }> = ({ onAbout }) => 
             items={LABS_INDEX}
             colors={{
               accent: LAB.accent,
-              border: LAB.border,
+              action: 'var(--signal)',
+              border: 'rgba(247,243,237,0.28)',
               ink: LAB.ink,
+              label: LAB.ink,
               muted: LAB.inkSoft,
             }}
           />

@@ -348,7 +348,11 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
   }, [reduced]);
 
   const entrance = (delay: number): React.CSSProperties =>
-    reduced ? {} : { transition: `all 1200ms cubic-bezier(0.4,0,0.2,1) ${delay}ms` };
+    reduced
+      ? {}
+      : {
+          transition: `opacity 800ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 800ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, filter 800ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, letter-spacing 800ms cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        };
 
   return (
   <section
@@ -379,7 +383,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           fontWeight: 700,
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : 'translateY(8px)',
-          ...entrance(150),
+          ...entrance(80),
         }}
       >
         Selected work
@@ -398,18 +402,18 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
         }}
       >
         {[
-          { text: 'Jeanine Emilia', delay: 300 },
-          { text: 'Cornillot', delay: 550 },
+          { text: 'Jeanine Emilia', delay: 0, immediate: true },
+          { text: 'Cornillot', delay: 180, immediate: false },
         ].map((line) => (
           <span
             key={line.text}
             className="block"
             style={{
-              letterSpacing: shown ? '-0.02em' : '0.08em',
-              opacity: shown ? 1 : 0,
-              transform: shown ? 'none' : 'translateY(16px)',
-              filter: shown ? 'blur(0px)' : 'blur(12px)',
-              ...entrance(line.delay),
+              letterSpacing: shown || line.immediate ? '-0.02em' : '0.02em',
+              opacity: 1,
+              transform: shown || line.immediate ? 'none' : 'translateY(8px)',
+              filter: shown || line.immediate ? 'blur(0px)' : 'blur(3px)',
+              ...(line.immediate ? {} : entrance(line.delay)),
             }}
           >
             {line.text}
@@ -425,8 +429,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           fontFamily: "'Source Serif 4', Georgia, serif",
           color: 'var(--poppy-ink)',
           maxWidth: '31ch',
-          opacity: shown ? 1 : 0,
-          ...entrance(900),
+          opacity: 1,
         }}
       >
         Emmy and Ambie Award‑winning showrunner and executive producer.
@@ -440,7 +443,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           boxShadow: '0 0 0 0.9rem var(--poppy)',
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : 'translateY(12px)',
-          ...entrance(1050),
+          ...entrance(460),
         }}
       >
         {[
@@ -852,8 +855,14 @@ const SpinePreviewPage: React.FC = () => {
             <button
               type="button"
               onClick={goToCover}
-              className="chapter-rail-btn chapter-label inline-flex min-h-11 items-center py-3 hover:opacity-70 active:translate-y-px transition-opacity"
-              style={{ color: SCAMFLUENCERS_INK_SOFT }}
+              className="chapter-rail-btn inline-flex min-h-11 items-center py-3 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: '1rem',
+                color: 'var(--ink)',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                outlineColor: SCAMFLUENCERS_ACCENT,
+              }}
             >
               Back to cover
             </button>

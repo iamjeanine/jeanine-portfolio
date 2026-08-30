@@ -14,8 +14,10 @@ interface ChapterContentsProps {
   label: string;
   colors: {
     accent: string;
+    action?: string;
     border: string;
     ink: string;
+    label?: string;
     muted: string;
   };
 }
@@ -33,6 +35,8 @@ export const ChapterContents: React.FC<ChapterContentsProps> = ({
   label,
   colors,
 }) => {
+  const [open, setOpen] = React.useState(false);
+
   const openItem = (anchor: string, moveFocus: boolean) => {
     const target = document.getElementById(anchor);
     if (!target) return;
@@ -47,10 +51,17 @@ export const ChapterContents: React.FC<ChapterContentsProps> = ({
   return (
     <details
       className="chapter-contents mt-12 md:mt-16 xl:pr-44"
-      style={{ '--contents-accent': colors.accent } as React.CSSProperties}
+      style={{
+        '--contents-accent': colors.accent,
+        '--contents-action': colors.action ?? colors.accent,
+      } as React.CSSProperties}
+      onToggle={(event) => setOpen(event.currentTarget.open)}
     >
-      <summary className="chapter-contents-summary flex min-h-12 cursor-pointer list-none items-center gap-4 py-3 select-none">
-        <span className="chapter-label" style={{ color: colors.muted }}>
+      <summary
+        aria-label={open ? 'Hide project index' : `View ${items.length} projects`}
+        className="chapter-contents-summary flex min-h-12 cursor-pointer list-none items-center gap-4 py-3 select-none"
+      >
+        <span className="chapter-label" style={{ color: colors.label ?? colors.muted }}>
           {label}
         </span>
         <span
@@ -58,15 +69,18 @@ export const ChapterContents: React.FC<ChapterContentsProps> = ({
           className="flex-1"
           style={{ borderTop: `1px solid ${colors.border}` }}
         />
-        <span className="chapter-label tabular-nums" style={{ color: colors.muted }}>
-          {String(items.length).padStart(2, '0')} works
+        <span
+          className="chapter-contents-action chapter-label"
+          style={{ color: colors.action ?? colors.ink }}
+        >
+          {open ? 'Hide projects' : 'View projects'}
         </span>
         <span
           aria-hidden="true"
           className="chapter-contents-marker text-base leading-none"
-          style={{ color: colors.accent }}
+          style={{ color: colors.action ?? colors.accent }}
         >
-          +
+          {open ? '−' : '+'}
         </span>
       </summary>
 

@@ -279,17 +279,24 @@
 }
 
 .chapter-contents-summary:focus-visible {
-  outline: 2px solid var(--contents-accent);
+  outline: 2px solid var(--contents-action);
   outline-offset: 4px;
 }
 
-.chapter-contents-marker {
-  transform: rotate(0deg);
-  transition: transform 300ms ease;
+.chapter-contents-action {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.15rem;
+  transition: border-color 200ms ease, opacity 200ms ease;
 }
 
-.chapter-contents[open] .chapter-contents-marker {
-  transform: rotate(45deg);
+.chapter-contents-summary:hover .chapter-contents-action {
+  border-color: var(--contents-action);
+  opacity: 0.72;
+}
+
+.chapter-contents-marker {
+  min-width: 0.75rem;
+  text-align: center;
 }
 
 .chapter-contents-body {
