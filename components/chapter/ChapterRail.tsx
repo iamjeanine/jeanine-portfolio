@@ -257,12 +257,20 @@ export const ChapterRail: React.FC<{
         reservation at all, because there is no rail there to clear.
       */}
       <nav
-        className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert chapter-rail-authored transition-opacity duration-500"
+        className="hidden xl:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2 chapter-rail-invert chapter-rail-authored transition-[opacity,background-color,border-color] duration-500"
         style={{
           opacity: suppressed ? 0 : 1,
           pointerEvents: suppressed ? 'none' : 'auto',
           color: desktopRailInk,
           mixBlendMode: 'normal',
+          // Labs contains both an ink-black ground and pale media frames.
+          // A slim, square fore-edge backing keeps the fixed cream labels
+          // legible across both without introducing a floating card.
+          backgroundColor: active?.id === 'labs' ? 'rgba(5,7,12,0.94)' : 'transparent',
+          borderColor: active?.id === 'labs' ? 'rgba(247,243,237,0.22)' : 'transparent',
+          borderStyle: 'solid',
+          borderWidth: active?.id === 'labs' ? '1px 0 1px 1px' : 0,
+          padding: active?.id === 'labs' ? '0.75rem 1.5rem 0.75rem 0.875rem' : '0 1.5rem 0 0',
         }}
         aria-hidden={suppressed || undefined}
         aria-label="Chapters"

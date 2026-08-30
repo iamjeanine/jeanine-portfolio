@@ -53,13 +53,15 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<SpinePreviewPage />} />
-        <Route path="/:chapter" element={<SpinePreviewPage />} />
+        {/* Keep the Cover and chapter URLs on one route definition. Using
+            separate / and /:chapter routes remounted the full spine on every
+            chapter click, so the route's mount effect replaced the intended
+            smooth scroll with an instant jump. */}
+        <Route path="/:chapter?" element={<SpinePreviewPage />} />
         <Route path="/project/:id" element={<ProjectDetailPage />} />
         <Route path="/preview/productions" element={<ProductionsPreviewPage />} />
         <Route path="/preview/labs" element={<LabsPreviewPage />} />
-        <Route path="/preview/spine" element={<SpinePreviewPage />} />
-        <Route path="/preview/spine/:chapter" element={<SpinePreviewPage />} />
+        <Route path="/preview/spine/:chapter?" element={<SpinePreviewPage />} />
         <Route path="/preview/cover-options" element={<CoverOptionsPreviewPage />} />
       </Routes>
       <Analytics beforeSend={analyticsBeforeSend} />

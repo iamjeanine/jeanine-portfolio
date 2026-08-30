@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { setMotionPaused, useMotionPaused } from './motionPreference';
-import { useElementVisible } from './useElementVisible';
+import { useAnyElementVisible, useElementVisible } from './useElementVisible';
 
 /**
  * The site's one motion control, satisfying WCAG 2.2.2 for the Labs
@@ -18,7 +18,7 @@ import { useElementVisible } from './useElementVisible';
  * Productions' saturated fields alike.
  */
 export const MotionToggle: React.FC<{
-  hideWhileVisibleId?: string;
+  hideWhileVisibleIds?: readonly string[];
   /**
    * Inverse gate: when set, the control renders *only* while that element is
    * on screen. The Spine passes the Labs chapter, because that is the only
@@ -38,15 +38,13 @@ export const MotionToggle: React.FC<{
    * clutter complaint is answered by narrowing where it appears.
    */
   showWhileVisibleId?: string;
-}> = ({ hideWhileVisibleId, showWhileVisibleId }) => {
+}> = ({ hideWhileVisibleIds, showWhileVisibleId }) => {
   const paused = useMotionPaused();
   const [reduced, setReduced] = useState(false);
-  // Hidden while that element is on screen. Used for the Cover, which is
-  // typographic: every video on the site is further down, so there is
-  // genuinely nothing to pause there, and at 375px this fixed control was
-  // measured overlapping the Cover index's own text once that index made
-  // the Cover taller than the viewport.
-  const suppressed = useElementVisible(hideWhileVisibleId);
+  // Hidden while any competing surface is on screen. In the spine this is
+  // the Labs title card, where nothing is playing yet, and About, where the
+  // fixed control would otherwise overlap the colophon during the handoff.
+  const suppressed = useAnyElementVisible(hideWhileVisibleIds);
   const gateVisible = useElementVisible(showWhileVisibleId);
   const gatedOut = showWhileVisibleId !== undefined && !gateVisible;
 
@@ -68,7 +66,7 @@ export const MotionToggle: React.FC<{
          a toggle whose label flips would otherwise be announced as
          "Play motion, pressed" while motion is stopped, which contradicts
          itself. The label alone is unambiguous. */
-      className="fixed left-4 bottom-4 z-40 chapter-label chapter-rail-btn chapter-rail-hit chapter-rail-invert transition-opacity duration-300 hover:opacity-70"
+      className="fixed left-4 bottom-4 z-40 inline-flex min-h-11 items-center chapter-label chapter-rail-btn chapter-rail-hit chapter-rail-invert transition-opacity duration-300 hover:opacity-70"
     >
       {paused ? 'Resume motion' : 'Pause motion'}
     </button>

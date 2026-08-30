@@ -129,6 +129,7 @@ const RAIL_SECTIONS: RailSection[] = [
 ];
 
 const RAIL_SUPPRESSION_IDS = ['cover', 'contact-endcap'] as const;
+const MOTION_TOGGLE_SUPPRESSION_IDS = ['labs-chapter-header', 'about'] as const;
 
 const VALID_CHAPTERS = new Set(RAIL_SECTIONS.map((s) => s.id));
 
@@ -660,12 +661,12 @@ const SpinePreviewPage: React.FC = () => {
         onNavigate={pushChapterUrl}
         onActiveChange={syncActiveChapterToUrl}
       />
-      {/* Labs only. The cover gate this used to carry is now redundant: the
-          Cover is not inside #labs, so the show-gate already excludes it,
-          along with all of Productions and About. */}
+      {/* Labs only. Hide as soon as About enters the viewport, even while the
+          tail of Labs is technically still intersecting, so this fixed
+          control never sits on top of the colophon copy. */}
       <MotionToggle
         showWhileVisibleId="labs"
-        hideWhileVisibleId="labs-chapter-header"
+        hideWhileVisibleIds={MOTION_TOGGLE_SUPPRESSION_IDS}
       />
 
       <Cover onSelectChapter={goToChapter} />
