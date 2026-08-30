@@ -341,40 +341,38 @@ const Cover: React.FC<{
           </span>
         ))}
       </h1>
-      {/* The middle tier the four-element cover was missing (layout
-          assessment, 2026-08-29): the credential regroups with the name
-          it modifies, scaled between the 180px display and the 24px nav
-          so the type ramp reads name, credential, chapters instead of
-          jumping from shout to whisper. Pure fade, no rise (Jeanine,
-          2026-08-19). */}
+    </div>
+
+    {/* The original designer's grammar restored after the mt-auto
+        experiment stranded the nav at the bottom of tall viewports, the
+        exact scales-with-viewport defect the justify-start note above
+        documents. The conservative layout-assessment remedy instead: the
+        row rises (mt-16/20, was 20/28) and top-aligns, so credential and
+        nav share a start line and read as one band, with trailing space
+        collecting below the block as originally chosen. */}
+    <div className="relative mt-16 lg:mt-20 flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-16">
       <p
-        className="mt-10 md:mt-12 text-[1.5rem] md:text-[1.9rem] italic leading-snug"
+        className="text-[1.5rem] md:text-[1.75rem] italic leading-snug"
         style={{
           fontFamily: "'Source Serif 4', Georgia, serif",
           color: '#FFFFFF',
+          maxWidth: '26ch',
           opacity: shown ? 1 : 0,
           ...entrance(900),
         }}
       >
         Emmy and Ambie Award-winning showrunner and executive producer.
       </p>
-    </div>
 
-    {/* mt-auto assigns the tall-viewport surplus deliberately: identity
-        group above, wayfinding riding the bottom edge, and the open field
-        between them is a chosen pause. Safe now that the credential lives
-        with the name; the old justify-between defect this section's
-        comment used to warn about needed the void to fall between a name
-        and its own supporting line, which no longer sit apart. */}
-    <nav
-      aria-label="Chapters"
-      className="relative mt-auto pt-12 flex flex-col gap-2 md:items-end"
-      style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? 'none' : 'translateY(12px)',
-        ...entrance(1050),
-      }}
-    >
+      <nav
+        aria-label="Chapters"
+        className="flex flex-col gap-3 md:items-end"
+        style={{
+          opacity: shown ? 1 : 0,
+          transform: shown ? 'none' : 'translateY(12px)',
+          ...entrance(1050),
+        }}
+      >
         {[
           { id: 'productions', index: '01', label: 'Productions' },
           { id: 'labs', index: '02', label: 'Ghost Mode Labs' },
@@ -405,6 +403,7 @@ const Cover: React.FC<{
           </button>
         ))}
       </nav>
+    </div>
   </section>
   );
 };

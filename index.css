@@ -42,11 +42,10 @@
      four-element poppy cover (layout assessment, 2026-08-29): the name is
      now the only large element and at 9.5rem it left a 330px bare band to
      its right at 1440, reading as under-composed rather than restrained.
-     10.5rem = 168px, chosen against viewport height as well as width: at
-     180px the two-line name plus the credential tier overflowed an
-     810px-tall laptop by ~170px, and 168px is the largest cap that lets
-     the whole four-element cover hold one viewport there. */
-  --display-xl: clamp(3.2rem, 12.5vw, 10.5rem);
+     Returned to the designer's tuned 9.5rem after the raised caps (11.25,
+     then 10.5) made the cover overflow or crowd real laptop viewports;
+     the original measurement standing above still holds. */
+  --display-xl: clamp(3.2rem, 12.5vw, 9.5rem);
   --display-lg: clamp(2.8rem, 8vw, 8rem);
   /* Pull-stat display size. The long-value step-down (used when a stat
      reads as a phrase rather than a number) is --stat-long. Trimmed
