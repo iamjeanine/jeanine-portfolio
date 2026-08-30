@@ -5,7 +5,6 @@ import { preferredScrollBehavior } from '../components/chapter/motionPreference'
 import {
   ProductionsChapter,
   SCAMFLUENCERS_FIELD,
-  SCAMFLUENCERS_INK,
   SCAMFLUENCERS_INK_SOFT,
   SCAMFLUENCERS_ACCENT,
 } from './ProductionsPreviewPage';
@@ -269,7 +268,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
     // with a chosen amount at every width; leftover height now collects
     // as trailing space below the credential block instead of a void
     // between it and the name.
-    className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
+    className="relative min-h-screen flex flex-col justify-start px-6 md:px-20 pt-20 md:pt-28 pb-12"
     style={{ background: SCAMFLUENCERS_FIELD }}
   >
     <div
@@ -283,6 +282,8 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
         className="chapter-label"
         style={{
           color: SCAMFLUENCERS_ACCENT,
+          fontSize: '1.2rem',
+          fontWeight: 700,
           opacity: shown ? 1 : 0,
           transform: shown ? 'none' : 'translateY(8px)',
           ...entrance(150),
@@ -300,7 +301,7 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
           fontFamily: "'Bodoni Moda', serif",
           fontSize: 'var(--display-xl)',
           lineHeight: 0.88,
-          color: SCAMFLUENCERS_INK,
+          color: '#FFFFFF',
         }}
       >
         {[
@@ -324,65 +325,19 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
       </h1>
     </div>
 
-    <div className="relative mt-20 lg:mt-28 flex flex-col md:flex-row md:items-end md:justify-between gap-10 md:gap-16">
-      {/* Credential, tagline and contact animate as one beat, not five:
-          the pitch was the name settling and then the supporting material
-          following, and staggering every line inside this block would turn
-          a two-second first impression into a queue. */}
-      <div
+    <div className="relative mt-16 lg:mt-20 flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-16">
+      <p
+        className="text-[1.5rem] md:text-[1.75rem] italic leading-snug"
         style={{
-          maxWidth: '34ch',
-          // Pure fade, no rise (Jeanine, 2026-08-19): even on the retuned
-          // curve, the 12px translateY still read as popping into place.
-          // The name's own rise stays -- it's carrying the blur and
-          // letter-spacing settle too, so 12px reads as part of that
-          // larger arrival rather than an isolated jump the way it did
-          // here on a plain opacity fade.
+          fontFamily: "'Source Serif 4', Georgia, serif",
+          color: '#FFFFFF',
+          maxWidth: '26ch',
           opacity: shown ? 1 : 0,
           ...entrance(900),
         }}
       >
-        <p
-          className="text-[1.3rem] md:text-[1.5rem] italic leading-snug"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK }}
-        >
-          Emmy and Ambie Award-winning showrunner and executive producer.
-        </p>
-        <p
-          className="mt-3 md:mt-4 text-[1rem] md:text-[1.15rem] leading-relaxed"
-          style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: SCAMFLUENCERS_INK_SOFT }}
-        >
-          {/* Slimmed to the share card's own line (Jeanine, 2026-08-16):
-              one statement, not two sentences. Ghost Mode Labs keeps its
-              mention in the chapter list directly below. */}
-          Scripted and nonfiction stories for podcasts, television, and
-          new formats.
-        </p>
-        {/* Sized up from the shared chapter-label default (0.7rem, an
-            11.2px byline the recruiter critique flagged as unreadable for
-            the only contact info on the Cover) while keeping its tracking
-            and uppercase treatment, so this still reads as a masthead
-            label, just a legible one. No underline, no arrow: both read as
-            too corporate on a first pass. */}
-        <div className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-2">
-          <a
-            href="mailto:iamjeanine@me.com"
-            className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '0.95rem', color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
-          >
-            iamjeanine@me.com
-          </a>
-          <a
-            href="https://www.linkedin.com/in/jcornillot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="chapter-label inline-flex min-h-11 items-center py-2 transition-opacity duration-300 hover:opacity-70 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            style={{ fontSize: '0.95rem', color: SCAMFLUENCERS_ACCENT, outlineColor: SCAMFLUENCERS_ACCENT }}
-          >
-            LinkedIn
-          </a>
-        </div>
-      </div>
+        Emmy and Ambie Award-winning showrunner and executive producer.
+      </p>
 
       <nav
         aria-label="Chapters"
@@ -411,12 +366,22 @@ const Cover: React.FC<{ onSelectChapter: (id: string) => void }> = ({ onSelectCh
             className="chapter-rail-btn group flex min-h-11 items-center gap-4 py-1 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{ outlineColor: SCAMFLUENCERS_ACCENT }}
           >
-            <span className="chapter-label tabular-nums" style={{ color: SCAMFLUENCERS_ACCENT }}>
+            <span
+              className="chapter-label tabular-nums"
+              style={{ color: '#FFFFFF', fontSize: '1.2rem', fontWeight: 700 }}
+            >
               {c.index}
             </span>
             <span
-              className="text-[1.35rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
-              style={{ fontFamily: "'Bodoni Moda', serif", color: SCAMFLUENCERS_INK }}
+              className="text-[1.5rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
+              style={{
+                fontFamily: "'Bodoni Moda', serif",
+                color: '#FFFFFF',
+                textDecorationLine: 'underline',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                textDecorationThickness: 2,
+                textUnderlineOffset: 6,
+              }}
             >
               {c.label}
             </span>
@@ -730,7 +695,7 @@ const SpinePreviewPage: React.FC = () => {
           (LinkedIn, back to cover) move in here as the small print under
           the beat, the same relationship the Cover's own contact line has
           to its name. */}
-      <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} via="var(--terra)" heightClassName="h-[20vh] md:h-[24vh]" />
+      <ColorBridge from="var(--bg-site)" to={gradientStart(SCAMFLUENCERS_FIELD)} heightClassName="h-[20vh] md:h-[24vh]" />
       <footer
         className="relative overflow-hidden px-6 md:px-20 pt-20 md:pt-28 pb-12 md:pb-16"
         style={{ background: SCAMFLUENCERS_FIELD }}
@@ -755,7 +720,7 @@ const SpinePreviewPage: React.FC = () => {
               fontSize: 'var(--display-md)',
               lineHeight: 1.05,
               letterSpacing: '-0.01em',
-              color: SCAMFLUENCERS_INK,
+              color: '#FFFFFF',
             }}
           >
             Get in touch
@@ -764,11 +729,12 @@ const SpinePreviewPage: React.FC = () => {
           <div className="mt-8 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10">
             <a
               href="mailto:iamjeanine@me.com"
-              className="inline-flex min-h-11 items-center py-2 underline decoration-1 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                color: SCAMFLUENCERS_INK,
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: '#FFFFFF',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
             >
@@ -778,11 +744,12 @@ const SpinePreviewPage: React.FC = () => {
               href="https://www.linkedin.com/in/jcornillot"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center py-2 underline decoration-1 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
-                fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                color: SCAMFLUENCERS_INK,
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: '#FFFFFF',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
                 outlineColor: SCAMFLUENCERS_ACCENT,
               }}
             >
