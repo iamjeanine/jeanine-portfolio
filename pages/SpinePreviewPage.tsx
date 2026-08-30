@@ -394,9 +394,20 @@ const Cover: React.FC<{
             <span className="chapter-label tabular-nums" style={{ color: '#FFFFFF', fontSize: '1.2rem', fontWeight: 700 }}>
               {c.index}
             </span>
+            {/* The site's one pressable cue, the acid underline the
+                contact links established, applied here so the chapter
+                buttons read as buttons (flagged by the critique and by
+                Jeanine herself). */}
             <span
               className="text-[1.5rem] md:text-[1.6rem] transition-opacity duration-300 group-hover:opacity-70"
-              style={{ fontFamily: "'Bodoni Moda', serif", color: '#FFFFFF' }}
+              style={{
+                fontFamily: "'Bodoni Moda', serif",
+                color: '#FFFFFF',
+                textDecorationLine: 'underline',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                textDecorationThickness: 2,
+                textUnderlineOffset: 6,
+              }}
             >
               {c.label}
             </span>
