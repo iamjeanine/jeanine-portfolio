@@ -114,9 +114,11 @@ DO NOT:
    rolled through the cover and chapter headers, is the biggest single
    remaining upgrade.
 4. From the saved critique (.impeccable/critique/2026-08-30T00-00-23Z__…):
-   cover nav pressability cue, progress-chip desync after jumps, the empty
-   full-viewport poppy band mid-Scamfluencers on mobile, Labs chapter buried
-   at 47% scroll depth for a 90-second exec.
+   progress-chip desync after jumps, the empty full-viewport poppy band
+   mid-Scamfluencers on mobile, Labs chapter buried at 47% scroll depth for
+   a 90-second exec. (The cover-nav pressability cue was done at e7a83ac:
+   chapter labels wear the same 2px acid underline as the contact links,
+   the site's one pressable grammar.)
 5. An idea she liked that was never executed well: one continuous thin
    hand-drawn line forming a profile (Hitchcock-title-card register) over the
    untouched cover, drawing itself on load, breaking where the name crosses.
