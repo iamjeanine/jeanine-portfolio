@@ -22,7 +22,7 @@ Jeanine Cornillot works across three connected practices: creating and showrunni
 
 - **Scamfluencers**: Creator and showrunner. 53 million downloads. #1 on Apple Podcasts. Winner of the 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025. [Portfolio page](https://ghostmode.studio/work.html#scamfluencers)
 - **Dying for Sex**: Co-developer and producer of the original podcast. Winner of the 2021 Ambie for Podcast of the Year. The FX television adaptation won a Peabody Award, received nine Emmy nominations, and received a 2026 Television Academy Honor. [Portfolio page](https://ghostmode.studio/work.html#dying-for-sex)
-- **The Last City**: Creator and showrunner. Serialized climate thriller starring Rhea Seehorn. #1 Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast. [Portfolio page](https://ghostmode.studio/work.html#the-last-city)
+- **The Last City**: Creator and showrunner. Wondery's first original series conceived and produced for Dolby Atmos from the start. Serialized climate thriller starring Rhea Seehorn. #1 Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast. [Portfolio page](https://ghostmode.studio/work.html#the-last-city)
 - **Born This Way**: Supervising producer. Three Primetime Emmy wins and 16 nominations. [Portfolio page](https://ghostmode.studio/work.html#born-this-way)
 - **No Passport Required**: Supervising producer. Vox Media and PBS series. Winner of a James Beard Media Award. [Portfolio page](https://ghostmode.studio/work.html#no-passport-required)
 

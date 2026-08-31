@@ -33,7 +33,7 @@ Permanent entry: https://ghostmode.studio/work.html#dying-for-sex
 
 Scripted podcast | Wondery and Amazon | 2023 to 2025 | Creator and showrunner
 
-An immersive 12-part science-fiction thriller starring Rhea Seehorn, set inside a utopian society surviving the climate crisis. Number one in Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast.
+An immersive 12-part science-fiction thriller starring Rhea Seehorn, set inside a utopian society surviving the climate crisis and conceived for Dolby Atmos from the start. Wondery's first original series conceived and produced for Dolby Atmos from inception. Number one in Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast.
 
 Permanent entry: https://ghostmode.studio/work.html#the-last-city
 

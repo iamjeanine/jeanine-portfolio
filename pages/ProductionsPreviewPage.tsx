@@ -293,7 +293,7 @@ const SPREADS: SpreadData[] = [
     title: <>The Last&nbsp;City</>,
     role: 'Creator & Showrunner',
     description:
-      'The Last City is an immersive, 12-part sci-fi audio thriller, starring Rhea Seehorn, that explores the dark truths behind a utopian society surviving the climate crisis.',
+      'Wondery’s first original series conceived and produced for Dolby Atmos from the start, The Last City is a 12-part sci-fi audio thriller starring Rhea Seehorn. It explores the dark truths behind a utopian society surviving the climate crisis.',
     stat: { value: '#1 Apple Fiction', label: 'in 20 countries' },
     expandables: [
       {
@@ -302,7 +302,7 @@ const SPREADS: SpreadData[] = [
       },
       {
         label: 'Impact',
-        body: 'The first Wondery podcast adapted into an Audible Original audiobook. I re-edited it from its twelve episodes into one seamless, continuous listen. Its world later became the basis for Multiverse Quad, co-developed with Amazon’s AGI team.',
+        body: 'Wondery’s first original series conceived and produced for Dolby Atmos from the start, rather than adapted into the format after release. It was also the first Wondery podcast adapted into an Audible Original audiobook. I re-edited its twelve episodes into one seamless, continuous listen. Its world later became the basis for Multiverse Quad, co-developed with Amazon’s AGI team.',
       },
     ],
     link: { label: 'Listen to the audiobook', url: 'https://www.audible.com/pd/The-Last-City-Audiobook/B0F44KWN5D?srsltid=AfmBOopjoEwnj_0Sm99UwpGxQotk0fA41r6p3zHw2NMEJ_CVMn0_FXhp' },
