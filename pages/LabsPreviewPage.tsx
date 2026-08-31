@@ -942,7 +942,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
                   key={e.label}
                   label={e.label}
                   accentColor={LAB.accent}
-                  labelColor={LAB.inkSoft}
+                  labelColor={LAB.accent}
                   bodyColor={LAB.inkBody}
                   borderColor={LAB.border}
                 >
