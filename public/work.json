@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "1.0",
+  "lastUpdated": "2026-08-31",
+  "canonicalUrl": "https://ghostmode.studio/work.html",
+  "person": {
+    "name": "Jeanine Emilia Cornillot",
+    "alternateName": "Jeanine Cornillot",
+    "jobTitle": "Executive Producer and Showrunner",
+    "profileThroughline": "Jeanine Cornillot works across three connected practices: creating and showrunning narrative series, writing from lived and cultural experience, and testing how practical AI can support creative production. Across each, the throughline is the same: turning complex material into clear, character-driven stories and useful new formats.",
+    "publicProfiles": [
+      "https://www.linkedin.com/in/jcornillot",
+      "https://www.imdb.com/name/nm2679497/"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "productions",
+      "title": "Productions",
+      "description": "Selected podcast and television work across nonfiction, scripted fiction, culture, and documentary storytelling.",
+      "portfolioUrl": "https://ghostmode.studio/#/productions",
+      "items": [
+        {
+          "id": "scamfluencers",
+          "title": "Scamfluencers",
+          "format": "Podcast",
+          "organization": "Wondery and Amazon",
+          "years": "2022 to present",
+          "role": "Creator and showrunner",
+          "summary": "A weekly true-crime series about the internet's biggest scammers and the people who fell for them.",
+          "proof": "53 million downloads. Number one on Apple Podcasts. Winner of the 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025."
+        },
+        {
+          "id": "dying-for-sex",
+          "title": "Dying for Sex",
+          "format": "Podcast",
+          "organization": "Wondery and Amazon",
+          "years": "2019 to 2020",
+          "role": "Co-developer and producer of the original podcast",
+          "summary": "A narrative series about Molly Kochan leaving her marriage after a terminal cancer diagnosis and telling the story to her best friend, Nikki Boyer.",
+          "proof": "Winner of the 2021 Ambie for Podcast of the Year. The FX television adaptation won a Peabody Award, received nine Emmy nominations, and received a 2026 Television Academy Honor."
+        },
+        {
+          "id": "the-last-city",
+          "title": "The Last City",
+          "format": "Scripted podcast",
+          "organization": "Wondery and Amazon",
+          "years": "2023 to 2025",
+          "role": "Creator and showrunner",
+          "summary": "An immersive 12-part science-fiction thriller starring Rhea Seehorn, set inside a utopian society surviving the climate crisis.",
+          "proof": "Number one in Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast."
+        },
+        {
+          "id": "born-this-way",
+          "title": "Born This Way",
+          "format": "Television",
+          "organization": "A&E and Bunim/Murray",
+          "years": "2015 to 2016",
+          "role": "Supervising producer",
+          "summary": "A documentary series following seven young adults with Down syndrome as they build careers, independence, and relationships.",
+          "proof": "Three Primetime Emmy wins and 16 nominations."
+        },
+        {
+          "id": "no-passport-required",
+          "title": "No Passport Required",
+          "format": "Television",
+          "organization": "Vox Media, PBS, and Apple TV",
+          "years": "2018 to 2019",
+          "role": "Supervising producer",
+          "summary": "Chef Marcus Samuelsson travels the United States to explore immigrant communities redefining American food.",
+          "proof": "Winner of a James Beard Media Award."
+        },
+        {
+          "id": "hollywood-and-crime",
+          "title": "Hollywood & Crime",
+          "format": "Podcast",
+          "organization": "Wondery and Amazon",
+          "years": "2019 to 2024",
+          "role": "Senior producer",
+          "summary": "Two seasons inside Wondery's Hollywood true-crime anthology, including Billionaire Boys Club and The Execution of Bonny Lee Bakley."
+        },
+        {
+          "id": "life-of-kylie",
+          "title": "Life of Kylie",
+          "format": "Television",
+          "organization": "E! and Bunim/Murray",
+          "years": "2017 to 2018",
+          "role": "Senior supervising producer",
+          "summary": "A documentary series following Kylie Jenner at the height of the Kardashian-Jenner media empire."
+        }
+      ]
+    },
+    {
+      "id": "labs",
+      "title": "Ghost Mode Labs",
+      "description": "Original IP, research systems, and working prototypes exploring how stories can be researched, built, and extended.",
+      "portfolioUrl": "https://ghostmode.studio/#/labs",
+      "items": [
+        {
+          "id": "visual-audiobooks",
+          "title": "Visual Audiobooks",
+          "format": "Story system",
+          "organization": "Ghost Mode Labs",
+          "years": "2026",
+          "role": "Creator",
+          "summary": "Original children's stories whose visual world can change each time a listener returns.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/visual-audiobooks"
+        },
+        {
+          "id": "static",
+          "title": "Static",
+          "format": "Original series and research tool",
+          "organization": "Ghost Mode Labs",
+          "years": "2026",
+          "role": "Creator",
+          "summary": "A scripted supernatural series built from online folklore, developed with a research tool that finds recurring story patterns across public archives.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/static"
+        },
+        {
+          "id": "multiverse-quad",
+          "title": "Multiverse Quad",
+          "format": "Multiformat storytelling",
+          "organization": "Amazon AGI",
+          "years": "2025",
+          "role": "Creator and collaborator",
+          "summary": "A working demonstration of one story unfolding across an animated film, graphic novel, visual audiobook, and podcast.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/multiverse-quad"
+        },
+        {
+          "id": "ai-creator-lab",
+          "title": "AI Creator Lab",
+          "format": "Creative innovation program",
+          "organization": "Wondery",
+          "years": "2024 to 2025",
+          "role": "Founder and program lead",
+          "summary": "Wondery's first AI Creator Lab, a practical program for testing emerging tools inside real production workflows. Participation grew from four people to more than fifty across the company.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/ai-creator-lab"
+        },
+        {
+          "id": "narrative-space",
+          "title": "Narrative Space",
+          "format": "Interactive worldbuilding",
+          "organization": "Ghost Mode Labs",
+          "years": "2026",
+          "role": "Creator",
+          "summary": "A working prototype that turns story notes, characters, timelines, and locations into a three-dimensional space writers can explore.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/narrative-space"
+        },
+        {
+          "id": "unstill",
+          "title": "Unstill",
+          "format": "Archival experience",
+          "organization": "Ghost Mode Labs",
+          "years": "2026",
+          "role": "Creator",
+          "summary": "A proposal that uses archival records, color, motion, and changing inscriptions to reconsider lives preserved in 1920s Sydney police photographs.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/unstill"
+        },
+        {
+          "id": "mythos",
+          "title": "MythOS",
+          "format": "Franchise intelligence",
+          "organization": "Ghost Mode Labs",
+          "years": "2026",
+          "role": "Creator",
+          "summary": "A research prototype that maps 3,500 years of mythology and folklore across cultures to help development teams find public-domain story material.",
+          "proof": "The working prototype contains 494 source stories.",
+          "portfolioUrl": "https://ghostmode.studio/#/project/mythos"
+        }
+      ]
+    }
+  ]
+}

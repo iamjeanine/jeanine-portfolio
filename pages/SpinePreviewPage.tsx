@@ -849,9 +849,22 @@ const SpinePreviewPage: React.FC = () => {
             >
               LinkedIn
             </a>
+            <a
+              href="/press.html"
+              className="inline-flex min-h-11 items-center py-2 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: 'clamp(1.5rem, 1.8vw, 1.65rem)',
+                color: 'var(--poppy-ink)',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                outlineColor: SCAMFLUENCERS_ACCENT,
+              }}
+            >
+              Press kit
+            </a>
           </div>
 
-          <div className="mt-16 md:mt-20">
+          <div className="mt-16 md:mt-20 flex flex-wrap items-center gap-x-8 gap-y-2">
             <button
               type="button"
               onClick={goToCover}
@@ -866,6 +879,19 @@ const SpinePreviewPage: React.FC = () => {
             >
               Back to cover
             </button>
+            <a
+              href="/work.html"
+              className="inline-flex min-h-11 items-center py-3 underline decoration-2 underline-offset-4 hover:opacity-70 active:translate-y-px transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={{
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: '1rem',
+                color: 'var(--ink)',
+                textDecorationColor: SCAMFLUENCERS_ACCENT,
+                outlineColor: SCAMFLUENCERS_ACCENT,
+              }}
+            >
+              Work index
+            </a>
           </div>
         </div>
         </footer>

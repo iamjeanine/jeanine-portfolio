@@ -17,12 +17,15 @@ dist-ssr
 Broader Portfolio references/
 public/proto/
 .impeccable.md
+.impeccable/review/
 compose-linkedin.py
 ghost-mode-cover-export.html
 ghost-mode-favicon-test.html
 ghost-mode-logo-small-export.html
 ghost-mode-rethink.html
 ghost-mode-labs-exports/
+tmp/
+scripts/__pycache__/
 
 # Editor directories and files
 .vscode/*

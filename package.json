@@ -7,7 +7,11 @@
     "node": "22.x"
   },
   "scripts": {
+    "generate:press": "node scripts/generate-press-assets.mjs",
+    "build:press-pdf": "node scripts/build_press_pdf.mjs",
+    "predev": "npm run generate:press",
     "dev": "vite",
+    "prebuild": "npm run generate:press",
     "build": "vite build",
     "preview": "vite preview"
   },
