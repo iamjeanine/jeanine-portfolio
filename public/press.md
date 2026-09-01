@@ -1,6 +1,6 @@
 # Jeanine Emilia Cornillot
 
-> Emmy- and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.
+> Emmy and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.
 
 Last updated: 2026-09-01
 
@@ -12,7 +12,7 @@ LinkedIn: https://www.linkedin.com/in/jcornillot
 
 ## Short bio
 
-Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.
+Jeanine Emilia Cornillot is an Emmy and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.
 
 ## Connecting thread
 
@@ -59,7 +59,7 @@ A funny and unsentimental memoir of a Cuban American girlhood lived between cult
 
 ## Full bio
 
-Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. Her work ranges from unscripted television and narrative nonfiction to true crime and original audio fiction.
+Jeanine Emilia Cornillot is an Emmy and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. Her work ranges from unscripted television and narrative nonfiction to true crime and original audio fiction.
 
 She created and showran Scamfluencers and The Last City and co-developed and produced Dying for Sex, all for Wondery and Amazon. Her television credits include A&E's Born This Way, which won three Primetime Emmys, and Vox Media and PBS's No Passport Required, a James Beard Media Award winner.
 
