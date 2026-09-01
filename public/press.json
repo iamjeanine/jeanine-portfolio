@@ -93,6 +93,7 @@
           "leadIn": "Cornillot moves",
           "attribution": "Booklist",
           "credential": "Book review",
+          "display": false,
           "role": "review"
         },
         {
