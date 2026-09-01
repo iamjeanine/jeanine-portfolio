@@ -25,6 +25,7 @@ Jeanine Cornillot's work moves between true stories and invented worlds, from un
 - **The Last City**: Creator and showrunner. Wondery's first original series designed natively in Dolby Atmos, with sound shaping the story from the pitch and writers' room onward. The 12-part climate thriller stars Rhea Seehorn, reached #1 in Apple Fiction in 20 countries, and was nominated for the 2025 Ambie for Best Fiction Podcast. [Portfolio page](https://ghostmode.studio/work.html#the-last-city)
 - **Born This Way**: Supervising producer. The series won three Primetime Emmys and received 16 nominations. [Portfolio page](https://ghostmode.studio/work.html#born-this-way)
 - **No Passport Required**: Supervising producer. The Vox Media and PBS series won a James Beard Media Award. [Portfolio page](https://ghostmode.studio/work.html#no-passport-required)
+- **Visual Audiobooks**: Creator. Built a prototype audiobook player whose artwork redraws itself each time a listener returns. [Portfolio page](https://ghostmode.studio/work.html#visual-audiobooks)
 
 ## Author: Family Sentence
 

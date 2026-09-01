@@ -64,6 +64,12 @@
         "url": "https://ghostmode.studio/work.html#no-passport-required",
         "role": "Supervising producer",
         "proof": "The Vox Media and PBS series won a James Beard Media Award."
+      },
+      {
+        "title": "Visual Audiobooks",
+        "url": "https://ghostmode.studio/work.html#visual-audiobooks",
+        "role": "Creator",
+        "proof": "Built a prototype audiobook player whose artwork redraws itself each time a listener returns."
       }
     ],
     "authorWork": {
