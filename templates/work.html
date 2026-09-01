@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jeanine Emilia Cornillot | Work Index</title>
-  <meta name="description" content="A crawlable index of Jeanine Emilia Cornillot's podcast, television, original IP, and creative-technology work.">
+  <meta name="description" content="Selected television, podcast, audio fiction, and Ghost Mode Labs work by Jeanine Emilia Cornillot.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://ghostmode.studio/work.html">
   <link rel="describedby" type="text/plain" href="https://ghostmode.studio/llms.txt">
@@ -13,14 +13,14 @@
   <link rel="icon" href="/favicon-poppy.png" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon-poppy.png">
   <meta property="og:title" content="Jeanine Emilia Cornillot | Work Index">
-  <meta property="og:description" content="Podcast and television productions, original IP, research systems, and working prototypes.">
+  <meta property="og:description" content="Television, podcasts, audio fiction, and experiments in new forms of storytelling.">
   <meta property="og:image" content="https://ghostmode.studio/jeanine-cornillot-portfolio-share-v2.png">
   <meta property="og:image:alt" content="Jeanine Emilia Cornillot, showrunner and executive producer">
   <meta property="og:url" content="https://ghostmode.studio/work.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Jeanine Emilia Cornillot | Work Index">
-  <meta name="twitter:description" content="Podcast and television productions, original IP, research systems, and working prototypes.">
+  <meta name="twitter:description" content="Television, podcasts, audio fiction, and experiments in new forms of storytelling.">
   <meta name="twitter:image" content="https://ghostmode.studio/jeanine-cornillot-portfolio-share-v2.png">
   <meta name="theme-color" content="#FD452D">
 
@@ -188,6 +188,7 @@
     .hero-copy {
       grid-column: 7 / -1;
       align-self: end;
+      min-width: 0;
     }
 
     .hero-name {
@@ -205,6 +206,7 @@
       font-size: clamp(1.2rem, 2vw, 1.65rem);
       line-height: 1.4;
       text-wrap: pretty;
+      overflow-wrap: break-word;
     }
 
     .chapter-nav {
@@ -309,6 +311,7 @@
     .work-role { margin-top: 0.65rem; color: var(--poppy-deep); }
     .labs .work-role { color: var(--ember); }
 
+    .work-copy { min-width: 0; }
     .work-copy p { max-width: var(--measure); margin: 0; }
     .work-proof { margin-top: 0.65rem !important; color: var(--ink-soft); }
     .labs .work-proof { color: var(--night-soft); }
@@ -387,10 +390,26 @@
     }
 
     @media (max-width: 680px) {
-      .utility { align-items: flex-start; }
+      .hero-grid,
+      .chapter-grid,
+      .closing-grid {
+        display: block;
+        width: 100%;
+      }
+      .throughline,
+      .chapter-description,
+      .work-copy p { max-width: 100%; }
+      .utility { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
       .utility-identity { flex-direction: column; align-items: flex-start; gap: 0.25rem; padding-top: 0.7rem; }
       .utility-page { padding-left: 0; border-left: 0; }
-      .utility nav { flex-direction: column; align-items: flex-end; gap: 0; }
+      .utility nav {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0 1.25rem;
+      }
       .work-item { grid-template-columns: 1fr; gap: 0.7rem; }
       .closing-meta { flex-direction: column; }
     }
