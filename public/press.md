@@ -1,6 +1,6 @@
 # Jeanine Emilia Cornillot
 
-> Emmy- and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.
+> Emmy and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.
 
 Last updated: 2026-09-01
 
@@ -12,11 +12,11 @@ LinkedIn: https://www.linkedin.com/in/jcornillot
 
 ## Short bio
 
-Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.
+Jeanine Emilia Cornillot is an Emmy and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.
 
 ## Connecting thread
 
-Jeanine Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories across scripted, nonfiction, and new formats.
+Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and builds prototypes using AI and other emerging technologies to test new creative workflows for research, development, and production.
 
 ## Selected work
 
@@ -25,6 +25,7 @@ Jeanine Cornillot's work moves between true stories and invented worlds, from un
 - **The Last City**: Creator and showrunner. Wondery's first original series designed natively in Dolby Atmos, with sound shaping the story from the pitch and writers' room onward. The 12-part climate thriller stars Rhea Seehorn, reached #1 in Apple Fiction in 20 countries, and was nominated for the 2025 Ambie for Best Fiction Podcast. [Portfolio page](https://ghostmode.studio/work.html#the-last-city)
 - **Born This Way**: Supervising producer. The series won three Primetime Emmys and received 16 nominations. [Portfolio page](https://ghostmode.studio/work.html#born-this-way)
 - **No Passport Required**: Supervising producer. The Vox Media and PBS series won a James Beard Media Award. [Portfolio page](https://ghostmode.studio/work.html#no-passport-required)
+- **Visual Audiobooks**: Creator. Built a prototype audiobook player whose artwork redraws itself each time a listener returns. [Portfolio page](https://ghostmode.studio/work.html#visual-audiobooks)
 
 ## Author: Family Sentence
 
@@ -59,7 +60,7 @@ A funny and unsentimental memoir of a Cuban American girlhood lived between cult
 
 ## Full bio
 
-Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. Her work ranges from unscripted television and narrative nonfiction to true crime and original audio fiction.
+Jeanine Emilia Cornillot is an Emmy and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. Her work ranges from unscripted television and narrative nonfiction to true crime and original audio fiction.
 
 She created and showran Scamfluencers and The Last City and co-developed and produced Dying for Sex, all for Wondery and Amazon. Her television credits include A&E's Born This Way, which won three Primetime Emmys, and Vox Media and PBS's No Passport Required, a James Beard Media Award winner.
 
