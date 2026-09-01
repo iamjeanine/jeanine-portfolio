@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jeanine Emilia Cornillot | Press Kit</title>
-  <meta name="description" content="Press kit for Jeanine Emilia Cornillot, Emmy- and Ambie-winning showrunner and executive producer working across podcasts, television, practical AI, and emerging technology.">
+  <meta name="description" content="Press kit for Jeanine Emilia Cornillot, an Emmy- and Ambie-winning showrunner and executive producer working across television, podcasts, and original audio fiction.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://ghostmode.studio/press.html">
   <link rel="describedby" type="text/plain" href="https://ghostmode.studio/llms.txt">
@@ -35,7 +35,7 @@
         "url": "https://ghostmode.studio/press.html",
         "name": "Jeanine Emilia Cornillot | Press Kit",
         "description": "Biography, selected work, awards, interview topics, and contact information for Jeanine Emilia Cornillot.",
-        "dateModified": "2026-08-31",
+        "dateModified": "2026-09-01",
         "mainEntity": {
           "@id": "https://ghostmode.studio/#jeanine"
         },
@@ -63,7 +63,7 @@
         "name": "Jeanine Emilia Cornillot",
         "alternateName": "Jeanine Cornillot",
         "jobTitle": "Executive Producer and Showrunner",
-        "description": "Jeanine Emilia Cornillot is an Emmy- and Ambie-winning executive producer and showrunner whose work spans podcasts, television, scripted audio, practical AI, and emerging technology. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and founded Wondery's first AI Creator Lab. She is also the author of the memoir Family Sentence. At Ghost Mode Labs, she develops original IP and new tools for storytelling.",
+        "description": "Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.",
         "url": "https://ghostmode.studio/",
         "email": "iamjeanine@me.com",
         "sameAs": [
@@ -92,7 +92,7 @@
           "Television production",
           "Narrative nonfiction",
           "Scripted audio",
-          "Practical AI and emerging technology",
+          "AI and emerging technologies",
           "Story adaptation across media",
           "Showrunning",
           "Original intellectual property development",
@@ -105,7 +105,7 @@
         "name": "Family Sentence",
         "url": "https://www.beacon.org/Family-Sentence-P842.aspx",
         "bookFormat": "Book",
-        "description": "A memoir published by Beacon Press.",
+        "description": "A funny and unsentimental memoir of a Cuban American girlhood lived between cultures and in the shadow of a father's incarceration.",
         "award": "Publishers Weekly: “Top 20” Fall Book Selection",
         "author": {
           "@id": "https://ghostmode.studio/#jeanine"
@@ -349,6 +349,9 @@
 
     .hero-copy { grid-column: 1 / span 8; align-self: center; }
 
+    .hero-copy,
+    .section-body { min-width: 0; }
+
     .hero h1 {
       max-width: 9ch;
       margin: 0;
@@ -369,6 +372,7 @@
       font-size: clamp(1.25rem, 2.2vw, 1.8rem);
       line-height: 1.35;
       text-wrap: pretty;
+      overflow-wrap: break-word;
     }
 
     .actions {
@@ -782,10 +786,25 @@
     }
 
     @media (max-width: 620px) {
-      .utility { align-items: flex-start; }
+      .hero-grid,
+      .section-grid,
+      .closing-grid {
+        display: block;
+        width: 100%;
+      }
+      .positioning,
+      .bio { max-width: 100%; }
+      .utility { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
       .utility-identity { flex-direction: column; align-items: flex-start; gap: 0.25rem; padding-top: 0.7rem; }
       .utility-page { padding-left: 0; border-left: 0; }
-      .utility nav { flex-direction: column; align-items: flex-end; gap: 0; }
+      .utility nav {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0 1.25rem;
+      }
       .hero h1 { font-size: clamp(3.15rem, 17vw, 5rem); }
       .work-item { grid-template-columns: 1fr; gap: 0.65rem; }
       .work-proof { grid-column: auto; }
@@ -1122,7 +1141,7 @@
           <div class="hero-copy">
             <h1 id="press-title">Jeanine Emilia Cornillot</h1>
 <!-- press:positioning:start -->
-          <p class="positioning">Emmy- and Ambie-winning showrunner and executive producer bringing proven editorial judgment into new forms of storytelling and practical AI production.</p>
+          <p class="positioning">Emmy- and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.</p>
 <!-- press:positioning:end -->
             <div class="actions" aria-label="Press kit actions">
               <a class="action" href="#short-bio">Read the bio</a>
@@ -1149,7 +1168,7 @@
             </div>
             <div class="fact">
               <dt>Known for</dt>
-              <dd><em><em>Scamfluencers</em></em>, <em><em>Dying for Sex</em></em>, <em><em>The Last City</em></em>, <em><em>Born This Way</em></em></dd>
+              <dd><em>Scamfluencers</em>, <em>Dying for Sex</em>, <em>The Last City</em>, <em>Born This Way</em></dd>
             </div>
             <div class="fact">
               <dt>Current</dt>
@@ -1166,8 +1185,7 @@
         <h2 class="section-title" id="short-bio-title">Short bio</h2>
         <div class="section-body">
 <!-- press:shortbio:start -->
-          <p class="bio" id="short-bio-copy">Jeanine Emilia Cornillot is an Emmy- and Ambie-winning executive producer and showrunner whose work spans podcasts, television, scripted audio, practical AI, and emerging technology. She created and showran <em><em>Scamfluencers</em></em> and <em><em>The Last City</em></em>, co-developed and produced <em><em>Dying for Sex</em></em>, and founded Wondery&rsquo;s first <em>AI Creator Lab</em>. She is also the author of the memoir <em>Family Sentence</em>. At Ghost Mode Labs, she develops original IP and new tools for storytelling.</p>
-          <p class="bio bio-throughline">Jeanine Cornillot works across three connected practices: creating and showrunning narrative series, writing from lived and cultural experience, and testing how practical AI can support creative production. Across each, the throughline is the same: turning complex material into clear, character-driven stories and useful new formats.</p>
+          <p class="bio" id="short-bio-copy">Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran <em>Scamfluencers</em> and <em>The Last City</em>, co-developed and produced <em>Dying for Sex</em>, and was a supervising producer on the Emmy-winning <em>Born This Way</em>. She is also the author of <em>Family Sentence</em> and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.</p>
 <!-- press:shortbio:end -->
           <div class="copy-row">
             <button class="copy-button" id="copy-bio" type="button">Copy short bio</button>
@@ -1186,27 +1204,27 @@
             <li class="work-item">
               <p class="work-title"><a href="/work.html#scamfluencers">Scamfluencers</a></p>
               <p class="work-role">Creator and showrunner</p>
-              <p class="work-proof">53 million downloads. #1 on Apple Podcasts. Winner of the 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025.</p>
+              <p class="work-proof">The series has 53 million downloads, reached #1 on Apple Podcasts, and won the 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025.</p>
             </li>
             <li class="work-item">
               <p class="work-title"><a href="/work.html#dying-for-sex">Dying for Sex</a></p>
               <p class="work-role">Co-developer and producer of the original podcast</p>
-              <p class="work-proof">Winner of the 2021 Ambie for Podcast of the Year. The FX television adaptation won a Peabody Award, received nine Emmy nominations, and received a 2026 Television Academy Honor.</p>
+              <p class="work-proof">The original podcast won the 2021 Ambie for Podcast of the Year. Its FX television adaptation won a Peabody Award, received nine Emmy nominations, and received a 2026 Television Academy Honor.</p>
             </li>
             <li class="work-item">
               <p class="work-title"><a href="/work.html#the-last-city">The Last City</a></p>
               <p class="work-role">Creator and showrunner</p>
-              <p class="work-proof">Wondery&rsquo;s first original series conceived and produced for Dolby Atmos from the start. Serialized climate thriller starring Rhea Seehorn. #1 Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast.</p>
+              <p class="work-proof">Wondery&rsquo;s first original series designed natively in Dolby Atmos, with sound shaping the story from the pitch and writers&rsquo; room onward. The 12-part climate thriller stars Rhea Seehorn, reached #1 in Apple Fiction in 20 countries, and was nominated for the 2025 Ambie for Best Fiction Podcast.</p>
             </li>
             <li class="work-item">
               <p class="work-title"><a href="/work.html#born-this-way">Born This Way</a></p>
               <p class="work-role">Supervising producer</p>
-              <p class="work-proof">Three Primetime Emmy wins and 16 nominations.</p>
+              <p class="work-proof">The series won three Primetime Emmys and received 16 nominations.</p>
             </li>
             <li class="work-item">
               <p class="work-title"><a href="/work.html#no-passport-required">No Passport Required</a></p>
               <p class="work-role">Supervising producer</p>
-              <p class="work-proof">Vox Media and PBS series. Winner of a James Beard Media Award.</p>
+              <p class="work-proof">The Vox Media and PBS series won a James Beard Media Award.</p>
             </li>
 <!-- press:work:end -->
           </ul>
@@ -1223,7 +1241,7 @@
             <h3>Family Sentence</h3>
             <p class="author-meta">Book · Beacon Press</p>
             <p class="author-recognition"><span>Publishers Weekly</span><strong>“Top 20” Fall Book Selection</strong></p>
-            <p class="author-description">A memoir published by Beacon Press.</p>
+            <p class="author-description">A funny and unsentimental memoir of a Cuban American girlhood lived between cultures and in the shadow of a father&rsquo;s incarceration.</p>
           </div>
           <div class="praise-layout" aria-label="Praise for Family Sentence">
             <figure class="praise praise-lead">
@@ -1256,12 +1274,12 @@
         <div class="section-body">
           <ul class="topic-list">
 <!-- press:topics:start -->
-            <li>Creating and showrunning narrative podcasts across nonfiction and scripted fiction</li>
-            <li>Turning complex research and reporting into character-driven series</li>
-            <li>How stories evolve across audio, television, and new formats</li>
-            <li>Practical AI and emerging technology in creative production</li>
-            <li>Building innovation programs and leading creative teams inside media companies</li>
-            <li>Writing memoir from cultural inheritance and family mythology</li>
+            <li>Creating and showrunning podcasts, from nonfiction to scripted fiction</li>
+            <li>Turning research and reporting into character-driven series</li>
+            <li>Moving stories between audio, television, and new formats</li>
+            <li>Leading creative teams and innovation programs</li>
+            <li>Writing memoir from family mythology and cultural inheritance</li>
+            <li>AI and emerging technologies in creative production</li>
 <!-- press:topics:end -->
           </ul>
         </div>
@@ -1273,10 +1291,10 @@
         <h2 class="section-title" id="full-bio-title">Full bio</h2>
         <div class="section-body full-bio">
 <!-- press:fullbio:start -->
-          <p>Jeanine Emilia Cornillot is an Emmy- and Ambie-winning executive producer and showrunner with more than 300 episodes across podcasts, television, and digital media. She created and showran <em><em>Scamfluencers</em></em> and <em><em>The Last City</em></em> and co-developed and produced <em><em>Dying for Sex</em></em>, all for Wondery and Amazon.</p>
-          <p>Her television work includes serving as supervising producer on A&amp;E&rsquo;s <em><em>Born This Way</em></em>, which won three Primetime Emmys, and Vox Media and PBS&rsquo;s <em><em>No Passport Required</em></em>, a James Beard Media Award winner. Her credits span true crime, narrative nonfiction, scripted fiction, pop culture, and children&rsquo;s storytelling.</p>
-          <p>At Wondery, Cornillot founded the company&rsquo;s first <em>AI Creator Lab</em>. She built its curriculum, internal resource hub, and partnerships, growing participation from four people to more than fifty across the company. Three projects were greenlit through the lab.</p>
-          <p>Through Ghost Mode Labs, she develops original IP and prototypes new ways to research, build, and extend stories across scripted, nonfiction, and emerging formats. Current work includes a visual audiobook that redraws itself with every listen, a 3D worldbuilding tool for writers, and a mythology research platform designed for franchise development.</p>
+          <p>Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. Her work ranges from unscripted television and narrative nonfiction to true crime and original audio fiction.</p>
+          <p>She created and showran <em>Scamfluencers</em> and <em>The Last City</em> and co-developed and produced <em>Dying for Sex</em>, all for Wondery and Amazon. Her television credits include A&amp;E&rsquo;s <em>Born This Way</em>, which won three Primetime Emmys, and Vox Media and PBS&rsquo;s <em>No Passport Required</em>, a James Beard Media Award winner.</p>
+          <p>Cornillot is also the author of <em>Family Sentence</em>, a funny and unsentimental memoir of a Cuban American girlhood lived between cultures and in the shadow of a father&rsquo;s incarceration.</p>
+          <p>At Wondery, she founded the company&rsquo;s first <em>AI Creator Lab</em> and grew participation from four people to more than fifty across the company. Through Ghost Mode Labs, she now develops original IP and prototypes new ways to use AI and other emerging technologies in story research, development, and extension.</p>
 <!-- press:fullbio:end -->
         </div>
       </div>
@@ -1288,12 +1306,12 @@
         <div class="section-body">
           <ul class="award-list">
 <!-- press:awards:start -->
-            <li><strong>Primetime Emmy Awards</strong>, Three wins for <em><em>Born This Way</em></em></li>
-            <li><strong>Ambie, Podcast of the Year 2021</strong>, <em><em>Dying for Sex</em></em></li>
-            <li><strong>Ambie, Best Entertainment Podcast 2023</strong>, <em><em>Scamfluencers</em></em></li>
-            <li><strong>James Beard Media Award</strong>, <em><em>No Passport Required</em></em></li>
-            <li><strong>Ambie nomination, Best Fiction Podcast 2025</strong>, <em><em>The Last City</em></em></li>
-            <li><strong>Ambie nomination, Best Entertainment Podcast 2025</strong>, <em><em>Scamfluencers</em></em></li>
+            <li><strong>Primetime Emmy Awards</strong>, Three wins for <em>Born This Way</em></li>
+            <li><strong>Ambie, Podcast of the Year 2021</strong>, <em>Dying for Sex</em></li>
+            <li><strong>Ambie, Best Entertainment Podcast 2023</strong>, <em>Scamfluencers</em></li>
+            <li><strong>James Beard Media Award</strong>, <em>No Passport Required</em></li>
+            <li><strong>Ambie nomination, Best Fiction Podcast 2025</strong>, <em>The Last City</em></li>
+            <li><strong>Ambie nomination, Best Entertainment Podcast 2025</strong>, <em>Scamfluencers</em></li>
 <!-- press:awards:end -->
           </ul>
           <p class="note">Project artwork and additional production information are available on request.</p>
@@ -1313,7 +1331,7 @@
       </div>
       <div class="closing-meta">
         <span>Jeanine Emilia Cornillot</span>
-        <span>Updated August 2026</span>
+        <span>Updated September 2026</span>
       </div>
     </div>
   </footer>

@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.0",
-  "lastUpdated": "2026-08-31",
+  "lastUpdated": "2026-09-01",
   "canonicalUrl": "https://ghostmode.studio/press.html",
   "downloadablePdf": "https://ghostmode.studio/Jeanine-Cornillot-Press-Kit.pdf",
   "person": {
     "name": "Jeanine Emilia Cornillot",
     "alternateName": "Jeanine Cornillot",
     "jobTitle": "Executive Producer and Showrunner",
-    "positioning": "Emmy- and Ambie-winning showrunner and executive producer bringing proven editorial judgment into new forms of storytelling and practical AI production.",
-    "profileThroughline": "Jeanine Cornillot works across three connected practices: creating and showrunning narrative series, writing from lived and cultural experience, and testing how practical AI can support creative production. Across each, the throughline is the same: turning complex material into clear, character-driven stories and useful new formats.",
-    "shortBio": "Jeanine Emilia Cornillot is an Emmy- and Ambie-winning executive producer and showrunner whose work spans podcasts, television, scripted audio, practical AI, and emerging technology. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and founded Wondery's first AI Creator Lab. She is also the author of the memoir Family Sentence. At Ghost Mode Labs, she develops original IP and new tools for storytelling.",
+    "positioning": "Emmy- and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.",
+    "profileThroughline": "Jeanine Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories across scripted, nonfiction, and new formats.",
+    "shortBio": "Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.",
     "fullBio": [
-      "Jeanine Emilia Cornillot is an Emmy- and Ambie-winning executive producer and showrunner with more than 300 episodes across podcasts, television, and digital media. She created and showran Scamfluencers and The Last City and co-developed and produced Dying for Sex, all for Wondery and Amazon.",
-      "Her television work includes serving as supervising producer on A&E's Born This Way, which won three Primetime Emmys, and Vox Media and PBS's No Passport Required, a James Beard Media Award winner. Her credits span true crime, narrative nonfiction, scripted fiction, pop culture, and children's storytelling.",
-      "At Wondery, Cornillot founded the company's first AI Creator Lab. She built its curriculum, internal resource hub, and partnerships, growing participation from four people to more than fifty across the company. Three projects were greenlit through the lab.",
-      "Through Ghost Mode Labs, she develops original IP and prototypes new ways to research, build, and extend stories across scripted, nonfiction, and emerging formats. Current work includes a visual audiobook that redraws itself with every listen, a 3D worldbuilding tool for writers, and a mythology research platform designed for franchise development."
+      "Jeanine Emilia Cornillot is an Emmy- and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. Her work ranges from unscripted television and narrative nonfiction to true crime and original audio fiction.",
+      "She created and showran Scamfluencers and The Last City and co-developed and produced Dying for Sex, all for Wondery and Amazon. Her television credits include A&E's Born This Way, which won three Primetime Emmys, and Vox Media and PBS's No Passport Required, a James Beard Media Award winner.",
+      "Cornillot is also the author of Family Sentence, a funny and unsentimental memoir of a Cuban American girlhood lived between cultures and in the shadow of a father's incarceration.",
+      "At Wondery, she founded the company's first AI Creator Lab and grew participation from four people to more than fifty across the company. Through Ghost Mode Labs, she now develops original IP and prototypes new ways to use AI and other emerging technologies in story research, development, and extension."
     ],
     "quickFacts": [
       {
@@ -39,38 +39,38 @@
         "title": "Scamfluencers",
         "url": "https://ghostmode.studio/work.html#scamfluencers",
         "role": "Creator and showrunner",
-        "proof": "53 million downloads. #1 on Apple Podcasts. Winner of the 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025."
+        "proof": "The series has 53 million downloads, reached #1 on Apple Podcasts, and won the 2023 Ambie for Best Entertainment Podcast, with a second nomination in 2025."
       },
       {
         "title": "Dying for Sex",
         "url": "https://ghostmode.studio/work.html#dying-for-sex",
         "role": "Co-developer and producer of the original podcast",
-        "proof": "Winner of the 2021 Ambie for Podcast of the Year. The FX television adaptation won a Peabody Award, received nine Emmy nominations, and received a 2026 Television Academy Honor."
+        "proof": "The original podcast won the 2021 Ambie for Podcast of the Year. Its FX television adaptation won a Peabody Award, received nine Emmy nominations, and received a 2026 Television Academy Honor."
       },
       {
         "title": "The Last City",
         "url": "https://ghostmode.studio/work.html#the-last-city",
         "role": "Creator and showrunner",
-        "proof": "Wondery's first original series conceived and produced for Dolby Atmos from the start. Serialized climate thriller starring Rhea Seehorn. #1 Apple Fiction in 20 countries. Nominated for the 2025 Ambie for Best Fiction Podcast."
+        "proof": "Wondery's first original series designed natively in Dolby Atmos, with sound shaping the story from the pitch and writers' room onward. The 12-part climate thriller stars Rhea Seehorn, reached #1 in Apple Fiction in 20 countries, and was nominated for the 2025 Ambie for Best Fiction Podcast."
       },
       {
         "title": "Born This Way",
         "url": "https://ghostmode.studio/work.html#born-this-way",
         "role": "Supervising producer",
-        "proof": "Three Primetime Emmy wins and 16 nominations."
+        "proof": "The series won three Primetime Emmys and received 16 nominations."
       },
       {
         "title": "No Passport Required",
         "url": "https://ghostmode.studio/work.html#no-passport-required",
         "role": "Supervising producer",
-        "proof": "Vox Media and PBS series. Winner of a James Beard Media Award."
+        "proof": "The Vox Media and PBS series won a James Beard Media Award."
       }
     ],
     "authorWork": {
       "title": "Family Sentence",
       "format": "Book",
       "publisher": "Beacon Press",
-      "description": "A memoir published by Beacon Press.",
+      "description": "A funny and unsentimental memoir of a Cuban American girlhood lived between cultures and in the shadow of a father's incarceration.",
       "recognition": {
         "source": "Publishers Weekly",
         "label": "“Top 20” Fall Book Selection"
@@ -130,25 +130,25 @@
       }
     ],
     "topics": [
-      "Creating and showrunning narrative podcasts across nonfiction and scripted fiction",
-      "Turning complex research and reporting into character-driven series",
-      "How stories evolve across audio, television, and new formats",
-      "Practical AI and emerging technology in creative production",
-      "Building innovation programs and leading creative teams inside media companies",
-      "Writing memoir from cultural inheritance and family mythology"
+      "Creating and showrunning podcasts, from nonfiction to scripted fiction",
+      "Turning research and reporting into character-driven series",
+      "Moving stories between audio, television, and new formats",
+      "Leading creative teams and innovation programs",
+      "Writing memoir from family mythology and cultural inheritance",
+      "AI and emerging technologies in creative production"
     ],
     "expertise": [
       "Podcast development and production",
       "Television production",
       "Narrative nonfiction",
       "Scripted audio",
-      "Practical AI and emerging technology",
+      "AI and emerging technologies",
       "Story adaptation across media",
       "Showrunning",
       "Original intellectual property development",
       "Memoir and literary nonfiction"
     ],
-    "currentWork": "Ghost Mode Labs develops original IP and prototypes new approaches to story research, development, worldbuilding, and adaptation. Current projects include visual audiobooks, Narrative Space, MythOS, Static, and Multiverse Quad.",
+    "currentWork": "At Ghost Mode Labs, Jeanine develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories across scripted, nonfiction, and new formats. Current projects include visual audiobooks, Narrative Space, MythOS, Static, and Multiverse Quad.",
     "attributionNotes": [
       "Jeanine Cornillot co-developed and produced the original Dying for Sex podcast. Do not imply that she produced the FX television adaptation.",
       "Award language refers to recognized productions on which her role is stated above. Use the canonical press kit for the most current wording and contact information."

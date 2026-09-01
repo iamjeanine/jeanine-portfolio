@@ -12,13 +12,13 @@ const escapeHtml = (value) => value
   .replaceAll('"', '&quot;')
   .replaceAll("'", '&rsquo;');
 
-const titles = [
+const titles = [...new Set([
   ...data.selectedWork.map((item) => item.title),
   ...data.portfolioChapters.flatMap((chapter) => chapter.items.map((item) => item.title)),
   data.authorWork.title,
   'Loosing My Espanish',
   'The Mambo Kings Play Songs of Love'
-].sort((a, b) => b.length - a.length);
+])].sort((a, b) => b.length - a.length);
 const richText = (value) => {
   let result = escapeHtml(value);
   for (const title of titles) {
@@ -291,7 +291,7 @@ let pressHtml = await readFile(path.join(root, 'public/press.html'), 'utf8');
 pressHtml = replaceBlock(pressHtml, 'jsonld', `  <script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2).split('\n').map((line) => `  ${line}`).join('\n')}\n  </script>`);
 pressHtml = replaceBlock(pressHtml, 'positioning', `          <p class="positioning">${escapeHtml(data.positioning)}</p>`);
 pressHtml = replaceBlock(pressHtml, 'facts', data.quickFacts.map((fact) => `            <div class="fact">\n              <dt>${escapeHtml(fact.label)}</dt>\n              <dd>${richText(fact.value)}</dd>\n            </div>`).join('\n'));
-pressHtml = replaceBlock(pressHtml, 'shortbio', `          <p class="bio" id="short-bio-copy">${richText(data.shortBio)}</p>\n          <p class="bio bio-throughline">${richText(data.profileThroughline)}</p>`);
+pressHtml = replaceBlock(pressHtml, 'shortbio', `          <p class="bio" id="short-bio-copy">${richText(data.shortBio)}</p>`);
 pressHtml = replaceBlock(pressHtml, 'work', data.selectedWork.map((item) => {
   const title = item.url
     ? `<a href="${escapeHtml(item.url.replace(data.contact.portfolio.replace(/\/$/, ''), ''))}">${escapeHtml(item.title)}</a>`
