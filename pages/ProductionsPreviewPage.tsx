@@ -268,7 +268,7 @@ const SPREADS: SpreadData[] = [
         intrinsicHeight: 800,
       },
       overlap: {
-        src: '/dying-for-sex-peabody.png',
+        src: '/dying-for-sex-peabody.avif',
         alt: 'Dying for Sex FX series Peabody winner artwork featuring Michelle Williams and Rob Delaney',
       },
     },
