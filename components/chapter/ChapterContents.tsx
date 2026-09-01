@@ -77,10 +77,11 @@ export const ChapterContents: React.FC<ChapterContentsProps> = ({
         </span>
         <span
           aria-hidden="true"
-          className="chapter-contents-marker text-base leading-none"
+          className="chapter-contents-marker"
           style={{ color: colors.action ?? colors.accent }}
         >
-          {open ? '−' : '+'}
+          <span className="chapter-contents-marker-stroke chapter-contents-marker-horizontal" />
+          <span className="chapter-contents-marker-stroke chapter-contents-marker-vertical" />
         </span>
       </summary>
 
