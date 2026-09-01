@@ -265,12 +265,16 @@ export const ChapterRail: React.FC<{
           mixBlendMode: 'normal',
           // Labs contains both an ink-black ground and pale media frames.
           // A slim, square fore-edge backing keeps the fixed cream labels
-          // legible across both without introducing a floating card.
+          // legible across both without introducing a floating card. Its
+          // full width, padding, and one-pixel border footprint stay reserved
+          // in every chapter, so only the surface color changes at the Labs
+          // handoff; the rail no longer makes a tiny positional snap.
           backgroundColor: active?.id === 'labs' ? 'rgba(5,7,12,0.94)' : 'transparent',
           borderColor: active?.id === 'labs' ? 'rgba(247,243,237,0.22)' : 'transparent',
           borderStyle: 'solid',
-          borderWidth: active?.id === 'labs' ? '1px 0 1px 1px' : 0,
-          padding: active?.id === 'labs' ? '0.75rem 1.5rem 0.75rem 0.875rem' : '0 1.5rem 0 0',
+          borderWidth: '1px 0 1px 1px',
+          padding: '0.75rem 1.5rem 0.75rem 0.875rem',
+          width: '15rem',
         }}
         aria-hidden={suppressed || undefined}
         aria-label="Chapters"
