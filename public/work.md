@@ -1,6 +1,6 @@
 # Jeanine Emilia Cornillot: Work Index
 
-> Jeanine Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories across scripted, nonfiction, and new formats.
+> Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and builds prototypes using AI and other emerging technologies to test new creative workflows for research, development, and production.
 
 Last updated: 2026-09-01
 
