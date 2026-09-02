@@ -968,12 +968,10 @@ const LEAD_SPREADS: SpreadData[] = [SPREADS[0], SPREADS[1], SPREADS[2], BORN_THI
  * demote what a credit is known for.
  */
 const CREDIT_SPREADS: SpreadData[] = [
-  // No Passport Required first, not Hollywood & Crime: it carries a stat
-  // (James Beard), and sitting it between two award-less rows read odd —
-  // Jeanine's own note, live. Order otherwise unchanged.
+  // Lead with Life of Kylie's recognizable name, then Passport and Hollywood.
+  LIFE_OF_KYLIE,
   NO_PASSPORT_REQUIRED,
   HOLLYWOOD_CRIME,
-  LIFE_OF_KYLIE,
 ];
 
 // Full chapter order, both tiers. Bridge endpoints, PRODUCTIONS_INDEX and

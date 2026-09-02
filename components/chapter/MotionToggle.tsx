@@ -40,13 +40,16 @@ export const MotionToggle: React.FC<{
   showWhileVisibleId?: string;
 }> = ({ hideWhileVisibleIds, showWhileVisibleId }) => {
   const paused = useMotionPaused();
-  const [reduced, setReduced] = useState(false);
+  const [reduced, setReduced] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   // Hidden while any competing surface is on screen. In the spine this is
   // the Labs title card, where nothing is playing yet, and About, where the
   // fixed control would otherwise overlap the colophon during the handoff.
   const suppressed = useAnyElementVisible(hideWhileVisibleIds);
   const gateVisible = useElementVisible(showWhileVisibleId);
   const gatedOut = showWhileVisibleId !== undefined && !gateVisible;
+  const hidden = suppressed || gatedOut;
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -56,17 +59,25 @@ export const MotionToggle: React.FC<{
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  if (reduced || suppressed || gatedOut) return null;
+  // Reduced-motion visitors have no autoplaying media to control, so the
+  // button remains unnecessary for them. For ordinary show/hide states,
+  // however, keep it mounted: opacity can now carry the control smoothly
+  // into and out of the Labs chapter instead of popping at the boundary.
+  if (reduced) return null;
 
   return (
     <button
       type="button"
+      tabIndex={hidden ? -1 : undefined}
       onClick={() => setMotionPaused(!paused)}
       /* No aria-pressed: the visible label already carries the state, and
          a toggle whose label flips would otherwise be announced as
          "Play motion, pressed" while motion is stopped, which contradicts
          itself. The label alone is unambiguous. */
-      className="fixed left-4 bottom-4 z-40 inline-flex min-h-11 items-center chapter-label chapter-rail-btn chapter-rail-hit chapter-rail-invert transition-opacity duration-300 hover:opacity-70"
+      className={`fixed left-4 bottom-4 z-40 inline-flex min-h-11 items-center chapter-label chapter-rail-btn chapter-rail-hit chapter-rail-invert transition-opacity duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        hidden ? 'pointer-events-none opacity-0' : 'opacity-100 hover:opacity-70'
+      }`}
+      aria-hidden={hidden || undefined}
     >
       {paused ? 'Resume motion' : 'Pause motion'}
     </button>

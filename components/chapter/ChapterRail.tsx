@@ -265,12 +265,16 @@ export const ChapterRail: React.FC<{
           mixBlendMode: 'normal',
           // Labs contains both an ink-black ground and pale media frames.
           // A slim, square fore-edge backing keeps the fixed cream labels
-          // legible across both without introducing a floating card.
+          // legible across both without introducing a floating card. Its
+          // full width, padding, and one-pixel border footprint stay reserved
+          // in every chapter, so only the surface color changes at the Labs
+          // handoff; the rail no longer makes a tiny positional snap.
           backgroundColor: active?.id === 'labs' ? 'rgba(5,7,12,0.94)' : 'transparent',
           borderColor: active?.id === 'labs' ? 'rgba(247,243,237,0.22)' : 'transparent',
           borderStyle: 'solid',
-          borderWidth: active?.id === 'labs' ? '1px 0 1px 1px' : 0,
-          padding: active?.id === 'labs' ? '0.75rem 1.5rem 0.75rem 0.875rem' : '0 1.5rem 0 0',
+          borderWidth: '1px 0 1px 1px',
+          padding: '0.75rem 1.5rem 0.75rem 0.875rem',
+          width: '15rem',
         }}
         aria-hidden={suppressed || undefined}
         aria-label="Chapters"
@@ -359,37 +363,55 @@ export const ChapterRail: React.FC<{
           >
             {active.index}{activeProgress ? ` · ${activeProgress}` : ''}
           </button>
-          {mobileOpen && (
-            <nav aria-label="Chapters" className="w-64 px-3 pb-3">
-              {sections.map((s) => {
-                const isActive = s.id === activeId;
-                return (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => {
-                      scrollToSection(s.id);
-                      setMobileOpen(false);
-                    }}
-                    className="chapter-label chapter-rail-btn flex min-h-11 w-full items-center justify-between gap-4 py-2 text-left active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                    style={{
-                      color: isActive ? mobileRailColors.ink : mobileRailColors.muted,
-                      fontWeight: isActive ? 700 : 400,
-                      outlineColor: mobileRailColors.accent,
-                      borderTop: `1px solid ${mobileRailColors.border}`,
-                      padding: '0.5rem 0',
-                    }}
-                    aria-current={isActive ? 'true' : undefined}
-                  >
-                    <span>{s.label}</span>
-                    <span className="tabular-nums" style={{ color: mobileRailColors.accent }}>
-                      {s.index}
-                    </span>
-                  </button>
-                );
-              })}
-            </nav>
-          )}
+          {/* Keep the panel mounted so closing gets the same continuity as
+              opening. The outer grid owns the short vertical reveal; the
+              inner wrapper clips it. Closed controls leave the tab order,
+              so the visual concealment never creates hidden keyboard stops. */}
+          <div
+            className="chapter-mobile-rail-panel"
+            data-open={mobileOpen ? 'true' : 'false'}
+            aria-hidden={!mobileOpen}
+            style={{
+              color: mobileRailColors.ink,
+              backgroundColor: mobileRailColors.surface,
+              borderColor: mobileRailColors.border,
+              borderLeftWidth: '1px',
+              borderBottomWidth: '1px',
+            }}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <nav aria-label="Chapters" className="w-64 px-3 pb-3">
+                {sections.map((s) => {
+                  const isActive = s.id === activeId;
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      tabIndex={mobileOpen ? 0 : -1}
+                      onClick={() => {
+                        scrollToSection(s.id);
+                        setMobileOpen(false);
+                      }}
+                      className="chapter-label chapter-rail-btn flex min-h-11 w-full items-center justify-between gap-4 py-2 text-left active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                      style={{
+                        color: isActive ? mobileRailColors.ink : mobileRailColors.muted,
+                        fontWeight: isActive ? 700 : 400,
+                        outlineColor: mobileRailColors.accent,
+                        borderTop: `1px solid ${mobileRailColors.border}`,
+                        padding: '0.5rem 0',
+                      }}
+                      aria-current={isActive ? 'true' : undefined}
+                    >
+                      <span>{s.label}</span>
+                      <span className="tabular-nums" style={{ color: mobileRailColors.accent }}>
+                        {s.index}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+          </div>
         </div>
       )}
     </>

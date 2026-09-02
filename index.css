@@ -295,8 +295,40 @@
 }
 
 .chapter-contents-marker {
-  min-width: 0.75rem;
-  text-align: center;
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 0.75rem;
+}
+
+.chapter-contents-marker-stroke {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  background: currentColor;
+  transform-origin: center;
+}
+
+.chapter-contents-marker-horizontal {
+  width: 0.75rem;
+  height: 1px;
+  transform: translate(-50%, -50%);
+}
+
+.chapter-contents-marker-vertical {
+  width: 1px;
+  height: 0.75rem;
+  opacity: 1;
+  transform: translate(-50%, -50%) scaleY(1);
+  transition:
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 120ms ease-out;
+}
+
+.chapter-contents[open] .chapter-contents-marker-vertical {
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleY(0);
 }
 
 .chapter-contents-body {
@@ -316,9 +348,52 @@
 .chapter-expandable[open] .chapter-expandable-body {
   grid-template-rows: 1fr;
 }
+
+/* Mobile/tablet chapter rail: a short fore-edge reveal rather than an
+   instant mount. The panel anchors beneath the compact trigger so its
+   16rem menu never widens the closed chip; the inner wrapper clips the grid
+   reveal. Opacity and six pixels of travel make the relationship legible
+   without turning it into a drawer animation. */
+.chapter-mobile-rail-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: grid;
+  width: 16rem;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition:
+    grid-template-rows 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease-out,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapter-mobile-rail-panel[data-open='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chapter-expandable-body {
     transition: none;
+  }
+
+  .chapter-contents-marker-vertical {
+    transform: translate(-50%, -50%);
+    transition: opacity 100ms ease-out;
+  }
+
+  .chapter-contents[open] .chapter-contents-marker-vertical {
+    transform: translate(-50%, -50%);
+  }
+
+  .chapter-mobile-rail-panel {
+    transform: none;
+    transition: opacity 100ms ease-out;
   }
 }
 

@@ -62,14 +62,6 @@ const AWARDS: { title: string; detail: string }[] = [
 
 const PROJECT_RETURN_SCROLL_KEY = 'portfolio-project-return-scroll';
 
-const PUBLICATIONS: { title: string; detail: string }[] = [
-  {
-    title: 'Family Sentence',
-    detail:
-      'Author · Beacon Press · Kirkus Reviews · Publishers Weekly “Top 20” Fall Book Selection',
-  },
-];
-
 const PROGRAMS: { title: string; detail: string }[] = [
   {
     title: 'Google Labs Trusted Tester',
@@ -114,6 +106,50 @@ const ColophonList: React.FC<{
         {pending}
       </p>
     )}
+  </div>
+);
+
+const AuthorColophon: React.FC = () => (
+  <div
+    aria-labelledby="about-author-label"
+  >
+    <p
+      className="chapter-label"
+      id="about-author-label"
+      style={{ color: 'var(--terra-text)' }}
+    >
+      Author
+    </p>
+
+    <div className="mt-4">
+      <h3
+        className="text-[0.95rem]"
+        style={{ fontFamily: "'Bodoni Moda', serif", color: 'var(--ink)' }}
+      >
+        Family Sentence
+      </h3>
+      <p
+        className="mt-1 text-[0.85rem] leading-relaxed"
+        style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '38ch' }}
+      >
+        The Search for My Cuban-Revolutionary, Prison-Yard, Mythic-Hero, Deadbeat Dad
+      </p>
+      <p
+        className="mt-4 text-[0.85rem] leading-relaxed"
+        style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '38ch' }}
+      >
+        Family Sentence, a memoir by Jeanine Emilia Cornillot published by Beacon Press,
+        grew out of her audio documentary of the same name, produced at Transom with Viki Merrick
+        and Jay Allison.
+      </p>
+
+      <p
+        className="mt-4 text-[0.85rem] leading-relaxed"
+        style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)' }}
+      >
+        Publishers Weekly <strong className="font-bold" style={{ color: 'var(--ink)' }}>“Top 20” Fall Book Selection</strong>
+      </p>
+    </div>
   </div>
 );
 
@@ -730,9 +766,9 @@ const SpinePreviewPage: React.FC = () => {
           no cards, no icons, no timeline graphics. */}
       <section id="about" tabIndex={-1} className="px-6 md:px-20 pt-8 pb-24 md:pt-12 md:pb-36">
         <h2
+          className="text-[2.4rem] md:text-[3.5rem] leading-none"
           style={{
             fontFamily: "'Bodoni Moda', serif",
-            fontSize: 'var(--display-md)',
             letterSpacing: '-0.01em',
             color: 'var(--ink)',
           }}
@@ -748,28 +784,30 @@ const SpinePreviewPage: React.FC = () => {
         <div className="mt-10 md:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Bio narrative. Accolade specifics live in the Awards list
               instead of here now, so the two don't repeat each other. */}
-          <div
-            className="lg:col-span-6 space-y-5 text-[length:var(--body)] leading-relaxed"
-            style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
-          >
-            <p>
-              Emmy and Ambie Award-winning executive producer and showrunner.
-              More than 300 episodes across podcasts, television, and
-              digital.
-            </p>
-            <p>
-              Created Scamfluencers and The Last City and produced Dying for
-              Sex, all for Wondery and Amazon.
-            </p>
-            <p>
-              Founded Wondery&rsquo;s first AI Creator Lab and grew it from
-              four people to more than fifty across the company.
-            </p>
-            <p>
-              At Ghost Mode Labs, I develop original IP and prototype new
-              ways to research, develop, and extend stories across scripted,
-              nonfiction, and new formats.
-            </p>
+          <div className="lg:col-span-6 flex flex-col gap-10 md:gap-12">
+            <div
+              className="space-y-5 text-[length:var(--body)] leading-relaxed"
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '52ch' }}
+            >
+              <p>
+                Emmy and Ambie Award-winning executive producer and showrunner.
+                More than 300 episodes across podcasts, television, and
+                digital.
+              </p>
+              <p>
+                Created Scamfluencers and The Last City and produced Dying for
+                Sex, all for Wondery and Amazon.
+              </p>
+              <p>
+                Founded Wondery&rsquo;s first AI Creator Lab and grew it from
+                four people to more than fifty across the company.
+              </p>
+              <p>
+                At Ghost Mode Labs, I develop original IP and prototype new
+                ways to research, develop, and extend stories across scripted,
+                nonfiction, and new formats.
+              </p>
+            </div>
           </div>
 
           {/* Structured lists */}
@@ -777,10 +815,11 @@ const SpinePreviewPage: React.FC = () => {
               bio and the lists that broke the masthead read. */}
           <div className="lg:col-span-6 lg:col-start-7 flex flex-col gap-10">
             <ColophonList label="Awards" items={AWARDS} />
-            <ColophonList label="Publications" items={PUBLICATIONS} />
             <ColophonList label="Programs" items={PROGRAMS} />
+            <AuthorColophon />
           </div>
         </div>
+
       </section>
 
       {/* Back cover (10/10 pass, per an outside design review: the site
@@ -809,10 +848,9 @@ const SpinePreviewPage: React.FC = () => {
               links now, sized to read as a contact block, not a mismatched
               headline-plus-footnote. */}
           <h2
+            className="text-[2.4rem] md:text-[3.5rem] leading-none"
             style={{
               fontFamily: "'Bodoni Moda', serif",
-              fontSize: 'var(--display-md)',
-              lineHeight: 1.05,
               letterSpacing: '-0.01em',
               color: 'var(--poppy-ink)',
             }}

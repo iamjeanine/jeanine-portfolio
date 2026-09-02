@@ -29,7 +29,11 @@ Cornillot's work moves between true stories and invented worlds, from unscripted
 
 ## Author: Family Sentence
 
+*The Search for My Cuban-Revolutionary, Prison-Yard, Mythic-Hero, Deadbeat Dad*
+
 A funny and unsentimental memoir of a Cuban American girlhood lived between cultures and in the shadow of a father's incarceration.
+
+Family Sentence, a memoir by Jeanine Emilia Cornillot published by Beacon Press, grew out of her audio documentary of the same name, produced at Transom with Viki Merrick and Jay Allison.
 
 **Publishers Weekly: “Top 20” Fall Book Selection**
 
