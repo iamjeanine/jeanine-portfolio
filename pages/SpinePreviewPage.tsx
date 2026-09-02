@@ -62,11 +62,15 @@ const AWARDS: { title: string; detail: string }[] = [
 
 const PROJECT_RETURN_SCROLL_KEY = 'portfolio-project-return-scroll';
 
-const PUBLICATIONS: { title: string; detail: string }[] = [
+const PUBLICATIONS: { title: string; subtitle?: string; detail: string; description?: string }[] = [
   {
     title: 'Family Sentence',
+    subtitle:
+      'The Search for My Cuban-Revolutionary, Prison-Yard, Mythic-Hero, Deadbeat Dad',
     detail:
       'Author · Beacon Press · Kirkus Reviews · Publishers Weekly “Top 20” Fall Book Selection',
+    description:
+      'Family Sentence, my memoir published by Beacon Press, grew out of my audio documentary of the same name, produced at Transom with Viki Merrick and Jay Allison.',
   },
 ];
 
@@ -79,7 +83,7 @@ const PROGRAMS: { title: string; detail: string }[] = [
 
 const ColophonList: React.FC<{
   label: string;
-  items?: { title: string; detail: string }[];
+  items?: { title: string; subtitle?: string; detail: string; description?: string }[];
   pending?: string;
 }> = ({ label, items, pending }) => (
   <div>
@@ -96,12 +100,28 @@ const ColophonList: React.FC<{
             >
               {item.title}
             </p>
+            {item.subtitle && (
+              <p
+                className="mt-1 text-[0.85rem] leading-snug"
+                style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink)' }}
+              >
+                {item.subtitle}
+              </p>
+            )}
             <p
-              className="mt-1 text-[0.85rem] leading-relaxed"
+              className={`${item.subtitle ? 'mt-2' : 'mt-1'} text-[0.85rem] leading-relaxed`}
               style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '38ch' }}
             >
               {item.detail}
             </p>
+            {item.description && (
+              <p
+                className="mt-3 text-[0.85rem] leading-relaxed"
+                style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '44ch' }}
+              >
+                {item.description}
+              </p>
+            )}
           </li>
         ))}
       </ul>

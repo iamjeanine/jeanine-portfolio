@@ -70,7 +70,7 @@ const markdown = `# ${data.name}\n\n> ${data.positioning}\n\n` +
 `## Short bio\n\n${data.shortBio}\n\n` +
 `## Connecting thread\n\n${data.profileThroughline}\n\n` +
 `## Selected work\n\n${mdWork}\n\n` +
-`## Author: ${data.authorWork.title}\n\n${data.authorWork.description}\n\n**${authorRecognition}**\n\n${mdPraise}\n\n` +
+`## Author: ${data.authorWork.title}\n\n*${data.authorWork.subtitle}*\n\n${data.authorWork.description}\n\n${data.authorWork.origin}\n\n**${authorRecognition}**\n\n${mdPraise}\n\n` +
 `## Available to discuss\n\n${data.topics.map((item) => `- ${item}`).join('\n')}\n\n` +
 `## Full bio\n\n${data.fullBio.join('\n\n')}\n\n` +
 `## Awards and recognition\n\n${data.awards.map((item) => `- **${item.name}**: ${item.detail}`).join('\n')}\n\n` +
@@ -91,7 +91,7 @@ const llms = `# ${data.name}\n\n> ${data.positioning}\n\n` +
 `## Profile\n\n${data.shortBio}\n\n` +
 `${data.profileThroughline}\n\n` +
 `## Selected work\n\n${data.selectedWork.map((item) => `- ${item.title}: ${item.role}. ${item.proof}`).join('\n')}\n\n` +
-`## Author\n\n${data.authorWork.title}: ${data.authorWork.description}\n\nRecognition: ${authorRecognition}.\n\n` +
+`## Author\n\n${data.authorWork.title}: ${data.authorWork.subtitle}. ${data.authorWork.description}\n\n${data.authorWork.origin}\n\nRecognition: ${authorRecognition}.\n\n` +
 `${data.authorWork.praise.map((item) => `- ${plainDisplayQuote(item)} ${item.attribution}, ${item.credential}.`).join('\n')}\n\n` +
 `## Areas of expertise\n\n${data.expertise.map((item) => `- ${item}`).join('\n')}\n\n` +
 `## Current work\n\n${data.currentWork}\n\n` +
@@ -159,10 +159,12 @@ const jsonLd = {
     {
       '@type': 'Book',
       '@id': `${data.contact.pressKit}#family-sentence`,
-      name: data.authorWork.title,
+      name: `${data.authorWork.title}: ${data.authorWork.subtitle}`,
+      alternateName: data.authorWork.title,
       url: data.bookUrl,
       bookFormat: data.authorWork.format,
       description: data.authorWork.description,
+      abstract: data.authorWork.origin,
       award: authorRecognition,
       author: { '@id': `${data.contact.portfolio}#jeanine` },
       publisher: { '@type': 'Organization', name: data.authorWork.publisher },
@@ -299,7 +301,7 @@ pressHtml = replaceBlock(pressHtml, 'work', data.selectedWork.map((item) => {
     : escapeHtml(item.title);
   return `            <li class="work-item">\n              <p class="work-title">${title}</p>\n              <p class="work-role">${escapeHtml(item.role)}</p>\n              <p class="work-proof">${richText(item.proof)}</p>\n            </li>`;
 }).join('\n'));
-pressHtml = replaceBlock(pressHtml, 'author', `    <section class="section author-section" id="family-sentence" aria-labelledby="author-title">\n      <div class="section-grid author-grid">\n        <h2 class="section-title" id="author-title">Author</h2>\n        <div class="section-body author-body">\n          <div class="author-book">\n            <h3>${escapeHtml(data.authorWork.title)}</h3>\n            <p class="author-meta">${escapeHtml(data.authorWork.format)} · ${escapeHtml(data.authorWork.publisher)}</p>\n            <p class="author-recognition"><span>${escapeHtml(data.authorWork.recognition.source)}</span><strong>${escapeHtml(data.authorWork.recognition.label)}</strong></p>\n            <p class="author-description">${richText(data.authorWork.description)}</p>\n          </div>\n          <div class="praise-layout" aria-label="Praise for ${escapeHtml(data.authorWork.title)}">\n            <figure class="praise praise-lead">\n              <blockquote>${displayQuote(visiblePraise[0])}</blockquote>\n              <figcaption><strong>${escapeHtml(visiblePraise[0].attribution)}</strong><span>${richText(visiblePraise[0].credential)}</span></figcaption>\n            </figure>\n            <div class="praise-supporting">\n${visiblePraise.slice(1).map((item) => `              <figure class="praise">\n                <blockquote>${displayQuote(item)}</blockquote>\n                <figcaption><strong>${escapeHtml(item.attribution)}</strong><span>${richText(item.credential)}</span></figcaption>\n              </figure>`).join('\n')}\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>`);
+pressHtml = replaceBlock(pressHtml, 'author', `    <section class="section author-section" id="family-sentence" aria-labelledby="author-title">\n      <div class="section-grid author-grid">\n        <h2 class="section-title" id="author-title">Author</h2>\n        <div class="section-body author-body">\n          <div class="author-book">\n            <div class="author-heading">\n              <h3>${escapeHtml(data.authorWork.title)}</h3>\n              <p class="author-subtitle">${escapeHtml(data.authorWork.subtitle)}</p>\n            </div>\n            <p class="author-origin">${richText(data.authorWork.origin)}</p>\n            <div class="author-facts">\n              <p class="author-meta">${escapeHtml(data.authorWork.publisher)}</p>\n              <p class="author-recognition"><span>${escapeHtml(data.authorWork.recognition.source)}</span><strong>${escapeHtml(data.authorWork.recognition.label)}</strong></p>\n            </div>\n          </div>\n          <h4 class="praise-label">Praise for the book</h4>\n          <div class="praise-layout" aria-label="Praise for ${escapeHtml(data.authorWork.title)}">\n            <figure class="praise praise-lead">\n              <blockquote>${displayQuote(visiblePraise[0])}</blockquote>\n              <figcaption><strong>${escapeHtml(visiblePraise[0].attribution)}</strong><span>${richText(visiblePraise[0].credential)}</span></figcaption>\n            </figure>\n            <div class="praise-supporting">\n${visiblePraise.slice(1).map((item) => `              <figure class="praise">\n                <blockquote>${displayQuote(item)}</blockquote>\n                <figcaption><strong>${escapeHtml(item.attribution)}</strong><span>${richText(item.credential)}</span></figcaption>\n              </figure>`).join('\n')}\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>`);
 pressHtml = replaceBlock(pressHtml, 'topics', data.topics.map((item) => `            <li>${escapeHtml(item)}</li>`).join('\n'));
 pressHtml = replaceBlock(pressHtml, 'fullbio', data.fullBio.map((item) => `          <p>${richText(item)}</p>`).join('\n'));
 pressHtml = replaceBlock(pressHtml, 'awards', data.awards.map((item) => `            <li><strong>${escapeHtml(item.name)}</strong>, ${richText(item.detail)}</li>`).join('\n'));
@@ -317,7 +319,7 @@ workHtml = replaceWorkBlock(workHtml, 'chapters', data.portfolioChapters.map((ch
       ? `\n              <a class="project-link" href="${escapeHtml(item.portfolioUrl)}">Open visual project</a>`
       : '';
     const proof = item.proof ? `\n              <p class="work-proof">${richText(item.proof)}</p>` : '';
-    return `        <li class="work-item" id="${escapeHtml(item.id)}">\n          <div>\n            <h3 class="work-title">${escapeHtml(item.title)}</h3>\n          </div>\n          <div>\n            <p class="work-meta">${escapeHtml(meta)}</p>\n            <p class="work-role">${escapeHtml(item.role)}</p>\n          </div>\n          <div class="work-copy">\n            <p>${richText(item.summary)}</p>${proof}${projectLink}\n          </div>\n        </li>`;
+    return `        <li class="work-item" id="${escapeHtml(item.id)}">\n          <div class="work-identity">\n            <h3 class="work-title">${escapeHtml(item.title)}</h3>\n            <p class="work-meta">${escapeHtml(meta)}</p>\n            <p class="work-role">${escapeHtml(item.role)}</p>\n          </div>\n          <div class="work-copy">\n            <p>${richText(item.summary)}</p>${proof}${projectLink}\n          </div>\n        </li>`;
   }).join('\n');
   return `    <section class="chapter ${chapterClass}" id="${escapeHtml(chapter.id)}" aria-labelledby="${escapeHtml(chapter.id)}-title">\n      <div class="chapter-grid">\n        <header class="chapter-header">\n          <h2 class="chapter-title" id="${escapeHtml(chapter.id)}-title">${escapeHtml(chapter.title)}</h2>\n          <p class="chapter-description">${escapeHtml(chapter.description)}</p>\n          <a class="chapter-link" href="${escapeHtml(chapter.portfolioUrl)}">Experience this chapter</a>\n        </header>\n        <ol class="work-list">\n${items}\n        </ol>\n      </div>\n    </section>`;
 }).join('\n\n'));
