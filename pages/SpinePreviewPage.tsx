@@ -143,22 +143,12 @@ const AuthorColophon: React.FC = () => (
         and Jay Allison.
       </p>
 
-      <div
-        className="mt-4 flex flex-col gap-1.5 text-[0.85rem] leading-relaxed"
+      <p
+        className="mt-4 text-[0.85rem] leading-relaxed"
         style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)' }}
       >
-        <a
-          href="https://www.beacon.org/Family-Sentence-P842.aspx"
-          target="_blank"
-          rel="noreferrer"
-          className="w-fit underline underline-offset-4 decoration-1"
-        >
-          Beacon Press
-        </a>
-        <p>
-          Publishers Weekly <strong className="font-bold" style={{ color: 'var(--ink)' }}>“Top 20” Fall Book Selection</strong>
-        </p>
-      </div>
+        Publishers Weekly <strong className="font-bold" style={{ color: 'var(--ink)' }}>“Top 20” Fall Book Selection</strong>
+      </p>
     </div>
   </div>
 );
