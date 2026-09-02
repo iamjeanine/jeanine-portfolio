@@ -4,6 +4,51 @@
 
 Portfolio site for Jeanine Emilia Cornillot. Producing and prototyping new ways to tell stories.
 
+## Maintaining the site
+
+### Local development and checks
+
+Use Node.js 22.x. On a fresh checkout, install the locked dependencies with `npm ci`.
+
+```sh
+npm run dev
+npm run build
+npm run preview
+```
+
+Run these separately: `dev` serves the editable site, `build` creates the production output in `dist/`, and `preview` serves that build. Use the URL printed by Vite, since the port can change if another preview is running. A localhost preview is not the live website.
+
+### Where to edit
+
+- `pages/`: the visual portfolio, including Productions and About. Its page copy is maintained here separately from the press assets.
+- `content/press-data.json`: shared copy for the press kit, work index, machine-readable versions, and structured metadata. Keep overlapping facts consistent with the visual portfolio.
+- `templates/work.html`: work-index layout and styles.
+- `public/press.html`: press-kit layout, screen styles, and print styles. Content inside the marked generated blocks is replaced by the generator, so edit that copy in `content/press-data.json` instead.
+- `scripts/generate-press-assets.mjs`: markup generation for the shared content.
+- `public/sitemap.xml`: update a page's `lastmod` only when that page meaningfully changes. The visual portfolio's hash chapters share the homepage URL.
+
+Both `npm run dev` and `npm run build` regenerate the HTML, Markdown, JSON, `llms.txt`, and homepage structured metadata. For content-only regeneration, run `npm run generate:press`. Review and commit the resulting tracked changes alongside their source. Do not edit generated Markdown or JSON directly.
+
+### Updating the downloadable PDF
+
+The PDF is a separate, committed asset. A normal site build does **not** regenerate it. After changing press-kit copy or layout:
+
+```sh
+npm run generate:press
+npm run build:press-pdf
+```
+
+The PDF script requires Chrome or Chromium. Set `CHROME_PATH` if it is not installed at a standard location. It prints `public/press.html` using its print styles to `public/Jeanine-Cornillot-Press-Kit.pdf`. Open the resulting PDF and check page breaks, typography, and completeness before committing it.
+
+### Publishing
+
+1. Review `git status` and the diff. Leave internal critiques and temporary files out of release commits.
+2. Run `npm run build` and `git diff --check`; check the affected pages in the browser at desktop and mobile sizes.
+3. Commit and push the working branch, then merge its reviewed pull request into `main`. A feature-branch push alone does not publish the production site.
+4. Confirm Vercel's production deployment for the merged commit is ready, then check `https://ghostmode.studio/`, the changed chapters, `/press.html`, `/work.html`, and the PDF download.
+
+Keep the Google verification tag and crawler metadata intact. Do not commit credentials, `node_modules/`, or `dist/`. Local archived critiques can be kept under the ignored `tmp/critique-archive/` directory.
+
 ---
 
 Emmy and Ambie Award-winning executive producer and showrunner. 300+ episodes across podcasts, television, and digital. Previously at Amazon/Wondery, where I founded and led the AI Creator Lab, growing it to 50+ people across content, marketing, and production. Now through Ghost Mode Labs, developing original IP and building creative tools across nonfiction, scripted, and interactive formats.
