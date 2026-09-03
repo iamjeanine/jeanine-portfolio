@@ -46,7 +46,7 @@ Personal portfolio site showcasing 8 projects across story systems, production t
 |---|-----|-------|------|---------|
 | 1 | narrative-space | Narrative Space | Story System | liveUrl |
 | 2 | unstill | Unstill | Cultural Experiment | liveUrl |
-| 3 | multiverse-quad | Multiverse Quad | Story System | image only (no video) |
+| 3 | multiverse-quad | Multiverse Quad | Story System | preview video only; no stage image |
 | 4 | ai-creator-lab | AI Creator Lab | Production Tool | **custom layout** |
 | 5 | tender | Tender | Cultural Experiment | embedUrl + liveUrl + liveUrlLabel + previewHasAudio |
 | 6 | storycraft | StoryCraft | Production Tool | — |
