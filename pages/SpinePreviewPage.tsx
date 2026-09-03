@@ -138,7 +138,7 @@ const AuthorColophon: React.FC = () => (
         className="mt-4 text-[0.85rem] leading-relaxed"
         style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: 'var(--ink-mute)', maxWidth: '38ch' }}
       >
-        Family Sentence, a memoir by Jeanine Emilia Cornillot published by Beacon Press,
+        Family Sentence, a memoir by Jeanine Cornillot published by Beacon Press,
         grew out of her audio documentary of the same name, produced at Transom with Viki Merrick
         and Jay Allison.
       </p>

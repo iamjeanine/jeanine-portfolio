@@ -140,10 +140,8 @@ export const PROJECTS: Project[] = [
     previewAutoplay: true,
     previewHasAudio: true,
     mainVideos: [],
-    mainImages: [
-      { url: 'https://storage.googleapis.com/jeanine-portfolio-video/B4%20Interior.jpg', aspectRatio: '16:9' }
-    ],
-    descriptor: 'Multiformat storytelling',
+    mainImages: [],
+    descriptor: 'Multiformat storytelling demo',
     description: "Most stories live in a single format. A podcast stays a podcast. A film stays a film.\n\nMultiverse Quad explores what happens when a story launches across several formats at once.\n\nUsing the sci-fi series The Last City as the starting point, the project adapts a single narrative into four different formats.\n\nI pitched the concept to Amazon\u2019s AGI team and worked with engineers, scientists, product leadership, and Go To Market teams to build a working demo. The quad showed how one story could unfold across four formats at the same time.\n\nThe project was shortlisted for Andy Jassy\u2019s AWS re:Invent keynote.",
     formats: [
         'Animated short film',

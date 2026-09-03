@@ -93,12 +93,11 @@ Visual portfolio page: https://ghostmode.studio/#/project/static
 
 ### Multiverse Quad
 
-Storytelling across formats | Amazon AGI | 2025 | Creator and collaborator
+Multiformat storytelling demo | Amazon AGI | 2025 | Creator and collaborator
 
-One story retold as an animated film, graphic novel, visual audiobook, and podcast.
+A working demo that retold one story as an animated film, graphic novel, visual audiobook, and podcast.
 
 Permanent entry: https://ghostmode.studio/work.html#multiverse-quad
-Visual portfolio page: https://ghostmode.studio/#/project/multiverse-quad
 
 ### AI Creator Lab
 

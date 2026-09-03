@@ -530,61 +530,6 @@ const ProjectDetailPage = () => {
     });
   };
 
-  const renderMultiverseArtifactRoom = () => {
-    const visualization = project.mainImages?.[0];
-
-    return renderArtifactRoom({
-      eyebrow: 'Amazon AGI · 2025',
-      title: project.title,
-      subtitle: 'One story, four formats',
-      media: visualization ? (
-        <figure
-          className="w-full border"
-          style={{
-            borderColor: 'rgba(242,237,226,0.18)',
-            viewTransitionName: 'project-hero',
-          } as React.CSSProperties}
-        >
-          <div className="aspect-video w-full overflow-hidden bg-[var(--ink-deep)]">
-            <img
-              src={visualization.url}
-              alt="Concept visualization of Multiverse Quad on an AWS re:Invent keynote stage"
-              className="h-full w-full scale-[1.03] object-cover"
-            />
-          </div>
-          <figcaption
-            className="flex items-center justify-between gap-4 border-t px-4 py-3 text-[0.62rem] uppercase tracking-[0.18em] sm:px-5"
-            style={{ borderColor: 'rgba(242,237,226,0.16)', color: 'rgba(242,237,226,0.62)' }}
-          >
-            <span>Concept visualization</span>
-            <span>AWS re:Invent</span>
-          </figcaption>
-        </figure>
-      ) : null,
-      statement: (
-        <p
-          className="max-w-[50rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
-          style={{ color: 'rgba(242,237,226,0.82)' }}
-        >
-          Built with Amazon AGI engineers and product leadership, one scene from The Last City became four simultaneous formats.
-        </p>
-      ),
-      aside: (
-        <p className="max-w-[20rem] md:text-right">
-          <span
-            className="block text-[0.62rem] uppercase tracking-[0.18em]"
-            style={{ color: 'rgba(242,237,226,0.62)' }}
-          >
-            AWS re:Invent
-          </span>
-          <span className="mt-1 block text-sm leading-relaxed" style={{ color: 'var(--cream-ink)' }}>
-            Shortlisted for Andy Jassy’s keynote
-          </span>
-        </p>
-      ),
-    });
-  };
-
   const renderCreatorLabArtifactRoom = () => {
     const archive = project.mainVideos[1];
 
@@ -870,10 +815,6 @@ const ProjectDetailPage = () => {
 
   if (project.id === 'static') {
     return renderStaticDemoRoom();
-  }
-
-  if (project.id === 'multiverse-quad') {
-    return renderMultiverseArtifactRoom();
   }
 
   if (project.id === 'ai-creator-lab') {

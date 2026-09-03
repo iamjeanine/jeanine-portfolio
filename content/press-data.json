@@ -246,12 +246,11 @@
         {
           "id": "multiverse-quad",
           "title": "Multiverse Quad",
-          "format": "Storytelling across formats",
+          "format": "Multiformat storytelling demo",
           "organization": "Amazon AGI",
           "years": "2025",
           "role": "Creator and collaborator",
-          "summary": "One story retold as an animated film, graphic novel, visual audiobook, and podcast.",
-          "portfolioUrl": "https://ghostmode.studio/#/project/multiverse-quad"
+          "summary": "A working demo that retold one story as an animated film, graphic novel, visual audiobook, and podcast."
         },
         {
           "id": "ai-creator-lab",
