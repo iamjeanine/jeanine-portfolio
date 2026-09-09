@@ -167,12 +167,11 @@ const jsonLd = {
       abstract: data.authorWork.origin,
       award: authorRecognition,
       author: { '@id': `${data.contact.portfolio}#jeanine` },
-      publisher: { '@type': 'Organization', name: data.authorWork.publisher },
-      review: data.authorWork.praise.map((item) => ({
-        '@type': 'Review',
-        reviewBody: item.quote,
-        author: { '@type': ['Booklist', 'Kirkus Reviews'].includes(item.attribution) ? 'Organization' : 'Person', name: item.attribution }
-      }))
+      publisher: { '@type': 'Organization', name: data.authorWork.publisher }
+      // Editorial press blurbs are intentionally NOT emitted as schema.org Review objects.
+      // They carry no star ratings, and multiple Reviews on one item without an aggregateRating
+      // are invalid for Google review rich results. Fabricating ratings would violate Google's
+      // guidelines. The quotes still render on the page and stay in press.json / press.md for agents.
     }
   ]
 };
