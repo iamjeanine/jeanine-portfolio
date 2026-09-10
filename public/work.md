@@ -2,7 +2,7 @@
 
 > Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and builds prototypes using AI and other emerging technologies to test new creative workflows for research, development, and production.
 
-Last updated: 2026-09-01
+Last updated: 2026-09-10
 
 Visual portfolio: https://ghostmode.studio/
 Press kit: https://ghostmode.studio/press.html

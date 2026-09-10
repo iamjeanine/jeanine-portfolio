@@ -2,7 +2,7 @@
 
 > Emmy and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction, and developing original IP with AI and emerging technologies at Ghost Mode Labs.
 
-Last updated: 2026-09-01
+Last updated: 2026-09-10
 
 Official portfolio: https://ghostmode.studio/
 Canonical press kit: https://ghostmode.studio/press.html
