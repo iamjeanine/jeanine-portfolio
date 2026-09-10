@@ -4,14 +4,14 @@
   "name": "Jeanine Emilia Cornillot",
   "alternateName": "Jeanine Cornillot",
   "jobTitle": "Executive Producer and Showrunner",
-  "positioning": "Emmy and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction.",
+  "positioning": "Emmy and Ambie-winning showrunner and executive producer making television, podcasts, and original audio fiction, and developing original IP with AI and emerging technologies at Ghost Mode Labs.",
   "profileThroughline": "Cornillot's work moves between true stories and invented worlds, from unscripted television and narrative podcasts to original audio fiction. At Ghost Mode Labs, she develops original IP and builds prototypes using AI and other emerging technologies to test new creative workflows for research, development, and production.",
-  "shortBio": "Jeanine Emilia Cornillot is an Emmy and Ambie-winning showrunner and executive producer who has made more than 300 episodes of television and podcasts. She created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence and the founder of Ghost Mode Labs, where she develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories.",
+  "shortBio": "Jeanine Emilia Cornillot is an Emmy and Ambie-winning showrunner and executive producer, and the founder of Ghost Mode Labs, where she develops original IP and builds prototypes that use AI and other emerging technologies to research, develop, and extend stories. She has made more than 300 episodes of television and podcasts, created and showran Scamfluencers and The Last City, co-developed and produced Dying for Sex, and was a supervising producer on the Emmy-winning Born This Way. She is also the author of Family Sentence.",
   "quickFacts": [
     { "label": "Role", "value": "Executive producer and showrunner" },
     { "label": "Credits", "value": "More than 300 episodes" },
     { "label": "Known for", "value": "Scamfluencers, Dying for Sex, The Last City, Born This Way" },
-    { "label": "Current", "value": "Ghost Mode Labs" }
+    { "label": "Current", "value": "Ghost Mode Labs, original IP and AI prototypes for storytelling" }
   ],
   "selectedWork": [
     {
@@ -114,14 +114,15 @@
     { "name": "Ambie nomination, Best Entertainment Podcast 2025", "detail": "Scamfluencers" }
   ],
   "expertise": [
+    "AI and emerging technologies in creative production",
+    "AI tools for story development",
+    "Original intellectual property development",
+    "Showrunning",
     "Podcast development and production",
     "Television production",
-    "Narrative nonfiction",
     "Scripted audio",
-    "AI and emerging technologies",
+    "Narrative nonfiction",
     "Story adaptation across media",
-    "Showrunning",
-    "Original intellectual property development",
     "Memoir and literary nonfiction"
   ],
   "currentWork": "At Ghost Mode Labs, Jeanine develops original IP and prototypes new ways to use AI and other emerging technologies to research, develop, and extend stories across scripted, nonfiction, and new formats. Current projects include visual audiobooks, Narrative Space, MythOS, Static, and Multiverse Quad.",
