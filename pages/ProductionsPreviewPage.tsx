@@ -136,6 +136,7 @@ interface SpreadData {
    */
   awards?: string[];
   role: string;
+  contribution?: string;
   description: string;
   stat?: { value: string; label: string };
   // body is usually one paragraph; widened to ReactNode for the rare
@@ -188,14 +189,11 @@ const SPREADS: SpreadData[] = [
     // This breaks cleanly with no inserted character.
     title: <>Scam&#8203;fluencers</>,
     role: 'Creator & Showrunner',
+    contribution: 'I created the original IP for Scamfluencers, then developed the series with the team at Wondery. As showrunner, I built the format, cast the hosts, shaped the editorial voice, and oversaw the series throughout its run.',
     description:
       'A weekly true-crime series about the internet’s biggest scammers and the people who fell for them. Hosted by Scaachi Koul and Sarah Hagi.',
     stat: { value: '53M', label: 'downloads' },
     expandables: [
-      {
-        label: 'Role',
-        body: 'Original IP I created, then developed at Wondery. As showrunner, I built the format, cast the hosts, shaped the editorial voice, and oversaw the series throughout its run.',
-      },
       {
         label: 'Impact',
         body: 'Adapted into local versions abroad, including Mexico and Brazil.',
@@ -250,15 +248,10 @@ const SPREADS: SpreadData[] = [
     eyebrow: 'Wondery · Amazon · 2019–2020',
     title: <>Dying for&nbsp;Sex</>,
     role: 'Co-developer & Producer',
+    contribution: 'I co-developed and produced the original Dying for Sex podcast at Wondery. Adapted into a Peabody-winning FX limited series starring Michelle Williams and Jenny Slate, with nine Primetime Emmy nominations.',
     description:
-      'Molly is dying of breast cancer. She leaves her marriage to feel everything she still can while there’s time, and tells all of it to her best friend, Nikki Boyer. Adapted into a Peabody-winning FX limited series starring Michelle Williams and Jenny Slate, with nine Primetime Emmy nominations.',
+      'Molly is dying of breast cancer. She leaves her marriage to feel everything she still can while there’s time, and tells all of it to her best friend, Nikki Boyer.',
     stat: { value: 'Podcast of the Year', label: 'Ambie Award winner · 2021' },
-    expandables: [
-      {
-        label: 'Role',
-        body: 'I co-developed and produced the original Wondery podcast.',
-      },
-    ],
     link: { label: 'Listen to the podcast', url: 'https://www.audible.com/podcast/Dying-For-Sex-Ad-free/B08D6T2D9C?srsltid=AfmBOorNZWWnmgZXNS8CkriLissNPrXrGQGgKmmI7u-cjrUgfsx2Xhtc' },
     media: {
       main: {
@@ -292,14 +285,11 @@ const SPREADS: SpreadData[] = [
     eyebrow: 'Wondery · Amazon · 2023–2025',
     title: <>The Last&nbsp;City</>,
     role: 'Creator & Showrunner',
+    contribution: 'I created the original IP for The Last City, then developed the series with the team at Wondery. I wrote the pitch and treatment for the world and its characters, and hired the head writer, writers, and production team. We cast more than forty roles. I oversaw production across two seasons.',
     description:
       'Wondery’s first original series designed natively in Dolby Atmos, The Last City is a 12-part sci-fi audio thriller starring Rhea Seehorn. It explores the dark truths behind a utopian society surviving the climate crisis.',
     stat: { value: '#1 Apple Fiction', label: 'in 20 countries' },
     expandables: [
-      {
-        label: 'Role',
-        body: 'Original IP I created, then developed at Wondery. I wrote the pitch and treatment for the world and its characters, and hired the head writer, writers, and production team. We cast more than forty roles. I oversaw production across two seasons.',
-      },
       {
         label: 'Impact',
         body: 'Dolby Atmos was part of the storytelling from the very first version of my pitch. Later, I brought Wondery’s head of audio into the writers’ room to walk us through what the technology could do. Sound helped shape the story as we created it, making The Last City Wondery’s first original series designed natively in Atmos. It was also the first Wondery podcast adapted into an Audible Original audiobook. I re-edited its twelve episodes into one seamless, continuous listen. Its world later became the basis for Multiverse Quad, co-developed with Amazon’s AGI team.',
@@ -345,6 +335,7 @@ const BORN_THIS_WAY: SpreadData = {
   eyebrow: 'A&E · Bunim/Murray · 2015–2016',
   title: <>Born This&nbsp;Way</>,
   role: 'Supervising Producer',
+  contribution: 'As supervising producer, I led the story department across the A&E series.',
   description:
     'Seven young adults with Down syndrome build careers, independence, and love, on their own terms.',
   // Deliberate exception to the site's one-line pull-stat rule (every
@@ -360,10 +351,6 @@ const BORN_THIS_WAY: SpreadData = {
   // the same redundancy the original single-line design avoided.
   stat: { value: '3 Primetime Emmys', label: '16 nominations' },
   expandables: [
-    {
-      label: 'Role',
-      body: 'As supervising producer, I led the story department across the A&E series.',
-    },
     {
       label: 'Impact',
       body: 'Celebrated as the first major television series with a primary cast of people with disabilities to win a major Emmy category.',
@@ -745,12 +732,27 @@ const Spread: React.FC<{
           <p className="mt-1 text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: accentText }}>
             {data.role}
           </p>
-          <p
-            className="mt-5 text-[length:var(--body)] leading-relaxed"
-            style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '36ch' }}
-          >
-            {data.description}
-          </p>
+          {data.contribution && (
+            <p
+              className="mt-5 text-[length:var(--body)] leading-relaxed"
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '36ch' }}
+            >
+              {data.contribution}
+            </p>
+          )}
+          <div className={data.contribution ? 'mt-8' : 'mt-5'}>
+            {data.contribution && (
+              <p className="text-[0.8rem] tracking-[0.14em] uppercase" style={{ color: accentText }}>
+                {data.format === 'Podcast' ? 'The podcast' : 'The series'}
+              </p>
+            )}
+            <p
+              className={data.contribution ? 'mt-3 text-base leading-relaxed' : 'text-[length:var(--body)] leading-relaxed'}
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: p.inkBody, maxWidth: '36ch' }}
+            >
+              {data.description}
+            </p>
+          </div>
 
           {/* pull stat, set editorially, omitted for lighter spreads */}
           {data.stat && (

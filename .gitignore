@@ -39,3 +39,6 @@ scripts/__pycache__/
 *.sw?
 .vercel
 .env*
+
+# Approved Duo study media, local review only
+public/duo-study/media/

@@ -75,7 +75,7 @@ Ghost Mode Labs is where Jeanine develops original IP and prototypes new ways to
 
 ### Visual Audiobooks
 
-Children's audio and visual storytelling | Ghost Mode Labs | 2026 | Creator
+Children's audio and visual storytelling | Ghost Mode Labs | 2026 | Creator & Creative Director
 
 Built a prototype audiobook player whose artwork redraws itself each time a listener returns.
 

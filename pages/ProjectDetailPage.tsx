@@ -4,6 +4,8 @@ import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { PROJECTS, getVisibleProjects } from '../constants';
 import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
+import ProjectCredit from '../components/ProjectCredit';
+import VisualAudiobooksProject from '../components/VisualAudiobooksProject';
 import { BackIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
 import PhoneEmbed from '../components/PhoneEmbed';
 import { useViewTransitionNavigate, useSpineNavigate } from '../hooks/useViewTransition';
@@ -191,6 +193,8 @@ const ProjectTextBlock = ({ project, dark = false, headerAbove = false }: { proj
               )}
             </div>
             )}
+
+            {!headerAbove && <ProjectCredit projectId={project.id} dark={dark} className="mb-8" />}
 
             {project.liveUrl && project.liveUrlFirst && (
               <div className="mb-10">
@@ -445,6 +449,8 @@ const ProjectDetailPage = () => {
               </p>
             </section>
 
+            <ProjectCredit projectId={project.id} className="mb-6 md:mb-8" />
+
             {media}
 
             {/* Consistent placement across every project (Jeanine, 2026-08-16):
@@ -579,12 +585,13 @@ const ProjectDetailPage = () => {
         </figure>
       ) : null,
       statement: (
-        <p
-          className="max-w-[50rem] font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
+        <div
+          className="max-w-[50rem] space-y-5 font-body-serif text-[1.05rem] font-light leading-relaxed md:text-[1.18rem]"
           style={{ color: 'rgba(242,237,226,0.82)' }}
         >
-          I founded Wondery’s first AI Creator Lab and built the curriculum, partnerships, and learning archive that grew it from four people to more than fifty across the company.
-        </p>
+          <p>I founded Wondery’s first AI Creator Lab and built the curriculum, partnerships, and learning archive that grew it from four people to more than fifty across the company.</p>
+          <p>The lab led to StoryCraft for kids and family adaptations, an in-world campaign for The Last City, and tools for production research and publishing metadata. Two campaign prototypes moved into production.</p>
+        </div>
       ),
       aside: (
         <p className="max-w-[22rem] md:text-right">
@@ -813,6 +820,10 @@ const ProjectDetailPage = () => {
     });
   };
 
+  if (project.id === 'visual-audiobooks') {
+    return <VisualAudiobooksProject onClose={handleClose} prototypeUrl={project.liveUrl!} />;
+  }
+
   if (project.id === 'static') {
     return renderStaticDemoRoom();
   }
@@ -887,6 +898,7 @@ const ProjectDetailPage = () => {
                   {project.subtitle || project.descriptor}
                 </p>
               )}
+              <ProjectCredit projectId={project.id} className="mt-5" />
             </div>
           </div>
         )}
@@ -900,21 +912,6 @@ const ProjectDetailPage = () => {
                     ...(isDarkEditorial ? { borderColor: 'rgba(242,237,226,0.18)' } : {}),
                   } as React.CSSProperties}
                 >
-                  {/* The film's settled frame paints its own "Open the book"
-                      button, formerly inert pixels that taught visitors this
-                      page's text is decorative (2026-08-22 reading critique).
-                      The whole frame is now the real door; the player's own
-                      controls sit above it at z-10. */}
-                  {project.id === 'visual-audiobooks' && project.liveUrl && index === 0 && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Open the book, opens the prototype in a new tab"
-                      className="absolute inset-0 z-[1] cursor-pointer"
-                      onClick={() => window.dispatchEvent(new Event('portfolio:silence-videos'))}
-                    />
-                  )}
                   <VideoPlayer
                     src={video.url}
                     posterUrl={video.posterUrl}

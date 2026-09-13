@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSpineNavigate } from '../hooks/useViewTransition';
 import { PROJECTS } from '../constants';
+import ProjectCredit from '../components/ProjectCredit';
 import {
   ChapterContents,
   ColorBridge,
@@ -208,11 +209,9 @@ const ENTRIES: LabEntry[] = [
     client: 'Ghost Mode Labs',
     year: '2026',
     title: 'Visual Audiobooks',
-    tagline: 'Original children’s stories that can change each time you return',
+    tagline: 'Children’s audiobooks that redraw themselves with every listen',
     tier: 'feature',
-    // The "Launching soon" badge moved off this row into the Build
-    // expandable (Jeanine, 2026-08-14): with the finished cover film
-    // leading the chapter, status reads as detail, not headline.
+    // The shared credit now identifies the available working prototype.
     // Two beats, per her 2026-08-15 copy pass: the editions beat (artist
     // vs code) came out of the chapter — that detail now lives only on
     // the detail page, which is allowed to say more.
@@ -241,12 +240,8 @@ const ENTRIES: LabEntry[] = [
         body: 'The first prototype is based on The Kids’ Guidebook to the Rock, an original children’s story about a girl visiting her father in a Florida prison after his failed escape.',
       },
       {
-        // Rewritten 2026-08-19: the "prototype asks what happens when"
-        // framing buried the actual hook under throat-clearing. Leads with
-        // the mechanism instead. "Launching soon." stays, exact approved
-        // wording per the 2026-08-15 pass.
         label: 'Build',
-        body: 'A prototype that reimagines the story with every listen. Launching soon.',
+        body: 'A working prototype that reimagines the pictures with every listen and lets children change them by touch. The current demo uses a prototype voice.',
       },
     ],
     // The Living Photocopy cover film: 1080p web derivative cut from the
@@ -825,13 +820,14 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
       >
         {data.title}
       </h3>
+      <ProjectCredit projectId={data.id} className="mt-5 xl:pr-44" />
     </div>
 
       {/* Beat 2: the frame. mt-12, was mt-16: part of the 167px of
           inter-beat gaps measured in this entry, trimmed where it costs
           nothing to the rhythm. */}
       <div
-        className={`mt-10 md:mt-12 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}
+        className={`mt-10 md:mt-12 xl:pr-44 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}
         style={beat(140, 44)}
       >
         <LazyVideo
@@ -1228,6 +1224,7 @@ const LabCredits: React.FC<{ position: number; total: number }> = ({ position, t
                   >
                     {clientLine(entry)}
                   </p>
+                  <ProjectCredit projectId={entry.id} className="mt-3" />
                 </div>
               </div>
 
