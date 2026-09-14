@@ -34,7 +34,7 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
   <button className="skip" onClick={()=>{const main=root.current?.querySelector<HTMLElement>('main');main?.focus();main?.scrollIntoView()}}>Skip to content</button>
   <header className="site-header">
    <button type="button" className="work-link" onClick={onClose}><span aria-hidden="true">←</span> Work</button>
-   <a href="#/" className="signature">Jeanine Emilia Cornillot</a>
+   <a href="/#/" className="signature">Jeanine Emilia Cornillot</a>
   </header>
   <main id="duo-main" tabIndex={-1}>
     <section className="introduction measure">
@@ -115,6 +115,6 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
       </div>
     </section>
   </main>
-  <footer className="measure"><p>Ghost Mode Labs</p><p>Independent device concept. Not affiliated with Apple. <br />Device opening and closing are simulated.</p><a href="#/labs" onClick={backToWork}>Back to work <span aria-hidden="true">↗</span></a></footer>
+  <footer className="measure"><p>Ghost Mode Labs</p><p>Independent device concept. Not affiliated with Apple. <br />Device opening and closing are simulated.</p><a href="/#/labs" onClick={backToWork}>Back to work <span aria-hidden="true">↗</span></a></footer>
 </div>;
 }

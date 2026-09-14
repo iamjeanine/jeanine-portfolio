@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Analytics, type BeforeSendEvent } from '@vercel/analytics/react';
 
@@ -44,6 +44,8 @@ const analyticsBeforeSend = (event: BeforeSendEvent) => {
   }
 };
 import ProjectDetailPage from './pages/ProjectDetailPage';
+import VisualAudiobooksProject from './components/VisualAudiobooksProject';
+import { PROJECTS } from './constants';
 import ProductionsPreviewPage from './pages/ProductionsPreviewPage';
 import LabsPreviewPage from './pages/LabsPreviewPage';
 import SpinePreviewPage from './pages/SpinePreviewPage';
@@ -52,7 +54,29 @@ import CoverOptionsPreviewPage from './pages/CoverOptionsPreviewPage';
 const isLocalPreview =
   window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
+const AUDIOBOOK_PATH = '/project/visual-audiobooks';
+
+// Existing hash links still work, but visitors leave with the shareable URL.
+function AudiobookShareRedirect() {
+  useEffect(() => {
+    window.location.replace(`${AUDIOBOOK_PATH}${window.location.search}`);
+  }, []);
+  return <a href={AUDIOBOOK_PATH}>Open Visual Audiobooks</a>;
+}
+
 function App() {
+  // This entry has its own build-time HTML metadata. It uses the same
+  // presentation component, without changing routing for the other projects.
+  if (window.location.pathname.replace(/\/$/, '') === AUDIOBOOK_PATH) {
+    const project = PROJECTS.find(project => project.id === 'visual-audiobooks')!;
+    return <>
+      <VisualAudiobooksProject
+        prototypeUrl={project.liveUrl!}
+        onClose={() => window.location.assign('/#/labs')}
+      />
+      {!isLocalPreview && <Analytics beforeSend={analyticsBeforeSend} />}
+    </>;
+  }
   return (
     <HashRouter>
       <Routes>
@@ -61,6 +85,7 @@ function App() {
             chapter click, so the route's mount effect replaced the intended
             smooth scroll with an instant jump. */}
         <Route path="/:chapter?" element={<SpinePreviewPage />} />
+        <Route path="/project/visual-audiobooks" element={<AudiobookShareRedirect />} />
         <Route path="/project/:id" element={<ProjectDetailPage />} />
         <Route path="/preview/productions" element={<ProductionsPreviewPage />} />
         <Route path="/preview/labs" element={<LabsPreviewPage />} />

@@ -13,7 +13,8 @@
     "dev": "vite",
     "prebuild": "npm run generate:press",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postbuild": "node scripts/build-share-pages.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

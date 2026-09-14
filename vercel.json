@@ -1,4 +1,8 @@
 {
+  "rewrites": [
+    { "source": "/project/visual-audiobooks", "destination": "/project/visual-audiobooks/index.html" },
+    { "source": "/project/visual-audiobooks/", "destination": "/project/visual-audiobooks/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
