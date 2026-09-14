@@ -244,27 +244,15 @@ const ENTRIES: LabEntry[] = [
         body: 'A working prototype that reimagines the pictures with every listen and lets children change them by touch. The current demo uses a prototype voice.',
       },
     ],
-    // The Living Photocopy cover film: 1080p web derivative cut from the
-    // 4K master (which stays untouched outside the repo), full-range
-    // color preserved end to end so the warm paper and oxide red match
-    // the master. Poster is the film's final settled cover frame; ratio
-    // pinned so the frame doesn't reflow when metadata arrives.
-    //
-    // playOnce, not looping (Jeanine, 2026-08-14): the film assembles the
-    // cover and then holds it, so a visitor understands they are looking
-    // at a book. The poster doubles as the settled end state, which is
-    // also what reduced-motion visitors see. The cover art's own "Open
-    // the book" line is inert until the prototype gets a public URL;
-    // the plan is to make the settled frame a real link to it then.
+    // Use the approved Duo presentation here and on the project page.
+    // The ambient preview stays silent, plays once and holds its final frame.
     video: {
-      src: 'https://storage.googleapis.com/jeanine-portfolio-video/living-photocopy-cover-web-1080p.mp4',
-      poster: '/visual-audiobooks-poster.jpg',
+      src: 'https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-iPhone-Duo-1080p.mp4',
+      poster: 'https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Duo-Film-Poster.png',
       aspectRatio: '16 / 9',
       playOnce: true,
-      // The film's first beats are near-blank paper; starting past them
-      // keeps the card from opening on an empty frame (2026-08-20 audit).
-      startAt: 2,
-      alt: 'Living Photocopy cover film for Visual Audiobooks: a paper collage cover for The Kids’ Guidebook to the Rock assembling itself',
+      startAt: 0,
+      alt: 'Visual Audiobooks on an iPhone Duo: the book opens and its pictures change between visual interpretations',
     },
   },
   {
@@ -838,7 +826,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           startAt={data.video.startAt}
           playOnce={data.video.playOnce}
           fallbackTitle={data.title}
-          ambient
+          ambient={data.id !== 'visual-audiobooks'}
         />
       </div>
 
