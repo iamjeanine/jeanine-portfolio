@@ -97,9 +97,10 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
     </section>
 
     <section className="reading-section measure" id="reading" aria-labelledby="reading-heading">
-      <div className="reading-copy"><p className="eyebrow">Words & pictures</p><h2 id="reading-heading">Room for <br />the words, too.</h2><p>A still from the reading version of <i>The Kids’ Guidebook to the Rock</i>.</p></div>
+      <div className="reading-copy"><p className="eyebrow">Listen or read</p><h2 id="reading-heading">Read at your own pace.</h2><p>Scroll through the story with live sound design.</p></div>
       <div className="reading-example">
         <ReadingArtwork />
+        <p className="reading-caption">A still from the reading experience.</p>
         <button ref={readingTrigger} type="button" className="text-link reading-expand" aria-haspopup="dialog" onClick={openReading}>Enlarge reading layout <span aria-hidden="true">↗</span></button>
       </div>
     </section>
