@@ -66,8 +66,8 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
         <p>74 seconds · Watch with sound</p>
       </div>
       <div className="film-wrap">
-        <video ref={film} id="concept-film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onVolumeChange={() => setMuted(Boolean(film.current?.muted))} onError={() => setFilmError(true)} controls playsInline preload="none" poster="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Dark-World-Poster.jpg" aria-label="Visual Audiobooks iPhone Duo concept film">
-          <source src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Dark-World-Integrated-1080p.mp4" type="video/mp4" />
+        <video ref={film} id="concept-film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onVolumeChange={() => setMuted(Boolean(film.current?.muted))} onError={() => setFilmError(true)} controls playsInline preload="none" poster="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Dark-World-Portfolio-Poster.jpg" aria-label="Visual Audiobooks iPhone Duo concept film">
+          <source src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Dark-World-Portfolio-1080p.mp4" type="video/mp4" />
           <track kind="captions" src="/duo-study/captions-integrated.vtt" srcLang="en" label="English" />
         </video>
 
