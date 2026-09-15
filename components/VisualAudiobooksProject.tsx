@@ -5,7 +5,21 @@ import WorldStudyPreview from './WorldStudyPreview';
 import './VisualAudiobooksProject.css';
 
 function ReadingArtwork() {
- const artwork=useRef<HTMLElement>(null);
+ const artwork=useRef<HTMLElement>(null), frame=useRef<HTMLIFrameElement>(null);
+ const [loadState,setLoadState]=useState<'loading'|'ready'|'error'>('loading');
+ const [attempt,setAttempt]=useState(0);
+ const checkArtwork=async()=>{
+  const element=frame.current;
+  try{
+   const readingDocument:Document|null=element?.contentDocument??null;
+   if(!readingDocument?.querySelector('.beat-stars'))throw new Error('Reading layout unavailable');
+   await Promise.all(Array.from(readingDocument.images).map(image=>image.decode()));
+   if(frame.current===element)setLoadState('ready');
+  }catch{
+   if(frame.current===element)setLoadState('error');
+  }
+ };
+ const retry=()=>{setLoadState('loading');setAttempt(value=>value+1)};
  useEffect(()=>{
   const element=artwork.current;if(!element)return;
   const resize=()=>element.style.setProperty('--reader-scale',String(element.clientWidth/1452));
@@ -15,8 +29,12 @@ function ReadingArtwork() {
  return <figure ref={artwork} className="reading-device" aria-label="The original stars passage and night illustration within the open iPhone Duo">
   <div className="reading-device-native">
    <img src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Duo-Open.png" width="1452" height="1036" loading="lazy" alt="Open iPhone Duo" />
-   <iframe src="/duo-study/reading-typeset.html?still=110" title="Stars passage from the original reading layout" loading="lazy" tabIndex={-1}></iframe>
+   <iframe ref={frame} key={attempt} src={`/duo-study/reading-typeset.html?still=110&attempt=${attempt}`} title="Stars passage from the original reading layout" loading="lazy" tabIndex={-1} onLoad={checkArtwork} style={{visibility:loadState==='ready'?'visible':'hidden'}}></iframe>
   </div>
+  {loadState!=='ready' && <div className="reading-load-state">
+   <p role="status">{loadState==='loading'?'Loading reading layout…':'The reading layout could not load.'}</p>
+   {loadState==='error' && <button type="button" onClick={retry}>Try again</button>}
+  </div>}
  </figure>;
 }
 
