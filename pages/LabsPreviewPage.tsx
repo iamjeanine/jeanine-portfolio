@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSpineNavigate } from '../hooks/useViewTransition';
 import { PROJECTS } from '../constants';
+import WorldStudyPreview from '../components/WorldStudyPreview';
 import ProjectCredit from '../components/ProjectCredit';
 import {
   ChapterContents,
@@ -815,10 +816,10 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           inter-beat gaps measured in this entry, trimmed where it costs
           nothing to the rhythm. */}
       <div
-        className={`mt-10 md:mt-12 xl:pr-44 ${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}
+        className={`mt-10 md:mt-12 xl:pr-44 ${data.id === 'visual-audiobooks' ? 'w-full' : `${data.flip ? 'md:mr-auto' : 'md:ml-auto'} md:w-[92%]`}`}
         style={beat(140, 44)}
       >
-        <LazyVideo
+        {data.id === 'visual-audiobooks' ? <WorldStudyPreview /> : <LazyVideo
           src={data.video.src}
           poster={data.video.poster}
           alt={data.video.alt}
@@ -827,7 +828,7 @@ const FeatureEntry: React.FC<{ data: LabEntry; position: number; total: number }
           playOnce={data.video.playOnce}
           fallbackTitle={data.title}
           ambient={data.id !== 'visual-audiobooks'}
-        />
+        />}
       </div>
 
       {/*

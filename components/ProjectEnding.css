@@ -1,0 +1,39 @@
+.project-ending {
+  --ending-ink: var(--cream-ink);
+  --ending-line: rgba(247, 243, 237, 0.18);
+  --ending-accent: var(--poppy-on-dark);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  width: 100%;
+  border-top: 1px solid var(--ending-line);
+  padding: 24px 0;
+}
+.project-ending[data-theme="light"] {
+  --ending-ink: var(--ink);
+  --ending-line: rgba(20, 16, 14, 0.18);
+  --ending-accent: var(--poppy-text);
+}
+.project-ending .project-ending-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
+  color: var(--ending-ink);
+  font-family: 'Uncut Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 5px;
+}
+.project-ending .project-ending-link:hover {
+  color: var(--ending-accent);
+  text-decoration-color: currentColor;
+}
+.project-ending .project-ending-link:focus-visible {
+  outline: 2px solid var(--ending-accent);
+  outline-offset: 4px;
+}

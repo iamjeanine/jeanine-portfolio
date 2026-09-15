@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProjectCredit from './ProjectCredit';
-import { initDuoHero } from './duoHero';
+import ProjectEnding from './ProjectEnding';
+import WorldStudyPreview from './WorldStudyPreview';
 import './VisualAudiobooksProject.css';
 
 export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClose: () => void; prototypeUrl: string}) {
@@ -17,7 +18,6 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
  const watchFilm=()=>{film.current?.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});if(film.current?.paused)void toggleFilm()};
  useEffect(()=>{
   if(!root.current)return;
-  const cleanup=initDuoHero(root.current);
   const reader=root.current.querySelector<HTMLElement>('.reading-device');
   const resize=()=>{if(reader)reader.style.setProperty('--reader-scale',String(reader.clientWidth/1452))};
   const observer=new ResizeObserver(resize);if(reader)observer.observe(reader);resize();
@@ -28,9 +28,9 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
   const hidden=()=>{if(document.hidden)silence()};
   document.addEventListener('visibilitychange',hidden);
   window.addEventListener('portfolio:silence-videos',silence);
-  return ()=>{cleanup?.();observer.disconnect();filmVisibility.disconnect();silence();document.removeEventListener('visibilitychange',hidden);window.removeEventListener('portfolio:silence-videos',silence)};
+  return ()=>{observer.disconnect();filmVisibility.disconnect();silence();document.removeEventListener('visibilitychange',hidden);window.removeEventListener('portfolio:silence-videos',silence)};
  },[]);
- return <div ref={root} className="duo-project">
+ return <div ref={root} className="duo-project duo-world-project">
   <button className="skip" onClick={()=>{const main=root.current?.querySelector<HTMLElement>('main');main?.focus();main?.scrollIntoView()}}>Skip to content</button>
   <header className="site-header">
    <button type="button" className="work-link" onClick={onClose}><span aria-hidden="true">←</span> Work</button>
@@ -42,28 +42,15 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
       <h1>Visual Audiobooks</h1>
       <p className="descriptor">Children’s audiobooks that redraw themselves with every listen.</p>
       <ProjectCredit projectId="visual-audiobooks" className="duo-credit" />
-      <a className="text-link intro-action" href={prototypeUrl} target="_blank" rel="noopener" onClick={stopFilm}>Try the prototype <span aria-hidden="true">↗</span></a>
-      <p className="premise">Children return to their favorite stories again and again.<br className="desktop-break" /> What if the hundredth listen looked different from the first?</p>
     </section>
 
-    <section className="device-stage measure" aria-labelledby="device-title">
-      <div className="stage-heading">
-        <h2 id="device-title">Imagined for Apple’s iPhone Duo</h2>
-      </div>
-      <div className="opening-views">
-        <figure className="cover-view">
-          <img src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Duo-Cover.png" width="740" height="1036" alt="The Kids’ Guidebook to the Rock cover on a closed iPhone Duo" />
-        </figure>
-        <figure className="open-view">
-          <button className="hero-surface" type="button" aria-label="Change the visual telling" aria-describedby="brush-hint" disabled>
-            <img id="hero-picture" src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Duo-Open.png" width="1452" height="1036" alt="An open iPhone Duo showing the story’s paper collage, with Charcoal and Atlas interpretations available by brushing" />
-            <canvas id="hero-redraw" width="1452" height="1036" hidden aria-hidden="true"></canvas>
-          </button>
-          <figcaption id="brush-hint">Drag across the picture to change it.</figcaption>
-        </figure>
-      </div>
-      <button className="hero-motion" type="button" aria-pressed="false">Pause animation</button>
+    <section className="world-stage measure" aria-label="Visual Audiobooks imagined for iPhone Duo">
+      <WorldStudyPreview storyWords />
     </section>
+    <div className="world-premise measure">
+      <p className="device-caption">Imagined for Apple’s iPhone Duo</p>
+      <p className="premise">Children return to their favorite stories again and again.<br className="desktop-break" /> What if the hundredth listen looked different from the first?</p>
+    </div>
 
     <div className="experience-actions measure">
       <p>Change the pictures here. <br />Hear the story in the working prototype.</p>
@@ -79,9 +66,9 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
         <p>74 seconds · Watch with sound</p>
       </div>
       <div className="film-wrap">
-        <video ref={film} id="concept-film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onVolumeChange={() => setMuted(Boolean(film.current?.muted))} onError={() => setFilmError(true)} controls playsInline preload="none" poster="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Duo-Film-Poster.png" aria-label="Visual Audiobooks iPhone Duo concept film">
-          <source src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-iPhone-Duo-1080p.mp4" type="video/mp4" />
-          <track kind="captions" src="/duo-study/captions-elegant.vtt" srcLang="en" label="English" />
+        <video ref={film} id="concept-film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onVolumeChange={() => setMuted(Boolean(film.current?.muted))} onError={() => setFilmError(true)} controls playsInline preload="none" poster="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Dark-World-Poster.jpg" aria-label="Visual Audiobooks iPhone Duo concept film">
+          <source src="https://storage.googleapis.com/jeanine-portfolio-video/Visual-Audiobooks-Dark-World-Integrated-1080p.mp4" type="video/mp4" />
+          <track kind="captions" src="/duo-study/captions-integrated.vtt" srcLang="en" label="English" />
         </video>
 
       </div>
@@ -106,7 +93,7 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
     <section className="about-project measure" aria-labelledby="about-heading">
       <div><h2 id="about-heading">About the prototype</h2></div>
       <div className="project-copy">
-        <p>I conceived the format, directed the visual interpretations, and built the working prototype with AI coding tools.</p>
+        <p>I created Visual Audiobooks and built the prototype with AI coding tools.</p>
         <p>Visual Audiobooks pairs original children’s stories with pictures that redraw themselves with every listen. Children can also drag a finger across the screen to change the pictures as they listen.</p>
         <p>Here, I’ve imagined what Visual Audiobooks could look like on Apple’s iPhone Duo.</p>
         <p>Code lets the pictures change with each listen and respond to a child’s touch. Future editions could pair illustrators with narrators, each bringing their own interpretation to the story.</p>
@@ -115,6 +102,9 @@ export default function VisualAudiobooksProject({onClose, prototypeUrl}: {onClos
       </div>
     </section>
   </main>
-  <footer className="measure"><p>Ghost Mode Labs</p><p>Independent device concept. Not affiliated with Apple. <br />Device opening and closing are simulated.</p><a href="/#/labs" onClick={backToWork}>Back to work <span aria-hidden="true">↗</span></a></footer>
+  <footer className="measure">
+    <ProjectEnding onMoreWork={backToWork} onContact={stopFilm} />
+    <div className="project-notes"><p>Ghost Mode Labs</p><p>Independent device concept. Not affiliated with Apple. <br />Device opening and closing are simulated.</p></div>
+  </footer>
 </div>;
 }

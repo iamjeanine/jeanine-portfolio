@@ -6,6 +6,7 @@ import type { Project } from '../types';
 import VideoPlayer from '../components/VideoPlayer';
 import ProjectCredit from '../components/ProjectCredit';
 import VisualAudiobooksProject from '../components/VisualAudiobooksProject';
+import ProjectEnding from '../components/ProjectEnding';
 import { BackIcon, NextIcon, PrevIcon, ExternalLinkIcon } from '../components/icons/NavigationIcons';
 import PhoneEmbed from '../components/PhoneEmbed';
 import { useViewTransitionNavigate, useSpineNavigate } from '../hooks/useViewTransition';
@@ -481,6 +482,9 @@ const ProjectDetailPage = () => {
               </div>
             )}
           </main>
+          <footer className="shrink-0">
+            <ProjectEnding onMoreWork={(event) => spineNav(event, '/labs', 'back')} />
+          </footer>
         </div>
       </div>
   );
@@ -1098,7 +1102,7 @@ const ProjectDetailPage = () => {
         {/* Legacy navigation remains available for old light-layout routes.
             The two dark editorial pages use Work as the single consistent exit. */}
         {!isDarkEditorial && (
-          <footer className="w-full mt-auto pt-8 shrink-0">
+          <nav aria-label="Adjacent projects" className="w-full mt-auto pt-8 shrink-0">
             {/* Mobile: full-width prev/next with project names */}
             <div className="flex flex-col gap-3 md:hidden">
                 <Link
@@ -1155,8 +1159,11 @@ const ProjectDetailPage = () => {
                 </Link>
               </div>
             </div>
-          </footer>
+          </nav>
         )}
+        <footer className="w-full mt-8 shrink-0">
+          <ProjectEnding dark={isDarkEditorial} onMoreWork={(event) => spineNav(event, '/labs', 'back')} />
+        </footer>
       </div>
     </div>
   );
