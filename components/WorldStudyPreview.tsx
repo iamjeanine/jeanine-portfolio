@@ -15,5 +15,5 @@ export default function WorldStudyPreview({ storyWords = false }: { storyWords?:
   return () => {observer.disconnect();window.removeEventListener('message',resize);};
  }, []);
  useEffect(send,[visible,paused]);
- return <iframe ref={frame} title="Visual Audiobooks: a story beyond the Duo screen" src={`${origin}/duo-study/world/?embed=1${storyWords ? "&words=grove" : ""}`} onLoad={send} style={{display:'block',width:'100%',height:height??'min(76vw, 740px)',border:0,background:'var(--ink-deep)'}} />;
+ return <iframe ref={frame} title="Visual Audiobooks: a story beyond the Duo screen" src={`${origin}/duo-study/world/?embed=1${storyWords ? "&words=grove&cue=above" : ""}`} onLoad={send} style={{display:'block',width:'100%',height:height??'min(76vw, 740px)',border:0,background:'var(--ink-deep)'}} />;
 }

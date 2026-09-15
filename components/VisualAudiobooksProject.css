@@ -31,3 +31,35 @@
 .duo-world-project .device-caption{font-size:12px;color:var(--muted);line-height:1.5}
 .duo-world-project .world-premise .premise{margin-top:24px}
 @media(max-width:760px){.duo-world-project .introduction{padding-top:20px;padding-bottom:0}.duo-world-project .world-premise{padding-top:20px}.duo-world-project .world-premise .premise{margin-top:18px}}
+
+/* Portfolio typography and interaction refinement, preserving the artwork. */
+.duo-project .project-copy p,.duo-project .reading-copy>p:last-child{font-weight:400}
+.duo-project .site-header{width:calc(100% - 64px);max-width:1120px;margin-inline:auto;padding-inline:0}
+.duo-world-project .world-cue{margin:22px 0 0;color:var(--muted);font-size:.8125rem;line-height:1.5}
+.duo-project .experience-actions{justify-content:flex-start;gap:32px}
+.duo-project .experience-actions>p{max-width:27ch;font-size:.875rem}
+.duo-project .film-wrap,.duo-project .film-wrap video{background:var(--ground)}
+.duo-project .film-caption{margin-top:16px;font-size:.8125rem}
+.duo-project .reading-example{min-width:0}
+.duo-project .reading-expand{margin-top:12px;font-size:.875rem}
+.duo-project .reading-dialog{width:min(1100px,calc(100% - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:24px;border:1px solid var(--line);background:var(--ground);color:var(--cream);margin:auto;overflow:auto}
+.duo-project .reading-dialog::backdrop{background:rgb(5 7 12 / .92)}
+.duo-project .reading-dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.duo-project .reading-dialog-heading h2{font-size:clamp(1.5rem,3vw,2rem)}
+.duo-project .reading-dialog-heading button{min-height:44px;padding:8px 12px;border:0;background:none;color:var(--cream);text-decoration:underline;text-underline-offset:5px;cursor:pointer}
+.duo-project #reading-pan-hint{font-size:.8125rem;color:var(--muted);margin:8px 0 20px}
+.duo-project .reading-viewport{overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--muted) var(--ground)}
+.duo-project .reading-viewport:focus-visible{outline:2px solid var(--ember);outline-offset:4px}
+.duo-project .reading-enlarged{width:100%;min-width:38rem}
+@media(min-width:800px){.duo-project #reading-pan-hint{display:none}.duo-project .reading-viewport{margin-top:20px}}
+@media(max-width:760px){
+ .duo-project .site-header{width:calc(100% - 32px);padding-inline:0}
+ .duo-project .site-header a,.duo-project .site-header button{font-size:.6875rem;letter-spacing:.1em}
+ .duo-project .signature{max-width:none}
+ .duo-project .duo-credit p>span:last-child{flex-basis:100%}
+ .duo-project .duo-credit p>span:last-child>span[aria-hidden]{display:none}
+ .duo-project .world-cue{font-size:.8125rem;margin-top:18px}
+ .duo-project .experience-actions>p{max-width:34ch}
+ .duo-project .device-caption,.duo-project .text-link{font-size:.8125rem}
+ .duo-project .reading-dialog{padding:16px}
+}
